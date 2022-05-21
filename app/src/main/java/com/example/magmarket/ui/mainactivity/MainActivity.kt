@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.magmarket.R
@@ -35,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
 
-        NavigationUI.setupWithNavController(binding.bottomNav, navController)
+        NavigationUI.setupWithNavController(bottomNavigationView, navController)
     }
 
     fun createSplashScreen() {

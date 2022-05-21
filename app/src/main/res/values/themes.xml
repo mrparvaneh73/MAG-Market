@@ -17,6 +17,6 @@
         <item name="windowSplashScreenBackground">@color/white</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/applogo</item>
         <item name="windowSplashScreenAnimationDuration">300</item>
-        <item name="postSplashScreenTheme">@style/Theme.AppCompat</item>
+        <item name="postSplashScreenTheme">@style/Theme.MAGMarket</item>
     </style>
 </resources>

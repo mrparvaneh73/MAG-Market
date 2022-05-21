@@ -45,6 +45,13 @@ android {
         dataBinding true
     }
     namespace 'com.example.magmarket'
+    sourceSets {
+        main {
+            assets {
+                srcDirs 'src\\main\\assets'
+            }
+        }
+    }
 }
 
 dependencies {
@@ -128,4 +135,7 @@ dependencies {
 
     //splashscreen
     implementation 'androidx.core:core-splashscreen:1.0.0-rc01'
+//slider
+    implementation 'com.github.smarteist:autoimageslider:1.4.0'
+
 }

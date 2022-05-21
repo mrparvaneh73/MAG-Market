@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="TextSize">4dp</dimen>
+    <dimen name="TextSize2x">8dp</dimen>
+    <dimen name="TextSize3x">12dp</dimen>
+    <dimen name="TextSize4x">16dp</dimen>
+    <dimen name="TextSize5x">20dp</dimen>
+    <dimen name="TextSize6x">24dp</dimen>
+    <dimen name="TextSize7x">28dp</dimen>
+    <dimen name="standardMargin0.5x">4dp</dimen>
+    <dimen name="standardMargin">8dp</dimen>
+    <dimen name="standardMargin1.5x">16dp</dimen>
+    <dimen name="standardMargin2x">20dp</dimen>
+    <dimen name="standardMargin3x">28dp</dimen>
+    <dimen name="standardMargin4x">44dp</dimen>
+    <dimen name="standardMargin6x">64dp</dimen>
+    <dimen name="standardMargin8x">84dp</dimen>
+    <dimen name="standardMargin10x">104dp</dimen>
+    <dimen name="amazingOffersWidth">154dp</dimen>
+    <dimen name="amazingOffersHeight">354dp</dimen>
+</resources>
