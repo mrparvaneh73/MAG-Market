@@ -11,7 +11,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
 import com.example.magmarket.R
+import com.example.magmarket.adapters.SliderAdapter
 import com.example.magmarket.databinding.FragmentProductDetailBinding
 import com.example.magmarket.ui.homefragment.HomeViewModel
 import com.example.magmarket.utils.ResultWrapper
@@ -25,10 +27,15 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     private val binding get() = _binding!!
     val args by navArgs<ProductDetailFragmentArgs>()
     private val viewModel: ProductDetailsViewModel by viewModels()
+    val adapter= SliderAdapter()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProductDetailBinding.bind(view)
         viewModel.getProduct(args.id)
+        binding.productSlider.adapter=adapter
+        binding.productSlider.clipToPadding=false
+        binding.productSlider.clipChildren=false
+        binding.productSlider.getChildAt(0).overScrollMode=RecyclerView.OVER_SCROLL_NEVER
         Log.d("iddddd", "onViewCreated: "+args.id)
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -43,6 +50,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                            binding.tvProductName.text=it.value.name
                             binding.tvProductDescription.text=it.value.description
                             binding.tvPrice.text=it.value.price
+                           adapter.submitList(it.value.images)
                             binding.stateView.onSuccess()
                             binding.buttomBar.isVisible=true
                             binding.scrollView3.isVisible=true
