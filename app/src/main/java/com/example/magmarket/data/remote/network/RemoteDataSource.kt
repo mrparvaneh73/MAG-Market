@@ -5,4 +5,5 @@ import retrofit2.Response
 
 interface RemoteDataSource {
     suspend fun getAllProduct(orderby:String): Response<List<ProductItem>>
+    suspend fun getProduct(id:String):Response<ProductItem>
 }

@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.magmarket.R
 import com.example.magmarket.adapters.ProductAdapter
 import com.example.magmarket.databinding.FragmentHomeBinding
@@ -21,9 +22,21 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel: HomeViewModel by viewModels()
-    private val bestAdapter = ProductAdapter()
-    private val newstAdapter = ProductAdapter()
-    private val mostViewsAdapter = ProductAdapter()
+    private val bestAdapter = ProductAdapter(clickListener = {productItem ->
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(productItem.id))
+    }
+
+    )
+    private val newstAdapter = ProductAdapter(clickListener = {productItem ->
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(productItem.id))
+    }
+
+    )
+    private val mostViewsAdapter = ProductAdapter(clickListener = {productItem ->
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(productItem.id))
+    }
+
+    )
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentHomeBinding.bind(view)

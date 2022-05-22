@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">MAG Market</string>
+    <string name="add_to_bascket">افزودن به سبد خرید</string>
+    <string name="unit_of_currency">تومان</string>
+    <string name="product_feature">ویژگی های محصول</string>
 </resources>

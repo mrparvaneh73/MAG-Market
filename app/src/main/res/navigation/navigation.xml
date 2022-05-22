@@ -19,5 +19,9 @@
     <fragment
         android:id="@+id/productDetailFragment"
         android:name="com.example.magmarket.ui.productdetailsfragment.ProductDetailFragment"
-        android:label="ProductDetailFragment" />
+        android:label="ProductDetailFragment" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
 </navigation>

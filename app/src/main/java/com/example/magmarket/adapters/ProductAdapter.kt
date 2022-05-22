@@ -10,9 +10,9 @@ import com.example.magmarket.data.model.ProductItem
 import com.example.magmarket.databinding.ProductItemBinding
 
 
-class ProductAdapter() : ListAdapter<ProductItem, ProductAdapter.MyViewHolder>(PictureDiffCall) {
+class ProductAdapter(private var clickListener:(ProductItem) -> Unit) : ListAdapter<ProductItem, ProductAdapter.MyViewHolder>(PictureDiffCall) {
 
-    class MyViewHolder(
+   inner class MyViewHolder(
         private val binding:  ProductItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -22,6 +22,10 @@ class ProductAdapter() : ListAdapter<ProductItem, ProductAdapter.MyViewHolder>(P
                 .into(imgProduct)
             tvnameproduct.text=productItem.name
             tvpriceproduct.text=productItem.price
+
+            root.setOnClickListener {
+                clickListener(productItem)
+            }
         }
     }
 

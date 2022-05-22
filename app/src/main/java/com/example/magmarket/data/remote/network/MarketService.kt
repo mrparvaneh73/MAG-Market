@@ -4,6 +4,7 @@ import com.example.magmarket.data.model.ProductItem
 import com.example.magmarket.utils.Constants.BASE_PARAM
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import retrofit2.http.QueryMap
 
@@ -14,4 +15,10 @@ interface MarketService {
         @Query("page") page: Int = 1,
         @Query("orderby") orderby: String
     ): Response<List<ProductItem>>
+
+    @GET("products/{id}")
+    suspend fun getProduct( @Path("id") id:String,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+
+    ): Response<ProductItem>
 }

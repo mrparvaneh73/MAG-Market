@@ -3,13 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/drawable/button.xml" value="0.1575" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/drawable/home.xml" value="0.188" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/drawable/splashscreen.xml" value="0.1" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/activity_splash.xml" value="0.264" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/fragment_category.xml" value="0.24479166666666666" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/fragment_home.xml" value="0.22945205479452055" />
-        <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/fragment_product_detail.xml" value="0.1" />
+        <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/fragment_product_detail.xml" value="0.2" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/pro.xml" value="0.24479166666666666" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/produce_item.xml" value="0.264" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/product_item.xml" value="0.264" />

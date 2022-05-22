@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="TextSize">4dp</dimen>
-    <dimen name="TextSize2x">8dp</dimen>
-    <dimen name="TextSize3x">12dp</dimen>
-    <dimen name="TextSize4x">16dp</dimen>
-    <dimen name="TextSize5x">20dp</dimen>
-    <dimen name="TextSize6x">24dp</dimen>
-    <dimen name="TextSize7x">28dp</dimen>
+    <dimen name="TextSize">4sp</dimen>
+    <dimen name="TextSize2x">8sp</dimen>
+    <dimen name="TextSize3x">12sp</dimen>
+    <dimen name="TextSize4x">16sp</dimen>
+    <dimen name="TextSize5x">20sp</dimen>
+    <dimen name="TextSize6x">24sp</dimen>
+    <dimen name="TextSize7x">28sp</dimen>
+    <dimen name="TextSize8x">32sp</dimen>
     <dimen name="standardMargin0.5x">4dp</dimen>
     <dimen name="standardMargin">8dp</dimen>
     <dimen name="standardMargin1.5x">16dp</dimen>

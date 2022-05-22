@@ -14,4 +14,7 @@ class ProductRepository @Inject constructor(
     suspend fun getRemoteProductList(orderby:String) = safeApiCall(dispatcher) {
         remoteDataSource.getAllProduct(orderby)
     }
+    suspend fun getProduct(id:String)= safeApiCall(dispatcher){
+        remoteDataSource.getProduct(id)
+    }
 }
