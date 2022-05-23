@@ -1,0 +1,12 @@
+package com.example.magmarket.data.model
+
+import android.graphics.drawable.Drawable
+
+sealed class ProductRecyclerViewItem{
+    class ProductItem(val id:String,val name:String,val description:String
+    ,val price:String,val categories:List<ProductCategory>,val images:List<ProductImage>):ProductRecyclerViewItem()
+
+    class ShowAll(val title:String):ProductRecyclerViewItem()
+
+    class HeaderProductTitle ( val title: Int):ProductRecyclerViewItem()
+}

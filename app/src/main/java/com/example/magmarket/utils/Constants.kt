@@ -1,6 +1,10 @@
 package com.example.magmarket.utils
 
+import androidx.datastore.preferences.core.stringPreferencesKey
+
 object Constants {
+    val KEY_THEME = stringPreferencesKey("preferences_them")
+    val KEY_LANG = stringPreferencesKey("preferences_lang")
     const val BASE_URL = "https://woocommerce.maktabsharif.ir/wp-json/wc/v3/"
     const val NEWEST_PRODUCT = "date"
     const val MOSTVIEW_PRODUCT = "rating"

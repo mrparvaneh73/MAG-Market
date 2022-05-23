@@ -47,6 +47,10 @@ class SliderAdapter() :
 //        }
 
     }
+
+    override fun getItemViewType(position: Int): Int {
+        return super.getItemViewType(position)
+    }
 }
 
 object ImageDiffCall : DiffUtil.ItemCallback<ProductImage>() {

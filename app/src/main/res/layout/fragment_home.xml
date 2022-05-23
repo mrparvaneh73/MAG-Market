@@ -5,34 +5,79 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/parentsearchbox"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="noScroll">
+
+            <include
+                android:id="@+id/searchLinear"
+                layout="@layout/search_box" />
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/parentsearchbox">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/product_slider"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:layout_constraintBottom_toTopOf="@id/categoryRecyclerview"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
+                android:id="@+id/spring_dots_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:dotsColor="@color/blue"
+                app:dotsCornerRadius="8dp"
+                app:dotsSize="8dp"
+                app:dotsSpacing="4dp"
+                app:dotsWidthFactor="2.5"
+                app:layout_constraintBottom_toBottomOf="@id/product_slider"
+                app:layout_constraintEnd_toEndOf="@id/product_slider"
+                app:layout_constraintStart_toStartOf="@id/product_slider"
+                app:layout_constraintTop_toTopOf="@id/product_slider"
+                app:layout_constraintVertical_bias="0.9"
+                app:progressMode="true"
+                app:selectedDotColor="@color/blue" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/mostViewrecyclerview"
+                android:id="@+id/categoryRecyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="8dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_marginTop="@dimen/standardMargin1.5x"
+                android:layoutDirection="rtl"
                 android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toTopOf="@id/newestRecyclerview"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:listitem="@layout/product_item"
-                app:layout_constraintTop_toBottomOf="@+id/newestRecyclerview" />
+                app:layout_constraintTop_toBottomOf="@id/product_slider"
+                tools:listitem="@layout/category_item" />
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/newestRecyclerview"
@@ -41,13 +86,16 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:background="@drawable/red_background"
+                android:layoutDirection="rtl"
                 android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toTopOf="@id/bestSellerRecyclerview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bestSellerRecyclerview"
-                tools:listitem="@layout/product_item"/>
+                app:layout_constraintTop_toBottomOf="@id/categoryRecyclerview"
+                tools:listitem="@layout/product_item" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/bestSellerRecyclerview"
@@ -55,18 +103,38 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:orientation="horizontal"
                 android:layout_marginEnd="8dp"
+                android:background="@drawable/red_background"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toTopOf="@id/mostViewrecyclerview"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/newestRecyclerview"
+                tools:listitem="@layout/product_item" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mostViewrecyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/product_item">
+                app:layout_constraintTop_toBottomOf="@id/bestSellerRecyclerview"
 
-            </androidx.recyclerview.widget.RecyclerView>
+                tools:listitem="@layout/product_item" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
     <com.example.magmarket.customview.StateView
         android:id="@+id/state_view"
         android:layout_width="0dp"
@@ -74,6 +142,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.25"

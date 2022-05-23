@@ -1,6 +1,8 @@
 package com.example.magmarket.data.remote.network
 
+import com.example.magmarket.data.model.CategoryItem
 import com.example.magmarket.data.model.ProductItem
+import com.example.magmarket.data.model.ProductRecyclerViewItem
 import com.example.magmarket.utils.Constants.BASE_PARAM
 import retrofit2.Response
 import retrofit2.http.GET
@@ -14,7 +16,12 @@ interface MarketService {
         @QueryMap tokens: Map<String, String> = BASE_PARAM,
         @Query("page") page: Int = 1,
         @Query("orderby") orderby: String
-    ): Response<List<ProductItem>>
+    ): Response<List<ProductRecyclerViewItem.ProductItem>>
+
+    @GET("products/categories")
+    suspend fun getAllCategories(
+        @QueryMap tokens: Map<String, String> = BASE_PARAM,
+    ): Response<List<CategoryItem>>
 
     @GET("products/{id}")
     suspend fun getProduct( @Path("id") id:String,

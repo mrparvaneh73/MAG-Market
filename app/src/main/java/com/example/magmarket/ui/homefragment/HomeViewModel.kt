@@ -2,7 +2,9 @@ package com.example.magmarket.ui.homefragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.magmarket.data.model.CategoryItem
 import com.example.magmarket.data.model.ProductItem
+import com.example.magmarket.data.model.ProductRecyclerViewItem
 import com.example.magmarket.data.repository.ProductRepository
 import com.example.magmarket.utils.Constants.BEST_PRODUCT
 import com.example.magmarket.utils.Constants.MOSTVIEW_PRODUCT
@@ -18,27 +20,32 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(private val productRepository: ProductRepository) :
     ViewModel() {
 
-    private val _bestProduct: MutableStateFlow<ResultWrapper<List<ProductItem>>> =
+    private val _bestProduct: MutableStateFlow<ResultWrapper<List<ProductRecyclerViewItem.ProductItem>>> =
         MutableStateFlow(ResultWrapper.Loading)
     val bestProduct = _bestProduct.asStateFlow()
 
-    private val _newstProduct: MutableStateFlow<ResultWrapper<List<ProductItem>>> =
+    private val _newstProduct: MutableStateFlow<ResultWrapper<List<ProductRecyclerViewItem.ProductItem>>> =
         MutableStateFlow(ResultWrapper.Loading)
     val newstProduct = _newstProduct.asStateFlow()
 
-    private val _mostViewProduct: MutableStateFlow<ResultWrapper<List<ProductItem>>> =
+    private val _mostViewProduct: MutableStateFlow<ResultWrapper<List<ProductRecyclerViewItem.ProductItem>>> =
         MutableStateFlow(ResultWrapper.Loading)
     val mostViewProduct = _mostViewProduct.asStateFlow()
+
+    private val _categories: MutableStateFlow<ResultWrapper<List<CategoryItem>>> =
+        MutableStateFlow(ResultWrapper.Loading)
+    val categories = _categories.asStateFlow()
 
     init {
         getBestProductList()
         getMostViewProductList()
         getNewstProductList()
+        getCategories()
     }
 
      fun getBestProductList() {
         viewModelScope.launch {
-            val mRos = productRepository.getRemoteProductList(BEST_PRODUCT)
+            val mRos =  productRepository.getRemoteProductList(BEST_PRODUCT)
             mRos.collect {
                 _bestProduct.emit(it)
             }
@@ -58,6 +65,16 @@ class HomeViewModel @Inject constructor(private val productRepository: ProductRe
             mRos.collect {
                 _newstProduct.emit(it)
             }
+        }
+    }
+
+    fun getCategories(){
+        viewModelScope.launch {
+            val mRos = productRepository.getAllCategories()
+            mRos.collect {
+                _categories.emit(it)
+            }
+
         }
     }
 }

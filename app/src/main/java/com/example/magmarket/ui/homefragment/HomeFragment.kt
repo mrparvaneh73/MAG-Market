@@ -10,8 +10,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.example.magmarket.R
-import com.example.magmarket.adapters.ProductAdapter
+import com.example.magmarket.adapters.*
+import com.example.magmarket.data.model.ProductRecyclerViewItem
 import com.example.magmarket.databinding.FragmentHomeBinding
 import com.example.magmarket.utils.ResultWrapper
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,27 +24,53 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel: HomeViewModel by viewModels()
-    private val bestAdapter = ProductAdapter(clickListener = {productItem ->
-        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(productItem.id))
-    }
-
-    )
-    private val newstAdapter = ProductAdapter(clickListener = {productItem ->
-        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(productItem.id))
-    }
-
-    )
-    private val mostViewsAdapter = ProductAdapter(clickListener = {productItem ->
-        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(productItem.id))
-    }
-
-    )
+//    private val bestAdapter = ProductAdapter(clickListener = { productItem ->
+//        findNavController().navigate(
+//            HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(
+//                productItem.id
+//            )
+//        )
+//    }
+//
+//    )
+//    private val newstAdapter = ProductAdapter(clickListener = { productItem ->
+//        findNavController().navigate(
+//            HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(
+//                productItem.id
+//            )
+//        )
+//    }
+//
+//    )
+//    private val mostViewsAdapter = ProductAdapter(clickListener = { productItem ->
+//        findNavController().navigate(
+//            HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(
+//                productItem.id
+//            )
+//        )
+//    }
+//
+//    )
+    private val categoryAdapter=CategoryAdapter()
+    private val productadapter = ProductRecyclerviewAdapter()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentHomeBinding.bind(view)
-        binding.newestRecyclerview.adapter = newstAdapter
-        binding.mostViewrecyclerview.adapter = mostViewsAdapter
-        binding.bestSellerRecyclerview.adapter = bestAdapter
+        binding.newestRecyclerview.adapter = productadapter
+        binding.categoryRecyclerview.adapter=categoryAdapter
+//        binding.mostViewrecyclerview.adapter = mostViewsAdapter
+//        binding.bestSellerRecyclerview.adapter = bestAdapter
+        val imgs= arrayListOf<Int>(R.drawable.shopingimg,R.drawable.watches,R.drawable.phones)
+        val sliderAdapter=HomePagerAdapter(imgs)
+        binding.productSlider.adapter=sliderAdapter
+        binding.productSlider.clipToPadding=false
+        binding.productSlider.clipChildren=false
+        binding.productSlider.getChildAt(0).overScrollMode= RecyclerView.OVER_SCROLL_NEVER
+        binding.springDotsIndicator.attachTo(binding.productSlider)
+        val productItem = mutableListOf<ProductRecyclerViewItem>()
+        productItem.add(ProductRecyclerViewItem.HeaderProductTitle(title = R.drawable.newicon))
+
+
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -50,8 +78,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     when (it) {
                         is ResultWrapper.Loading -> binding.stateView.onLoading()
                         is ResultWrapper.Success -> {
-                            Log.d("hello", "onViewCreated: " + it.value.toString())
-                            bestAdapter.submitList(it.value)
+                            productItem.addAll(it.value)
+                            productItem.add(ProductRecyclerViewItem.ShowAll(title = "مشاهده همه "))
+                            productadapter.items = productItem
+
                             if (it.value.isNotEmpty()) {
                                 binding.stateView.onSuccess()
                             } else {
@@ -74,14 +104,33 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
             }
         }
+
+        productadapter.itemClickListener = { view, item, position ->
+        when(item){
+              is ProductRecyclerViewItem.HeaderProductTitle -> {
+
+              }
+              is ProductRecyclerViewItem.ProductItem -> {
+                  findNavController().navigate(
+                      HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(
+                          item.id
+                      )
+                  )
+              }
+              is ProductRecyclerViewItem.ShowAll -> {
+
+              }
+          }
+
+        }
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.mostViewProduct.collect {
+                viewModel.categories.collect {
                     when (it) {
                         is ResultWrapper.Loading -> binding.stateView.onLoading()
                         is ResultWrapper.Success -> {
-                            Log.d("hello", "onViewCreated: " + it.value.toString())
-                            mostViewsAdapter.submitList(it.value)
+                            Log.d("zzzzzzzz", "onViewCreated: " + it.value.toString())
+                            categoryAdapter.submitList(it.value)
                             if (it.value.isNotEmpty()) {
                                 binding.stateView.onSuccess()
                             } else {
@@ -104,36 +153,36 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
             }
         }
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.newstProduct.collect {
-                    when (it) {
-                        is ResultWrapper.Loading -> binding.stateView.onLoading()
-                        is ResultWrapper.Success -> {
-                            Log.d("hello", "onViewCreated: " + it.value.toString())
-                            newstAdapter.submitList(it.value)
-                            if (it.value.isNotEmpty()) {
-                                binding.stateView.onSuccess()
-                            } else {
-                                binding.stateView.onEmpty()
-                            }
-                        }
-                        is ResultWrapper.Error -> {
-                            binding.stateView.onFail()
-                            binding.stateView.clickRequest {
-                                viewModel.getNewstProductList()
-                            }
-                            Log.d("errorr", "onViewCreated: " + it.message)
-                            Toast.makeText(
-                                requireActivity(),
-                                it.message,
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-                }
-            }
-        }
+//        lifecycleScope.launch {
+//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                viewModel.newstProduct.collect {
+//                    when (it) {
+//                        is ResultWrapper.Loading -> binding.stateView.onLoading()
+//                        is ResultWrapper.Success -> {
+//                            Log.d("hello", "onViewCreated: " + it.value.toString())
+//                            newstAdapter.submitList(it.value)
+//                            if (it.value.isNotEmpty()) {
+//                                binding.stateView.onSuccess()
+//                            } else {
+//                                binding.stateView.onEmpty()
+//                            }
+//                        }
+//                        is ResultWrapper.Error -> {
+//                            binding.stateView.onFail()
+//                            binding.stateView.clickRequest {
+//                                viewModel.getNewstProductList()
+//                            }
+//                            Log.d("errorr", "onViewCreated: " + it.message)
+//                            Toast.makeText(
+//                                requireActivity(),
+//                                it.message,
+//                                Toast.LENGTH_SHORT
+//                            ).show()
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
     }
 

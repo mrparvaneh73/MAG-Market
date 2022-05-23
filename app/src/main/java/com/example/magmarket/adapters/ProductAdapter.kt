@@ -47,6 +47,8 @@ class ProductAdapter(private var clickListener:(ProductItem) -> Unit) : ListAdap
     ) {
         holder.mBind(getItem(position))
     }
+
+
 }
 
 object PictureDiffCall : DiffUtil.ItemCallback<ProductItem>() {

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="100dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/standardMargin"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="@dimen/standardMargin0.5x"
+    android:layout_height="170dp"
+    android:layout_margin="16dp">
+
+
+
+        <ImageView
+            android:id="@+id/img_product"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/standardMargin"
+            android:layout_weight="60"
+            android:adjustViewBounds="true"
+
+            android:src="@drawable/newicon"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tvnameproduct"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:gravity="center"
+            android:text="@string/show_all"
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/TextSize2x"
+            tools:ignore="SpUsage" />
+
+
+
+</LinearLayout>

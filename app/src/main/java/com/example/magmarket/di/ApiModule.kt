@@ -1,8 +1,11 @@
 package com.example.magmarket.di
 
+import com.example.magmarket.data.model.CategoryItem
 import com.example.magmarket.data.model.ProductItem
+import com.example.magmarket.data.remote.network.CategoryDeserializer
 import com.example.magmarket.data.remote.network.MarketService
 import com.example.magmarket.data.remote.network.ProductDeserializer
+import com.example.magmarket.data.remote.network.RemoteDataSource
 import com.example.magmarket.utils.Constants
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -18,6 +21,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -25,6 +29,7 @@ object ApiModule {
     @Provides
     @IoDispatcher
     fun provideDispatchers(): CoroutineDispatcher = Dispatchers.IO
+
 
     @Provides
     fun provideOkHttpClient(): OkHttpClient {
@@ -48,12 +53,19 @@ object ApiModule {
                 }.type,
                 ProductDeserializer()
             )
+            .registerTypeAdapter(
+                object : TypeToken<List<CategoryItem>>() {
+
+                }.type,
+                CategoryDeserializer()
+            )
             .create()
 
     }
 
+
     @Provides
-    fun provideGithubService(
+    fun provideMarketService(
         client: OkHttpClient,
         gson: Gson
     ): MarketService {
@@ -64,4 +76,12 @@ object ApiModule {
             .build()
             .create(MarketService::class.java)
     }
+
+    @Singleton
+    @Provides
+    @MarketRemoteDataSource
+    fun provideRemoteDataSource(): RemoteDataSource =
+        com.example.magmarket.data.remote.remotedatasource.MarketRemoteDataSource(
+            provideMarketService(provideOkHttpClient(), gson())
+        )
 }

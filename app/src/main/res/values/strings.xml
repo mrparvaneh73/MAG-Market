@@ -3,4 +3,7 @@
     <string name="add_to_bascket">افزودن به سبد خرید</string>
     <string name="unit_of_currency">تومان</string>
     <string name="product_feature">ویژگی های محصول</string>
+    <string name="show_all">مشاهده همه</string>
+    <string name="mymarket">ماگ مارکت من</string>
+    <string name="searching">جستجو در</string>
 </resources>

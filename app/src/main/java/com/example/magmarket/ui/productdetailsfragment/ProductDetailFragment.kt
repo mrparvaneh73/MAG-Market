@@ -36,6 +36,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         binding.productSlider.clipToPadding=false
         binding.productSlider.clipChildren=false
         binding.productSlider.getChildAt(0).overScrollMode=RecyclerView.OVER_SCROLL_NEVER
+        binding.springDotsIndicator.attachTo(binding.productSlider)
         Log.d("iddddd", "onViewCreated: "+args.id)
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
