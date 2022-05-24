@@ -26,7 +26,7 @@ class ProductsCategoryFragment : Fragment(R.layout.fragment_products_category) {
     private var _binding: FragmentProductsCategoryBinding? = null
     private val binding get() = _binding!!
 
-    private val viewmodel by viewModels<ProductsCategoryViewModel>()
+    private val viewModel by viewModels<ProductsCategoryViewModel>()
 
     private val args by navArgs<ProductsCategoryFragmentArgs>()
     private val categoryProductAdapter = ProductsOfCategoryAdapter(clickListener = { productItem ->
@@ -42,9 +42,9 @@ class ProductsCategoryFragment : Fragment(R.layout.fragment_products_category) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProductsCategoryBinding.bind(view)
         binding.productRecyclerviw.adapter = categoryProductAdapter
-        viewmodel.getProductofCategory(args.category)
-        Log.d("idcategory", "onViewCreated: "+args.category.toString())
-        viewmodel.productofCategory.collectIt(viewLifecycleOwner){
+        viewModel.getProductofCategory(args.category)
+
+        viewModel.productofCategory.collectIt(viewLifecycleOwner){
             when (it) {
                 is ResultWrapper.Loading -> {
                     binding.mainviewgroup.isVisible = false
@@ -63,9 +63,9 @@ class ProductsCategoryFragment : Fragment(R.layout.fragment_products_category) {
                 is ResultWrapper.Error -> {
                     binding.stateView.onFail()
                     binding.stateView.clickRequest {
-                        viewmodel.getProductofCategory(args.category)
+                        viewModel.getProductofCategory(args.category)
                     }
-                    Log.d("errorr", "onViewCreated: " + it.message)
+
                     Toast.makeText(
                         requireActivity(),
                         it.message,
@@ -78,7 +78,7 @@ class ProductsCategoryFragment : Fragment(R.layout.fragment_products_category) {
     }
 
 
-    fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
+    private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
         lifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 collect {

@@ -1,8 +1,6 @@
 package com.example.magmarket.ui.productdetailsfragment
 
 import android.os.Bundle
-import android.text.Html
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.text.HtmlCompat
@@ -27,9 +25,9 @@ import kotlinx.coroutines.launch
 class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     private var _binding: FragmentProductDetailBinding? = null
     private val binding get() = _binding!!
-    val args by navArgs<ProductDetailFragmentArgs>()
+    private val args by navArgs<ProductDetailFragmentArgs>()
     private val viewModel: ProductDetailsViewModel by viewModels()
-    val adapter = SliderAdapter()
+ private   val adapter = SliderAdapter()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProductDetailBinding.bind(view)
@@ -46,14 +44,16 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
             when (it) {
                 is ResultWrapper.Loading -> {
                     binding.stateView.onLoading()
-                    binding.mainviewgroup.isVisible=false
+                    binding.scrollView3.isVisible=false
+                    binding.buttomBar.isVisible=false
                 }
                 is ResultWrapper.Success -> {
                     binding.tvProductName.text = it.value.name
                     binding.tvProductDescription.text =HtmlCompat.fromHtml(it.value.description,HtmlCompat.FROM_HTML_MODE_LEGACY)
                     binding.tvPrice.text = it.value.price
                     adapter.submitList(it.value.images)
-                    binding.mainviewgroup.isVisible=true
+                    binding.scrollView3.isVisible=true
+                    binding.buttomBar.isVisible=true
                     binding.stateView.onSuccess()
                     binding.stateView.onSuccess()
                 }
@@ -62,7 +62,6 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                     binding.stateView.clickRequest {
                         viewModel.getProduct(args.id)
                     }
-                    Log.d("errorr", "onViewCreated: " + it.message)
                     Toast.makeText(
                         requireActivity(),
                         it.message,
@@ -73,7 +72,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         }
     }
 
-    fun init() {
+  private  fun init() {
         viewModel.getProduct(args.id)
         binding.productSlider.adapter = adapter
         binding.productSlider.clipToPadding = false
@@ -81,7 +80,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         binding.productSlider.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         binding.springDotsIndicator.attachTo(binding.productSlider)
     }
-    fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
+   private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
         lifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 collect {

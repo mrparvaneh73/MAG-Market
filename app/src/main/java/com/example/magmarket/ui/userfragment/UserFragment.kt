@@ -6,9 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.magmarket.R
 import com.example.magmarket.data.datastore.Theme
-import com.example.magmarket.databinding.FragmentHomeBinding
 import com.example.magmarket.databinding.FragmentUserBinding
-import com.example.magmarket.ui.homefragment.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,7 +27,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
 //        }
     }
 
-    fun init() = with(binding) {
+   private fun init() = with(binding) {
         settingTheme.setOnCheckedChangeListener { radioGroup, checkedId ->
             val theme = when (checkedId) {
                 rbLight.id -> Theme.LIGHT

@@ -8,12 +8,11 @@
     app:cardElevation="@dimen/standardMargin"
     android:layout_marginHorizontal="@dimen/standardMargin0.5x"
     android:layout_height="170dp"
-    android:layout_margin="16dp">
+    android:layout_margin="@dimen/standardMargin2x">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/img_product"

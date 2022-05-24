@@ -1,7 +1,6 @@
 package com.example.magmarket.ui.homefragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
@@ -14,7 +13,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.magmarket.R
-import com.example.magmarket.adapters.*
+import com.example.magmarket.adapters.CategoryAdapter
+import com.example.magmarket.adapters.HomePagerAdapter
+import com.example.magmarket.adapters.ProductRecyclerviewAdapter
 import com.example.magmarket.data.model.ProductRecyclerViewItem
 import com.example.magmarket.databinding.FragmentHomeBinding
 import com.example.magmarket.utils.ResultWrapper
@@ -29,7 +30,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val viewModel by viewModels<HomeViewModel>()
 
     private val categoryAdapter = CategoryAdapter(clickListener = { categoryItem ->
-        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProductsCategoryFragment(categoryItem.id))
+        findNavController().navigate(
+            HomeFragmentDirections.actionHomeFragmentToProductsCategoryFragment(
+                categoryItem.id
+            )
+        )
     })
 
     private val bestAdapter = ProductRecyclerviewAdapter()
@@ -47,13 +52,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         clickListener()
     }
 
-    fun init() {
+    private fun init() {
         binding.newestRecyclerview.adapter = newestAdapter
         binding.categoryRecyclerview.adapter = categoryAdapter
         binding.bestSellerRecyclerview.adapter = bestAdapter
         binding.mostViewrecyclerview.adapter = mostViewAdapter
-        val imgs = arrayListOf<Int>(R.drawable.shopingimg, R.drawable.watches, R.drawable.phones)
-        val sliderAdapter = HomePagerAdapter(imgs)
+        val images = arrayListOf(R.drawable.shopingimg, R.drawable.watches, R.drawable.phones)
+        val sliderAdapter = HomePagerAdapter(images)
         binding.productSlider.adapter = sliderAdapter
         binding.productSlider.clipToPadding = false
         binding.productSlider.clipChildren = false
@@ -61,14 +66,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.springDotsIndicator.attachTo(binding.productSlider)
     }
 
-    fun clickListener() {
+    private fun clickListener() {
 
         adapterClickListener(bestAdapter)
         adapterClickListener(newestAdapter)
         adapterClickListener(mostViewAdapter)
     }
 
-    fun collectCategory() {
+    private fun collectCategory() {
         viewModel.categories.collectIt(viewLifecycleOwner) {
             when (it) {
                 is ResultWrapper.Loading -> binding.stateView.onLoading()
@@ -85,7 +90,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     binding.stateView.clickRequest {
                         viewModel.getAllProducts()
                     }
-                    Log.d("errorr", "onViewCreated: " + it.message)
+
                     Toast.makeText(
                         requireActivity(),
                         it.message,
@@ -102,7 +107,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             when (it) {
                 is ResultWrapper.Loading -> {
                     binding.stateView.onLoading()
-                    binding.mainviewgroup.isVisible = false
+                    binding.scrollview.isVisible = false
                 }
                 is ResultWrapper.Success -> {
                     val bestItem = mutableListOf<ProductRecyclerViewItem>()
@@ -110,7 +115,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     bestItem.addAll(it.value)
                     bestItem.add(ProductRecyclerViewItem.ShowAll(title = "مشاهده همه "))
                     bestAdapter.items = bestItem
-                    binding.mainviewgroup.isVisible = true
+                    binding.scrollview.isVisible = true
                     if (it.value.isNotEmpty()) {
                         binding.stateView.onSuccess()
                     } else {
@@ -122,7 +127,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     binding.stateView.clickRequest {
                         viewModel.getAllProducts()
                     }
-                    Log.d("errorr", "onViewCreated: " + it.message)
+
                     Toast.makeText(
                         requireActivity(),
                         it.message,
@@ -135,7 +140,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             when (it) {
                 is ResultWrapper.Loading -> {
                     binding.stateView.onLoading()
-                    binding.mainviewgroup.isVisible = false
+                    binding.scrollview.isVisible = false
                 }
                 is ResultWrapper.Success -> {
                     val newestItem = mutableListOf<ProductRecyclerViewItem>()
@@ -143,7 +148,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     newestItem.addAll(it.value)
                     newestItem.add(ProductRecyclerViewItem.ShowAll(title = "مشاهده همه "))
                     newestAdapter.items = newestItem
-                    binding.mainviewgroup.isVisible = true
+                    binding.scrollview.isVisible = true
                     if (it.value.isNotEmpty()) {
                         binding.stateView.onSuccess()
                     } else {
@@ -155,7 +160,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     binding.stateView.clickRequest {
                         viewModel.getAllProducts()
                     }
-                    Log.d("errorr", "onViewCreated: " + it.message)
+
                     Toast.makeText(
                         requireActivity(),
                         it.message,
@@ -168,7 +173,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             when (it) {
                 is ResultWrapper.Loading -> {
                     binding.stateView.onLoading()
-                    binding.mainviewgroup.isVisible = false
+                    binding.scrollview.isVisible = false
+                    binding.parentsearchbox.isVisible = false
                 }
                 is ResultWrapper.Success -> {
                     val mostViewItem = mutableListOf<ProductRecyclerViewItem>()
@@ -176,7 +182,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     mostViewItem.addAll(it.value)
                     mostViewItem.add(ProductRecyclerViewItem.ShowAll(title = "مشاهده همه "))
                     mostViewAdapter.items = mostViewItem
-                    binding.mainviewgroup.isVisible = true
+                    binding.scrollview.isVisible = true
+                    binding.parentsearchbox.isVisible = true
                     if (it.value.isNotEmpty()) {
                         binding.stateView.onSuccess()
                     } else {
@@ -188,7 +195,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     binding.stateView.clickRequest {
                         viewModel.getAllProducts()
                     }
-                    Log.d("errorr", "onViewCreated: " + it.message)
+
                     Toast.makeText(
                         requireActivity(),
                         it.message,
@@ -199,7 +206,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
+    private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
         lifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 collect {
@@ -214,7 +221,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         _binding = null
     }
 
-    fun adapterClickListener(adapter: ProductRecyclerviewAdapter) {
+    private fun adapterClickListener(adapter: ProductRecyclerviewAdapter) {
         adapter.itemClickListener = { view, item, position ->
             when (item) {
                 is ProductRecyclerViewItem.HeaderProductTitle -> {

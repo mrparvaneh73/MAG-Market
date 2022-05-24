@@ -24,10 +24,15 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
     private var _binding: FragmentCategoryBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<CategoryViewModel>()
-    val artAdapter = SubCategoryAdapter(clickListener = { category -> clickListener(category) })
-    val supermarketAdapter = SubCategoryAdapter(clickListener = { category -> clickListener(category) })
-    val digitalAdapter = SubCategoryAdapter(clickListener = { category -> clickListener(category) })
-    val fashionAdapter = SubCategoryAdapter(clickListener = { category -> clickListener(category) })
+    private val artAdapter =
+        SubCategoryAdapter(clickListener = { category -> clickListener(category) })
+    private val supermarketAdapter =
+        SubCategoryAdapter(clickListener = { category -> clickListener(category) })
+    private val digitalAdapter =
+        SubCategoryAdapter(clickListener = { category -> clickListener(category) })
+    private val fashionAdapter =
+        SubCategoryAdapter(clickListener = { category -> clickListener(category) })
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCategoryBinding.bind(view)
@@ -37,22 +42,22 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
     }
 
 
-    fun init() {
+    private fun init() {
         binding.artRecyclerview.adapter = artAdapter
         binding.digitalRecyclerview.adapter = digitalAdapter
         binding.supermarketRecyclerview.adapter = supermarketAdapter
         binding.fashionRecyclerview.adapter = fashionAdapter
     }
 
-    fun collect() {
+    private fun collect() {
         viewModel.digitalCategory.collectIt(viewLifecycleOwner) {
             when (it) {
                 is ResultWrapper.Loading -> {
-                    binding.mainviewgroup.isVisible = false
+                    binding.scrollview.isVisible = false
                     binding.stateView.onLoading()
                 }
                 is ResultWrapper.Success -> {
-                    binding.mainviewgroup.isVisible = true
+                    binding.scrollview.isVisible = true
                     digitalAdapter.submitList(it.value)
                     if (it.value.isNotEmpty()) {
                         binding.stateView.onSuccess()
@@ -71,11 +76,11 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         viewModel.fashionCategory.collectIt(viewLifecycleOwner) {
             when (it) {
                 is ResultWrapper.Loading -> {
-                    binding.mainviewgroup.isVisible = false
+                    binding.scrollview.isVisible = false
                     binding.stateView.onLoading()
                 }
                 is ResultWrapper.Success -> {
-                    binding.mainviewgroup.isVisible = true
+                    binding.scrollview.isVisible = true
                     fashionAdapter.submitList(it.value)
                     if (it.value.isNotEmpty()) {
                         binding.stateView.onSuccess()
@@ -94,11 +99,11 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         viewModel.superMarketCategory.collectIt(viewLifecycleOwner) {
             when (it) {
                 is ResultWrapper.Loading -> {
-                    binding.mainviewgroup.isVisible = false
+                    binding.scrollview.isVisible = false
                     binding.stateView.onLoading()
                 }
                 is ResultWrapper.Success -> {
-                    binding.mainviewgroup.isVisible = true
+                    binding.scrollview.isVisible = true
                     supermarketAdapter.submitList(it.value)
                     if (it.value.isNotEmpty()) {
                         binding.stateView.onSuccess()
@@ -117,11 +122,11 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         viewModel.artCategory.collectIt(viewLifecycleOwner) {
             when (it) {
                 is ResultWrapper.Loading -> {
-                    binding.mainviewgroup.isVisible = false
+                    binding.scrollview.isVisible = false
                     binding.stateView.onLoading()
                 }
                 is ResultWrapper.Success -> {
-                    binding.mainviewgroup.isVisible = true
+                    binding.scrollview.isVisible = true
                     artAdapter.submitList(it.value)
                     if (it.value.isNotEmpty()) {
                         binding.stateView.onSuccess()
@@ -139,7 +144,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         }
     }
 
-    fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
+    private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
         lifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 collect {
@@ -149,7 +154,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         }
     }
 
-    fun clickListener(category: CategoryItem) {
+    private fun clickListener(category: CategoryItem) {
         findNavController().navigate(
             CategoryFragmentDirections.actionCategoryFragmentToProductsCategoryFragment(
                 category.id
