@@ -15,7 +15,11 @@
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.example.magmarket.ui.categoryfragment.CategoryFragment"
-        android:label="CategoryFragment" />
+        android:label="CategoryFragment" >
+        <action
+            android:id="@+id/action_categoryFragment_to_productsCategoryFragment"
+            app:destination="@id/productsCategoryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
         android:name="com.example.magmarket.ui.productdetailsfragment.ProductDetailFragment"
@@ -23,5 +27,17 @@
         <argument
             android:name="id"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/hilt_UserFragment"
+        android:name="com.example.magmarket.ui.userfragment.Hilt_UserFragment"
+        android:label="Hilt_UserFragment" />
+    <fragment
+        android:id="@+id/productsCategoryFragment"
+        android:name="com.example.magmarket.ui.productscategory.ProductsCategoryFragment"
+        android:label="ProductsCategoryFragment" >
+        <argument
+            android:name="category"
+            app:argType="integer" />
     </fragment>
 </navigation>

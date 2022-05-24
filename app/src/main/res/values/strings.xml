@@ -6,4 +6,8 @@
     <string name="show_all">مشاهده همه</string>
     <string name="mymarket">ماگ مارکت من</string>
     <string name="searching">جستجو در</string>
+    <string name="digital">کالای دیجیتال</string>
+    <string name="fashion">مد و پوشاک</string>
+    <string name="supermarket">کالاهای سوپرمارکتی</string>
+    <string name="art">کتاب،لوازم تحریر و هنر</string>
 </resources>

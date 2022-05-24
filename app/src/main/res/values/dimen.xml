@@ -8,15 +8,15 @@
     <dimen name="TextSize6x">24sp</dimen>
     <dimen name="TextSize7x">28sp</dimen>
     <dimen name="TextSize8x">32sp</dimen>
-    <dimen name="standardMargin0.5x">4dp</dimen>
-    <dimen name="standardMargin">8dp</dimen>
-    <dimen name="standardMargin1.5x">16dp</dimen>
-    <dimen name="standardMargin2x">20dp</dimen>
-    <dimen name="standardMargin3x">28dp</dimen>
-    <dimen name="standardMargin4x">44dp</dimen>
-    <dimen name="standardMargin6x">64dp</dimen>
-    <dimen name="standardMargin8x">84dp</dimen>
-    <dimen name="standardMargin10x">104dp</dimen>
-    <dimen name="amazingOffersWidth">154dp</dimen>
-    <dimen name="amazingOffersHeight">354dp</dimen>
+    <dimen name="standardMargin0.5x">2dp</dimen>
+    <dimen name="standardMargin">4dp</dimen>
+    <dimen name="standardMargin1.5x">6dp</dimen>
+    <dimen name="standardMargin2x">8dp</dimen>
+    <dimen name="standardMargin3x">12dp</dimen>
+    <dimen name="standardMargin4x">16dp</dimen>
+    <dimen name="standardMargin5x">20dp</dimen>
+    <dimen name="standardMargin6x">24dp</dimen>
+    <dimen name="standardMargin7x">28dp</dimen>
+    <dimen name="standardMargin8x">32dp</dimen>
+    <dimen name="standardMargin10x">40dp</dimen>
 </resources>

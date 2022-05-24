@@ -12,12 +12,7 @@ class ProductRepository @Inject constructor(
     private val dispatcher: CoroutineDispatcher,
    @MarketRemoteDataSource private val marketremoteDataSource: RemoteDataSource
 ) {
-    //    suspend fun getRemoteProductList(orderby:String) = safeApiCall(dispatcher) {
-//        remoteDataSource.getAllProduct(orderby)
-//    }
-//    suspend fun getProduct(id:String)= safeApiCall(dispatcher){
-//        remoteDataSource.getProduct(id)
-//    }
+
     suspend fun getRemoteProductList(orderby: String) = safeApiCall(dispatcher) {
         marketremoteDataSource.getAllProduct(orderby)
     }

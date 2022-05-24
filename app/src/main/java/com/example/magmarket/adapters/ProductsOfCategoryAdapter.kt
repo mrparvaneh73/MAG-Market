@@ -6,34 +6,34 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.magmarket.data.model.CategoryItem
 import com.example.magmarket.data.model.ProductItem
-import com.example.magmarket.databinding.ProductItemBinding
+import com.example.magmarket.databinding.CategoryItemBinding
+import com.example.magmarket.databinding.ItemsSubCategoryBinding
 
+class ProductsOfCategoryAdapter() :
+    ListAdapter<ProductItem, ProductsOfCategoryAdapter.MyViewHolder>(ProductOfCategoryDiffCall) {
 
-class ProductAdapter(private var clickListener:(ProductItem) -> Unit) : ListAdapter<ProductItem, ProductAdapter.MyViewHolder>(PictureDiffCall) {
-
-   inner class MyViewHolder(
-        private val binding:  ProductItemBinding
+    inner class MyViewHolder(
+        private val binding: ItemsSubCategoryBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun mBind(productItem: ProductItem)=binding.apply {
+        fun mBind(productItem: ProductItem) = binding.apply {
             Glide.with(root)
                 .load(productItem.images[0].src)
-                .into(imgProduct)
-            tvnameproduct.text=productItem.name
-            tvpriceproduct.text=productItem.price
+                .into(productImage)
+            productName.text = productItem.name
+            productPrice.text = productItem.price
 
-            root.setOnClickListener {
-                clickListener(productItem)
-            }
+
         }
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
-    ): ProductAdapter.MyViewHolder {
+    ): ProductsOfCategoryAdapter.MyViewHolder {
         return MyViewHolder(
-            ProductItemBinding.inflate(
+            ItemsSubCategoryBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -43,7 +43,7 @@ class ProductAdapter(private var clickListener:(ProductItem) -> Unit) : ListAdap
 
 
     override fun onBindViewHolder(
-        holder: ProductAdapter.MyViewHolder, position: Int
+        holder: ProductsOfCategoryAdapter.MyViewHolder, position: Int
     ) {
         holder.mBind(getItem(position))
     }
@@ -51,7 +51,7 @@ class ProductAdapter(private var clickListener:(ProductItem) -> Unit) : ListAdap
 
 }
 
-object PictureDiffCall : DiffUtil.ItemCallback<ProductItem>() {
+object ProductOfCategoryDiffCall : DiffUtil.ItemCallback<ProductItem>() {
 
     override fun areItemsTheSame(oldItem: ProductItem, newItem: ProductItem): Boolean {
         return oldItem.id == newItem.id

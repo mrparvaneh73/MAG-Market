@@ -3,7 +3,6 @@ package com.example.magmarket.ui.homefragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.magmarket.data.model.CategoryItem
-import com.example.magmarket.data.model.ProductItem
 import com.example.magmarket.data.model.ProductRecyclerViewItem
 import com.example.magmarket.data.repository.ProductRepository
 import com.example.magmarket.utils.Constants.BEST_PRODUCT
@@ -37,44 +36,26 @@ class HomeViewModel @Inject constructor(private val productRepository: ProductRe
     val categories = _categories.asStateFlow()
 
     init {
-        getBestProductList()
-        getMostViewProductList()
-        getNewstProductList()
-        getCategories()
+        getAllProducts()
     }
 
-     fun getBestProductList() {
+     fun getAllProducts() {
         viewModelScope.launch {
-            val mRos =  productRepository.getRemoteProductList(BEST_PRODUCT)
-            mRos.collect {
+                productRepository.getRemoteProductList(BEST_PRODUCT).collect {
                 _bestProduct.emit(it)
             }
-        }
-    }
-    fun getMostViewProductList() {
-        viewModelScope.launch {
-            val mRos = productRepository.getRemoteProductList(MOSTVIEW_PRODUCT)
-            mRos.collect {
+            productRepository.getRemoteProductList(MOSTVIEW_PRODUCT).collect {
                 _mostViewProduct.emit(it)
             }
-        }
-    }
-    fun getNewstProductList() {
-        viewModelScope.launch {
-            val mRos = productRepository.getRemoteProductList(NEWEST_PRODUCT)
-            mRos.collect {
+            productRepository.getRemoteProductList(NEWEST_PRODUCT).collect {
                 _newstProduct.emit(it)
             }
-        }
-    }
-
-    fun getCategories(){
-        viewModelScope.launch {
-            val mRos = productRepository.getAllCategories()
-            mRos.collect {
+            productRepository.getAllCategories().collect {
                 _categories.emit(it)
             }
-
         }
+
     }
+
+
 }

@@ -1,7 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/mainviewgroup"
+    android:orientation="vertical">
 
-</LinearLayout>
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvdigital"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/standardMargin2x"
+                android:gravity="start"
+                android:text="@string/digital"
+                android:textColor="@color/black"
+                android:textSize="@dimen/TextSize6x"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/digitalRecyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/standardMargin2x"
+                android:layout_marginTop="@dimen/standardMargin6x"
+                android:layout_marginEnd="@dimen/standardMargin2x"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvdigital"
+                tools:listitem="@layout/product_item" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvfashion"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/standardMargin2x"
+                android:gravity="start"
+                android:text="@string/fashion"
+                android:textColor="@color/black"
+                android:textSize="@dimen/TextSize6x"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/digitalRecyclerview" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fashionRecyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/standardMargin2x"
+                android:layout_marginTop="@dimen/standardMargin6x"
+                android:layout_marginEnd="@dimen/standardMargin2x"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvfashion"
+                tools:listitem="@layout/product_item" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvsupermarket"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/standardMargin2x"
+                android:gravity="start"
+                android:text="@string/supermarket"
+                android:textColor="@color/black"
+                android:textSize="@dimen/TextSize6x"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fashionRecyclerview" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/supermarketRecyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/standardMargin2x"
+                android:layout_marginTop="@dimen/standardMargin6x"
+                android:layout_marginEnd="@dimen/standardMargin2x"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvsupermarket"
+                tools:listitem="@layout/product_item" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvArt"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/standardMargin2x"
+                android:gravity="start"
+                android:text="@string/art"
+                android:textColor="@color/black"
+                android:textSize="@dimen/TextSize6x"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/supermarketRecyclerview" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/artRecyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/standardMargin2x"
+                android:layout_marginTop="@dimen/standardMargin6x"
+                android:layout_marginEnd="@dimen/standardMargin2x"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvArt"
+                tools:listitem="@layout/product_item" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+    <com.example.magmarket.customview.StateView
+        android:id="@+id/state_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.25"
+        app:state_text="@string/app_name" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class UserFragment:Fragment(R.layout.fragment_user) {
     private var _binding: FragmentUserBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: HomeViewModel by viewModels()
+    private val viewModel  by viewModels<UserViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding=FragmentUserBinding.bind(view)

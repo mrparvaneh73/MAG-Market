@@ -9,6 +9,8 @@ import retrofit2.http.QueryMap
 
 interface RemoteDataSource {
     suspend fun getAllProduct(orderby:String): Response<List<ProductRecyclerViewItem.ProductItem>>
-    suspend fun getAllCategories(): Response<List<CategoryItem>>
     suspend fun getProduct(id:String):Response<ProductItem>
+
+    suspend fun getAllCategories(): Response<List<CategoryItem>>
+    suspend fun getSubCategories(parent:Int):Response<List<CategoryItem>>
 }

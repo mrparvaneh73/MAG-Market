@@ -23,6 +23,13 @@ interface MarketService {
         @QueryMap tokens: Map<String, String> = BASE_PARAM,
     ): Response<List<CategoryItem>>
 
+    @GET("products/categories")
+    suspend fun getSubCategories(
+        @Query("parent")  parent:Int,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+
+    ): Response<List<CategoryItem>>
+
     @GET("products/{id}")
     suspend fun getProduct( @Path("id") id:String,
         @QueryMap tokens: Map<String, String> = BASE_PARAM

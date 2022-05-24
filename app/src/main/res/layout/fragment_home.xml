@@ -3,25 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/mainviewgroup"
     android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/parentsearchbox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="noScroll">
-
-            <include
-                android:id="@+id/searchLinear"
-                layout="@layout/search_box" />
-        </androidx.appcompat.widget.Toolbar>
-
-    </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
         android:id="@+id/scrollview"
@@ -31,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/parentsearchbox">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -53,8 +38,8 @@
                 android:layout_gravity="center"
                 app:dotsColor="@color/blue"
                 app:dotsCornerRadius="8dp"
-                app:dotsSize="8dp"
-                app:dotsSpacing="4dp"
+                app:dotsSize="@dimen/standardMargin2x"
+                app:dotsSpacing="@dimen/standardMargin"
                 app:dotsWidthFactor="2.5"
                 app:layout_constraintBottom_toBottomOf="@id/product_slider"
                 app:layout_constraintEnd_toEndOf="@id/product_slider"
@@ -68,7 +53,7 @@
                 android:id="@+id/categoryRecyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/standardMargin1.5x"
+                android:layout_marginTop="@dimen/standardMargin2x"
                 android:layoutDirection="rtl"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -83,9 +68,9 @@
                 android:id="@+id/newestRecyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="@dimen/standardMargin2x"
+                android:layout_marginTop="@dimen/standardMargin6x"
+                android:layout_marginEnd="@dimen/standardMargin2x"
                 android:background="@drawable/red_background"
                 android:layoutDirection="rtl"
                 android:orientation="horizontal"
@@ -101,10 +86,10 @@
                 android:id="@+id/bestSellerRecyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/red_background"
+                android:layout_marginStart="@dimen/standardMargin2x"
+                android:layout_marginTop="@dimen/standardMargin2x"
+                android:layout_marginEnd="@dimen/standardMargin2x"
+                android:background="@drawable/blue_background"
                 android:layoutDirection="rtl"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -119,8 +104,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginTop="@dimen/standardMargin6x"
+                android:layout_marginEnd="@dimen/standardMargin2x"
                 android:layoutDirection="rtl"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -142,7 +127,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.25"
