@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainviewgroup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
-    android:descendantFocusability="blocksDescendants"
-    android:gravity="center"
-    android:clickable="true"
-    android:orientation="vertical">
+    android:descendantFocusability="blocksDescendants">
+
     <ScrollView
         android:id="@+id/scrollView3"
         android:layout_width="0dp"
@@ -42,8 +41,8 @@
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/product_slider"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
-               />
+                        android:layout_height="300dp" />
+
                     <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
                         android:id="@+id/spring_dots_indicator"
                         android:layout_width="wrap_content"
@@ -54,9 +53,9 @@
                         app:dotsSize="8dp"
                         app:dotsSpacing="4dp"
                         app:dotsWidthFactor="2.5"
-                        app:selectedDotColor="@color/blue"
                         app:progressMode="true"
-                        />
+                        app:selectedDotColor="@color/blue" />
+
                     <TextView
                         android:id="@+id/tv_product_name"
                         android:layout_width="match_parent"
@@ -103,7 +102,7 @@
                         android:layout_marginStart="@dimen/standardMargin1.5x"
                         android:layout_marginEnd="@dimen/standardMargin1.5x"
                         android:layout_marginBottom="@dimen/standardMargin1.5x"
-                        android:inputType="textMultiLine"
+                        android:maxLines="20"
                         android:textColor="#000000"
                         android:textSize="@dimen/TextSize4x"
                         tools:text="توضیحات درباره محصول" />
@@ -115,6 +114,7 @@
 
         </LinearLayout>
     </ScrollView>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/detail_card"
         android:layout_width="415dp"
@@ -158,17 +158,15 @@
 
             <Button
                 android:id="@+id/button_add_to_basket"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="@dimen/standardMargin5x"
                 android:layout_weight="3"
                 android:background="@drawable/button"
                 android:text="@string/add_to_bascket"
                 android:textColor="#FFFFFF"
-                android:textSize="@dimen/TextSize4x"
-               />
+                android:textSize="@dimen/TextSize4x" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

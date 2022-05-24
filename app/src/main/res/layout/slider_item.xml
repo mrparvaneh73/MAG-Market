@@ -3,11 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:cardCornerRadius="@dimen/standardMargin2x"
-    android:layout_margin="@dimen/standardMargin0.5x"
+    android:layout_margin="@dimen/standardMargin3x"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     >
     <ImageView
+        android:contentDescription="@string/poster"
         android:id="@+id/product_img"
         android:layout_width="match_parent"
         android:layout_height="200dp"

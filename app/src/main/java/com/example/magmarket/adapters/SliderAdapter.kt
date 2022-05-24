@@ -1,19 +1,15 @@
 package com.example.magmarket.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-import com.example.magmarket.R
 import com.example.magmarket.data.model.ProductImage
-import com.example.magmarket.data.model.ProductItem
 import com.example.magmarket.databinding.SliderItemBinding
 
-class SliderAdapter() :
+class SliderAdapter :
     ListAdapter<ProductImage, SliderAdapter.SliderViewHolder>(ImageDiffCall) {
 
     inner class SliderViewHolder(var binding: SliderItemBinding) :
@@ -39,18 +35,10 @@ class SliderAdapter() :
             holder.bind(getItem(position))
 
         }
-//        val run=object :Runnable {
-//            override fun run() {
-//                TODO("Not yet implemented")
-//            }
-//
-//        }
+
 
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
-    }
 }
 
 object ImageDiffCall : DiffUtil.ItemCallback<ProductImage>() {

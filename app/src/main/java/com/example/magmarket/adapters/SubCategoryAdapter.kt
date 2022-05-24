@@ -10,7 +10,7 @@ import com.example.magmarket.data.model.CategoryItem
 import com.example.magmarket.databinding.CategoryItemBinding
 import com.example.magmarket.databinding.SubCategoryItemBinding
 
-class SubCategoryAdapter() : ListAdapter<CategoryItem, SubCategoryAdapter.MyViewHolder>(SubCategoryDiffCall) {
+class SubCategoryAdapter(private var clickListener: (CategoryItem) -> Unit) : ListAdapter<CategoryItem, SubCategoryAdapter.MyViewHolder>(SubCategoryDiffCall) {
 
     inner class MyViewHolder(
         private val binding: SubCategoryItemBinding
@@ -21,6 +21,10 @@ class SubCategoryAdapter() : ListAdapter<CategoryItem, SubCategoryAdapter.MyView
                 .load(categoryItem.image.src)
                 .into(imgCategory)
             tvCategoryName.text=categoryItem.name
+
+            root.setOnClickListener {
+                clickListener(categoryItem)
+            }
         }
     }
 

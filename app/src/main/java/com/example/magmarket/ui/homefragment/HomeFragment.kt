@@ -28,73 +28,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val binding get() = _binding!!
     private val viewModel by viewModels<HomeViewModel>()
 
-    //    private val bestAdapter = ProductAdapter(clickListener = { productItem ->
-//        findNavController().navigate(
-//            HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(
-//                productItem.id
-//            )
-//        )
-//    }
-//
-//    )
-//    private val newstAdapter = ProductAdapter(clickListener = { productItem ->
-//        findNavController().navigate(
-//            HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(
-//                productItem.id
-//            )
-//        )
-//    }
-//
-//    )
-//    private val mostViewsAdapter = ProductAdapter(clickListener = { productItem ->
-//        findNavController().navigate(
-//            HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(
-//                productItem.id
-//            )
-//        )
-//    }
-//
-//    )
-    private val categoryAdapter = CategoryAdapter()
+    private val categoryAdapter = CategoryAdapter(clickListener = { categoryItem ->
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProductsCategoryFragment(categoryItem.id))
+    })
+
     private val bestAdapter = ProductRecyclerviewAdapter()
+
     private val newestAdapter = ProductRecyclerviewAdapter()
+
     private val mostViewAdapter = ProductRecyclerviewAdapter()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentHomeBinding.bind(view)
         init()
-
-
-//        lifecycleScope.launch {
-//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                viewModel.newstProduct.collect {
-//                    when (it) {
-//                        is ResultWrapper.Loading -> binding.stateView.onLoading()
-//                        is ResultWrapper.Success -> {
-//                            Log.d("hello", "onViewCreated: " + it.value.toString())
-//                            newstAdapter.submitList(it.value)
-//                            if (it.value.isNotEmpty()) {
-//                                binding.stateView.onSuccess()
-//                            } else {
-//                                binding.stateView.onEmpty()
-//                            }
-//                        }
-//                        is ResultWrapper.Error -> {
-//                            binding.stateView.onFail()
-//                            binding.stateView.clickRequest {
-//                                viewModel.getNewstProductList()
-//                            }
-//                            Log.d("errorr", "onViewCreated: " + it.message)
-//                            Toast.makeText(
-//                                requireActivity(),
-//                                it.message,
-//                                Toast.LENGTH_SHORT
-//                            ).show()
-//                        }
-//                    }
-//                }
-//            }
-//        }
         collectCategory()
         collect()
         clickListener()

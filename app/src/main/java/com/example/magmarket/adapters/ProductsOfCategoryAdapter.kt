@@ -8,10 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.magmarket.data.model.CategoryItem
 import com.example.magmarket.data.model.ProductItem
-import com.example.magmarket.databinding.CategoryItemBinding
 import com.example.magmarket.databinding.ItemsSubCategoryBinding
 
-class ProductsOfCategoryAdapter() :
+class ProductsOfCategoryAdapter(private var clickListener: (ProductItem) -> Unit) :
     ListAdapter<ProductItem, ProductsOfCategoryAdapter.MyViewHolder>(ProductOfCategoryDiffCall) {
 
     inner class MyViewHolder(
@@ -25,7 +24,9 @@ class ProductsOfCategoryAdapter() :
             productName.text = productItem.name
             productPrice.text = productItem.price
 
-
+            root.setOnClickListener {
+                clickListener(productItem)
+            }
         }
     }
 

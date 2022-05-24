@@ -23,6 +23,10 @@ class MarketRemoteDataSource @Inject constructor (private val marketService: Mar
         return  marketService.getSubCategories(parent)
     }
 
+    override suspend fun getproductOfCategory(categoryId: Int): Response<List<ProductItem>> {
+        return marketService.getProductOfCategory(categoryId)
+    }
+
     override suspend fun getProduct(id: String): Response<ProductItem> {
         return marketService.getProduct(id = id)
     }

@@ -11,19 +11,22 @@ import com.example.magmarket.data.model.ProductItem
 import com.example.magmarket.databinding.CategoryItemBinding
 import com.example.magmarket.databinding.ProductItemBinding
 
-class CategoryAdapter() : ListAdapter<CategoryItem, CategoryAdapter.MyViewHolder>(CategoryDiffCall) {
+class CategoryAdapter(private var clickListener: (CategoryItem) -> Unit) :
+    ListAdapter<CategoryItem, CategoryAdapter.MyViewHolder>(CategoryDiffCall) {
 
     inner class MyViewHolder(
         private val binding: CategoryItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun mBind(categoryItem: CategoryItem)=binding.apply {
+        fun mBind(categoryItem: CategoryItem) = binding.apply {
             Glide.with(root)
                 .load(categoryItem.image.src)
                 .into(categoryImg)
-            catrgoryName.text=categoryItem.name
+            catrgoryName.text = categoryItem.name
 
-
+            root.setOnClickListener {
+                clickListener(categoryItem)
+            }
 
         }
     }

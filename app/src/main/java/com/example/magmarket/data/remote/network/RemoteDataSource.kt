@@ -13,4 +13,5 @@ interface RemoteDataSource {
 
     suspend fun getAllCategories(): Response<List<CategoryItem>>
     suspend fun getSubCategories(parent:Int):Response<List<CategoryItem>>
+    suspend fun getproductOfCategory(categoryId:Int):Response<List<ProductItem>>
 }
