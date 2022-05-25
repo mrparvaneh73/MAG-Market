@@ -10,7 +10,14 @@
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_productDetailFragment"
-            app:destination="@id/productDetailFragment" />
+            app:destination="@id/productDetailFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_showMoreFragment"
+            app:destination="@id/showMoreFragment"
+            app:popUpTo="@id/homeFragment" />
         <action
             android:id="@+id/action_homeFragment_to_productsCategoryFragment"
             app:destination="@id/productsCategoryFragment" />
@@ -21,7 +28,9 @@
         android:label="CategoryFragment" >
         <action
             android:id="@+id/action_categoryFragment_to_productsCategoryFragment"
-            app:destination="@id/productsCategoryFragment" />
+            app:destination="@id/productsCategoryFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
@@ -30,6 +39,12 @@
         <argument
             android:name="id"
             app:argType="string" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_productsCategoryFragment"
+            app:destination="@id/productsCategoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/productsCategoryFragment"
@@ -40,10 +55,28 @@
             app:argType="integer" />
         <action
             android:id="@+id/action_productsCategoryFragment_to_productDetailFragment"
-            app:destination="@id/productDetailFragment" />
+            app:destination="@id/productDetailFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/productsCategoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/userFragment"
         android:name="com.example.magmarket.ui.userfragment.UserFragment"
         android:label="UserFragment" />
+    <fragment
+        android:id="@+id/showMoreFragment"
+        android:name="com.example.magmarket.ui.showmore.ShowMoreFragment"
+        android:label="ShowMoreFragment" >
+        <argument
+            android:name="orderby"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_showMoreFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment"
+            app:popUpTo="@id/showMoreFragment" />
+        <argument
+            android:name="ordername"
+            app:argType="string" />
+    </fragment>
 </navigation>

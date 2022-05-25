@@ -6,11 +6,12 @@
     app:cardCornerRadius="@dimen/standardMargin"
     android:backgroundTint="@color/whiteBackground"
     app:cardElevation="@dimen/standardMargin"
-    android:layout_marginHorizontal="@dimen/standardMargin0.5x"
+    android:layout_margin="@dimen/standardMargin2x"
     android:layout_height="170dp"
-    android:layout_margin="16dp">
+   >
 
     <LinearLayout
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -34,7 +35,7 @@
             android:gravity="center"
             android:text="@string/show_all"
             android:layout_marginBottom="@dimen/standardMargin3x"
-            android:textColor="@color/black"
+            android:textColor="@color/text"
             android:textSize="@dimen/TextSize4x"
             tools:ignore="SpUsage" />
 

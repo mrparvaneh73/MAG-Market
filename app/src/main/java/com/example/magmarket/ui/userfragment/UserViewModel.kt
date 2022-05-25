@@ -1,5 +1,6 @@
 package com.example.magmarket.ui.userfragment
 
+import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -30,11 +31,10 @@ class UserViewModel @Inject constructor(private val settingDataStore: SettingDat
         viewModelScope.launch {
             settingDataStore.preferences.collect {
                 val mode = it.theme.mode
-                val currentMode = AppCompatDelegate.getDefaultNightMode()
-                if (currentMode != mode) {
-                    _islight.postValue(true)
-                }else{
-                    _islight.postValue(false)
+                if (mode==2) {
+                    _islight.value=false
+                }else if (mode==1){
+                    _islight.value=true
                 }
             }
 

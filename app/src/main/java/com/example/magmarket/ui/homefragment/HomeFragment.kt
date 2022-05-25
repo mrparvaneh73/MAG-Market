@@ -18,6 +18,9 @@ import com.example.magmarket.adapters.HomePagerAdapter
 import com.example.magmarket.adapters.ProductRecyclerviewAdapter
 import com.example.magmarket.data.model.ProductRecyclerViewItem
 import com.example.magmarket.databinding.FragmentHomeBinding
+import com.example.magmarket.utils.Constants.BEST_PRODUCT
+import com.example.magmarket.utils.Constants.MOSTVIEW_PRODUCT
+import com.example.magmarket.utils.Constants.NEWEST_PRODUCT
 import com.example.magmarket.utils.ResultWrapper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
@@ -33,7 +36,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         findNavController().navigate(
             HomeFragmentDirections.actionHomeFragmentToProductsCategoryFragment(
                 categoryItem.id
-            )
+           )
         )
     })
 
@@ -50,6 +53,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         collectCategory()
         collect()
         clickListener()
+
     }
 
     private fun init() {
@@ -68,9 +72,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun clickListener() {
 
-        adapterClickListener(bestAdapter)
-        adapterClickListener(newestAdapter)
-        adapterClickListener(mostViewAdapter)
+        adapterClickListener(bestAdapter, BEST_PRODUCT,"بهترین محصولات")
+        adapterClickListener(newestAdapter, NEWEST_PRODUCT,"جدیدترین محصولات")
+        adapterClickListener(mostViewAdapter, MOSTVIEW_PRODUCT,"پربازدیدترین محصولات")
     }
 
     private fun collectCategory() {
@@ -221,8 +225,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         _binding = null
     }
 
-    private fun adapterClickListener(adapter: ProductRecyclerviewAdapter) {
-        adapter.itemClickListener = { view, item, position ->
+    private fun adapterClickListener(adapter: ProductRecyclerviewAdapter,orderBy:String,orderByName:String) {
+        adapter.itemClickListener = { _, item, _ ->
             when (item) {
                 is ProductRecyclerViewItem.HeaderProductTitle -> {
 
@@ -235,10 +239,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     )
                 }
                 is ProductRecyclerViewItem.ShowAll -> {
-
+                    findNavController().navigate(
+                        HomeFragmentDirections.actionHomeFragmentToShowMoreFragment(
+                            orderBy,orderByName
+                        )
+                    )
                 }
             }
 
         }
     }
+
 }

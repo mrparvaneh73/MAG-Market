@@ -8,12 +8,18 @@
     <string name="unit_of_currency">تومان</string>
     <string name="product_feature">ویژگی های محصول</string>
     <string name="show_all">مشاهده همه</string>
-    <string name="mymarket">ماگ مارکت من</string>
+    <string name="mymarket">ماگ مارکت</string>
     <string name="searching">جستجو در</string>
+    <string name="product">کالا</string>
     <string name="digital">کالای دیجیتال</string>
     <string name="fashion">مد و پوشاک</string>
     <string name="supermarket">کالاهای سوپرمارکتی</string>
     <string name="art">کتاب،لوازم تحریر و هنر</string>
     <string name="poster">پوستر</string>
     <string name="productimage">عکس محصول</string>
+    <string name="connection_describtion">You are not connected to the internet.
+Make sure Wi-Fi is on,Airplane Mode is off and try again</string>
+    <string name="connection">
+        No Internet Connection
+    </string>
 </resources>

@@ -32,4 +32,8 @@
     <color name="full_transparent">#00FFFFFF</color>
     <color name="whiteBackground">#EFEFEF</color>
     <color name="gold">#EAD418</color>
+    <color name="button">#F44336</color>
+    <color name="text">#292626</color>
+    <color name="background">#FFFFFF</color>
+    <color name="itembackground">#EAEAEA</color>
 </resources>

@@ -3,16 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/mainviewgroup"
+    android:background="@color/background"
     android:layout_height="match_parent">
+
+
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/parentsearchbox"
         android:layout_width="match_parent"
+        android:background="@color/background"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
+            android:background="@color/background"
             android:layout_height="wrap_content"
             app:layout_scrollFlags="noScroll">
 
@@ -51,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                app:dotsColor="@color/blue"
+                app:dotsColor="@color/red"
                 app:dotsCornerRadius="8dp"
                 app:dotsSize="@dimen/standardMargin2x"
                 app:dotsSpacing="@dimen/standardMargin"
@@ -86,7 +92,7 @@
                 android:layout_marginStart="@dimen/standardMargin2x"
                 android:layout_marginTop="@dimen/standardMargin6x"
                 android:layout_marginEnd="@dimen/standardMargin2x"
-                android:background="@drawable/red"
+                android:background="@drawable/white"
                 android:layoutDirection="rtl"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -104,7 +110,7 @@
                 android:layout_marginStart="@dimen/standardMargin2x"
                 android:layout_marginTop="@dimen/standardMargin2x"
                 android:layout_marginEnd="@dimen/standardMargin2x"
-                android:background="@drawable/blue"
+                android:background="@drawable/white"
                 android:layoutDirection="rtl"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

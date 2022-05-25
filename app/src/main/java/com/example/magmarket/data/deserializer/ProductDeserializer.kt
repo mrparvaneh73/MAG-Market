@@ -1,4 +1,4 @@
-package com.example.magmarket.data.remote.deserializer
+package com.example.magmarket.data.deserializer
 
 import com.example.magmarket.data.model.ProductCategory
 import com.example.magmarket.data.model.ProductImage

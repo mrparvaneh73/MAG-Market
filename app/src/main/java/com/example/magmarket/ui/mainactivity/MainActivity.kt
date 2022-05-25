@@ -2,18 +2,21 @@ package com.example.magmarket.ui.mainactivity
 
 import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.magmarket.R
 import com.example.magmarket.databinding.ActivityMainBinding
+import com.example.magmarket.utils.ConnectivityStatus
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -31,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         init()
+        connection()
 
     }
 fun initpreferences(){
@@ -49,8 +53,13 @@ fun initpreferences(){
             supportFragmentManager.findFragmentById(R.id.container) as NavHostFragment
         navController = navHostFragment.navController
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
+        bottomNavigationView.setOnItemSelectedListener { item ->
 
-        NavigationUI.setupWithNavController(bottomNavigationView, navController)
+            NavigationUI.onNavDestinationSelected(item, navController)
+
+            return@setOnItemSelectedListener true
+        }
+
     }
 
     fun createSplashScreen() {
@@ -68,4 +77,19 @@ fun initpreferences(){
     }
 
 
+    fun connection(){
+
+        ConnectivityStatus(this).observe(this){
+            Log.d("connectionfragmetn", "connection: "+ it.toString())
+            if (it==true){
+                binding.container.isVisible=true
+                binding.bottomNav.isVisible=true
+                binding.connection.connection.isVisible=false
+            }else{
+                binding.bottomNav.isVisible=false
+                binding.container.isVisible=false
+                binding.connection.connection.isVisible=true
+            }
+        }
+    }
 }

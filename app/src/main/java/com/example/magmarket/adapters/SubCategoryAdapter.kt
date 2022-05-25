@@ -1,5 +1,6 @@
 package com.example.magmarket.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -10,18 +11,21 @@ import com.example.magmarket.data.model.CategoryItem
 import com.example.magmarket.databinding.CategoryItemBinding
 import com.example.magmarket.databinding.SubCategoryItemBinding
 
-class SubCategoryAdapter(private var clickListener: (CategoryItem) -> Unit) : ListAdapter<CategoryItem, SubCategoryAdapter.MyViewHolder>(SubCategoryDiffCall) {
+class SubCategoryAdapter(private var clickListener: (CategoryItem) -> Unit) :
+    ListAdapter<CategoryItem, SubCategoryAdapter.MyViewHolder>(SubCategoryDiffCall) {
 
     inner class MyViewHolder(
         private val binding: SubCategoryItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun mBind(categoryItem: CategoryItem)=binding.apply {
+        @SuppressLint("SetTextI18n")
+        fun mBind(categoryItem: CategoryItem) = binding.apply {
             Glide.with(root)
                 .load(categoryItem.image.src)
+                .centerCrop()
                 .into(imgCategory)
-            tvCategoryName.text=categoryItem.name
-
+            tvCategoryName.text = categoryItem.name
+            count.text = "+ ${categoryItem.count}  "
             root.setOnClickListener {
                 clickListener(categoryItem)
             }

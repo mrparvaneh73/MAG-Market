@@ -18,16 +18,18 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentUserBinding.bind(view)
         init()
-//        viewModel.islight.observe(viewLifecycleOwner){
-//            if (it==true){
-//                binding.rbDark.isChecked=true
-//            }else{
-//                binding.rbLight.isChecked=true
-//            }
-//        }
+
+
     }
 
-   private fun init() = with(binding) {
+    private fun init() = with(binding) {
+        viewModel.islight.observe(viewLifecycleOwner) { islight ->
+            if (islight == true) {
+               rbLight.isChecked = true
+            }else if (islight==false){
+                rbDark.isChecked= true
+            }
+        }
         settingTheme.setOnCheckedChangeListener { radioGroup, checkedId ->
             val theme = when (checkedId) {
                 rbLight.id -> Theme.LIGHT

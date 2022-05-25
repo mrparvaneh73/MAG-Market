@@ -2,18 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/userFragment"
-        android:icon="@drawable/mymag"
-        android:title="@string/mymag" />
-    <item
-        android:icon="@drawable/card"
-        android:title="@string/bascket" />
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/home"
+        android:title="@string/home" />
     <item
         android:id="@+id/categoryFragment"
         android:icon="@drawable/categories"
         android:title="@string/category" />
     <item
-        android:id="@+id/homeFragment"
-        android:icon="@drawable/home"
-        android:title="@string/home" />
+        android:icon="@drawable/card"
+        android:title="@string/bascket" />
+    <item
+        android:id="@+id/userFragment"
+        android:icon="@drawable/mymag"
+        android:title="@string/mymag" />
 </menu>

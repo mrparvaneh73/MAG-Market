@@ -12,9 +12,9 @@ import com.example.magmarket.utils.Constants.FASHION_CLOTHING
 import com.example.magmarket.utils.Constants.SUPERMARKET
 import com.example.magmarket.utils.ResultWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -40,20 +40,40 @@ class CategoryViewModel @Inject constructor(private val categoryRepository: Cate
         getSubCategories()
     }
 
+
     fun getSubCategories() {
+
         viewModelScope.launch {
-            categoryRepository.getSubCategories(FASHION_CLOTHING).collect {
-                _fashionCategory.emit(it)
+            val fashionClothing = async {
+
+                categoryRepository.getSubCategories(FASHION_CLOTHING).collect {
+                    _fashionCategory.emit(it)
+                }
+
             }
-            categoryRepository.getSubCategories(DIGITAL).collect {
-                _digitalCategory.emit(it)
+            val digital = async {
+
+                categoryRepository.getSubCategories(DIGITAL).collect {
+                    _digitalCategory.emit(it)
+                }
+
             }
-            categoryRepository.getSubCategories(SUPERMARKET).collect {
-                _superMarketCategory.emit(it)
+            val supermarket = async {
+                categoryRepository.getSubCategories(SUPERMARKET).collect {
+                    _superMarketCategory.emit(it)
+                }
             }
-            categoryRepository.getSubCategories(ART).collect {
-                _artCategory.emit(it)
+
+
+            val art = async {
+                categoryRepository.getSubCategories(ART).collect {
+                    _artCategory.emit(it)
+                }
             }
+            fashionClothing.await()
+            digital.await()
+            supermarket.await()
+            art.await()
         }
     }
 }

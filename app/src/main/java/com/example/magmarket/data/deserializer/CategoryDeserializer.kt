@@ -1,4 +1,4 @@
-package com.example.magmarket.data.remote.deserializer
+package com.example.magmarket.data.deserializer
 
 import com.example.magmarket.data.model.*
 import com.google.gson.JsonDeserializationContext
@@ -21,12 +21,14 @@ class CategoryDeserializer : JsonDeserializer<List<CategoryItem>> {
                     val name = it.get("name").asString
                     val parent=it.get("parent").asInt
                     val imageobject = it.get("image").asJsonObject as Image
+                    val count=it.get("count").asInt
 
                     CategoryItem(
                         id = id,
                         name = name,
                         image = imageobject,
-                        parent = parent
+                        parent = parent,
+                        count = count
                     ).let { category -> categoryItem.add(category) }
 
                 }

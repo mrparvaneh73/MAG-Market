@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/background"
     android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_user"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/standardMargin2x"
         app:layout_constraintBottom_toTopOf="@id/card_setting"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +26,6 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="end"
-
                 android:layout_marginTop="16dp"
                 android:src="@drawable/user"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -83,13 +84,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="60dp"
-                    android:text="Light" />
+                    android:text="Light"
+                    android:textColor="@color/text"/>
 
                 <RadioButton
                     android:id="@+id/rb_dark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
+                    android:textColor="@color/text"
                     android:text="Dark" />
             </RadioGroup>
 

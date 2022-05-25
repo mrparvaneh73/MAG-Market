@@ -17,6 +17,7 @@ import com.example.magmarket.databinding.FragmentCategoryBinding
 import com.example.magmarket.utils.ResultWrapper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -50,6 +51,8 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
     }
 
     private fun collect() {
+
+
         viewModel.digitalCategory.collectIt(viewLifecycleOwner) {
             when (it) {
                 is ResultWrapper.Loading -> {
@@ -73,6 +76,8 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
                 }
             }
         }
+
+
         viewModel.fashionCategory.collectIt(viewLifecycleOwner) {
             when (it) {
                 is ResultWrapper.Loading -> {
@@ -96,6 +101,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
                 }
             }
         }
+
         viewModel.superMarketCategory.collectIt(viewLifecycleOwner) {
             when (it) {
                 is ResultWrapper.Loading -> {
@@ -119,6 +125,8 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
                 }
             }
         }
+
+
         viewModel.artCategory.collectIt(viewLifecycleOwner) {
             when (it) {
                 is ResultWrapper.Loading -> {
@@ -140,8 +148,11 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
                         viewModel.getSubCategories()
                     }
                 }
+
+
             }
         }
+
     }
 
     private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {

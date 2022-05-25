@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.magmarket.data.model.CategoryItem
 import com.example.magmarket.data.model.ProductItem
+import com.example.magmarket.data.model.ProductRecyclerViewItem
 import com.example.magmarket.data.repository.CategoryRepository
 import com.example.magmarket.utils.ResultWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +20,8 @@ class ProductsCategoryViewModel @Inject constructor(private val categoryReposito
         MutableStateFlow(ResultWrapper.Loading)
     val productofCategory = _productofCategory.asStateFlow()
 
+
+
     fun getProductofCategory(categoryId:Int){
         viewModelScope.launch {
             categoryRepository.getProductOfCategory(categoryId).collect{
@@ -27,4 +30,5 @@ class ProductsCategoryViewModel @Inject constructor(private val categoryReposito
         }
 
     }
+
 }

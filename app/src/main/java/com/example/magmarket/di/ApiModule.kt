@@ -2,9 +2,9 @@ package com.example.magmarket.di
 
 import com.example.magmarket.data.model.CategoryItem
 import com.example.magmarket.data.model.ProductItem
-import com.example.magmarket.data.remote.deserializer.CategoryDeserializer
+import com.example.magmarket.data.deserializer.CategoryDeserializer
 import com.example.magmarket.data.remote.network.MarketService
-import com.example.magmarket.data.remote.deserializer.ProductDeserializer
+import com.example.magmarket.data.deserializer.ProductDeserializer
 import com.example.magmarket.data.remote.network.RemoteDataSource
 import com.example.magmarket.utils.Constants
 import com.google.gson.Gson

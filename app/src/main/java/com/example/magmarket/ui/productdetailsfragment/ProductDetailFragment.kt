@@ -11,12 +11,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.example.magmarket.R
 import com.example.magmarket.adapters.SliderAdapter
 import com.example.magmarket.databinding.FragmentProductDetailBinding
 import com.example.magmarket.utils.ResultWrapper
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -27,39 +29,37 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     private val binding get() = _binding!!
     private val args by navArgs<ProductDetailFragmentArgs>()
     private val viewModel: ProductDetailsViewModel by viewModels()
- private   val adapter = SliderAdapter()
+    private val adapter = SliderAdapter()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProductDetailBinding.bind(view)
         init()
         collect()
 
-
-
-
     }
 
-    fun collect(){
+    fun collect() = with(binding) {
         viewModel.product.collectIt(viewLifecycleOwner) {
             when (it) {
                 is ResultWrapper.Loading -> {
-                    binding.stateView.onLoading()
-                    binding.scrollView3.isVisible=false
-                    binding.buttomBar.isVisible=false
+                    stateView.onLoading()
+                    scrollView3.isVisible = false
+                    buttomBar.isVisible = false
                 }
                 is ResultWrapper.Success -> {
-                    binding.tvProductName.text = it.value.name
-                    binding.tvProductDescription.text =HtmlCompat.fromHtml(it.value.description,HtmlCompat.FROM_HTML_MODE_LEGACY)
-                    binding.tvPrice.text = it.value.price
+                    tvProductName.text = it.value.name
+                    tvProductDescription.text =
+                        HtmlCompat.fromHtml(it.value.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
+                    tvPrice.text = it.value.price
                     adapter.submitList(it.value.images)
-                    binding.scrollView3.isVisible=true
-                    binding.buttomBar.isVisible=true
-                    binding.stateView.onSuccess()
-                    binding.stateView.onSuccess()
+                    scrollView3.isVisible = true
+                    buttomBar.isVisible = true
+                    stateView.onSuccess()
+                    stateView.onSuccess()
                 }
                 is ResultWrapper.Error -> {
-                    binding.stateView.onFail()
-                    binding.stateView.clickRequest {
+                    stateView.onFail()
+                    stateView.clickRequest {
                         viewModel.getProduct(args.id)
                     }
                     Toast.makeText(
@@ -72,7 +72,13 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         }
     }
 
-  private  fun init() {
+    private fun close()= with(binding) {
+imgClose.setOnClickListener {
+    findNavController().navigate(ProductDetailFragmentDirections.actionProductDetailFragmentToHomeFragment())
+}
+    }
+
+    private fun init() {
         viewModel.getProduct(args.id)
         binding.productSlider.adapter = adapter
         binding.productSlider.clipToPadding = false
@@ -80,7 +86,8 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         binding.productSlider.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         binding.springDotsIndicator.attachTo(binding.productSlider)
     }
-   private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
+
+    private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
         lifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 collect {
@@ -89,6 +96,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
             }
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

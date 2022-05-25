@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.magmarket.R
 import com.example.magmarket.adapters.ProductsOfCategoryAdapter
+import com.example.magmarket.adapters.ShowMoreAdapter
 import com.example.magmarket.databinding.FragmentProductsCategoryBinding
 import com.example.magmarket.utils.ResultWrapper
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,42 +42,49 @@ class ProductsCategoryFragment : Fragment(R.layout.fragment_products_category) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProductsCategoryBinding.bind(view)
+
+
+        collect()
+        init()
+    }
+    private fun init(){
+
         binding.productRecyclerviw.adapter = categoryProductAdapter
         viewModel.getProductofCategory(args.category)
 
-        viewModel.productofCategory.collectIt(viewLifecycleOwner){
-            when (it) {
-                is ResultWrapper.Loading -> {
-                    binding.mainviewgroup.isVisible = false
-                    binding.stateView.onLoading()
-                }
-                is ResultWrapper.Success -> {
-                    binding.mainviewgroup.isVisible = true
-                    categoryProductAdapter.submitList(it.value)
-                    Log.d("price", "onViewCreated: "+it.value[0].price)
-                    if (it.value.isNotEmpty()) {
-                        binding.stateView.onSuccess()
-                    } else {
-                        binding.stateView.onEmpty()
-                    }
-                }
-                is ResultWrapper.Error -> {
-                    binding.stateView.onFail()
-                    binding.stateView.clickRequest {
-                        viewModel.getProductofCategory(args.category)
-                    }
-
-                    Toast.makeText(
-                        requireActivity(),
-                        it.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        }
-
     }
+ private fun collect(){
+     viewModel.productofCategory.collectIt(viewLifecycleOwner) {
+         when (it) {
+             is ResultWrapper.Loading -> {
 
+                 binding.stateView.onLoading()
+             }
+             is ResultWrapper.Success -> {
+
+                 categoryProductAdapter.submitList(it.value)
+                 Log.d("price", "onViewCreated: " + it.value[0].price)
+                 if (it.value.isNotEmpty()) {
+                     binding.stateView.onSuccess()
+                 } else {
+                     binding.stateView.onEmpty()
+                 }
+             }
+             is ResultWrapper.Error -> {
+                 binding.stateView.onFail()
+                 binding.stateView.clickRequest {
+                     viewModel.getProductofCategory(args.category)
+                 }
+
+                 Toast.makeText(
+                     requireActivity(),
+                     it.message,
+                     Toast.LENGTH_SHORT
+                 ).show()
+             }
+         }
+     }
+ }
 
     private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
         lifecycleOwner.lifecycleScope.launch {
@@ -87,6 +95,7 @@ class ProductsCategoryFragment : Fragment(R.layout.fragment_products_category) {
             }
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

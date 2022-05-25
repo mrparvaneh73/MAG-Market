@@ -2,19 +2,25 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
     android:orientation="vertical">
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/parentsearchbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/background"
             app:layout_scrollFlags="noScroll">
 
             <include
@@ -44,8 +50,8 @@
                 android:layout_margin="@dimen/standardMargin2x"
                 android:gravity="start"
                 android:text="@string/digital"
-                android:textColor="@color/black"
-                android:textSize="@dimen/TextSize6x"
+                android:textColor="@color/text"
+                android:textSize="@dimen/TextSize5x"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -74,8 +80,8 @@
                 android:layout_margin="@dimen/standardMargin2x"
                 android:gravity="start"
                 android:text="@string/fashion"
-                android:textColor="@color/black"
-                android:textSize="@dimen/TextSize6x"
+                android:textColor="@color/text"
+                android:textSize="@dimen/TextSize5x"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -92,7 +98,7 @@
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvfashion"
                 tools:listitem="@layout/product_item" />
@@ -104,8 +110,8 @@
                 android:layout_margin="@dimen/standardMargin2x"
                 android:gravity="start"
                 android:text="@string/supermarket"
-                android:textColor="@color/black"
-                android:textSize="@dimen/TextSize6x"
+                android:textColor="@color/text"
+                android:textSize="@dimen/TextSize5x"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -134,8 +140,8 @@
                 android:layout_margin="@dimen/standardMargin2x"
                 android:gravity="start"
                 android:text="@string/art"
-                android:textColor="@color/black"
-                android:textSize="@dimen/TextSize6x"
+                android:textColor="@color/text"
+                android:textSize="@dimen/TextSize5x"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

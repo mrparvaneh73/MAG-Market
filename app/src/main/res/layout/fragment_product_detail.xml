@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/background"
     android:descendantFocusability="blocksDescendants">
 
     <ScrollView
@@ -17,10 +17,68 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/img_favorite"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.125"
+                    app:layout_constraintStart_toEndOf="@+id/img_more"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/favorite" />
+
+                <ImageView
+                    android:id="@+id/img_more"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_favorite"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/img_favorite"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/more" />
+
+                <ImageView
+                    android:id="@+id/img_cart"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="48dp"
+                    app:layout_constraintStart_toEndOf="@+id/img_favorite"
+                    app:layout_constraintTop_toTopOf="@+id/img_favorite"
+                    app:srcCompat="@drawable/toolbar_cart" />
+
+                <ImageView
+                    android:id="@+id/img_close"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="44dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_cart"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0"
+                    app:srcCompat="@drawable/close" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
@@ -28,6 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 app:cardCornerRadius="6dp"
+                android:background="@color/background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -35,11 +94,13 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/background"
                     android:orientation="vertical">
 
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/product_slider"
                         android:layout_width="match_parent"
+                        android:background="@color/background"
                         android:layout_height="300dp" />
 
                     <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
@@ -47,7 +108,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        app:dotsColor="@color/blue"
+                        app:dotsColor="@color/red"
                         app:dotsCornerRadius="8dp"
                         app:dotsSize="8dp"
                         app:dotsSpacing="4dp"
@@ -60,7 +121,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
-                        android:textColor="#000000"
+                        android:textColor="@color/text"
                         android:textSize="@dimen/TextSize4x"
                         tools:text="تلوزیون ال جی 56 اینچ" />
                 </LinearLayout>
@@ -72,7 +133,7 @@
                 android:id="@+id/cardView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/standardMargin1.5x"
+                android:layout_margin="16dp"
                 app:cardCornerRadius="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -81,6 +142,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/background"
                     android:orientation="vertical">
 
                     <TextView
@@ -90,7 +152,7 @@
                         android:layout_margin="@dimen/standardMargin1.5x"
 
                         android:text="@string/product_feature"
-                        android:textColor="#000000"
+                        android:textColor="@color/text"
                         android:textSize="@dimen/TextSize5x"
                         android:textStyle="bold" />
 
@@ -102,7 +164,7 @@
                         android:layout_marginEnd="@dimen/standardMargin1.5x"
                         android:layout_marginBottom="@dimen/standardMargin1.5x"
                         android:maxLines="20"
-                        android:textColor="#000000"
+                        android:textColor="@color/text"
                         android:textSize="@dimen/TextSize4x"
                         tools:text="توضیحات درباره محصول" />
                 </LinearLayout>
@@ -118,7 +180,7 @@
         android:id="@+id/detail_card"
         android:layout_width="415dp"
         android:layout_height="77dp"
-        app:cardBackgroundColor="#F3F6F6"
+        android:background="@color/background"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
         app:cardPreventCornerOverlap="false"
@@ -127,11 +189,11 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/buttom_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:background="@color/background">
 
             <TextView
                 android:id="@+id/textView4"
@@ -141,32 +203,48 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/unit_of_currency"
-                android:textColor="#000000"
+                android:textColor="@color/text"
                 android:textSize="12sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_price"
+                app:layout_constraintHorizontal_bias="0.684"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.508" />
 
             <TextView
                 android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginEnd="88dp"
                 android:layout_weight="3"
                 android:gravity="start"
-                android:textColor="#000000"
+                android:textColor="@color/text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/button_add_to_basket"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.482"
                 tools:text="1500000 " />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_add_to_basket"
-                android:layout_width="80dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginEnd="@dimen/standardMargin5x"
+                android:layout_marginEnd="56dp"
                 android:layout_weight="3"
-                android:background="@drawable/button"
+                android:backgroundTint="@color/button"
                 android:text="@string/add_to_bascket"
-                android:textColor="#FFFFFF"
-                android:textSize="@dimen/TextSize4x" />
-        </LinearLayout>
+                android:textColor="@color/text"
+                android:textSize="@dimen/TextSize4x"
+                app:cornerRadius="@dimen/standardMargin3x"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.551" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
     <com.example.magmarket.customview.StateView
