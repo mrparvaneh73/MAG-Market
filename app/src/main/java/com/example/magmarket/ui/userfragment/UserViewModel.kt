@@ -21,8 +21,8 @@ class UserViewModel @Inject constructor(private val settingDataStore: SettingDat
         viewModelScope.launch {
             settingDataStore.updateTheme(theme)
         }
-
     }
+
     init {
         check()
     }
@@ -31,10 +31,10 @@ class UserViewModel @Inject constructor(private val settingDataStore: SettingDat
         viewModelScope.launch {
             settingDataStore.preferences.collect {
                 val mode = it.theme.mode
-                if (mode==2) {
-                    _islight.value=false
-                }else if (mode==1){
-                    _islight.value=true
+                if (mode == 2) {
+                    _islight.value = false
+                } else if (mode == 1) {
+                    _islight.value = true
                 }
             }
 

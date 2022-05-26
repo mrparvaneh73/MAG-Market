@@ -43,7 +43,7 @@ class ProductsCategoryFragment : Fragment(R.layout.fragment_products_category) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProductsCategoryBinding.bind(view)
-
+        Log.d("idfroosh", "onViewCreated: "+args.category)
         backPressed()
         collect()
         init()

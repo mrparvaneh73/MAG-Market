@@ -24,7 +24,12 @@ class ProductsOfCategoryAdapter(private var clickListener: (ProductItem) -> Unit
                 .load(productItem.images[0].src)
                 .into(productImage)
             productName.text = productItem.name
-            productPrice.text = nf.format(productItem.price.toInt())
+            if (productItem.price!= ""){
+                productPrice.text = nf.format(productItem.price.toInt())
+            }else {
+                productPrice.text="بدون قیمت"
+            }
+
 
             root.setOnClickListener {
                 clickListener(productItem)

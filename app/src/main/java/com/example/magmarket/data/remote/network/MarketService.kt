@@ -39,8 +39,7 @@ interface MarketService {
     @GET("products")
     suspend fun getProductOfCategory(
         @Query("category") categoryId:Int,
-        @QueryMap tokens: Map<String, String> = BASE_PARAM,
-        @Query ("page") page: Int=1
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
 
     ): Response<List<ProductItem>>
 }
