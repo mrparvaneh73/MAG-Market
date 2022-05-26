@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
 import com.example.magmarket.R
 import com.example.magmarket.adapters.ProductsOfCategoryAdapter
 import com.example.magmarket.adapters.ShowMoreAdapter
@@ -43,48 +44,46 @@ class ProductsCategoryFragment : Fragment(R.layout.fragment_products_category) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProductsCategoryBinding.bind(view)
 
-
+        backPressed()
         collect()
         init()
     }
-    private fun init(){
 
-        binding.productRecyclerviw.adapter = categoryProductAdapter
+    private fun init() = with(binding) {
+        searchbox.imgsearch.setImageResource(R.drawable.back)
+        categoryProductAdapter.stateRestorationPolicy=RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        productRecyclerviw.adapter = categoryProductAdapter
         viewModel.getProductofCategory(args.category)
 
     }
- private fun collect(){
-     viewModel.productofCategory.collectIt(viewLifecycleOwner) {
-         when (it) {
-             is ResultWrapper.Loading -> {
 
-                 binding.stateView.onLoading()
-             }
-             is ResultWrapper.Success -> {
+    private fun collect() {
+        viewModel.productofCategory.collectIt(viewLifecycleOwner) {
+            when (it) {
+                is ResultWrapper.Loading -> {
 
-                 categoryProductAdapter.submitList(it.value)
-                 Log.d("price", "onViewCreated: " + it.value[0].price)
-                 if (it.value.isNotEmpty()) {
-                     binding.stateView.onSuccess()
-                 } else {
-                     binding.stateView.onEmpty()
-                 }
-             }
-             is ResultWrapper.Error -> {
-                 binding.stateView.onFail()
-                 binding.stateView.clickRequest {
-                     viewModel.getProductofCategory(args.category)
-                 }
+                    binding.stateView.onLoading()
+                }
+                is ResultWrapper.Success -> {
 
-                 Toast.makeText(
-                     requireActivity(),
-                     it.message,
-                     Toast.LENGTH_SHORT
-                 ).show()
-             }
-         }
-     }
- }
+                    categoryProductAdapter.submitList(it.value)
+
+                    if (it.value.isNotEmpty()) {
+                        binding.stateView.onSuccess()
+                    } else {
+                        binding.stateView.onEmpty()
+                    }
+                }
+                is ResultWrapper.Error -> {
+                    binding.stateView.onFail()
+                    binding.stateView.clickRequest {
+                        viewModel.getProductofCategory(args.category)
+                    }
+
+                }
+            }
+        }
+    }
 
     private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
         lifecycleOwner.lifecycleScope.launch {
@@ -95,7 +94,11 @@ class ProductsCategoryFragment : Fragment(R.layout.fragment_products_category) {
             }
         }
     }
-
+private fun backPressed(){
+    binding.searchbox.imgsearch.setOnClickListener {
+        requireActivity().onBackPressed()
+    }
+}
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

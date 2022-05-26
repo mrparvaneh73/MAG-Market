@@ -2,7 +2,6 @@ package com.example.magmarket.ui.homefragment
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -26,6 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
+
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private var _binding: FragmentHomeBinding? = null
@@ -36,7 +36,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         findNavController().navigate(
             HomeFragmentDirections.actionHomeFragmentToProductsCategoryFragment(
                 categoryItem.id
-           )
+            )
         )
     })
 
@@ -54,14 +54,28 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         collect()
         clickListener()
 
+
     }
 
     private fun init() {
+        newestAdapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        categoryAdapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        bestAdapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        mostViewAdapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         binding.newestRecyclerview.adapter = newestAdapter
         binding.categoryRecyclerview.adapter = categoryAdapter
         binding.bestSellerRecyclerview.adapter = bestAdapter
         binding.mostViewrecyclerview.adapter = mostViewAdapter
-        val images = arrayListOf(R.drawable.shopingimg, R.drawable.watches, R.drawable.phones)
+        val images = arrayListOf(
+            R.drawable.onlinbuying,
+            R.drawable.shopingimg,
+            R.drawable.watches,
+            R.drawable.phones
+        )
         val sliderAdapter = HomePagerAdapter(images)
         binding.productSlider.adapter = sliderAdapter
         binding.productSlider.clipToPadding = false
@@ -72,9 +86,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun clickListener() {
 
-        adapterClickListener(bestAdapter, BEST_PRODUCT,"بهترین محصولات")
-        adapterClickListener(newestAdapter, NEWEST_PRODUCT,"جدیدترین محصولات")
-        adapterClickListener(mostViewAdapter, MOSTVIEW_PRODUCT,"پربازدیدترین محصولات")
+        adapterClickListener(bestAdapter, BEST_PRODUCT, "بهترین محصولات")
+        adapterClickListener(newestAdapter, NEWEST_PRODUCT, "جدیدترین محصولات")
+        adapterClickListener(mostViewAdapter, MOSTVIEW_PRODUCT, "پربازدیدترین محصولات")
     }
 
     private fun collectCategory() {
@@ -95,11 +109,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         viewModel.getAllProducts()
                     }
 
-                    Toast.makeText(
-                        requireActivity(),
-                        it.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
             }
         }
@@ -115,7 +124,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
                 is ResultWrapper.Success -> {
                     val bestItem = mutableListOf<ProductRecyclerViewItem>()
-                    bestItem.add(ProductRecyclerViewItem.HeaderProductTitle(title = R.drawable.best))
+                    bestItem.add(ProductRecyclerViewItem.HeaderProductTitle(title = R.drawable.bestproduct))
                     bestItem.addAll(it.value)
                     bestItem.add(ProductRecyclerViewItem.ShowAll(title = "مشاهده همه "))
                     bestAdapter.items = bestItem
@@ -132,11 +141,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         viewModel.getAllProducts()
                     }
 
-                    Toast.makeText(
-                        requireActivity(),
-                        it.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
             }
         }
@@ -148,7 +152,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
                 is ResultWrapper.Success -> {
                     val newestItem = mutableListOf<ProductRecyclerViewItem>()
-                    newestItem.add(ProductRecyclerViewItem.HeaderProductTitle(title = R.drawable.newicon))
+                    newestItem.add(ProductRecyclerViewItem.HeaderProductTitle(title = R.drawable.newproduct))
                     newestItem.addAll(it.value)
                     newestItem.add(ProductRecyclerViewItem.ShowAll(title = "مشاهده همه "))
                     newestAdapter.items = newestItem
@@ -165,11 +169,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         viewModel.getAllProducts()
                     }
 
-                    Toast.makeText(
-                        requireActivity(),
-                        it.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
             }
         }
@@ -182,7 +181,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
                 is ResultWrapper.Success -> {
                     val mostViewItem = mutableListOf<ProductRecyclerViewItem>()
-                    mostViewItem.add(ProductRecyclerViewItem.HeaderProductTitle(title = R.drawable.most))
+
+                    mostViewItem.add(ProductRecyclerViewItem.HeaderProductTitle(title = R.drawable.mostwatched))
                     mostViewItem.addAll(it.value)
                     mostViewItem.add(ProductRecyclerViewItem.ShowAll(title = "مشاهده همه "))
                     mostViewAdapter.items = mostViewItem
@@ -200,11 +200,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         viewModel.getAllProducts()
                     }
 
-                    Toast.makeText(
-                        requireActivity(),
-                        it.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
             }
         }
@@ -225,7 +220,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         _binding = null
     }
 
-    private fun adapterClickListener(adapter: ProductRecyclerviewAdapter,orderBy:String,orderByName:String) {
+    private fun adapterClickListener(
+        adapter: ProductRecyclerviewAdapter,
+        orderBy: String,
+        orderByName: String
+    ) {
         adapter.itemClickListener = { _, item, _ ->
             when (item) {
                 is ProductRecyclerViewItem.HeaderProductTitle -> {
@@ -241,7 +240,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 is ProductRecyclerViewItem.ShowAll -> {
                     findNavController().navigate(
                         HomeFragmentDirections.actionHomeFragmentToShowMoreFragment(
-                            orderBy,orderByName
+                            orderBy, orderByName
                         )
                     )
                 }
@@ -249,5 +248,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         }
     }
+
 
 }

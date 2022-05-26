@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="100dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="@dimen/standardMargin"
-    android:backgroundTint="@color/whiteBackground"
-    app:cardElevation="@dimen/standardMargin"
-    android:layout_marginHorizontal="@dimen/standardMargin0.5x"
     android:layout_height="170dp"
-    android:layout_margin="@dimen/standardMargin2x">
+    android:layout_margin="@dimen/standardMargin2x"
+    android:layout_marginHorizontal="@dimen/standardMargin0.5x"
+    android:backgroundTint="@color/whiteBackground"
+    app:cardCornerRadius="@dimen/standardMargin"
+    app:cardElevation="@dimen/standardMargin">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@color/background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background">
 
         <ImageView
             android:id="@+id/img_product"
@@ -22,7 +22,8 @@
             android:layout_margin="@dimen/standardMargin"
             android:layout_weight="60"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
+
+            android:scaleType="fitCenter"
             android:src="@drawable/sample"
             app:layout_constraintBottom_toTopOf="@+id/tvnameproduct"
             app:layout_constraintEnd_toEndOf="parent"
@@ -38,9 +39,10 @@
             android:layout_marginBottom="8dp"
             android:layout_weight="10"
             android:gravity="center"
-
+android:fontFamily="@font/far_mitra"
             android:textColor="@color/text"
-            android:textSize="@dimen/TextSize2x"
+            android:textSize="@dimen/TextSize3x"
+            android:maxLines="2"
             app:layout_constraintBottom_toTopOf="@id/tvpriceproduct"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,18 +52,17 @@
             android:id="@+id/tvpriceproduct"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginBottom="@dimen/standardMargin0.5x"
-            android:layout_weight="10"
-            android:gravity="center"
-
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/far_mitra"
             android:textColor="@color/text"
-            android:textSize="@dimen/TextSize2x"
+            android:textSize="@dimen/TextSize4x"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-
             app:layout_constraintStart_toEndOf="@+id/tvunit"
-            tools:ignore="SpUsage" />
+            app:layout_constraintTop_toTopOf="@+id/tvunit"
+            app:layout_constraintVertical_bias="0.0" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvunit"
@@ -69,13 +70,14 @@
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/standardMargin0.5x"
             android:layout_weight="10"
-
+            android:fontFamily="@font/boostan"
+            android:gravity="center"
             android:text="@string/unit_of_currency"
             android:textColor="@color/text"
-            android:textSize="@dimen/TextSize2x"
+            android:textSize="@dimen/TextSize4x"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.38"
+            app:layout_constraintHorizontal_bias="0.197"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="SpUsage" />
 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:background="@color/background"
+    >
+
+    <ImageView
+        android:id="@+id/closeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="@dimen/standardMargin7x"
+        android:src="@drawable/close"
+        android:contentDescription="@string/close"/>
+
+    <ImageView
+        android:id="@+id/moreButton"
+        android:layout_width="wrap_content"
+        android:src="@drawable/more"
+        android:layout_marginStart="@dimen/standardMargin"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/show_more_option"/>
+
+    <ImageView
+        android:id="@+id/likeButton"
+        android:layout_width="wrap_content"
+        android:src="@drawable/favorite"
+        android:layout_marginHorizontal="@dimen/standardMargin6x"
+        android:layout_toEndOf="@+id/moreButton"
+        android:layout_height="match_parent"
+        android:contentDescription="favorite"
+        />
+
+    <ImageView
+        android:id="@+id/cartImageView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/likeButton"
+        android:padding="8dp"
+        android:src="@drawable/toolbar_cart"
+        android:contentDescription="@string/add_to_bascket"/>
+
+</RelativeLayout>

@@ -22,7 +22,6 @@ class ConnectivityStatus(context: Context) : LiveData<Boolean>() {
             super.onLost(network)
             postValue(false)
         }
-
         override fun onUnavailable() {
             super.onUnavailable()
             postValue(false)
@@ -40,8 +39,8 @@ class ConnectivityStatus(context: Context) : LiveData<Boolean>() {
         }
 
         val requestBuilder = NetworkRequest.Builder().apply {
-            addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-            addCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
+//            addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+//            addCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
             addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
             addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
             addTransportType(NetworkCapabilities.TRANSPORT_ETHERNET)

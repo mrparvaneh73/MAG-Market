@@ -9,15 +9,14 @@
 
     <ScrollView
         android:id="@+id/scrollView3"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="2dp"
+        android:background="@color/background"
         app:layout_constraintBottom_toTopOf="@+id/detail_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-
 
 
         <LinearLayout
@@ -25,59 +24,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/img_favorite"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.125"
-                    app:layout_constraintStart_toEndOf="@+id/img_more"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/favorite" />
 
-                <ImageView
-                    android:id="@+id/img_more"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="16dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/img_favorite"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/img_favorite"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:srcCompat="@drawable/more" />
-
-                <ImageView
-                    android:id="@+id/img_cart"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="48dp"
-                    app:layout_constraintStart_toEndOf="@+id/img_favorite"
-                    app:layout_constraintTop_toTopOf="@+id/img_favorite"
-                    app:srcCompat="@drawable/toolbar_cart" />
-
-                <ImageView
-                    android:id="@+id/img_close"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginEnd="44dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/img_cart"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0"
-                    app:srcCompat="@drawable/close" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-
-
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/details_toolbar" />
 
 
             <androidx.cardview.widget.CardView
@@ -85,8 +35,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                app:cardCornerRadius="6dp"
                 android:background="@color/background"
+                app:cardCornerRadius="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -100,8 +50,8 @@
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/product_slider"
                         android:layout_width="match_parent"
-                        android:background="@color/background"
-                        android:layout_height="300dp" />
+                        android:layout_height="300dp"
+                        android:background="@color/background" />
 
                     <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
                         android:id="@+id/spring_dots_indicator"
@@ -121,6 +71,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
+                        android:fontFamily="@font/far_mitra"
                         android:textColor="@color/text"
                         android:textSize="@dimen/TextSize4x"
                         tools:text="تلوزیون ال جی 56 اینچ" />
@@ -150,7 +101,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/standardMargin1.5x"
-
+                        android:fontFamily="@font/farkhondeh"
                         android:text="@string/product_feature"
                         android:textColor="@color/text"
                         android:textSize="@dimen/TextSize5x"
@@ -163,11 +114,74 @@
                         android:layout_marginStart="@dimen/standardMargin1.5x"
                         android:layout_marginEnd="@dimen/standardMargin1.5x"
                         android:layout_marginBottom="@dimen/standardMargin1.5x"
+                        android:fontFamily="@font/far_mitra"
                         android:maxLines="20"
                         android:textColor="@color/text"
                         android:textSize="@dimen/TextSize4x"
                         tools:text="توضیحات درباره محصول" />
                 </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@color/background"
+                app:cardCornerRadius="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/background">
+
+                    <TextView
+                        android:id="@+id/tv_delivery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/standardMargin1.5x"
+                        android:fontFamily="@font/farkhondeh"
+                        android:text="@string/free_delivery"
+                        android:textColor="@color/text"
+                        android:textSize="@dimen/TextSize4x"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_free_description"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_free_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/free_desc"
+                        android:textColor="@color/text"
+                        android:fontFamily="@font/far_mitra"
+                        android:textSize="@dimen/TextSize4x"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.927"
+                        app:layout_constraintStart_toEndOf="@+id/img_free"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_delivery"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <ImageView
+                        android:id="@+id/img_free"
+                        android:layout_width="115dp"
+                        android:layout_height="58dp"
+                        android:contentDescription="@string/free_delivery"
+                        android:src="@drawable/freedelivery"
+                        app:layout_constraintBottom_toBottomOf="parent"
+
+                        app:layout_constraintHorizontal_bias="0.036"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             </androidx.cardview.widget.CardView>
@@ -178,7 +192,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/detail_card"
-        android:layout_width="415dp"
+        android:layout_width="match_parent"
         android:layout_height="77dp"
         android:background="@color/background"
         app:cardCornerRadius="8dp"
@@ -200,18 +214,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginStart="@dimen/TextSize2x"
                 android:layout_weight="1"
+                android:fontFamily="@font/boostan"
                 android:gravity="center"
                 android:text="@string/unit_of_currency"
                 android:textColor="@color/text"
-                android:textSize="12sp"
-                android:textStyle="bold"
+                android:textSize="@dimen/TextSize7x"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_price"
-                app:layout_constraintHorizontal_bias="0.684"
+                app:layout_constraintHorizontal_bias="0.67"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.508" />
+                app:layout_constraintVertical_bias="0.51" />
 
             <TextView
                 android:id="@+id/tv_price"
@@ -220,8 +236,10 @@
                 android:layout_gravity="center"
                 android:layout_marginEnd="88dp"
                 android:layout_weight="3"
+                android:fontFamily="@font/far_mitra"
                 android:gravity="start"
                 android:textColor="@color/text"
+                android:textSize="@dimen/TextSize5x"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/button_add_to_basket"
                 app:layout_constraintTop_toTopOf="parent"
@@ -233,9 +251,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginEnd="56dp"
-                android:layout_weight="3"
+                android:layout_marginEnd="28dp"
                 android:backgroundTint="@color/button"
+                android:fontFamily="@font/far_mitra"
                 android:text="@string/add_to_bascket"
                 android:textColor="@color/text"
                 android:textSize="@dimen/TextSize4x"
@@ -243,7 +261,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.551" />
+                app:layout_constraintVertical_bias="0.482" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

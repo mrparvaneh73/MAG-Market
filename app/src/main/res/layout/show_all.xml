@@ -19,12 +19,12 @@
 
         <ImageView
             android:id="@+id/img_product"
-            android:layout_width="50dp"
+            android:layout_width="66dp"
             android:layout_height="50dp"
+            android:layout_gravity="center"
             android:layout_weight="60"
             android:adjustViewBounds="true"
-          android:layout_gravity="center"
-            android:src="@drawable/arrow_show_all"
+            android:src="@drawable/showmore"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -34,6 +34,7 @@
             android:layout_weight="10"
             android:gravity="center"
             android:text="@string/show_all"
+            android:fontFamily="@font/farkhondeh"
             android:layout_marginBottom="@dimen/standardMargin3x"
             android:textColor="@color/text"
             android:textSize="@dimen/TextSize4x"

@@ -22,7 +22,6 @@ class SubCategoryAdapter(private var clickListener: (CategoryItem) -> Unit) :
         fun mBind(categoryItem: CategoryItem) = binding.apply {
             Glide.with(root)
                 .load(categoryItem.image.src)
-                .centerCrop()
                 .into(imgCategory)
             tvCategoryName.text = categoryItem.name
             count.text = "+ ${categoryItem.count}  "

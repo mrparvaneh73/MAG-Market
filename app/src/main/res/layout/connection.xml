@@ -49,10 +49,11 @@
             app:layout_constraintTop_toBottomOf="@id/tv_notconnect" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_tryagain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/standardMargin4x"
-            android:text="TRY AGIAN"
+            android:text="@string/tryagain"
             android:textColor="@color/black"
             app:cornerRadius="@dimen/standardMargin6x"
             app:layout_constraintEnd_toEndOf="@id/connection"

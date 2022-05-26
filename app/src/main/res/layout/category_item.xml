@@ -17,7 +17,7 @@
         app:cardCornerRadius="@dimen/standardMargin2x">
 
         <ImageView
-            android:background="@drawable/red"
+            android:background="@drawable/supcategorybackground"
             android:id="@+id/category_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

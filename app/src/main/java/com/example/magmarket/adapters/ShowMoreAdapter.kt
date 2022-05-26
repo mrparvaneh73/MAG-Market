@@ -10,10 +10,12 @@ import com.bumptech.glide.Glide
 import com.example.magmarket.data.model.ProductItem
 import com.example.magmarket.data.model.ProductRecyclerViewItem
 import com.example.magmarket.databinding.ItemsSubCategoryBinding
+import java.text.NumberFormat
+import java.util.*
 
 class ShowMoreAdapter(private var clickListener: (ProductRecyclerViewItem.ProductItem) -> Unit) :
     ListAdapter<ProductRecyclerViewItem.ProductItem, ShowMoreAdapter.MyViewHolder>(ShowMoreOfCategoryDiffCall) {
-
+    val nf: NumberFormat = NumberFormat.getInstance(Locale.US)
     inner class MyViewHolder(
         private val binding: ItemsSubCategoryBinding
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -23,7 +25,7 @@ class ShowMoreAdapter(private var clickListener: (ProductRecyclerViewItem.Produc
                 .load(productItem.images[0].src)
                 .into(productImage)
             productName.text = productItem.name
-            productPrice.text = productItem.price
+            productPrice.text = nf.format(productItem.price.toInt())
 
             root.setOnClickListener {
                 clickListener(productItem)

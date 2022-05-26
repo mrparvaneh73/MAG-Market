@@ -2,13 +2,13 @@
     <string name="app_name">MAG</string>
     <string name="bascket">سبدخرید</string>
     <string name="home">خانه</string>
-    <string name="mymag">ماگ من</string>
+    <string name="mymag">مگ من</string>
     <string name="category"> دسته بندی ها</string>
     <string name="add_to_bascket">افزودن به سبد خرید</string>
     <string name="unit_of_currency">تومان</string>
     <string name="product_feature">ویژگی های محصول</string>
     <string name="show_all">مشاهده همه</string>
-    <string name="mymarket">ماگ مارکت</string>
+    <string name="mymarket">مگ مارکت</string>
     <string name="searching">جستجو در</string>
     <string name="product">کالا</string>
     <string name="digital">کالای دیجیتال</string>
@@ -17,6 +17,14 @@
     <string name="art">کتاب،لوازم تحریر و هنر</string>
     <string name="poster">پوستر</string>
     <string name="productimage">عکس محصول</string>
+    <string name="free_delivery">ارسال رایگان</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+<string name="tryagain">TRY AGAIN</string>
+    <string name="free_desc">برای سفارش بالای 500 هزارتومان</string>
+    <string name="close">بستن صفحه</string>
+    <string name="show_more_option">ویژگی های بیشتر</string>
+    <string name="favorite">موردعلاقه</string>
     <string name="connection_describtion">You are not connected to the internet.
 Make sure Wi-Fi is on,Airplane Mode is off and try again</string>
     <string name="connection">

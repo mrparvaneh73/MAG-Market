@@ -15,7 +15,7 @@ class SliderAdapter :
     inner class SliderViewHolder(var binding: SliderItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(productImage: ProductImage) = binding.apply {
-           Glide.with(root).load(productImage.src).centerCrop().into(productImg)
+           Glide.with(root).load(productImage.src).into(productImg)
 
         }
     }

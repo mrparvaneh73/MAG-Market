@@ -6,70 +6,74 @@
     app:cardCornerRadius="@dimen/standardMargin"
     android:background="@color/itembackground"
     app:cardElevation="@dimen/standardMargin"
-    android:layout_marginHorizontal="@dimen/standardMargin0.5x"
     android:layout_height="170dp"
-    android:layout_margin="16dp">
+    android:layout_margin="@dimen/standardMargin2x">
 
-    <LinearLayout
-        android:background="@color/background"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/img_category"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/standardMargin"
+        android:layout_weight="60"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:background="@drawable/supcategorybackground"
+        android:src="@drawable/sample"
+        app:layout_constraintBottom_toTopOf="@+id/tv_category_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
-        <ImageView
-            android:id="@+id/img_category"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="@dimen/standardMargin"
-            android:layout_weight="60"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/sample"
-            tools:ignore="ContentDescription" />
+    <TextView
+        android:id="@+id/tv_category_name"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:fontFamily="@font/farkhondeh"
+        android:gravity="center"
+        android:textColor="@color/text"
+        android:textSize="@dimen/TextSize2x"
+        app:layout_constraintBottom_toTopOf="@+id/materialTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SpUsage" />
 
-        <TextView
-            android:id="@+id/tv_category_name"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="10"
-            android:gravity="center"
-            android:text="مو بایل"
-            android:layout_marginBottom="4dp"
-            android:textColor="@color/text"
-            android:textSize="@dimen/TextSize2x"
-            tools:ignore="SpUsage" />
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="10dp"
-    android:layout_gravity="center"
-    android:layout_marginBottom="@dimen/standardMargin1.5x"
-    android:orientation="horizontal">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/count"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/standardMargin0.5x"
-        android:textColor="@color/text"
-        android:textSize="@dimen/TextSize2x"
-        tools:ignore="SpUsage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/far_mitra"
         android:gravity="center"
-       />
+        android:textColor="@color/text"
+        android:textSize="@dimen/TextSize4x"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.226"
+        app:layout_constraintStart_toEndOf="@+id/materialTextView"
+        app:layout_constraintTop_toTopOf="@+id/materialTextView"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="SpUsage" />
+
     <com.google.android.material.textview.MaterialTextView
 
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/standardMargin0.5x"
+        android:id="@+id/materialTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/farkhondeh"
         android:gravity="center"
         android:text="@string/product"
         android:textColor="@color/text"
-        android:textSize="@dimen/TextSize2x"
-        tools:ignore="SpUsage" />
+        android:textSize="@dimen/TextSize3x"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.345"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</LinearLayout>
-
-
-    </LinearLayout>
-
+</androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

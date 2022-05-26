@@ -16,7 +16,7 @@
             android:layout_margin="@dimen/standardMargin"
             android:layout_weight="60"
             android:adjustViewBounds="true"
-            android:src="@drawable/newicon"
+            android:src="@drawable/newesttitle"
             tools:ignore="ContentDescription" />
 
 

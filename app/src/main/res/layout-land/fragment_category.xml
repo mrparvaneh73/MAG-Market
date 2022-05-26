@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/parentsearchbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background"
+            app:layout_scrollFlags="noScroll">
+
+            <include
+                android:id="@+id/searchLinear"
+                layout="@layout/search_box" />
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/parentsearchbox">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvdigital"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/standardMargin2x"
+                android:gravity="start"
+                android:text="@string/digital"
+                android:fontFamily="@font/farkhondeh"
+                android:textColor="@color/text"
+                android:textSize="@dimen/TextSize5x"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/digitalRecyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/standardMargin2x"
+                android:layout_marginTop="@dimen/standardMargin6x"
+                android:layout_marginEnd="@dimen/standardMargin2x"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvdigital"
+                tools:listitem="@layout/product_item" />
+
+            <View
+                android:id="@+id/SplitLine_hor1"
+                android:layout_width="650dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/standardMargin2x"
+                android:layout_marginBottom="@dimen/standardMargin6x"
+                android:background="@color/text"
+                app:layout_constraintBottom_toTopOf="@id/tvfashion"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/digitalRecyclerview"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvfashion"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/standardMargin4x"
+                android:gravity="start"
+                android:fontFamily="@font/farkhondeh"
+                android:text="@string/fashion"
+                android:textColor="@color/text"
+                android:textSize="@dimen/TextSize5x"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/digitalRecyclerview" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fashionRecyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/standardMargin2x"
+                android:layout_marginTop="@dimen/standardMargin6x"
+                android:layout_marginEnd="@dimen/standardMargin2x"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvfashion"
+                tools:listitem="@layout/product_item" />
+
+            <View
+                android:id="@+id/SplitLine_hor2"
+                android:layout_width="650dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/standardMargin2x"
+                android:layout_marginBottom="@dimen/standardMargin3x"
+                android:background="@color/text"
+                app:layout_constraintBottom_toTopOf="@id/tvsupermarket"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fashionRecyclerview"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvsupermarket"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/standardMargin4x"
+                android:gravity="start"
+                android:text="@string/supermarket"
+                android:textColor="@color/text"
+                android:textSize="@dimen/TextSize5x"
+                android:fontFamily="@font/farkhondeh"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fashionRecyclerview" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/supermarketRecyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/standardMargin2x"
+                android:layout_marginTop="@dimen/standardMargin6x"
+                android:layout_marginEnd="@dimen/standardMargin2x"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvsupermarket"
+                tools:listitem="@layout/product_item" />
+
+            <View
+                android:id="@+id/SplitLine_hor3"
+                android:layout_width="650dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/standardMargin2x"
+                android:layout_marginBottom="@dimen/standardMargin3x"
+                android:background="@color/text"
+                app:layout_constraintBottom_toTopOf="@id/tvArt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/supermarketRecyclerview"
+                app:layout_constraintVertical_bias="0.0" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvArt"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/standardMargin4x"
+                android:gravity="start"
+                android:text="@string/art"
+                android:textColor="@color/text"
+                android:textSize="@dimen/TextSize5x"
+                android:fontFamily="@font/farkhondeh"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/supermarketRecyclerview" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/artRecyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/standardMargin2x"
+                android:layout_marginTop="@dimen/standardMargin6x"
+                android:layout_marginEnd="@dimen/standardMargin2x"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvArt"
+                tools:listitem="@layout/product_item" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+    <com.example.magmarket.customview.StateView
+        android:id="@+id/state_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.25"
+        app:state_text="@string/app_name" />
+</androidx.constraintlayout.widget.ConstraintLayout>

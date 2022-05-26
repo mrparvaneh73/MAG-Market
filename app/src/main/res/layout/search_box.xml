@@ -1,53 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="@dimen/standardMargin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/light_black"
+    android:layout_margin="@dimen/standardMargin3x"
+    app:cardCornerRadius="@dimen/standardMargin3x"
+>
 
-    android:background="@color/background"
-    android:gravity="center_vertical"
-    android:layoutDirection="rtl"
-    android:orientation="horizontal">
-
-    <ImageView
-        android:id="@+id/search_image"
-        app:tint="@color/light_black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layoutDirection="rtl"
-        android:layout_marginStart="@dimen/standardMargin2x"
-        android:layout_marginEnd="@dimen/standardMargin2x"
-        android:src="@drawable/ic_round_search_24" />
-
-    <LinearLayout
-        android:id="@+id/search_text_linear"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="horizontal">
+        android:background="@color/light_black"
+        android:padding="@dimen/standardMargin2x">
+
+
+        <ImageView
+            android:id="@+id/imgsearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_round_search_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/searching"/>
 
         <TextView
             android:id="@+id/search_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/standardMargin"
+            android:layout_marginEnd="24dp"
             android:text="@string/searching"
+            android:fontFamily="@font/farkhondeh"
             android:textColor="@color/black"
-            android:textSize="@dimen/TextSize4x" />
+            android:textSize="@dimen/TextSize4x"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imgsearch"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.444" />
 
         <TextView
             android:id="@+id/exMallText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/standardMargin0.5x"
-            android:text="@string/mymarket"
             android:paddingHorizontal="2dp"
+            android:text="@string/mymarket"
             android:textColor="@color/red"
-            android:textSize="17dp"
-            android:textStyle="bold|italic" />
-    </LinearLayout>
+            android:textSize="@dimen/TextSize4x"
+            android:fontFamily="@font/farkhondeh"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toBottomOf="parent"
 
-</LinearLayout>
+            app:layout_constraintEnd_toStartOf="@+id/search_text"
+            app:layout_constraintHorizontal_bias="0.932"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.592" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

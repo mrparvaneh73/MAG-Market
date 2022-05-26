@@ -9,17 +9,20 @@ import com.example.magmarket.data.model.ProductRecyclerViewItem
 import com.example.magmarket.databinding.ItemTitleBinding
 import com.example.magmarket.databinding.ProductItemBinding
 import com.example.magmarket.databinding.ShowAllBinding
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.*
 
 sealed class ProductRecyclerviewHolder(binding: ViewBinding) :
     RecyclerView.ViewHolder(binding.root) {
-
+    val formatter =  DecimalFormat("#,###")
     var itemClickListener: ((view: View, item: ProductRecyclerViewItem, position: Int) -> Unit)? =
         null
 
     class TitleViewHolder(private val binding: ItemTitleBinding) :
         ProductRecyclerviewHolder(binding) {
         fun bind(image: ProductRecyclerViewItem.HeaderProductTitle) = binding.apply {
-            Glide.with(root).load(image.title).placeholder(R.drawable.newicon)
+            Glide.with(root).load(image.title)
                 .into(imgProduct)
 
             root.setOnClickListener {
@@ -47,7 +50,7 @@ sealed class ProductRecyclerviewHolder(binding: ViewBinding) :
                 .load(productItem.images[0].src)
                 .into(imgProduct)
             tvnameproduct.text = productItem.name
-            tvpriceproduct.text = productItem.price
+            tvpriceproduct.text = formatter.format(productItem.price.toInt())
 
             root.setOnClickListener {
                 itemClickListener!!.invoke(it, productItem, absoluteAdapterPosition)

@@ -5,9 +5,10 @@ import com.example.magmarket.data.remote.network.RemoteDataSource
 import com.example.magmarket.di.IoDispatcher
 import com.example.magmarket.di.MarketRemoteDataSource
 import com.example.magmarket.utils.safeApiCall
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
-
+@ActivityRetainedScoped
 class CategoryRepository @Inject constructor(
     @MarketRemoteDataSource
    private val marketRemoteDataSource: RemoteDataSource,

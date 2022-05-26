@@ -2,7 +2,6 @@ package com.example.magmarket.ui.mainactivity
 
 import android.animation.ObjectAnimator
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +18,7 @@ import com.example.magmarket.databinding.ActivityMainBinding
 import com.example.magmarket.utils.ConnectivityStatus
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.qualifiers.ActivityContext
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -26,43 +26,57 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
-    private val viewmodel by viewModels<MainActivityViewModel>()
+    private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var networkConnection : ConnectivityStatus
+    private val mainViewModel by viewModels<MainActivityViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initpreferences()
+        initPreferences()
         createSplashScreen()
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         init()
-        connection()
+        checkConnection()
 
     }
-fun initpreferences(){
-    lifecycleScope.launch {
-        viewmodel.preferences.collect{
-            val mode = it.theme.mode
-            val currentMode = AppCompatDelegate.getDefaultNightMode()
-            if (currentMode != mode) {
-                AppCompatDelegate.setDefaultNightMode(mode)
+
+    private fun initPreferences() {
+        lifecycleScope.launch {
+            mainViewModel.preferences.collect {
+                val mode = it.theme.mode
+                val currentMode = AppCompatDelegate.getDefaultNightMode()
+                if (currentMode != mode) {
+                    AppCompatDelegate.setDefaultNightMode(mode)
+                }
             }
         }
     }
-}
-    fun init() {
+
+    private fun init() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.container) as NavHostFragment
         navController = navHostFragment.navController
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
+        bottomNavigationView=findViewById(R.id.bottom_nav)
         bottomNavigationView.setOnItemSelectedListener { item ->
 
             NavigationUI.onNavDestinationSelected(item, navController)
 
             return@setOnItemSelectedListener true
         }
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.cartFragment -> visibleBottomNavigation()
+                R.id.homeFragment -> visibleBottomNavigation()
+                R.id.categoryFragment -> visibleBottomNavigation()
+                R.id.userFragment -> visibleBottomNavigation()
+                else -> hideBottomNavigation()
+            }
+
+        }
 
     }
 
-    fun createSplashScreen() {
+    private fun createSplashScreen() {
         installSplashScreen().setOnExitAnimationListener { splashScreenView ->
             val alpha = ObjectAnimator.ofFloat(
                 splashScreenView.view,
@@ -76,20 +90,30 @@ fun initpreferences(){
         }
     }
 
+   private fun visibleBottomNavigation() {
+        bottomNavigationView.visibility = View.VISIBLE
+    }
 
-    fun connection(){
+  private  fun hideBottomNavigation() {
+        bottomNavigationView.visibility = View.GONE
+    }
 
-        ConnectivityStatus(this).observe(this){
-            Log.d("connectionfragmetn", "connection: "+ it.toString())
-            if (it==true){
-                binding.container.isVisible=true
-                binding.bottomNav.isVisible=true
-                binding.connection.connection.isVisible=false
-            }else{
-                binding.bottomNav.isVisible=false
-                binding.container.isVisible=false
-                binding.connection.connection.isVisible=true
+    private fun checkConnection() {
+        networkConnection= ConnectivityStatus(context = this)
+        networkConnection.observe(this) { isConnected ->
+            if (isConnected == true) {
+                binding.container.isVisible = true
+                binding.bottomNav.isVisible = true
+                binding.connection.connection.isVisible = false
+            } else {
+                binding.bottomNav.isVisible = false
+                binding.container.isVisible = false
+                binding.connection.connection.isVisible = true
             }
         }
+        binding.connection.btnTryagain.setOnClickListener {
+
+        }
     }
+
 }

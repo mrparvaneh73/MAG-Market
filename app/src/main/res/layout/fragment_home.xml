@@ -2,24 +2,23 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/mainviewgroup"
-    android:background="@color/background"
-    android:layout_height="match_parent">
-
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/parentsearchbox"
         android:layout_width="match_parent"
-        android:background="@color/background"
         android:layout_height="wrap_content"
+        android:background="@color/background"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:background="@color/background"
             android:layout_height="wrap_content"
+            android:background="@color/background"
             app:layout_scrollFlags="noScroll">
 
             <include
@@ -92,7 +91,7 @@
                 android:layout_marginStart="@dimen/standardMargin2x"
                 android:layout_marginTop="@dimen/standardMargin6x"
                 android:layout_marginEnd="@dimen/standardMargin2x"
-                android:background="@drawable/white"
+
                 android:layoutDirection="rtl"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -103,6 +102,20 @@
                 app:layout_constraintTop_toBottomOf="@id/categoryRecyclerview"
                 tools:listitem="@layout/product_item" />
 
+            <View
+                android:id="@+id/SplitLine_hor1"
+                android:layout_width="370dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/standardMargin2x"
+                android:layout_marginBottom="@dimen/standardMargin3x"
+                android:background="@color/text"
+                app:layout_constraintBottom_toTopOf="@id/bestSellerRecyclerview"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/newestRecyclerview"
+                app:layout_constraintVertical_bias="0.0"
+                tools:layout_editor_absoluteX="0dp" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/bestSellerRecyclerview"
                 android:layout_width="match_parent"
@@ -110,15 +123,30 @@
                 android:layout_marginStart="@dimen/standardMargin2x"
                 android:layout_marginTop="@dimen/standardMargin2x"
                 android:layout_marginEnd="@dimen/standardMargin2x"
-                android:background="@drawable/white"
+
                 android:layoutDirection="rtl"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toTopOf="@id/mostViewrecyclerview"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/newestRecyclerview"
                 tools:listitem="@layout/product_item" />
+
+            <View
+                android:id="@+id/SplitLine_hor2"
+                android:layout_width="370dp"
+                android:layout_height="2dp"
+                android:layout_marginBottom="@dimen/standardMargin3x"
+                android:background="@color/text"
+                android:layout_marginTop="@dimen/standardMargin2x"
+                app:layout_constraintBottom_toTopOf="@id/mostViewrecyclerview"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bestSellerRecyclerview"
+                app:layout_constraintVertical_bias="0.0"
+                tools:layout_editor_absoluteX="0dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mostViewrecyclerview"
@@ -128,7 +156,6 @@
                 android:layout_marginTop="@dimen/standardMargin6x"
                 android:layout_marginEnd="@dimen/standardMargin2x"
                 android:layoutDirection="rtl"
-                android:background="@drawable/white"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -137,6 +164,18 @@
                 app:layout_constraintTop_toBottomOf="@id/bestSellerRecyclerview"
 
                 tools:listitem="@layout/product_item" />
+            <View
+                android:id="@+id/SplitLine_hor3"
+                android:layout_width="370dp"
+                android:layout_height="2dp"
+                android:layout_marginBottom="@dimen/standardMargin3x"
+                android:background="@color/text"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mostViewrecyclerview"
+                app:layout_constraintVertical_bias="0.0"
+                tools:layout_editor_absoluteX="0dp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,9 +1,8 @@
 package com.example.magmarket.ui.showmore
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -12,21 +11,17 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
 import com.example.magmarket.R
-import com.example.magmarket.adapters.ProductsOfCategoryAdapter
 import com.example.magmarket.adapters.ShowMoreAdapter
-import com.example.magmarket.databinding.FragmentProductsCategoryBinding
 import com.example.magmarket.databinding.FragmentShowmoreBinding
-import com.example.magmarket.ui.productscategory.ProductsCategoryFragmentArgs
-import com.example.magmarket.ui.productscategory.ProductsCategoryFragmentDirections
-import com.example.magmarket.ui.productscategory.ProductsCategoryViewModel
 import com.example.magmarket.utils.ResultWrapper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ShowMoreFragment :Fragment(R.layout.fragment_showmore) {
+class ShowMoreFragment : Fragment(R.layout.fragment_showmore) {
     private var _binding: FragmentShowmoreBinding? = null
     private val binding get() = _binding!!
 
@@ -34,55 +29,60 @@ class ShowMoreFragment :Fragment(R.layout.fragment_showmore) {
 
     private val args by navArgs<ShowMoreFragmentArgs>()
 
-    private val showMoreAdapter= ShowMoreAdapter(clickListener = { productItem ->
+    private val showMoreAdapter = ShowMoreAdapter(clickListener = { productItem ->
         findNavController().navigate(
             ShowMoreFragmentDirections.actionShowMoreFragmentToProductDetailFragment(
                 productItem.id
             )
         )
     })
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentShowmoreBinding.bind(view)
 
-
+        backPressed()
         collect()
         init()
     }
-    private fun init(){
-        binding.tvOrderBy.text=args.ordername
-        binding.productRecyclerviw.adapter=showMoreAdapter
+
+    private fun init() = with(binding) {
+        tvOrderBy.text = args.ordername
+        showMoreAdapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        productRecyclerviw.adapter = showMoreAdapter
         viewModel.getShowmore(args.orderby)
     }
 
-    private fun collect(){
-        viewModel.showmore.collectIt(viewLifecycleOwner){
+    private fun backPressed() {
+        binding.imgBack.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+    }
+
+    private fun collect() = with(binding) {
+        viewModel.showmore.collectIt(viewLifecycleOwner) {
             when (it) {
                 is ResultWrapper.Loading -> {
-
-                    binding.stateView.onLoading()
+                    scrollview.isVisible = false
+                    stateView.onLoading()
                 }
                 is ResultWrapper.Success -> {
-
+                    scrollview.isVisible = true
                     showMoreAdapter.submitList(it.value)
 
                     if (it.value.isNotEmpty()) {
-                        binding.stateView.onSuccess()
+                        stateView.onSuccess()
                     } else {
-                        binding.stateView.onEmpty()
+                        stateView.onEmpty()
                     }
                 }
                 is ResultWrapper.Error -> {
-                    binding.stateView.onFail()
-                    binding.stateView.clickRequest {
-                  viewModel.getShowmore(args.orderby)
+                    stateView.onFail()
+                    stateView.clickRequest {
+                        viewModel.getShowmore(args.orderby)
                     }
 
-                    Toast.makeText(
-                        requireActivity(),
-                        it.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
             }
         }
