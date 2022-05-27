@@ -11,6 +11,7 @@
     <string name="mymarket">مگ مارکت</string>
     <string name="searching">جستجو در</string>
     <string name="product">کالا</string>
+    <string name="product_price">قیمت کالاها</string>
     <string name="digital">کالای دیجیتال</string>
     <string name="fashion">مد و پوشاک</string>
     <string name="supermarket">کالاهای سوپرمارکتی</string>
@@ -23,12 +24,16 @@
     <string name="existing">موجود در انبار مگ مارکت</string>
     <string name="magdelivery">ارسال مگ مارکت</string>
     <string name="storage">مگ مارکت</string>
+    <string name="continue_shopping">ادامه فرایند خرید</string>
     <string name="warranty">گارانتی اصالت و سلامت کالا</string>
 <string name="tryagain">TRY AGAIN</string>
     <string name="free_desc">برای سفارش بالای 500 هزارتومان</string>
     <string name="close">بستن صفحه</string>
     <string name="show_more_option">ویژگی های بیشتر</string>
     <string name="favorite">موردعلاقه</string>
+    <string name="total">جمع سبد خرید</string>
+    <string name="summary">خلاصه سبد خرید</string>
+    <string name="cart_desc">کالاهای موجود در سبد شما ثبت و رزرو نشده اند، برای ثبت سفارش مراحل بعدی را تکمیل کنید.</string>
     <string name="connection_describtion">You are not connected to the internet.
 Make sure Wi-Fi is on,Airplane Mode is off and try again</string>
     <string name="connection">
