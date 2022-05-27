@@ -1,24 +1,22 @@
-package com.example.magmarket.adapters
+package com.example.magmarket.ui.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
-import com.example.magmarket.R
 import com.example.magmarket.data.model.ProductImage
 import com.example.magmarket.databinding.SliderItemBinding
 
-class HomePagerAdapter(private val images: List<Int>) :
-    RecyclerView.Adapter<HomePagerAdapter.SliderViewHolder>() {
+class SliderAdapter :
+    ListAdapter<ProductImage, SliderAdapter.SliderViewHolder>(ImageDiffCall) {
 
     inner class SliderViewHolder(var binding: SliderItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(image: Int) = binding.apply {
-            binding.productImg.setBackgroundResource(image)
+        fun bind(productImage: ProductImage) = binding.apply {
+           Glide.with(root).load(productImage.src).into(productImg)
+
         }
     }
 
@@ -33,13 +31,24 @@ class HomePagerAdapter(private val images: List<Int>) :
     }
 
     override fun onBindViewHolder(holder: SliderViewHolder, position: Int) {
-        holder.bind(images[position])
+        holder.apply {
+            holder.bind(getItem(position))
+
+        }
+
 
     }
 
-
-    override fun getItemCount(): Int = images.size
 }
 
+object ImageDiffCall : DiffUtil.ItemCallback<ProductImage>() {
 
+    override fun areItemsTheSame(oldItem: ProductImage, newItem: ProductImage): Boolean {
+        return oldItem.id == newItem.id
+    }
 
+    override fun areContentsTheSame(oldItem: ProductImage, newItem: ProductImage): Boolean {
+        return oldItem == newItem
+    }
+
+}

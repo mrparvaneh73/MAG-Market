@@ -1,6 +1,5 @@
-package com.example.magmarket.adapters
+package com.example.magmarket.ui.adapters
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -9,33 +8,32 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.magmarket.data.model.CategoryItem
 import com.example.magmarket.databinding.CategoryItemBinding
-import com.example.magmarket.databinding.SubCategoryItemBinding
 
-class SubCategoryAdapter(private var clickListener: (CategoryItem) -> Unit) :
-    ListAdapter<CategoryItem, SubCategoryAdapter.MyViewHolder>(SubCategoryDiffCall) {
+class CategoryAdapter(private var clickListener: (CategoryItem) -> Unit) :
+    ListAdapter<CategoryItem, CategoryAdapter.MyViewHolder>(CategoryDiffCall) {
 
     inner class MyViewHolder(
-        private val binding: SubCategoryItemBinding
+        private val binding: CategoryItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        @SuppressLint("SetTextI18n")
         fun mBind(categoryItem: CategoryItem) = binding.apply {
             Glide.with(root)
                 .load(categoryItem.image.src)
-                .into(imgCategory)
-            tvCategoryName.text = categoryItem.name
-            count.text = "+ ${categoryItem.count}  "
+                .into(categoryImg)
+            catrgoryName.text = categoryItem.name
+
             root.setOnClickListener {
                 clickListener(categoryItem)
             }
+
         }
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
-    ): SubCategoryAdapter.MyViewHolder {
+    ): CategoryAdapter.MyViewHolder {
         return MyViewHolder(
-            SubCategoryItemBinding.inflate(
+            CategoryItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -45,7 +43,7 @@ class SubCategoryAdapter(private var clickListener: (CategoryItem) -> Unit) :
 
 
     override fun onBindViewHolder(
-        holder: SubCategoryAdapter.MyViewHolder, position: Int
+        holder: CategoryAdapter.MyViewHolder, position: Int
     ) {
         holder.mBind(getItem(position))
     }
@@ -53,7 +51,7 @@ class SubCategoryAdapter(private var clickListener: (CategoryItem) -> Unit) :
 
 }
 
-object SubCategoryDiffCall : DiffUtil.ItemCallback<CategoryItem>() {
+object CategoryDiffCall : DiffUtil.ItemCallback<CategoryItem>() {
 
     override fun areItemsTheSame(oldItem: CategoryItem, newItem: CategoryItem): Boolean {
         return oldItem.id == newItem.id

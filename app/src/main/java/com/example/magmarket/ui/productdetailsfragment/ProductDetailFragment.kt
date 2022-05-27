@@ -2,11 +2,7 @@ package com.example.magmarket.ui.productdetailsfragment
 
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -18,7 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.example.magmarket.R
-import com.example.magmarket.adapters.SliderAdapter
+import com.example.magmarket.ui.adapters.SliderAdapter
 import com.example.magmarket.databinding.FragmentProductDetailBinding
 import com.example.magmarket.utils.ResultWrapper
 import dagger.hilt.android.AndroidEntryPoint

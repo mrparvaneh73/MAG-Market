@@ -7,6 +7,7 @@ import com.example.magmarket.utils.safeApiCall
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
+
 @ActivityRetainedScoped
 class ProductRepository @Inject constructor(
     @IoDispatcher

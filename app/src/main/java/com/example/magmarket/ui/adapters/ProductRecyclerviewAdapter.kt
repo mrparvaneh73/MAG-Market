@@ -1,4 +1,4 @@
-package com.example.magmarket.adapters
+package com.example.magmarket.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.View

@@ -1,4 +1,4 @@
-package com.example.magmarket.adapters
+package com.example.magmarket.ui.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.magmarket.data.model.ProductItem
 import com.example.magmarket.data.model.ProductRecyclerViewItem
 import com.example.magmarket.databinding.ItemsSubCategoryBinding
 import java.text.NumberFormat

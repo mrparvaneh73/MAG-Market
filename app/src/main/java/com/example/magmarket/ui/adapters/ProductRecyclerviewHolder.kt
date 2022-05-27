@@ -1,4 +1,4 @@
-package com.example.magmarket.adapters
+package com.example.magmarket.ui.adapters
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -10,8 +10,6 @@ import com.example.magmarket.databinding.ItemTitleBinding
 import com.example.magmarket.databinding.ProductItemBinding
 import com.example.magmarket.databinding.ShowAllBinding
 import java.text.DecimalFormat
-import java.text.NumberFormat
-import java.util.*
 
 sealed class ProductRecyclerviewHolder(binding: ViewBinding) :
     RecyclerView.ViewHolder(binding.root) {
@@ -48,6 +46,7 @@ sealed class ProductRecyclerviewHolder(binding: ViewBinding) :
         fun bind(productItem: ProductRecyclerViewItem.ProductItem) = binding.apply {
             Glide.with(root)
                 .load(productItem.images[0].src)
+                .placeholder(R.drawable.emptyimage)
                 .into(imgProduct)
             tvnameproduct.text = productItem.name
             tvpriceproduct.text = formatter.format(productItem.price.toInt())

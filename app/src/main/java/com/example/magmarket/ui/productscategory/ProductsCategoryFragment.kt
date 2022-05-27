@@ -3,8 +3,6 @@ package com.example.magmarket.ui.productscategory
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -15,8 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.example.magmarket.R
-import com.example.magmarket.adapters.ProductsOfCategoryAdapter
-import com.example.magmarket.adapters.ShowMoreAdapter
+import com.example.magmarket.ui.adapters.ProductsOfCategoryAdapter
 import com.example.magmarket.databinding.FragmentProductsCategoryBinding
 import com.example.magmarket.utils.ResultWrapper
 import dagger.hilt.android.AndroidEntryPoint

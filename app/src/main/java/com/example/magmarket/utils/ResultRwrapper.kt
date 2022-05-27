@@ -22,29 +22,29 @@ suspend inline fun <T> safeApiCall(
 ) = flow {
     emit(ResultWrapper.Loading)
     try {
-        val response=apiCall()
-        val responseBody=response.body()
-        if (response.isSuccessful && responseBody!=null) {
+        val response = apiCall()
+        val responseBody = response.body()
+        if (response.isSuccessful && responseBody != null) {
             emit(ResultWrapper.Success(responseBody))
-        }else{
-            val errorBody=response.errorBody()
-            if (errorBody!=null){
-                val type=object : TypeToken<ProductError>(){}.type
-                val responseError= Gson().fromJson<ProductError>(errorBody.charStream(),type)
+        } else {
+            val errorBody = response.errorBody()
+            if (errorBody != null) {
+                val type = object : TypeToken<ProductError>() {}.type
+                val responseError = Gson().fromJson<ProductError>(errorBody.charStream(), type)
                 emit(ResultWrapper.Error(responseError.message))
-            }else{
+            } else {
                 emit(ResultWrapper.Error("Some Thing Went Wrong"))
             }
         }
     } catch (e: SSLException) {
         emit(ResultWrapper.Error(e.message))
-    }catch (e: IOException){
+    } catch (e: IOException) {
         emit(ResultWrapper.Error(e.message))
-    }catch (e: HttpException){
+    } catch (e: HttpException) {
         emit(ResultWrapper.Error(e.message))
-    } catch (e:Throwable){
+    } catch (e: Throwable) {
         emit(ResultWrapper.Error(e.message))
-    }finally {
+    } finally {
 
     }
 }
