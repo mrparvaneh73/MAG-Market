@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
 import com.example.magmarket.R
-import com.example.magmarket.data.model.ProductRecyclerViewItem
+import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
 import com.example.magmarket.databinding.ItemTitleBinding
 import com.example.magmarket.databinding.ProductItemBinding
 import com.example.magmarket.databinding.ShowAllBinding

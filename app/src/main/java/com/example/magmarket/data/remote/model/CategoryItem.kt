@@ -1,4 +1,4 @@
-package com.example.magmarket.data.model
+package com.example.magmarket.data.remote.model
 
 data class CategoryItem(
     val id: Int,

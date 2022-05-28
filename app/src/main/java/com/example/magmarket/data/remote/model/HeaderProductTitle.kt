@@ -1,4 +1,4 @@
-package com.example.magmarket.data.model
+package com.example.magmarket.data.remote.model
 
 import android.graphics.drawable.Drawable
 

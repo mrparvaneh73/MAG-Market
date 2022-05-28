@@ -12,7 +12,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.magmarket.R
 import com.example.magmarket.ui.adapters.SubCategoryAdapter
-import com.example.magmarket.data.model.CategoryItem
+import com.example.magmarket.data.remote.model.CategoryItem
 import com.example.magmarket.databinding.FragmentCategoryBinding
 import com.example.magmarket.utils.ResultWrapper
 import dagger.hilt.android.AndroidEntryPoint

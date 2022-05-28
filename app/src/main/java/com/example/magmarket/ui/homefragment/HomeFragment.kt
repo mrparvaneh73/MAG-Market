@@ -15,7 +15,7 @@ import com.example.magmarket.R
 import com.example.magmarket.ui.adapters.CategoryAdapter
 import com.example.magmarket.ui.adapters.HomePagerAdapter
 import com.example.magmarket.ui.adapters.ProductRecyclerviewAdapter
-import com.example.magmarket.data.model.ProductRecyclerViewItem
+import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
 import com.example.magmarket.databinding.FragmentHomeBinding
 import com.example.magmarket.utils.Constants.BEST_PRODUCT
 import com.example.magmarket.utils.Constants.MOSTVIEW_PRODUCT

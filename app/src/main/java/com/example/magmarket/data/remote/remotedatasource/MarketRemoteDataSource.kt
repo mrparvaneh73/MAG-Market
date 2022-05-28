@@ -1,8 +1,8 @@
 package com.example.magmarket.data.remote.remotedatasource
 
-import com.example.magmarket.data.model.CategoryItem
-import com.example.magmarket.data.model.ProductItem
-import com.example.magmarket.data.model.ProductRecyclerViewItem
+import com.example.magmarket.data.remote.model.CategoryItem
+import com.example.magmarket.data.remote.model.ProductItem
+import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
 import com.example.magmarket.data.remote.network.MarketService
 import com.example.magmarket.data.remote.network.RemoteDataSource
 import retrofit2.Response

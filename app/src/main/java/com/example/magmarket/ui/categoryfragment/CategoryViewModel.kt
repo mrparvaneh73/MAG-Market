@@ -2,10 +2,8 @@ package com.example.magmarket.ui.categoryfragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.magmarket.data.model.CategoryItem
-import com.example.magmarket.data.model.ProductRecyclerViewItem
+import com.example.magmarket.data.remote.model.CategoryItem
 import com.example.magmarket.data.repository.CategoryRepository
-import com.example.magmarket.utils.Constants
 import com.example.magmarket.utils.Constants.ART
 import com.example.magmarket.utils.Constants.DIGITAL
 import com.example.magmarket.utils.Constants.FASHION_CLOTHING

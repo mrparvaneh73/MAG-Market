@@ -2,8 +2,8 @@ package com.example.magmarket.ui.homefragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.magmarket.data.model.CategoryItem
-import com.example.magmarket.data.model.ProductRecyclerViewItem
+import com.example.magmarket.data.remote.model.CategoryItem
+import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
 import com.example.magmarket.data.repository.ProductRepository
 import com.example.magmarket.utils.Constants.BEST_PRODUCT
 import com.example.magmarket.utils.Constants.MOSTVIEW_PRODUCT

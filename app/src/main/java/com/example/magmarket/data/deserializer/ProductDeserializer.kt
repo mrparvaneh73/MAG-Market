@@ -1,8 +1,8 @@
 package com.example.magmarket.data.deserializer
 
-import com.example.magmarket.data.model.ProductCategory
-import com.example.magmarket.data.model.ProductImage
-import com.example.magmarket.data.model.ProductItem
+import com.example.magmarket.data.remote.model.ProductCategory
+import com.example.magmarket.data.remote.model.ProductImage
+import com.example.magmarket.data.remote.model.ProductItem
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement

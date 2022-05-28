@@ -1,6 +1,4 @@
-package com.example.magmarket.data.model
-
-import android.graphics.drawable.Drawable
+package com.example.magmarket.data.remote.model
 
 sealed class ProductRecyclerViewItem{
     class ProductItem(val id:String,val name:String,val description:String

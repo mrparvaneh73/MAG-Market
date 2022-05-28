@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.magmarket.data.model.CategoryItem
+import com.example.magmarket.data.remote.model.CategoryItem
 import com.example.magmarket.databinding.SubCategoryItemBinding
 
 class SubCategoryAdapter(private var clickListener: (CategoryItem) -> Unit) :

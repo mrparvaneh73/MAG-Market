@@ -1,6 +1,6 @@
 package com.example.magmarket.data.deserializer
 
-import com.example.magmarket.data.model.*
+import com.example.magmarket.data.remote.model.*
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement

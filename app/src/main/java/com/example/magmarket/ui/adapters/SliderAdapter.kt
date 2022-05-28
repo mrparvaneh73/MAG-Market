@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.magmarket.data.model.ProductImage
+import com.example.magmarket.data.remote.model.ProductImage
 import com.example.magmarket.databinding.SliderItemBinding
 
 class SliderAdapter :

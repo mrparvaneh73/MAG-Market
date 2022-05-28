@@ -2,7 +2,7 @@ package com.example.magmarket.ui.productdetailsfragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.magmarket.data.model.ProductItem
+import com.example.magmarket.data.remote.model.ProductItem
 import com.example.magmarket.data.repository.ProductRepository
 import com.example.magmarket.utils.ResultWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,6 +1,6 @@
 package com.example.magmarket.utils
 
-import com.example.magmarket.data.model.ProductError
+import com.example.magmarket.data.remote.model.ProductError
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineDispatcher
