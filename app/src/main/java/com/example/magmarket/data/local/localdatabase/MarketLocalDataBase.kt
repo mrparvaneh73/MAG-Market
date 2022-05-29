@@ -4,7 +4,9 @@ import com.example.magmarket.data.local.dao.MarketDao
 import com.example.magmarket.data.local.entities.ProductItemLocal
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class MarketLocalDataBase @Inject constructor(private val marketDao: MarketDao):LocalDataBase {
     override suspend fun insertProduct(productItemLocal: ProductItemLocal) {
         marketDao.insertProduct(productItemLocal)
@@ -21,5 +23,13 @@ class MarketLocalDataBase @Inject constructor(private val marketDao: MarketDao):
 
     override suspend fun updateProductCart(productItemLocal: ProductItemLocal) {
       marketDao.updateProductCart(productItemLocal)
+    }
+
+    override fun getCartProductById(productId: Int): Flow<ProductItemLocal> {
+      return  marketDao.getCartProductById(productId)
+    }
+
+    override  fun isRowIsExist(id: Int): Flow<Boolean> {
+     return   marketDao.isRowIsExist(id)
     }
 }

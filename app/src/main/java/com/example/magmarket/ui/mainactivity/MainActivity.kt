@@ -15,6 +15,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.magmarket.R
 import com.example.magmarket.databinding.ActivityMainBinding
+import com.example.magmarket.ui.cartfragment.CartFragment
 import com.example.magmarket.utils.ConnectivityStatus
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         bottomNavigationView=findViewById(R.id.bottom_nav)
         bottomNavigationView.setOnItemSelectedListener { item ->
+
 
             NavigationUI.onNavDestinationSelected(item, navController)
 

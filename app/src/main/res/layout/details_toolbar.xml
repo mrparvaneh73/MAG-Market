@@ -34,13 +34,13 @@
         />
 
     <ImageView
-        android:id="@+id/cartImageView"
+        android:id="@+id/fragmentcart"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/likeButton"
+        android:contentDescription="@string/add_to_bascket"
         android:padding="8dp"
-        android:src="@drawable/toolbar_cart"
-        android:contentDescription="@string/add_to_bascket"/>
+        android:src="@drawable/toolbar_cart" />
 
 </RelativeLayout>

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imageView_product"
+        android:id="@+id/img_product"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="@dimen/standardMargin4x"
@@ -27,7 +27,7 @@
         android:fontFamily="@font/far_mitra"
         android:textColor="@color/text"
         android:textSize="@dimen/TextSize4x"
-        app:layout_constraintEnd_toStartOf="@+id/imageView_product"
+        app:layout_constraintEnd_toStartOf="@+id/img_product"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -39,10 +39,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView_product"
-        app:layout_constraintEnd_toStartOf="@+id/imageView_product"
+        app:layout_constraintBottom_toBottomOf="@+id/img_product"
+        app:layout_constraintEnd_toStartOf="@+id/img_product"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView_product">
+        app:layout_constraintTop_toTopOf="@+id/img_product">
 
 
         <LinearLayout
@@ -157,7 +157,7 @@ android:fontFamily="@font/far_mitra"
                 android:paddingStart="@dimen/standardMargin2x"
                 android:text="@string/magdelivery"
                 android:textColor="@color/text"
-                android:textSize="@dimen/TextSize2x" />
+                android:textSize="@dimen/TextSize3x" />
 
             <ImageView
                 android:id="@+id/img9"
@@ -188,12 +188,12 @@ android:fontFamily="@font/far_mitra"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageView_product"
-        app:layout_constraintStart_toStartOf="@+id/imageView_product"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_product">
+        app:layout_constraintEnd_toEndOf="@+id/img_product"
+        app:layout_constraintStart_toStartOf="@+id/img_product"
+        app:layout_constraintTop_toBottomOf="@+id/img_product">
 
         <ImageView
-            android:id="@+id/imageView_subtrack"
+            android:id="@+id/img_delete_order"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -217,7 +217,7 @@ android:fontFamily="@font/far_mitra"
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView_price"
+        android:id="@+id/tv_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -237,11 +237,11 @@ android:fontFamily="@font/far_mitra"
         android:textColor="@color/text"
         android:text="@string/unit_of_currency"
         android:fontFamily="@font/farkhondeh"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_price"
-        app:layout_constraintEnd_toStartOf="@+id/textView_price"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_price"
+        app:layout_constraintEnd_toStartOf="@+id/tv_price"
         app:layout_constraintHorizontal_bias="0.795"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView_price"
+        app:layout_constraintTop_toTopOf="@+id/tv_price"
         app:layout_constraintVertical_bias="0.0" />
 
     <View

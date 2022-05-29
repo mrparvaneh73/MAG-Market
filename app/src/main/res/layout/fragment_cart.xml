@@ -72,7 +72,7 @@
             android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/productRecyclerviw"
+                android:id="@+id/cartRecyclerviw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -363,13 +363,13 @@
                 android:textColor="@color/text"
                 android:textSize="@dimen/TextSize5x"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/button_add_to_basket"
+                app:layout_constraintEnd_toStartOf="@+id/button_add_to_Cart"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.7"
                 tools:text="1500000 " />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_add_to_basket"
+                android:id="@+id/button_add_to_Cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

@@ -13,6 +13,11 @@ interface MarketDao {
     @Query("SELECT * FROM cart")
     fun getAllCartProduct(): Flow<List<ProductItemLocal>>
 
+    @Query("select * from cart where id == :productId")
+    fun getCartProductById(productId: Int?): Flow<ProductItemLocal>
+
+    @Query("SELECT EXISTS(SELECT * FROM cart WHERE id = :id)")
+    fun isRowIsExist(id: Int): Flow<Boolean>
 
     @Delete
     suspend fun deleteProductFromCart(productItemLocal: ProductItemLocal)

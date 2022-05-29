@@ -12,4 +12,8 @@ interface LocalDataBase {
 
     suspend fun updateProductCart(productItemLocal: ProductItemLocal)
 
+    fun getCartProductById(productId: Int): Flow<ProductItemLocal>
+
+    fun isRowIsExist(id: Int): Flow<Boolean>
+
 }

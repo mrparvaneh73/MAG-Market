@@ -22,8 +22,6 @@
     </RelativeLayout>
 
 
-
-
     <ScrollView
         android:id="@+id/scrollView3"
         android:layout_width="match_parent"
@@ -40,9 +38,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-
-
 
 
             <androidx.cardview.widget.CardView
@@ -174,9 +169,9 @@
                         android:id="@+id/tv_free_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/far_mitra"
                         android:text="@string/free_desc"
                         android:textColor="@color/text"
-                        android:fontFamily="@font/far_mitra"
                         android:textSize="@dimen/TextSize4x"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -224,6 +219,45 @@
             android:layout_height="match_parent"
             android:background="@color/background">
 
+            <LinearLayout
+                android:id="@+id/linearLayout7"
+                android:layout_width="100dp"
+                android:layout_height="31dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/rounded_background"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.482">
+
+                <ImageView
+                    android:id="@+id/img_delete_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/delete" />
+
+                <TextView
+                    android:id="@+id/tv_product_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+
+                    android:textColor="#E2202B"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/imageView_plus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/add" />
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
@@ -249,20 +283,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginEnd="88dp"
+                android:layout_marginEnd="272dp"
                 android:layout_weight="3"
                 android:fontFamily="@font/far_mitra"
                 android:gravity="start"
                 android:textColor="@color/text"
                 android:textSize="@dimen/TextSize5x"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/button_add_to_basket"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.482"
                 tools:text="1500000 " />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_add_to_basket"
+                android:id="@+id/button_add_to_Cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -272,6 +305,7 @@
                 android:text="@string/add_to_bascket"
                 android:textColor="@color/text"
                 android:textSize="@dimen/TextSize4x"
+                android:visibility="gone"
                 app:cornerRadius="@dimen/standardMargin3x"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

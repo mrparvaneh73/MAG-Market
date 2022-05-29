@@ -1,8 +1,10 @@
 package com.example.magmarket.ui.productdetailsfragment
 
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -11,9 +13,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.example.magmarket.R
+import com.example.magmarket.data.local.entities.ProductItemLocal
 import com.example.magmarket.ui.adapters.SliderAdapter
 import com.example.magmarket.databinding.FragmentProductDetailBinding
 import com.example.magmarket.utils.ResultWrapper
@@ -32,12 +36,21 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     private val args by navArgs<ProductDetailFragmentArgs>()
     private val viewModel: ProductDetailsViewModel by viewModels()
     private val adapter = SliderAdapter()
+    private var count = 1
+    private var isInCart = false
+    private lateinit var name: String
+    private lateinit var price: String
+    private lateinit var image: String
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProductDetailBinding.bind(view)
         init()
         collect()
         close()
+        isExist()
+        addTocart()
+        goToCart()
 
     }
 
@@ -50,10 +63,13 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                     detailCard.isVisible = false
                 }
                 is ResultWrapper.Success -> {
-                    tvProductName.text = it.value.name
+                    image = it.value.images[0].src
+                    name = it.value.name
+                    tvProductName.text = name
                     tvProductDescription.text =
                         HtmlCompat.fromHtml(it.value.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
-                    tvPrice.text = nf.format(it.value.price.toInt())
+                    price = it.value.price
+                    tvPrice.text = nf.format(price.toInt())
                     adapter.submitList(it.value.images)
                     scrollView3.isVisible = true
                     detailCard.isVisible = true
@@ -78,6 +94,79 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
     }
 
+    private fun addTocart() {
+        binding.imageViewPlus.setOnClickListener {
+
+            count++
+            viewModel.updateOrder(
+                ProductItemLocal(
+                    id = args.id.toInt(),
+                    count = count,
+                    name = name,
+                    price = price,
+                    images = image
+                )
+            )
+        }
+        binding.imgDeleteOrder.setOnClickListener {
+            if (count == 1) {
+                viewModel.deletProductFromOrders(
+                    ProductItemLocal(
+                        id = args.id.toInt(),
+                        count = count, name = name, price = price, images = image
+                    )
+                )
+                isInCart = false
+            } else if (count > 1) {
+                count--
+                viewModel.updateOrder(
+                    ProductItemLocal(
+                        id = args.id.toInt(),
+                        count = count,
+                        name = name,
+                        price = price,
+                        images = image
+                    )
+                )
+            }
+        }
+        binding.buttonAddToCart.setOnClickListener {
+
+            viewModel.insertProductInOrders(
+                ProductItemLocal(
+                    id = args.id.toInt(),
+                    count = count,
+                    name = name,
+                    price = price,
+                    images = image
+                )
+            )
+            isInCart = true
+        }
+    }
+
+    fun isExist() {
+        viewModel.isExistInOrders(args.id.toInt()).observe(viewLifecycleOwner) {
+            if (it == true) {
+                isInCart = true
+                binding.linearLayout7.isVisible = true
+                binding.buttonAddToCart.isVisible = false
+            } else {
+                isInCart = false
+                binding.linearLayout7.isVisible = false
+                binding.buttonAddToCart.isVisible = true
+            }
+        }
+        viewModel.getProductFromOrders(args.id.toInt()).observe(viewLifecycleOwner) {
+            if (isInCart == true) {
+                count = it.count
+                binding.tvProductCount.text = it.count.toString()
+            }
+
+        }
+
+    }
+
     private fun init() {
         viewModel.getProduct(args.id)
         binding.productSlider.adapter = adapter
@@ -85,6 +174,13 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         binding.productSlider.clipChildren = false
         binding.productSlider.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         binding.springDotsIndicator.attachTo(binding.productSlider)
+    }
+
+    private fun goToCart() {
+        binding.toolbar.fragmentcart.setOnClickListener {
+            findNavController().navigate(ProductDetailFragmentDirections.actionProductDetailFragmentToCartFragment())
+        }
+
     }
 
     private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {

@@ -2,7 +2,10 @@ package com.example.magmarket.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.magmarket.data.local.localdatabase.LocalDataBase
 import com.example.magmarket.data.local.localdatabase.MarketDataBase
+import com.example.magmarket.data.local.localdatabase.MarketLocalDataBase
+import com.example.magmarket.data.remote.network.RemoteDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,4 +25,8 @@ object RoomModule {
     @Provides
     @Singleton
     fun dao(db:MarketDataBase)=db.marketDao()
+
+    @Provides
+    @MarkLocalDataBase
+    fun provideLocalDataBase(@ApplicationContext context: Context): LocalDataBase= MarketLocalDataBase(dao(dataBase(context)))
 }

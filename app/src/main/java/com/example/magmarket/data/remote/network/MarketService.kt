@@ -45,4 +45,10 @@ interface MarketService {
         @Body order: Order,
         @QueryMap tokens: Map<String, String> = BASE_PARAM
     )
+
+    @GET("products")
+    suspend fun getAllOrders(
+        @Query("include") include:String,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ):Response<List<ProductItem>>
 }

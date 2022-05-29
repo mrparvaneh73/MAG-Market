@@ -9,3 +9,7 @@ annotation class IoDispatcher
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class MarketRemoteDataSource
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class MarkLocalDataBase

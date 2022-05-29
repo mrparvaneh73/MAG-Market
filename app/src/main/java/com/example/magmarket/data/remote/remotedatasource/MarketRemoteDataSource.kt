@@ -10,9 +10,10 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MarketRemoteDataSource @Inject constructor (private val marketService: MarketService):RemoteDataSource {
-    override suspend fun getAllProduct(orderby:String): Response<List<ProductRecyclerViewItem.ProductItem>> {
-      return marketService.getAllProduct(orderby = orderby)
+class MarketRemoteDataSource @Inject constructor(private val marketService: MarketService) :
+    RemoteDataSource {
+    override suspend fun getAllProduct(orderby: String): Response<List<ProductRecyclerViewItem.ProductItem>> {
+        return marketService.getAllProduct(orderby = orderby)
     }
 
     override suspend fun getAllCategories(): Response<List<CategoryItem>> {
@@ -20,11 +21,15 @@ class MarketRemoteDataSource @Inject constructor (private val marketService: Mar
     }
 
     override suspend fun getSubCategories(parent: Int): Response<List<CategoryItem>> {
-        return  marketService.getSubCategories(parent)
+        return marketService.getSubCategories(parent)
     }
 
     override suspend fun getproductOfCategory(categoryId: Int): Response<List<ProductItem>> {
         return marketService.getProductOfCategory(categoryId)
+    }
+
+    override suspend fun getAllOrders(include: String): Response<List<ProductItem>> {
+        return marketService.getAllOrders(include)
     }
 
     override suspend fun getProduct(id: String): Response<ProductItem> {
