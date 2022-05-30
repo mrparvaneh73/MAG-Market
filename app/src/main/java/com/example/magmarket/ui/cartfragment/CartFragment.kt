@@ -23,15 +23,17 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     private var _binding: FragmentCartBinding? = null
     private val binding get() = _binding!!
     private val cartviewmodel by viewModels<CartViewModel>()
-    var ordersId: MutableList<Int> = mutableListOf(0)
-//     var productItemLocal: MutableList<ProductItemLocal> = mutableListOf(ProductItemLocal(0,))
+    var ordersId: MutableList<Int> = mutableListOf()
+    var productItemLocal: MutableList<ProductItemLocal> = mutableListOf()
     val cartAdapter = CartAdapter()
+    var count = 1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCartBinding.bind(view)
         binding.cartRecyclerviw.adapter = cartAdapter
         cartviewmodel.getOrdersFromLocal().observe(viewLifecycleOwner) {
+            productItemLocal.addAll(it)
             cartAdapter.submitList(it)
 //            productItemLocal.addAll(it)
 //            for (i in it) {
@@ -43,7 +45,6 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         }
 
         Log.d("tedadorderid", "onViewCreated: " + ordersId)
-
 
 
 //        cartviewmodel.orderList.collectIt(viewLifecycleOwner) {
@@ -78,7 +79,42 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
     private fun adapterClickListener() {
         cartAdapter.setOnItemClickListener(object : CartAdapter.OnItemClickListener {
-            override fun onItemClicked(position: Int) {
+            override fun onItemPlus(position: Int) {
+
+                cartviewmodel.updateOrder(
+                    ProductItemLocal(
+                        productItemLocal[position].id,
+                        count = cartAdapter.currentList[position].count.plus(1),
+                        name = productItemLocal[position].name,
+                        price = productItemLocal[position].price,
+                        images = productItemLocal[position].images
+                    )
+                )
+                cartAdapter.notifyItemChanged(position)
+
+            }
+
+            override fun onItemMinus(position: Int) {
+
+                if (cartAdapter.currentList[position].count == 1) {
+                    cartviewmodel.deleteOrderFromLocal(cartAdapter.currentList[position])
+                    cartAdapter.notifyItemRemoved(position)
+                }else{
+                    cartviewmodel.updateOrder(
+                        ProductItemLocal(
+                            productItemLocal[position].id,
+                            count = cartAdapter.currentList[position].count.minus(1),
+                            name = productItemLocal[position].name,
+                            price = productItemLocal[position].price,
+                            images = productItemLocal[position].images
+                        )
+                    )
+                    cartAdapter.notifyItemChanged(position)
+
+                }
+
+
+
 
             }
 

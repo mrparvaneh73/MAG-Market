@@ -30,9 +30,16 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
     }
 
 
-    fun deleteFromLocal(productItemLocal: ProductItemLocal){
+    fun deleteOrderFromLocal(productItemLocal: ProductItemLocal){
         viewModelScope.launch {
             cartRepository.deleteProductFromCart(productItemLocal)
+        }
+
+    }
+
+    fun updateOrder(productItemLocal: ProductItemLocal){
+        viewModelScope.launch {
+            cartRepository.updateProductCart(productItemLocal)
         }
 
     }

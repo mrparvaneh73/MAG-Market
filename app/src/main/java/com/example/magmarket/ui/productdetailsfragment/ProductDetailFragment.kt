@@ -3,6 +3,7 @@ package com.example.magmarket.ui.productdetailsfragment
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.text.HtmlCompat
@@ -37,7 +38,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     private val viewModel: ProductDetailsViewModel by viewModels()
     private val adapter = SliderAdapter()
     private var count = 1
-    private var isInCart = false
+    private var isInCart = true
     private lateinit var name: String
     private lateinit var price: String
     private lateinit var image: String
@@ -73,7 +74,6 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                     adapter.submitList(it.value.images)
                     scrollView3.isVisible = true
                     detailCard.isVisible = true
-                    stateView.onSuccess()
                     stateView.onSuccess()
                 }
                 is ResultWrapper.Error -> {
@@ -146,6 +146,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     }
 
     fun isExist() {
+
         viewModel.isExistInOrders(args.id.toInt()).observe(viewLifecycleOwner) {
             if (it == true) {
                 isInCart = true
@@ -156,12 +157,16 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                 binding.linearLayout7.isVisible = false
                 binding.buttonAddToCart.isVisible = true
             }
+            Log.d("isexitst", "isExist:$isInCart " )
         }
         viewModel.getProductFromOrders(args.id.toInt()).observe(viewLifecycleOwner) {
-            if (isInCart == true) {
-                count = it.count
-                binding.tvProductCount.text = it.count.toString()
-            }
+      if(isInCart!=false){
+          count = it.count
+          Log.d("dsfdsfsdf", "isExist: "+it.count)
+          binding.tvProductCount.text = it.count.toString()
+      }
+
+
 
         }
 

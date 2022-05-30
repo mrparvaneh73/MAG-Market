@@ -44,7 +44,7 @@ interface MarketService {
     suspend fun createOrder(
         @Body order: Order,
         @QueryMap tokens: Map<String, String> = BASE_PARAM
-    )
+    ):Response<Order>
 
     @GET("products")
     suspend fun getAllOrders(

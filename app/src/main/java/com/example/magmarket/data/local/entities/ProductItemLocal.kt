@@ -13,11 +13,11 @@ data class ProductItemLocal(
     @ColumnInfo
     val id: Int,
     @ColumnInfo
-    val name: String,
+    val name: String?="",
     @ColumnInfo
-    val price: String,
+    val price: String?="",
     @ColumnInfo
-    val images:String,
+    val images:String?="",
     @ColumnInfo
     val count: Int
 )
