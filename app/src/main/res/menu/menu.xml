@@ -10,7 +10,7 @@
         android:icon="@drawable/categories"
         android:title="@string/category" />
     <item
-        android:id="@+id/cartFragment"
+        android:id="@+id/parentOfCartFragment"
         android:icon="@drawable/cart"
         android:title="@string/bascket" />
     <item

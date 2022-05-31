@@ -15,11 +15,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.magmarket.R
 import com.example.magmarket.databinding.ActivityMainBinding
-import com.example.magmarket.ui.cartfragment.CartFragment
 import com.example.magmarket.utils.ConnectivityStatus
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.qualifiers.ActivityContext
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -67,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         }
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.cartFragment -> visibleBottomNavigation()
+                R.id.parentOfCartFragment -> visibleBottomNavigation()
                 R.id.homeFragment -> visibleBottomNavigation()
                 R.id.categoryFragment -> visibleBottomNavigation()
                 R.id.userFragment -> visibleBottomNavigation()

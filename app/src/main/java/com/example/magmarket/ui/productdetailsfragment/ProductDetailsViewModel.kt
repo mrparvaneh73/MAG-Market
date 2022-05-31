@@ -21,9 +21,7 @@ class ProductDetailsViewModel @Inject constructor(private val repository: Produc
         MutableStateFlow(ResultWrapper.Loading)
     val product = _product.asStateFlow()
 
-    private val _isExist: MutableStateFlow<Boolean> =
-        MutableStateFlow(false)
-    val isExist = _isExist.asStateFlow()
+
 
     fun getProduct(id: String) {
         viewModelScope.launch {
