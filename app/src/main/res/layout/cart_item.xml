@@ -217,7 +217,7 @@ android:fontFamily="@font/far_mitra"
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_price"
+        android:id="@+id/tv_totalprice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -237,11 +237,11 @@ android:fontFamily="@font/far_mitra"
         android:textColor="@color/text"
         android:text="@string/unit_of_currency"
         android:fontFamily="@font/farkhondeh"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_price"
-        app:layout_constraintEnd_toStartOf="@+id/tv_price"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_totalprice"
+        app:layout_constraintEnd_toStartOf="@+id/tv_totalprice"
         app:layout_constraintHorizontal_bias="0.795"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_price"
+        app:layout_constraintTop_toTopOf="@+id/tv_totalprice"
         app:layout_constraintVertical_bias="0.0" />
 
     <View

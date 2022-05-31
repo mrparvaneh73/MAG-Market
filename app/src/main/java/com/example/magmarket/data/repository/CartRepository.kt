@@ -2,6 +2,7 @@ package com.example.magmarket.data.repository
 
 import com.example.magmarket.data.local.entities.ProductItemLocal
 import com.example.magmarket.data.local.localdatabase.LocalDataBase
+import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.network.RemoteDataSource
 import com.example.magmarket.di.IoDispatcher
 import com.example.magmarket.di.MarkLocalDataBase
@@ -32,7 +33,9 @@ class CartRepository @Inject constructor(
      suspend fun deleteProductFromCart(productItemLocal: ProductItemLocal) {
          markLocalDataBase.deleteProductFromCart(productItemLocal)
     }
-
+    suspend fun creatOrder(order: Order) = safeApiCall(dispatcher) {
+        marketremoteDataSource.creatOrder(order)
+    }
      suspend fun updateProductCart(productItemLocal: ProductItemLocal) {
          markLocalDataBase.updateProductCart(productItemLocal)
     }

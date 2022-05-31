@@ -25,6 +25,10 @@
             app:destination="@id/productsCategoryFragment"
             app:enterAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -35,6 +39,9 @@
             app:destination="@id/productsCategoryFragment"
             app:enterAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_categoryFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
@@ -86,4 +93,8 @@
         android:id="@+id/cartFragment"
         android:name="com.example.magmarket.ui.cartfragment.CartFragment"
         android:label="Cart" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.magmarket.ui.searchfragment.SearchFragment"
+        android:label="SearchFragment" />
 </navigation>

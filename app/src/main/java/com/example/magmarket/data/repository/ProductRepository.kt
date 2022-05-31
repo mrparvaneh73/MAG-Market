@@ -41,6 +41,9 @@ class ProductRepository @Inject constructor(
     suspend fun getAllCategories() = safeApiCall(dispatcher) {
         marketremoteDataSource.getAllCategories()
     }
+    suspend fun getSearchProduct(search:String)= safeApiCall(dispatcher){
+        marketremoteDataSource.searchProduct(search)
+    }
 
     fun getCartProductById(productId: Int): Flow<ProductItemLocal> {
         return  markLocalDataBase.getCartProductById(productId)

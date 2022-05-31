@@ -12,19 +12,19 @@ import com.example.magmarket.databinding.CartItemBinding
 import java.text.NumberFormat
 import java.util.*
 
-class CartAdapter() :
+class CartAdapter :
     ListAdapter<ProductItemLocal, CartAdapter.MyViewHolder>(CartOrdersDiffCall) {
     val nf: NumberFormat = NumberFormat.getInstance(Locale.US)
-    private lateinit var onItemClickListener: CartAdapter.OnItemClickListener
+    private lateinit var onItemClickListener: OnItemClickListener
 
 
-    fun setOnItemClickListener(listenerOn: CartAdapter.OnItemClickListener) {
+    fun setOnItemClickListener(listenerOn: OnItemClickListener) {
         onItemClickListener = listenerOn
     }
 
     inner class MyViewHolder(
         private val binding: CartItemBinding,
-        private val listenerOn: CartAdapter.OnItemClickListener
+        private val listenerOn: OnItemClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun mBind(productItem: ProductItemLocal) = binding.apply {
@@ -33,9 +33,9 @@ class CartAdapter() :
                 .into(imgProduct)
             tvProductName.text = productItem.name
             if (productItem.price != "") {
-                tvPrice.text = nf.format(productItem.price?.toInt())
+                tvTotalprice.text = nf.format(productItem.price?.toInt())
             } else {
-                tvPrice.text = "بدون قیمت"
+                tvTotalprice.text = "بدون قیمت"
             }
             if (productItem.count == 1) {
                 imgDeleteOrder.setImageResource(R.drawable.delete)

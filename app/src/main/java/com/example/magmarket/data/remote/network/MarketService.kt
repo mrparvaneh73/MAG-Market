@@ -4,7 +4,9 @@ import com.example.magmarket.data.remote.model.CategoryItem
 import com.example.magmarket.data.remote.model.ProductItem
 import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
 import com.example.magmarket.data.remote.model.order.Order
+import com.example.magmarket.data.remote.model.order.ResponseOrder
 import com.example.magmarket.utils.Constants.BASE_PARAM
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -44,11 +46,17 @@ interface MarketService {
     suspend fun createOrder(
         @Body order: Order,
         @QueryMap tokens: Map<String, String> = BASE_PARAM
-    ):Response<Order>
+    ):Response<ResponseOrder>
 
     @GET("products")
     suspend fun getAllOrders(
         @Query("include") include:String,
         @QueryMap tokens: Map<String, String> = BASE_PARAM
     ):Response<List<ProductItem>>
+
+    @GET("products")
+   suspend fun searchProduct(
+        @Query("search") search: String,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ): Response<List<ProductItem>>
 }

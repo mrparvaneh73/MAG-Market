@@ -53,7 +53,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         collectCategory()
         collect()
         clickListener()
-
+        search()
 
     }
 
@@ -204,7 +204,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
     }
+fun search(){
+    binding.searchLinear.parentSearch.setOnClickListener {
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
+    }
 
+}
     private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
         lifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {

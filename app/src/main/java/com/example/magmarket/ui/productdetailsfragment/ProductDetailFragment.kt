@@ -1,11 +1,8 @@
 package com.example.magmarket.ui.productdetailsfragment
 
 
-import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -19,8 +16,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.example.magmarket.R
 import com.example.magmarket.data.local.entities.ProductItemLocal
-import com.example.magmarket.ui.adapters.SliderAdapter
 import com.example.magmarket.databinding.FragmentProductDetailBinding
+import com.example.magmarket.ui.adapters.SliderAdapter
 import com.example.magmarket.utils.ResultWrapper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
@@ -50,7 +47,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         collect()
         close()
         isExist()
-        addTocart()
+        addToCart()
         goToCart()
 
     }
@@ -70,7 +67,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                     tvProductDescription.text =
                         HtmlCompat.fromHtml(it.value.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
                     price = it.value.price
-                    tvPrice.text = nf.format(price.toInt())
+                    tvTotalprice.text = nf.format(price.toInt())
                     adapter.submitList(it.value.images)
                     scrollView3.isVisible = true
                     detailCard.isVisible = true
@@ -94,7 +91,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
     }
 
-    private fun addTocart() {
+    private fun addToCart() {
         binding.imageViewPlus.setOnClickListener {
 
             count++
@@ -145,31 +142,38 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         }
     }
 
-    fun isExist() {
+   private fun isExist() {
 
         viewModel.isExistInOrders(args.id.toInt()).observe(viewLifecycleOwner) {
             if (it == true) {
                 isInCart = true
                 binding.linearLayout7.isVisible = true
                 binding.buttonAddToCart.isVisible = false
+                setCountorder()
             } else {
                 isInCart = false
                 binding.linearLayout7.isVisible = false
                 binding.buttonAddToCart.isVisible = true
             }
-            Log.d("isexitst", "isExist:$isInCart " )
+
         }
+
+
+    }
+    fun setCountorder(){
         viewModel.getProductFromOrders(args.id.toInt()).observe(viewLifecycleOwner) {
-      if(isInCart!=false){
-          count = it.count
-          Log.d("dsfdsfsdf", "isExist: "+it.count)
-          binding.tvProductCount.text = it.count.toString()
-      }
+                count = it.count
+                binding.tvProductCount.text = it.count.toString()
+                if (it.count == 1) {
+                    binding.imgDeleteOrder.setImageResource(R.drawable.delete)
+                } else {
+                    binding.imgDeleteOrder.setImageResource(R.drawable.minus)
+                }
+
 
 
 
         }
-
     }
 
     private fun init() {

@@ -38,6 +38,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         _binding = FragmentCategoryBinding.bind(view)
         init()
         collect()
+        goForSearch()
 
     }
 
@@ -151,6 +152,14 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
 
             }
         }
+
+    }
+
+    private fun goForSearch() {
+        binding.searchLinear.parentSearch.setOnClickListener {
+            findNavController().navigate(CategoryFragmentDirections.actionCategoryFragmentToSearchFragment())
+        }
+
 
     }
 

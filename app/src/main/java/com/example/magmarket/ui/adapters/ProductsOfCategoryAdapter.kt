@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.magmarket.R
 import com.example.magmarket.data.remote.model.ProductItem
 import com.example.magmarket.databinding.ItemsSubCategoryBinding
 import java.text.NumberFormat
@@ -21,6 +22,7 @@ class ProductsOfCategoryAdapter(private var clickListener: (ProductItem) -> Unit
         fun mBind(productItem: ProductItem) = binding.apply {
             Glide.with(root)
                 .load(productItem.images[0].src)
+                .placeholder(R.drawable.emptyimage)
                 .into(productImage)
             productName.text = productItem.name
             if (productItem.price!= ""){

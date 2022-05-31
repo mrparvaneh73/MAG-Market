@@ -272,14 +272,14 @@
                 android:textSize="@dimen/TextSize7x"
 
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tv_price"
+                app:layout_constraintEnd_toStartOf="@+id/tv_totalprice"
                 app:layout_constraintHorizontal_bias="0.67"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.51" />
 
             <TextView
-                android:id="@+id/tv_price"
+                android:id="@+id/tv_totalprice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

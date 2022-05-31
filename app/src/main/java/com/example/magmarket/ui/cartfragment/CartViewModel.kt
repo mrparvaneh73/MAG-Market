@@ -5,6 +5,8 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.magmarket.data.local.entities.ProductItemLocal
 import com.example.magmarket.data.remote.model.ProductItem
+import com.example.magmarket.data.remote.model.order.Order
+import com.example.magmarket.data.remote.model.order.ResponseOrder
 import com.example.magmarket.data.repository.CartRepository
 import com.example.magmarket.utils.ResultWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CartViewModel @Inject constructor(private val cartRepository: CartRepository) : ViewModel() {
 
-    private val _orderList: MutableStateFlow<ResultWrapper<List<ProductItem>>> =
+    private val _orderList: MutableStateFlow<ResultWrapper<ResponseOrder>> =
         MutableStateFlow(ResultWrapper.Loading)
     val orderList = _orderList.asStateFlow()
 
@@ -44,9 +46,9 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
 
     }
 
-    fun getAllOrders(inclulde: String) {
+    fun creatOrder(order: Order) {
         viewModelScope.launch {
-            cartRepository.getAllOrders(inclulde).collect {
+            cartRepository.creatOrder(order).collect {
                 _orderList.emit(it)
             }
         }
