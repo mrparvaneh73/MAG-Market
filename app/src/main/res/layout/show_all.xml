@@ -7,7 +7,7 @@
     android:backgroundTint="@color/whiteBackground"
     app:cardElevation="@dimen/standardMargin"
     android:layout_margin="@dimen/standardMargin2x"
-    android:layout_height="170dp"
+    android:layout_height="200dp"
    >
 
     <LinearLayout

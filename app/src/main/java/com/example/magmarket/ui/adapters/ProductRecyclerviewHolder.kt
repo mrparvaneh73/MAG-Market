@@ -1,5 +1,6 @@
 package com.example.magmarket.ui.adapters
 
+import android.graphics.Paint
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
@@ -49,6 +50,13 @@ sealed class ProductRecyclerviewHolder(binding: ViewBinding) :
                 .placeholder(R.drawable.emptyimage)
                 .into(imgProduct)
             tvnameproduct.text = productItem.name
+            if (productItem.regular_price.toInt()==productItem.price.toInt()){
+                regularprice.text=""
+            }else{
+                regularprice.text=  formatter.format(productItem.regular_price.toInt())
+                regularprice.paintFlags= Paint.STRIKE_THRU_TEXT_FLAG
+            }
+
             tvpriceproduct.text = formatter.format(productItem.price.toInt())
 
             root.setOnClickListener {

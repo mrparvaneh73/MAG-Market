@@ -13,11 +13,17 @@ data class ProductItemLocal(
     @ColumnInfo
     val id: Int,
     @ColumnInfo
-    val name: String?="",
+    val name: String? = "",
     @ColumnInfo
-    val price: String?="",
+    val price: String? = "",
     @ColumnInfo
-    val images:String?="",
+    val images: String? = "",
     @ColumnInfo
-    val count: Int
+    val count: Int,
+    @ColumnInfo
+    val regular_price: String? = "0",
+    val sale_price: String = "",
+    @ColumnInfo
+    val off:Int=regular_price!!.toInt().minus(price!!.toInt())*count
+
 )

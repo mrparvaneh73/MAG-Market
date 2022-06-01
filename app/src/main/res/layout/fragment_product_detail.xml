@@ -271,11 +271,11 @@
                 android:textColor="@color/text"
                 android:textSize="@dimen/TextSize7x"
 
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/tv_totalprice"
                 app:layout_constraintEnd_toStartOf="@+id/tv_totalprice"
                 app:layout_constraintHorizontal_bias="0.67"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_totalprice"
                 app:layout_constraintVertical_bias="0.51" />
 
             <TextView
@@ -283,15 +283,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="272dp"
                 android:layout_weight="3"
                 android:fontFamily="@font/far_mitra"
                 android:gravity="start"
                 android:textColor="@color/text"
+
                 android:textSize="@dimen/TextSize5x"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                tools:text="1500000 " />
+
+            <TextView
+                android:id="@+id/tv_regularprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="3"
+                android:fontFamily="@font/far_mitra"
+                android:gravity="start"
+                android:textColor="@color/red"
+                android:textSize="@dimen/TextSize5x"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tv_totalprice"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tv_totalprice"
+                app:layout_constraintTop_toBottomOf="@id/tv_totalprice"
+                app:layout_constraintVertical_bias="0.0"
                 tools:text="1500000 " />
 
             <com.google.android.material.button.MaterialButton

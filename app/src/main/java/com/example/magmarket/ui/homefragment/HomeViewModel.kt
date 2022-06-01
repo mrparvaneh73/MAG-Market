@@ -3,6 +3,7 @@ package com.example.magmarket.ui.homefragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.magmarket.data.remote.model.CategoryItem
+import com.example.magmarket.data.remote.model.ProductItem
 import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
 import com.example.magmarket.data.repository.ProductRepository
 import com.example.magmarket.utils.Constants.BEST_PRODUCT
@@ -19,6 +20,10 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val productRepository: ProductRepository) :
     ViewModel() {
+    private val _slider: MutableStateFlow<ResultWrapper<ProductItem>> =
+        MutableStateFlow(ResultWrapper.Loading)
+    val slider = _slider.asStateFlow()
+
 
     private val _bestProduct: MutableStateFlow<ResultWrapper<List<ProductRecyclerViewItem.ProductItem>>> =
         MutableStateFlow(ResultWrapper.Loading)
@@ -38,6 +43,7 @@ class HomeViewModel @Inject constructor(private val productRepository: ProductRe
 
     init {
         getAllProducts()
+        getProduct()
     }
 
     fun getAllProducts() {
@@ -71,6 +77,17 @@ class HomeViewModel @Inject constructor(private val productRepository: ProductRe
 
         }
 
+    }
+
+
+
+
+    fun getProduct(id: String="608") {
+        viewModelScope.launch {
+            productRepository.getProduct(id).collect {
+                _slider.emit(it)
+            }
+        }
     }
 
 

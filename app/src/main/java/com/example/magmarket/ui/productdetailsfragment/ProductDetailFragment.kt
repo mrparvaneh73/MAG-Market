@@ -1,7 +1,9 @@
 package com.example.magmarket.ui.productdetailsfragment
 
 
+import android.graphics.Paint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
@@ -39,6 +41,8 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     private lateinit var name: String
     private lateinit var price: String
     private lateinit var image: String
+    private var regularprice: String = "0"
+    private lateinit var sale_price: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,6 +53,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         isExist()
         addToCart()
         goToCart()
+        setCountorder()
 
     }
 
@@ -61,6 +66,8 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                     detailCard.isVisible = false
                 }
                 is ResultWrapper.Success -> {
+                    sale_price = it.value.sale_price
+                    Log.d("Saleprice", "collect: "+it.value.sale_price)
                     image = it.value.images[0].src
                     name = it.value.name
                     tvProductName.text = name
@@ -68,6 +75,14 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                         HtmlCompat.fromHtml(it.value.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
                     price = it.value.price
                     tvTotalprice.text = nf.format(price.toInt())
+                    regularprice = it.value.regular_price
+                    if (it.value.price.toInt() == regularprice.toInt()) {
+                        tvRegularprice.text = ""
+                    } else {
+                        tvRegularprice.text = nf.format(regularprice.toInt())
+                        tvRegularprice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                    }
+
                     adapter.submitList(it.value.images)
                     scrollView3.isVisible = true
                     detailCard.isVisible = true
@@ -101,7 +116,9 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                     count = count,
                     name = name,
                     price = price,
-                    images = image
+                    images = image,
+                    regular_price = regularprice,
+                    sale_price = sale_price
                 )
             )
         }
@@ -110,10 +127,11 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                 viewModel.deletProductFromOrders(
                     ProductItemLocal(
                         id = args.id.toInt(),
-                        count = count, name = name, price = price, images = image
+                        count = count, name = name, price = price, images = image,
+                        regular_price = regularprice
                     )
                 )
-                isInCart = false
+
             } else if (count > 1) {
                 count--
                 viewModel.updateOrder(
@@ -122,7 +140,8 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                         count = count,
                         name = name,
                         price = price,
-                        images = image
+                        images = image,
+                        regular_price = regularprice
                     )
                 )
             }
@@ -135,21 +154,35 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                     count = count,
                     name = name,
                     price = price,
-                    images = image
+                    images = image,
+                    regular_price = regularprice,
+                    sale_price = sale_price
                 )
             )
             isInCart = true
         }
     }
 
-   private fun isExist() {
+    private fun isExist() {
 
         viewModel.isExistInOrders(args.id.toInt()).observe(viewLifecycleOwner) {
             if (it == true) {
-                isInCart = true
+
                 binding.linearLayout7.isVisible = true
                 binding.buttonAddToCart.isVisible = false
-                setCountorder()
+//                    viewModel.getProductFromOrders(args.id.toInt()).observe(viewLifecycleOwner) {
+//
+//                        count = it.count
+//                        binding.tvProductCount.text = it.count.toString()
+//                        if (it.count == 1) {
+//                            binding.imgDeleteOrder.setImageResource(R.drawable.delete)
+//                        } else {
+//                            binding.imgDeleteOrder.setImageResource(R.drawable.minus)
+//                        }
+//
+//
+//                    }
+
             } else {
                 isInCart = false
                 binding.linearLayout7.isVisible = false
@@ -160,20 +193,10 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
 
     }
-    fun setCountorder(){
-        viewModel.getProductFromOrders(args.id.toInt()).observe(viewLifecycleOwner) {
-                count = it.count
-                binding.tvProductCount.text = it.count.toString()
-                if (it.count == 1) {
-                    binding.imgDeleteOrder.setImageResource(R.drawable.delete)
-                } else {
-                    binding.imgDeleteOrder.setImageResource(R.drawable.minus)
-                }
+
+    fun setCountorder() {
 
 
-
-
-        }
     }
 
     private fun init() {

@@ -2,6 +2,7 @@ package com.example.magmarket.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -41,6 +42,13 @@ class CartAdapter :
                 imgDeleteOrder.setImageResource(R.drawable.delete)
             } else {
                 imgDeleteOrder.setImageResource(R.drawable.minus)
+            }
+            if (productItem.sale_price!=productItem.price){
+                unitOff.isVisible=false
+                tvOff.text=""
+            }else{
+                unitOff.isVisible=true
+                tvOff.text=nf.format(productItem.off)
             }
             tvProductCount.text = productItem.count.toString()
 

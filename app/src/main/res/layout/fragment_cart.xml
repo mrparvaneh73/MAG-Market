@@ -6,66 +6,30 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <com.google.android.material.appbar.CollapsingToolbarLayout
-        android:id="@+id/toolbar_layout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/emptycart"
+        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_scrollFlags="scroll|snap">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <include
+            android:id="@+id/inc_emptycart"
+            layout="@layout/empty_cart" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/basket_text_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="9"
-                android:fontFamily="@font/farkhondeh"
-                android:gravity="center"
-                android:padding="8dp"
-                android:text="@string/bascket"
-                android:textColor="@color/text"
-                android:textSize="@dimen/TextSize6x"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/toolbarcount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/standardMargin"
-                android:background="@drawable/background_round"
-                android:fontFamily="@font/far_mitra"
-                android:padding="@dimen/standardMargin3x"
-                android:text="2"
-
-                android:textColor="@color/white"
-                android:textSize="@dimen/TextSize5x"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/basket_text_bar"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     <ScrollView
+        android:id="@+id/parent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/detail_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_layout">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -98,8 +62,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
+                    android:layout_height="match_parent"
                     android:background="@color/background">
 
                     <TextView
@@ -181,10 +144,23 @@
                     android:text="@string/product_price"
                     android:textColor="@color/text"
                     android:textSize="@dimen/TextSize4x"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/tv_totaloff_desc"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_summary"
                     app:layout_constraintVertical_bias="0.269" />
+
+                <TextView
+                    android:id="@+id/tv_totaloff_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/far_mitra"
+                    android:text="@string/products_off"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/TextSize4x"
+                    android:layout_marginBottom="@dimen/standardMargin2x"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_product_price_dec"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_product_price"
+                    app:layout_constraintStart_toStartOf="@+id/tv_product_price" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_product_price_dec"
@@ -217,19 +193,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/far_mitra"
-                    android:text="2"
+
                     android:textSize="@dimen/TextSize4x"
                     app:layout_constraintEnd_toStartOf="@+id/tv_summary"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/totalcountdesc"
+                    app:layout_constraintStart_toStartOf="@+id/total_price_without_off"
                     app:layout_constraintTop_toTopOf="@+id/tv_summary" />
 
                 <TextView
-                    android:id="@+id/totalcountdesc"
+                    android:id="@+id/total_price_without_off"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/far_mitra"
-                    android:text="200000000"
+
                     android:textSize="@dimen/TextSize4x"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_product_price"
                     app:layout_constraintEnd_toStartOf="@+id/tv_product_price"
@@ -237,6 +213,20 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_product_price"
                     app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/tv_totaloff_count_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/far_mitra"
+
+                    android:textSize="@dimen/TextSize4x"
+                    android:textColor="@color/red"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_product_price_dec"
+                    app:layout_constraintEnd_toEndOf="@+id/totlapricedesc"
+
+                    app:layout_constraintStart_toStartOf="@+id/totlapricedesc"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_product_price" />
 
                 <TextView
                     android:id="@+id/unitpricedesc"
@@ -247,22 +237,35 @@
                     android:textSize="@dimen/TextSize4x"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_product_price"
 
-                    app:layout_constraintEnd_toStartOf="@+id/totalcountdesc"
+                    app:layout_constraintEnd_toStartOf="@+id/total_price_without_off"
                     app:layout_constraintHorizontal_bias="0.6"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_product_price"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
+                    android:id="@+id/tv_unit_off"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/far_mitra"
+                    android:text="@string/unit_of_currency"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/TextSize4x"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_totaloff_count_price"
+                    app:layout_constraintEnd_toEndOf="@+id/unitpricedesc"
+                    app:layout_constraintStart_toStartOf="@+id/unitpricedesc"
+                    app:layout_constraintTop_toTopOf="@+id/tv_totaloff_count_price" />
+
+                <TextView
                     android:id="@+id/totlapricedesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/far_mitra"
-                    android:text="200000000"
+
                     android:textSize="@dimen/TextSize4x"
                     app:layout_constraintEnd_toStartOf="@+id/tv_product_price_dec"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/totalcountdesc"
+                    app:layout_constraintStart_toStartOf="@+id/total_price_without_off"
                     app:layout_constraintTop_toTopOf="@+id/tv_product_price_dec" />
 
                 <TextView

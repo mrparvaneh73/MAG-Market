@@ -20,7 +20,12 @@
     <string name="productimage">عکس محصول</string>
     <string name="free_delivery">ارسال رایگان</string>
     <string name="light">Light</string>
+    <string name="back_to_home">بازگشت به صفحه اصلی</string>
     <string name="dark">Dark</string>
+    <string name="placed_order">سفارش شما با موفقیت ثبت گردید.</string>
+    <string name="order_number">شماره سفارش :</string>
+    <string name="off">تومان تخفیف</string>
+    <string name="products_off"> تخفیف کالاها </string>
     <string name="searching_on_all">جستجو در همه کالاها</string>
     <string name="existing">موجود در انبار مگ مارکت</string>
     <string name="magdelivery">ارسال مگ مارکت</string>

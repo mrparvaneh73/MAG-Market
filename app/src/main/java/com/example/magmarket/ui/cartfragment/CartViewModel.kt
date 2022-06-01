@@ -24,7 +24,7 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
 
 
 
-    fun getOrdersFromLocal() = liveData {
+    fun getOrdersFromLocal() = flow {
         cartRepository.getAllCartProductFromLocal().collect {
             emit(it)
         }

@@ -1,6 +1,7 @@
 package com.example.magmarket.ui.homefragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -13,10 +14,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.magmarket.R
 import com.example.magmarket.ui.adapters.CategoryAdapter
-import com.example.magmarket.ui.adapters.HomePagerAdapter
 import com.example.magmarket.ui.adapters.ProductRecyclerviewAdapter
 import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
 import com.example.magmarket.databinding.FragmentHomeBinding
+import com.example.magmarket.ui.adapters.SliderAdapter
 import com.example.magmarket.utils.Constants.BEST_PRODUCT
 import com.example.magmarket.utils.Constants.MOSTVIEW_PRODUCT
 import com.example.magmarket.utils.Constants.NEWEST_PRODUCT
@@ -39,7 +40,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             )
         )
     })
-
+    private var sliderAdapter = SliderAdapter()
     private val bestAdapter = ProductRecyclerviewAdapter()
 
     private val newestAdapter = ProductRecyclerviewAdapter()
@@ -54,10 +55,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         collect()
         clickListener()
         search()
-
+        slider()
     }
 
     private fun init() {
+        binding.productSlider.adapter = sliderAdapter
+        binding.productSlider.clipToPadding = false
+        binding.productSlider.clipChildren = false
+        binding.productSlider.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+        binding.springDotsIndicator.attachTo(binding.productSlider)
         newestAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         categoryAdapter.stateRestorationPolicy =
@@ -70,18 +76,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.categoryRecyclerview.adapter = categoryAdapter
         binding.bestSellerRecyclerview.adapter = bestAdapter
         binding.mostViewrecyclerview.adapter = mostViewAdapter
-        val images = arrayListOf(
-            R.drawable.onlinbuying,
-            R.drawable.shopingimg,
-            R.drawable.watches,
-            R.drawable.phones
-        )
-        val sliderAdapter = HomePagerAdapter(images)
-        binding.productSlider.adapter = sliderAdapter
-        binding.productSlider.clipToPadding = false
-        binding.productSlider.clipChildren = false
-        binding.productSlider.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-        binding.springDotsIndicator.attachTo(binding.productSlider)
     }
 
     private fun clickListener() {
@@ -181,7 +175,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
                 is ResultWrapper.Success -> {
                     val mostViewItem = mutableListOf<ProductRecyclerViewItem>()
-
                     mostViewItem.add(ProductRecyclerViewItem.HeaderProductTitle(title = R.drawable.mostwatched))
                     mostViewItem.addAll(it.value)
                     mostViewItem.add(ProductRecyclerViewItem.ShowAll(title = "مشاهده همه "))
@@ -204,12 +197,35 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
     }
-fun search(){
-    binding.searchLinear.parentSearch.setOnClickListener {
-        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
+
+   private fun slider() {
+        viewModel.slider.collectIt(viewLifecycleOwner) {
+
+
+            when (it) {
+                is ResultWrapper.Loading -> {
+
+                }
+                is ResultWrapper.Success -> {
+
+
+                    sliderAdapter.submitList(it.value.images)
+
+                }
+                is ResultWrapper.Error -> {
+
+                }
+            }
+        }
     }
 
-}
+   private fun search() {
+        binding.searchLinear.parentSearch.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
+        }
+
+    }
+
     private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
         lifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
