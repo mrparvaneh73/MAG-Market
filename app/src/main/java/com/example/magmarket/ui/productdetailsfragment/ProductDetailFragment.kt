@@ -23,6 +23,7 @@ import com.example.magmarket.ui.adapters.SliderAdapter
 import com.example.magmarket.utils.ResultWrapper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.*
@@ -67,7 +68,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                 }
                 is ResultWrapper.Success -> {
                     sale_price = it.value.sale_price
-                    Log.d("Saleprice", "collect: "+it.value.sale_price)
+                    Log.d("Saleprice", "collect: " + it.value.sale_price)
                     image = it.value.images[0].src
                     name = it.value.name
                     tvProductName.text = name
@@ -164,12 +165,13 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     }
 
     private fun isExist() {
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.isExistInOrders(args.id.toInt()).collect {
+                    if (it == true) {
 
-        viewModel.isExistInOrders(args.id.toInt()).observe(viewLifecycleOwner) {
-            if (it == true) {
-
-                binding.linearLayout7.isVisible = true
-                binding.buttonAddToCart.isVisible = false
+                        binding.linearLayout7.isVisible = true
+                        binding.buttonAddToCart.isVisible = false
 //                    viewModel.getProductFromOrders(args.id.toInt()).observe(viewLifecycleOwner) {
 //
 //                        count = it.count
@@ -183,12 +185,14 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 //
 //                    }
 
-            } else {
-                isInCart = false
-                binding.linearLayout7.isVisible = false
-                binding.buttonAddToCart.isVisible = true
-            }
+                    } else {
+                        isInCart = false
+                        binding.linearLayout7.isVisible = false
+                        binding.buttonAddToCart.isVisible = true
+                    }
 
+                }
+            }
         }
 
 

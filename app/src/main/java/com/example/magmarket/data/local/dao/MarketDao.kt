@@ -1,6 +1,7 @@
 package com.example.magmarket.data.local.dao
 
 import androidx.room.*
+import com.example.magmarket.data.local.entities.OrderList
 import com.example.magmarket.data.local.entities.ProductItemLocal
 import kotlinx.coroutines.flow.Flow
 
@@ -9,6 +10,12 @@ import kotlinx.coroutines.flow.Flow
 interface MarketDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertProduct(productItemLocal: ProductItemLocal)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertOrder(order: OrderList)
+
+    @Query("SELECT * FROM orderlist")
+    fun getAllOrders(): Flow<List<OrderList>>
 
     @Query("SELECT * FROM cart")
     fun getAllCartProduct(): Flow<List<ProductItemLocal>>

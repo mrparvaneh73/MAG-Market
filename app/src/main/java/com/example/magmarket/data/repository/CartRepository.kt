@@ -1,5 +1,6 @@
 package com.example.magmarket.data.repository
 
+import com.example.magmarket.data.local.entities.OrderList
 import com.example.magmarket.data.local.entities.ProductItemLocal
 import com.example.magmarket.data.local.localdatabase.LocalDataBase
 import com.example.magmarket.data.remote.model.order.Order
@@ -38,5 +39,17 @@ class CartRepository @Inject constructor(
     }
      suspend fun updateProductCart(productItemLocal: ProductItemLocal) {
          markLocalDataBase.updateProductCart(productItemLocal)
+    }
+
+    suspend fun insertOrder(order: OrderList) {
+        markLocalDataBase.insertOrder(order)
+    }
+
+    suspend fun getPlacedOrder(include: String) = safeApiCall(dispatcher) {
+        marketremoteDataSource.getPlacedOrder(include)
+    }
+
+    fun getAllPlacedOrders(): Flow<List<OrderList>> {
+        return markLocalDataBase.getAllOrders()
     }
 }

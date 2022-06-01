@@ -11,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -43,13 +44,13 @@ class ProductDetailsViewModel @Inject constructor(private val repository: Produc
         }
     }
 
-    fun isExistInOrders(id: Int) = liveData {
+    fun isExistInOrders(id: Int) = flow {
         repository.isRowIsExist(id).collect {
             emit(it)
         }
     }
 
-    fun getProductFromOrders(id: Int) = liveData {
+    fun getProductFromOrders(id: Int) = flow {
         repository.getCartProductById(id).collect {
             emit(it)
         }

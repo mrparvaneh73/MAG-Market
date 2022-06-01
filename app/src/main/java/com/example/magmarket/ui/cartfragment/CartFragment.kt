@@ -2,18 +2,19 @@ package com.example.magmarket.ui.cartfragment
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.magmarket.R
+import com.example.magmarket.data.local.entities.OrderList
 import com.example.magmarket.data.local.entities.ProductItemLocal
 import com.example.magmarket.data.remote.model.order.LineItem
 import com.example.magmarket.data.remote.model.order.Order
@@ -32,7 +33,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     private val binding get() = _binding!!
 
     private val nf: NumberFormat = NumberFormat.getInstance(Locale.US)
-    private val cartViewModel by viewModels<CartViewModel>()
+    private val cartViewModel by activityViewModels<CartViewModel>()
     val cartAdapter = CartAdapter()
     var count = 1
     var totalPrice = 0
@@ -107,7 +108,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     private fun adapterClickListener() {
         cartAdapter.setOnItemClickListener(object : CartAdapter.OnItemClickListener {
             override fun onItemPlus(position: Int) {
-                restValues()
+                resetValues()
                 cartViewModel.updateOrder(
                     ProductItemLocal(
                         id = cartAdapter.currentList[position].id,
@@ -129,7 +130,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
             }
 
             override fun onItemMinus(position: Int) {
-                restValues()
+                resetValues()
                 if (cartAdapter.currentList[position].count == 1) {
                     cartViewModel.deleteOrderFromLocal(cartAdapter.currentList[position])
                     cartAdapter.notifyItemRemoved(position)
@@ -174,9 +175,9 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
                 }
                 is ResultWrapper.Success -> {
-
+                    cartViewModel.insertPlacedOrdersInLocal(OrderList(id = it.value.id) )
                     openDialog(it.value.id.toString())
-                    for (i in cartAdapter.currentList){
+                    for (i in cartAdapter.currentList) {
                         cartViewModel.deleteOrderFromLocal(i)
                     }
 
@@ -190,7 +191,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         }
     }
 
-    fun restValues() {
+    fun resetValues() {
         listLineItem.clear()
         totalPrice = 0
         totalCount = 0
@@ -198,17 +199,17 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         totalPriceWithoutOff = 0
     }
 
-private fun openDialog(orderId:String){
-val dialog=Dialog(requireContext())
-    dialog.setContentView(R.layout.order_placed)
-    val button=dialog.findViewById<ImageView>(R.id.img_close)
-    val orderNumber=dialog.findViewById<TextView>(R.id.order_number)
-    orderNumber.text=orderId
-    button.setOnClickListener {
-        dialog.dismiss()
+    private fun openDialog(orderId: String) {
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.order_placed)
+        val button = dialog.findViewById<ImageView>(R.id.img_close)
+        val orderNumber = dialog.findViewById<TextView>(R.id.order_number)
+        orderNumber.text = orderId
+        button.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
-    dialog.show()
-}
 
     private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
         lifecycleOwner.lifecycleScope.launch {

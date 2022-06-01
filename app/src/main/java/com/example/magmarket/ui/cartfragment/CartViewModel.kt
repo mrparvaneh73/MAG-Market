@@ -1,10 +1,9 @@
 package com.example.magmarket.ui.cartfragment
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import com.example.magmarket.data.local.entities.OrderList
 import com.example.magmarket.data.local.entities.ProductItemLocal
-import com.example.magmarket.data.remote.model.ProductItem
 import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.model.order.ResponseOrder
 import com.example.magmarket.data.repository.CartRepository
@@ -21,7 +20,9 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
         MutableStateFlow(ResultWrapper.Loading)
     val orderList = _orderList.asStateFlow()
 
-
+    private val _order: MutableStateFlow<ResultWrapper<List<ResponseOrder>>> =
+        MutableStateFlow(ResultWrapper.Loading)
+    val order = _order.asStateFlow()
 
 
     fun getOrdersFromLocal() = flow {
@@ -31,6 +32,18 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
 
     }
 
+
+    fun getAllPlacedOrders()= flow {
+        cartRepository.getAllPlacedOrders().collect{
+            emit(it)
+        }
+    }
+
+    fun insertPlacedOrdersInLocal(order: OrderList) {
+        viewModelScope.launch {
+            cartRepository.insertOrder(order)
+        }
+    }
 
     fun deleteOrderFromLocal(productItemLocal: ProductItemLocal){
         viewModelScope.launch {
@@ -50,6 +63,15 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
         viewModelScope.launch {
             cartRepository.creatOrder(order).collect {
                 _orderList.emit(it)
+            }
+        }
+
+    }
+
+    fun getPlacedOrder(includ: String) {
+        viewModelScope.launch {
+            cartRepository.getPlacedOrder(includ).collect {
+                _order.emit(it)
             }
         }
 

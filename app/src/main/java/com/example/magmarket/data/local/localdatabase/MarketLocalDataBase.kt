@@ -1,6 +1,7 @@
 package com.example.magmarket.data.local.localdatabase
 
 import com.example.magmarket.data.local.dao.MarketDao
+import com.example.magmarket.data.local.entities.OrderList
 import com.example.magmarket.data.local.entities.ProductItemLocal
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -23,6 +24,14 @@ class MarketLocalDataBase @Inject constructor(private val marketDao: MarketDao):
 
     override suspend fun updateProductCart(productItemLocal: ProductItemLocal) {
       marketDao.updateProductCart(productItemLocal)
+    }
+
+    override suspend fun insertOrder(order: OrderList) {
+        marketDao.insertOrder(order)
+    }
+
+    override fun getAllOrders(): Flow<List<OrderList>> {
+       return marketDao.getAllOrders()
     }
 
     override fun getCartProductById(productId: Int): Flow<ProductItemLocal> {

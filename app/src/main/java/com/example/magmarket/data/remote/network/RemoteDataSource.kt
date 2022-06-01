@@ -5,7 +5,10 @@ import com.example.magmarket.data.remote.model.ProductItem
 import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
 import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.model.order.ResponseOrder
+import com.example.magmarket.utils.Constants
 import retrofit2.Response
+import retrofit2.http.Query
+import retrofit2.http.QueryMap
 import java.util.ArrayList
 
 interface RemoteDataSource {
@@ -18,4 +21,5 @@ interface RemoteDataSource {
     suspend fun creatOrder(order: Order):Response<ResponseOrder>
     suspend fun getAllOrders(include: String): Response<List<ProductItem>>
     suspend fun searchProduct(search:String): Response<List<ProductItem>>
+    suspend fun getPlacedOrder(include: String):Response<List<ResponseOrder>>
 }
