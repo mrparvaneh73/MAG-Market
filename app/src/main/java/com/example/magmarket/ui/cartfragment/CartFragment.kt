@@ -24,17 +24,18 @@ import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.databinding.FragmentCartBinding
 import com.example.magmarket.ui.adapters.CartAdapter
 import com.example.magmarket.utils.ResultWrapper
+import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.*
+import kotlin.math.absoluteValue
 
 @AndroidEntryPoint
 class CartFragment : Fragment(R.layout.fragment_cart) {
     private var _binding: FragmentCartBinding? = null
     private val binding get() = _binding!!
-    private val args by navArgs<CartFragmentArgs>()
     private val nf: NumberFormat = NumberFormat.getInstance(Locale.US)
     private val cartViewModel by activityViewModels<CartViewModel>()
     val cartAdapter = CartAdapter()
@@ -74,10 +75,11 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                             )
                         )
                     }
-                    if (args.successid != 0) {
+                    if (cartViewModel.isSuccess==true) {
                         for (i in it) {
                             cartViewModel.deleteOrderFromLocal(i)
                         }
+                    cartViewModel.isSuccess=false
                     }
                     if (it.isNotEmpty()) {
                         binding.parent.isVisible = true
@@ -187,8 +189,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                             )
                         )
                     } else {
-                        Toast.makeText(requireContext(), "please first login", Toast.LENGTH_SHORT)
-                            .show()
+                        openDialog()
                     }
                 }
             }
@@ -203,8 +204,21 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         totalOff = 0
         totalPriceWithoutOff = 0
     }
+    private fun openDialog() {
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.first_login)
+        val button = dialog.findViewById<ImageView>(R.id.img_close)
+        val button_login = dialog.findViewById<MaterialButton>(R.id.btn_login)
 
-
+        button_login.setOnClickListener {
+            findNavController().navigate(CartFragmentDirections.actionParentOfCartFragmentToUserFragment2())
+            dialog.dismiss()
+        }
+        button.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
     private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
         lifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {

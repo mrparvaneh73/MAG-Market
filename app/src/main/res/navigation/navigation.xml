@@ -51,8 +51,8 @@
             android:name="id"
             app:argType="string" />
         <action
-            android:id="@+id/action_productDetailFragment_to_cartFragment"
-            app:destination="@id/cartFragment" />
+            android:id="@+id/action_productDetailFragment_to_parentOfCartFragment"
+            app:destination="@id/parentOfCartFragment" />
     </fragment>
     <fragment
         android:id="@+id/productsCategoryFragment"
@@ -107,6 +107,15 @@
         <action
             android:id="@+id/action_cartFragment_to_finalizeOrderFragment"
             app:destination="@id/finalizeOrderFragment" />
+        <argument android:name="successId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_myOrdersFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/action_parentOfCartFragment_to_userFragment2"
+            app:destination="@id/userFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -147,8 +156,8 @@
             android:name="id"
             app:argType="integer" />
         <action
-            android:id="@+id/action_finalizeOrderFragment_to_parentOfCartFragment2"
-            app:destination="@id/cartFragment" />
+            android:id="@+id/action_finalizeOrderFragment_to_parentOfCartFragment3"
+            app:destination="@id/parentOfCartFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -157,8 +166,16 @@
         <action
             android:id="@+id/action_cartFragment_to_finalizeOrderFragment"
             app:destination="@id/finalizeOrderFragment" />
-        <argument
-            android:name="successid"
-            app:argType="integer" />
+        <action
+            android:id="@+id/action_parentOfCartFragment_to_userFragment2"
+            app:destination="@id/userFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myOrdersFragment"
+        android:name="com.example.magmarket.ui.cartfragment.MyOrdersFragment"
+        android:label="MyOrdersFragment" >
+        <action
+            android:id="@+id/action_myOrdersFragment_to_userFragment"
+            app:destination="@id/userFragment" />
     </fragment>
 </navigation>

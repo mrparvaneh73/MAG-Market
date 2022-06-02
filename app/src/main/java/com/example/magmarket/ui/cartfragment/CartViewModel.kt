@@ -29,7 +29,7 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
         MutableStateFlow(ResultWrapper.Loading)
     val order = _order.asStateFlow()
 
-
+     var isSuccess: Boolean = false
     fun getOrdersFromLocal() = flow {
         cartRepository.getAllCartProductFromLocal().collect {
             emit(it)
@@ -38,8 +38,8 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
     }
 
 
-    fun getAllPlacedOrders()= flow {
-        cartRepository.getAllPlacedOrders().collect{
+    fun getAllPlacedOrders() = flow {
+        cartRepository.getAllPlacedOrders().collect {
             emit(it)
         }
     }
@@ -50,46 +50,47 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
         }
     }
 
-    fun deleteOrderFromLocal(productItemLocal: ProductItemLocal){
+    fun deleteOrderFromLocal(productItemLocal: ProductItemLocal) {
         viewModelScope.launch {
             cartRepository.deleteProductFromCart(productItemLocal)
         }
 
     }
 
-    fun updateOrder(productItemLocal: ProductItemLocal){
+    fun updateOrder(productItemLocal: ProductItemLocal) {
         viewModelScope.launch {
             cartRepository.updateProductCart(productItemLocal)
         }
 
     }
 
-    fun getUserFromLocal()= flow {
-        cartRepository.getUsersFromLocal().collect{
+    fun getUserFromLocal() = flow {
+        cartRepository.getUsersFromLocal().collect {
             emit(it)
         }
     }
 
-    fun creatOrder(customer_id:Int,order: Order) {
+    fun creatOrder(customer_id: Int, order: Order) {
         viewModelScope.launch {
-            cartRepository.creatOrder(customer_id,order).collect {
+            cartRepository.creatOrder(customer_id, order).collect {
                 _orderList.emit(it)
             }
         }
 
     }
 
-    fun getPlacedOrder(includ: String) {
+    fun getPlacedOrder(customer_id:Int) {
         viewModelScope.launch {
-            cartRepository.getPlacedOrder(includ).collect {
+            cartRepository.getPlacedOrder(customer_id).collect {
                 _order.emit(it)
             }
         }
 
     }
-    fun getCustomer(id:Int){
+
+    fun getCustomer(id: Int) {
         viewModelScope.launch {
-            cartRepository.getCustomer(id).collect{
+            cartRepository.getCustomer(id).collect {
                 _customer.emit(it)
             }
         }

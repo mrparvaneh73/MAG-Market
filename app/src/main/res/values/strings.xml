@@ -57,6 +57,7 @@
     <string name="country">کشور:</string>
     <string name="finalize_order"> ثبت نهایی </string>
     <string name="back">بازگشت</string>
+    <string name="notLogin">شما وارد حساب کاربری خود نشده اید</string>
     <string name="register">ثبت نام در مگ مارکت</string>
     <string name="name">نام</string>
     <string name="familyname">نام خانوادگی</string>

@@ -46,8 +46,8 @@ class CartRepository @Inject constructor(
         markLocalDataBase.insertOrder(order)
     }
 
-    suspend fun getPlacedOrder(include: String) = safeApiCall(dispatcher) {
-        marketremoteDataSource.getPlacedOrder(include)
+    suspend fun getPlacedOrder(customer_id:Int) = safeApiCall(dispatcher) {
+        marketremoteDataSource.getPlacedOrder(customer_id)
     }
 
     fun getAllPlacedOrders(): Flow<List<OrderList>> {

@@ -22,7 +22,7 @@ interface RemoteDataSource {
     suspend fun creatOrder(customer_id:Int,order: Order): Response<ResponseOrder>
     suspend fun getAllOrders(include: String): Response<List<ProductItem>>
     suspend fun searchProduct(search: String): Response<List<ProductItem>>
-    suspend fun getPlacedOrder(include: String): Response<List<ResponseOrder>>
+    suspend fun getPlacedOrder(customer_id:Int): Response<List<ResponseOrder>>
     suspend fun createCustomer(customer: Customer): Response<CustomerResponse>
     suspend fun getCustomer(id:Int):Response<CustomerResponse>
     suspend fun updateCustomer(id:Int, customer: Customer): Response<CustomerResponse>

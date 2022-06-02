@@ -53,7 +53,7 @@ interface MarketService {
 
     @GET("orders")
     suspend fun getPlacedOrders(
-        @Query("include") include: String,
+        @Query("customer") customer_id:Int,
         @QueryMap tokens: Map<String, String> = BASE_PARAM
     ): Response<List<ResponseOrder>>
 

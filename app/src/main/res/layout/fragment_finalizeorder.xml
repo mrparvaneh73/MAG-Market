@@ -119,7 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="292dp"
+            android:layout_marginTop="80dp"
             android:backgroundTint="@color/button"
             android:fontFamily="@font/far_mitra"
             android:text="@string/finalize_order"
@@ -143,9 +143,11 @@
             android:textColor="@color/text"
             android:textSize="@dimen/TextSize4x"
             app:cornerRadius="@dimen/standardMargin3x"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_finalize" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_finalize"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

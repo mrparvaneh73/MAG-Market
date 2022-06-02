@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -23,16 +24,18 @@ import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.model.order.Shipping
 import com.example.magmarket.databinding.FragmentFinalizeorderBinding
 import com.example.magmarket.utils.ResultWrapper
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class FinalizeOrderFragment : Fragment(R.layout.fragment_finalizeorder) {
     private var _binding: FragmentFinalizeorderBinding? = null
     private val binding get() = _binding!!
     private val args by navArgs<FinalizeOrderFragmentArgs>()
     var listLineItem: MutableList<LineItem> = mutableListOf()
-    lateinit var billing: Billing
-    lateinit var shipping: Shipping
+     var billing: Billing=Billing("","","","","","","","","","")
+     var shipping: Shipping= Shipping("","","","","","","","",)
     var successId: Int = 0
     var allProductInOrderList: MutableList<ProductItemLocal> = mutableListOf()
     private val cartViewModel by activityViewModels<CartViewModel>()
@@ -125,7 +128,7 @@ class FinalizeOrderFragment : Fragment(R.layout.fragment_finalizeorder) {
                     }
                     finalizeOrder(
                         args.id,
-                        Order(billing = billing, line_items = listLineItem, shipping = shipping)
+                        Order( line_items = listLineItem)
                     )
                 }
             }
@@ -146,21 +149,27 @@ class FinalizeOrderFragment : Fragment(R.layout.fragment_finalizeorder) {
 //                    for (i in cartAdapter.currentList) {
 //                        cartViewModel.deleteOrderFromLocal(i)
 //                    }
-                    successId = it.value.id
+                   cartViewModel.isSuccess=true
 
                 }
                 is ResultWrapper.Error -> {
-
+                    Toast.makeText(requireContext(), "somethingwentwrong", Toast.LENGTH_SHORT).show()
 
                 }
             }
         }
     }
-private fun back(){
-    binding.btnBack.setOnClickListener {
-        findNavController().navigate(FinalizeOrderFragmentDirections.actionFinalizeOrderFragmentToParentOfCartFragment2(successId))
+
+    private fun back() {
+        binding.btnBack.setOnClickListener {
+            findNavController().navigate(
+                FinalizeOrderFragmentDirections.actionFinalizeOrderFragmentToParentOfCartFragment3(
+                    successId
+                )
+            )
+        }
     }
-}
+
     private fun openDialog(orderId: String) {
         val dialog = Dialog(requireContext())
         dialog.setContentView(R.layout.order_placed)
