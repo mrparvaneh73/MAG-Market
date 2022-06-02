@@ -60,10 +60,12 @@
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/category_item.xml" value="0.24583333333333332" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/connection.xml" value="0.16799999999999998" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/details_toolbar.xml" value="0.24479166666666666" />
+        <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/edit_success.xml" value="0.20521590423257802" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/empty_cart.xml" value="0.2" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/ex_plus_products.xml" value="0.264" />
+        <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/failed_register.xml" value="0.20521590423257802" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/forsale.xml" value="0.144" />
-        <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/fragment_adress.xml" value="0.20436083796494228" />
+        <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/fragment_adress.xml" value="0.264" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/fragment_cart.xml" value="0.264" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/fragment_category.xml" value="0.2" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/fragment_home.xml" value="0.22945205479452055" />
@@ -75,7 +77,7 @@
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/fragment_register.xml" value="0.20436083796494228" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/fragment_search.xml" value="0.264" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/fragment_showmore.xml" value="0.1936725096194955" />
-        <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/fragment_user.xml" value="0.264" />
+        <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/fragment_user.xml" value="0.2" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/item_title.xml" value="0.24479166666666666" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/items_sub_category.xml" value="0.4" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/loading_layout.xml" value="0.11904761904761904" />
@@ -93,6 +95,7 @@
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/slider_item.xml" value="0.1" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/stateview.xml" value="0.24583333333333332" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/sub_category_item.xml" value="0.6" />
+        <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/success_register.xml" value="0.20521590423257802" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/topbar.xml" value="0.24895833333333334" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/menu/menu.xml" value="0.24583333333333332" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />

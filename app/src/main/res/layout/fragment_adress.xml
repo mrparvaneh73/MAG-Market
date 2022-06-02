@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -60,7 +61,6 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="80dp"
-        android:text="@={myViewModel.inputFirstName}"
         android:importantForAutofill="no"
         android:textAlignment="viewStart"
         android:textSize="14sp"
@@ -145,50 +145,110 @@
         android:importantForAutofill="no"
         android:inputType="number"
         android:textSize="14sp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordTextView"
+        app:layout_constraintVertical_bias="0.212" />
 
     <TextView
         android:id="@+id/addressTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/address"
         android:textAlignment="viewStart"
         android:textColor="@color/text"
         android:textSize="16sp"
+
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/addressTextField"
         app:layout_constraintEnd_toEndOf="@+id/postCodeTextField"
-        app:layout_constraintStart_toStartOf="@+id/postCodeTextField" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/postCodeTextField"
+        app:layout_constraintTop_toBottomOf="@+id/postCodeTextField" />
 
     <EditText
         android:id="@+id/addressTextField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp"
         android:ems="10"
         android:importantForAutofill="no"
         android:inputType="textLongMessage"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/submitButton"
         app:layout_constraintEnd_toEndOf="@+id/postCodeTextField"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/postCodeTextField"
+        app:layout_constraintTop_toBottomOf="@+id/addressTextView" />
+
+    <TextView
+        android:id="@+id/cityTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/city"
+        android:textAlignment="viewStart"
+        android:textColor="@color/text"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/cityTextField"
+        app:layout_constraintEnd_toEndOf="@+id/addressTextField"
+        app:layout_constraintTop_toTopOf="@+id/countryTextView" />
+
+    <TextView
+        android:id="@+id/countryTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/country"
+        android:textAlignment="viewStart"
+        android:textColor="@color/text"
+        android:textSize="16sp"
+        android:textStyle="bold"
+
+        app:layout_constraintEnd_toEndOf="@+id/countryTextField"
+        app:layout_constraintTop_toBottomOf="@+id/addressTextField" />
+
+    <EditText
+        android:id="@+id/countryTextField"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="textLongMessage"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/cityTextField"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/postCodeTextField" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/countryTextView" />
+
+    <EditText
+        android:id="@+id/cityTextField"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="44dp"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="textLongMessage"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/countryTextField"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintTop_toTopOf="@+id/countryTextField"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="44dp"
         android:layout_marginEnd="16dp"
         android:text="@string/submitinfo"
         android:textColor="@color/text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postCodeTextField" />
+        app:layout_constraintTop_toBottomOf="@+id/countryTextField" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

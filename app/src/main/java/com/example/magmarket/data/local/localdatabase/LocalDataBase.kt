@@ -1,7 +1,11 @@
 package com.example.magmarket.data.local.localdatabase
 
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.example.magmarket.data.local.entities.OrderList
 import com.example.magmarket.data.local.entities.ProductItemLocal
+import com.example.magmarket.data.local.entities.UserList
 import kotlinx.coroutines.flow.Flow
 
 interface LocalDataBase {
@@ -20,5 +24,13 @@ interface LocalDataBase {
     fun getCartProductById(productId: Int): Flow<ProductItemLocal>
 
     fun isRowIsExist(id: Int): Flow<Boolean>
+
+    suspend fun insertUser(user: UserList)
+
+    fun getAllUsers(): Flow<List<UserList>>
+
+    suspend fun deleteUser(user: UserList)
+
+    suspend fun updateUser(user: UserList)
 
 }

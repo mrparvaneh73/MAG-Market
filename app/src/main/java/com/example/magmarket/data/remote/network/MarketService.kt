@@ -3,6 +3,8 @@ package com.example.magmarket.data.remote.network
 import com.example.magmarket.data.remote.model.CategoryItem
 import com.example.magmarket.data.remote.model.ProductItem
 import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
+import com.example.magmarket.data.remote.model.customer.Customer
+import com.example.magmarket.data.remote.model.customer.CustomerResponse
 import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.model.order.ResponseOrder
 import com.example.magmarket.utils.Constants.BASE_PARAM
@@ -38,7 +40,7 @@ interface MarketService {
 
     @GET("products")
     suspend fun getProductOfCategory(
-        @Query("category") categoryId:Int,
+        @Query("category") categoryId: Int,
         @QueryMap tokens: Map<String, String> = BASE_PARAM
     ): Response<List<ProductItem>>
 
@@ -46,25 +48,42 @@ interface MarketService {
     suspend fun createOrder(
         @Body order: Order,
         @QueryMap tokens: Map<String, String> = BASE_PARAM
-    ):Response<ResponseOrder>
+    ): Response<ResponseOrder>
 
     @GET("orders")
     suspend fun getPlacedOrders(
-        @Query("include") include:String,
+        @Query("include") include: String,
         @QueryMap tokens: Map<String, String> = BASE_PARAM
-    ):Response<List<ResponseOrder>>
+    ): Response<List<ResponseOrder>>
 
     @GET("products")
     suspend fun getAllOrders(
-        @Query("include") include:String,
+        @Query("include") include: String,
         @QueryMap tokens: Map<String, String> = BASE_PARAM
-    ):Response<List<ProductItem>>
+    ): Response<List<ProductItem>>
 
     @GET("products")
-   suspend fun searchProduct(
+    suspend fun searchProduct(
         @Query("search") search: String,
         @QueryMap tokens: Map<String, String> = BASE_PARAM
     ): Response<List<ProductItem>>
 
+    @POST("customers")
+    suspend fun createCustomer(
+        @Body customer: Customer,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ): Response<CustomerResponse>
 
+    @GET("customers/{id}")
+    suspend fun getCustomer(
+        @Path("id") id: Int,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ): Response<CustomerResponse>
+
+    @PUT("customers/{id}")
+    suspend fun updateCustomer(
+        @Path("id") id:Int,
+        @Body customer: Customer,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ): Response<CustomerResponse>
 }

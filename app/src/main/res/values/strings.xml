@@ -44,6 +44,13 @@
     <string name="address">ادرس</string>
     <string name="phonenumber">شماره تماس</string>
     <string name="submitinfo">ثبت اطلاعات</string>
+    <string name="successregister">ثبت نام با موفقیت انجام شد.</string>
+    <string name="userid">ایدی شما:</string>
+    <string name="existemail"> این ایمیل قبلا ثبت شده است </string>
+    <string name="yourpass">پسورد شما :</string>
+    <string name="city">شهر:</string>
+    <string name="edit">اطلاعات شما با موفقیت ثبت شد.</string>
+    <string name="country">کشور:</string>
     <string name="register">ثبت نام در مگ مارکت</string>
     <string name="name">نام</string>
     <string name="familyname">نام خانوادگی</string>

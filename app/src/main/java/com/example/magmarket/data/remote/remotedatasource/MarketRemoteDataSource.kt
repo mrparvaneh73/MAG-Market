@@ -3,6 +3,8 @@ package com.example.magmarket.data.remote.remotedatasource
 import com.example.magmarket.data.remote.model.CategoryItem
 import com.example.magmarket.data.remote.model.ProductItem
 import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
+import com.example.magmarket.data.remote.model.customer.Customer
+import com.example.magmarket.data.remote.model.customer.CustomerResponse
 import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.model.order.ResponseOrder
 import com.example.magmarket.data.remote.network.MarketService
@@ -44,6 +46,18 @@ class MarketRemoteDataSource @Inject constructor(private val marketService: Mark
 
     override suspend fun getPlacedOrder(include: String): Response<List<ResponseOrder>> {
         return marketService.getPlacedOrders(include)
+    }
+
+    override suspend fun createCustomer(customer: Customer): Response<CustomerResponse> {
+        return marketService.createCustomer(customer)
+    }
+
+    override suspend fun getCustomer(id: Int): Response<CustomerResponse> {
+        return marketService.getCustomer(id)
+    }
+
+    override suspend fun updateCustomer(id: Int, customer: Customer): Response<CustomerResponse> {
+        return marketService.updateCustomer(id,customer)
     }
 
     override suspend fun getProduct(id: String): Response<ProductItem> {

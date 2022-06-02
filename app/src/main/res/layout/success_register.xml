@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layout_gravity="center"
+    app:cardCornerRadius="@dimen/standardMargin4x">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="319dp"
+        android:layout_height="378dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/img_close"
+            android:layout_width="38dp"
+            android:layout_height="37dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/close_dialog"
+            app:layout_constraintBottom_toTopOf="@+id/imageView7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.301" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="237dp"
+            android:layout_height="187dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.353"
+            app:srcCompat="@drawable/successregister" />
+
+        <TextView
+            android:id="@+id/tv_placed_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/far_mitra"
+            android:text="@string/successregister"
+            android:textColor="@color/black"
+            android:textSize="@dimen/TextSize7x"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView7"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/far_mitra"
+            android:text="@string/yourpass"
+            android:textColor="@color/red"
+            android:textSize="@dimen/TextSize6x"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.741"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView7"
+            app:layout_constraintVertical_bias="0.703" />
+
+        <TextView
+            android:id="@+id/user_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/far_mitra"
+            android:textColor="@color/red"
+            android:textSize="@dimen/TextSize6x"
+            app:layout_constraintBottom_toBottomOf="@+id/textView7"
+            app:layout_constraintEnd_toStartOf="@+id/textView7"
+            app:layout_constraintStart_toStartOf="@+id/tv_placed_order"
+            app:layout_constraintTop_toTopOf="@+id/textView7" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
