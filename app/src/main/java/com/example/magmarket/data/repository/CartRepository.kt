@@ -2,6 +2,7 @@ package com.example.magmarket.data.repository
 
 import com.example.magmarket.data.local.entities.OrderList
 import com.example.magmarket.data.local.entities.ProductItemLocal
+import com.example.magmarket.data.local.entities.UserList
 import com.example.magmarket.data.local.localdatabase.LocalDataBase
 import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.network.RemoteDataSource
@@ -34,8 +35,8 @@ class CartRepository @Inject constructor(
      suspend fun deleteProductFromCart(productItemLocal: ProductItemLocal) {
          markLocalDataBase.deleteProductFromCart(productItemLocal)
     }
-    suspend fun creatOrder(order: Order) = safeApiCall(dispatcher) {
-        marketremoteDataSource.creatOrder(order)
+    suspend fun creatOrder(customer_id:Int,order: Order) = safeApiCall(dispatcher) {
+        marketremoteDataSource.creatOrder(customer_id,order)
     }
      suspend fun updateProductCart(productItemLocal: ProductItemLocal) {
          markLocalDataBase.updateProductCart(productItemLocal)
@@ -51,5 +52,12 @@ class CartRepository @Inject constructor(
 
     fun getAllPlacedOrders(): Flow<List<OrderList>> {
         return markLocalDataBase.getAllOrders()
+    }
+    suspend fun getCustomer(id:Int)= safeApiCall(dispatcher){
+        marketremoteDataSource.getCustomer(id)
+    }
+
+    fun getUsersFromLocal(): Flow<List<UserList>> {
+        return markLocalDataBase.getUserFromLocal()
     }
 }

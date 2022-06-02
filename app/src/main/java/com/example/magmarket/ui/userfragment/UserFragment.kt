@@ -129,7 +129,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
     private fun loginFromLocal() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getAllUser().collect {
+                viewModel.getUserFromLocal().collect {
                     if (it.size != 0) {
                         binding.viewLogin!!.isVisible = false
                         binding.viewAccountinfo!!.isVisible = true

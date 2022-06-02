@@ -47,7 +47,7 @@ class MarketLocalDataBase @Inject constructor(private val marketDao: MarketDao):
         marketDao.insertUser(user)
     }
 
-    override fun getAllUsers(): Flow<List<UserList>> {
+    override fun getUserFromLocal(): Flow<List<UserList>> {
         return marketDao.getAllUsers()
     }
 

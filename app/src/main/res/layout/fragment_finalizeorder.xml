@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/background"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/farkhondeh"
+            android:text="@string/choosereciver"
+            android:textColor="@color/text"
+            android:textSize="@dimen/TextSize5x"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView4"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:layout_margin="@dimen/standardMargin3x"
+            android:layout_marginTop="48dp"
+            app:cardCornerRadius="@dimen/standardMargin4x"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_reciver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/reciver"
+                    android:textSize="@dimen/TextSize4x"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/fullname_reciver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="40dp"
+                    android:fontFamily="@font/farkhondeh"
+                    android:textSize="@dimen/TextSize5x"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_reciver"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_reciver"
+                    app:layout_constraintTop_toTopOf="@+id/tv_reciver" />
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/reciveraddress"
+                    android:textSize="@dimen/TextSize4x"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_reciver"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="@+id/tv_reciver"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_reciver" />
+
+                <TextView
+                    android:id="@+id/address_reciver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/farkhondeh"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:textSize="@dimen/TextSize3x"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_address"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_address"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/fullname_reciver"
+                    app:layout_constraintTop_toTopOf="@+id/tv_address" />
+
+                <TextView
+                    android:id="@+id/tv_phonenumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reciverphonenumber"
+                    android:textSize="@dimen/TextSize4x"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_address"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_address" />
+
+                <TextView
+                    android:id="@+id/phonenumber_reciver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:fontFamily="@font/farkhondeh"
+                    android:textSize="@dimen/TextSize5x"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_phonenumber"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_phonenumber"
+                    app:layout_constraintTop_toTopOf="@+id/tv_phonenumber"
+                    app:layout_constraintVertical_bias="0.714" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_finalize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="292dp"
+            android:backgroundTint="@color/button"
+            android:fontFamily="@font/far_mitra"
+            android:text="@string/finalize_order"
+            android:textColor="@color/text"
+            android:textSize="@dimen/TextSize4x"
+            app:cornerRadius="@dimen/standardMargin3x"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView4" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="172dp"
+            android:backgroundTint="@color/button"
+            android:fontFamily="@font/far_mitra"
+            android:text="@string/back_to_home"
+            android:textColor="@color/text"
+            android:textSize="@dimen/TextSize4x"
+            app:cornerRadius="@dimen/standardMargin3x"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_finalize" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <com.example.magmarket.customview.StateView
+        android:id="@+id/state_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.25"
+        app:state_text="@string/app_name" />
+</androidx.constraintlayout.widget.ConstraintLayout>

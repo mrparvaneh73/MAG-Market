@@ -211,7 +211,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
     private fun goToCart() {
         binding.toolbar.fragmentcart.setOnClickListener {
-            findNavController().navigate(ProductDetailFragmentDirections.actionProductDetailFragmentToParentOfCartFragment())
+            findNavController().navigate(ProductDetailFragmentDirections.actionProductDetailFragmentToCartFragment(0))
         }
 
     }

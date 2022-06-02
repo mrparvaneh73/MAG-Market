@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.magmarket.data.local.entities.OrderList
 import com.example.magmarket.data.local.entities.ProductItemLocal
+import com.example.magmarket.data.remote.model.customer.CustomerResponse
 import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.model.order.ResponseOrder
 import com.example.magmarket.data.repository.CartRepository
@@ -19,6 +20,10 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
     private val _orderList: MutableStateFlow<ResultWrapper<ResponseOrder>> =
         MutableStateFlow(ResultWrapper.Loading)
     val orderList = _orderList.asStateFlow()
+
+    private val _customer: MutableStateFlow<ResultWrapper<CustomerResponse>> =
+        MutableStateFlow(ResultWrapper.Loading)
+    val customer = _customer.asStateFlow()
 
     private val _order: MutableStateFlow<ResultWrapper<List<ResponseOrder>>> =
         MutableStateFlow(ResultWrapper.Loading)
@@ -59,9 +64,15 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
 
     }
 
-    fun creatOrder(order: Order) {
+    fun getUserFromLocal()= flow {
+        cartRepository.getUsersFromLocal().collect{
+            emit(it)
+        }
+    }
+
+    fun creatOrder(customer_id:Int,order: Order) {
         viewModelScope.launch {
-            cartRepository.creatOrder(order).collect {
+            cartRepository.creatOrder(customer_id,order).collect {
                 _orderList.emit(it)
             }
         }
@@ -76,6 +87,12 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
         }
 
     }
-
+    fun getCustomer(id:Int){
+        viewModelScope.launch {
+            cartRepository.getCustomer(id).collect{
+                _customer.emit(it)
+            }
+        }
+    }
 
 }

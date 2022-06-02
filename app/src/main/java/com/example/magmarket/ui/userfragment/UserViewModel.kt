@@ -86,8 +86,8 @@ class UserViewModel @Inject constructor(private val settingDataStore: SettingDat
     }
 
 
-    fun getAllUser()= flow {
-        userRepository.getAllUsers().collect{
+    fun getUserFromLocal()= flow {
+        userRepository.getUsersFromLocal().collect{
             emit(it)
         }
     }

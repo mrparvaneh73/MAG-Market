@@ -27,7 +27,7 @@ interface LocalDataBase {
 
     suspend fun insertUser(user: UserList)
 
-    fun getAllUsers(): Flow<List<UserList>>
+    fun getUserFromLocal(): Flow<List<UserList>>
 
     suspend fun deleteUser(user: UserList)
 

@@ -5,14 +5,17 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.commit
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.magmarket.R
 import com.example.magmarket.data.local.entities.OrderList
 import com.example.magmarket.data.local.entities.ProductItemLocal
@@ -31,7 +34,7 @@ import java.util.*
 class CartFragment : Fragment(R.layout.fragment_cart) {
     private var _binding: FragmentCartBinding? = null
     private val binding get() = _binding!!
-
+    private val args by navArgs<CartFragmentArgs>()
     private val nf: NumberFormat = NumberFormat.getInstance(Locale.US)
     private val cartViewModel by activityViewModels<CartViewModel>()
     val cartAdapter = CartAdapter()
@@ -51,6 +54,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
         adapterClickListener()
 
+        finalizeOrder()
 
     }
 
@@ -70,6 +74,11 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                             )
                         )
                     }
+                    if (args.successid != 0) {
+                        for (i in it) {
+                            cartViewModel.deleteOrderFromLocal(i)
+                        }
+                    }
                     if (it.isNotEmpty()) {
                         binding.parent.isVisible = true
                         binding.detailCard.isVisible = true
@@ -88,7 +97,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                         binding.detailCard.isVisible = false
                         binding.emptycart.isVisible = true
                     }
-                    creatOrder(Order(listLineItem))
+
                 }
             }
 
@@ -161,35 +170,31 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         })
     }
 
-    private fun creatOrder(order: Order) {
+    private fun finalizeOrder() {
         binding.buttonAddToCart.setOnClickListener {
-            cartViewModel.creatOrder(order)
-            ResponseOfOrder()
+            isUserLogin()
         }
     }
 
-    private fun ResponseOfOrder() {
-        cartViewModel.orderList.collectIt(viewLifecycleOwner) {
-            when (it) {
-                is ResultWrapper.Loading -> {
-
-                }
-                is ResultWrapper.Success -> {
-                    cartViewModel.insertPlacedOrdersInLocal(OrderList(id = it.value.id) )
-                    openDialog(it.value.id.toString())
-                    for (i in cartAdapter.currentList) {
-                        cartViewModel.deleteOrderFromLocal(i)
+    private fun isUserLogin() {
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                cartViewModel.getUserFromLocal().collect {
+                    if (it.isNotEmpty()) {
+                        findNavController().navigate(
+                            CartFragmentDirections.actionCartFragmentToFinalizeOrderFragment(
+                                it[it.lastIndex].id
+                            )
+                        )
+                    } else {
+                        Toast.makeText(requireContext(), "please first login", Toast.LENGTH_SHORT)
+                            .show()
                     }
-
-
-                }
-                is ResultWrapper.Error -> {
-
-
                 }
             }
         }
     }
+
 
     fun resetValues() {
         listLineItem.clear()
@@ -199,17 +204,6 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         totalPriceWithoutOff = 0
     }
 
-    private fun openDialog(orderId: String) {
-        val dialog = Dialog(requireContext())
-        dialog.setContentView(R.layout.order_placed)
-        val button = dialog.findViewById<ImageView>(R.id.img_close)
-        val orderNumber = dialog.findViewById<TextView>(R.id.order_number)
-        orderNumber.text = orderId
-        button.setOnClickListener {
-            dialog.dismiss()
-        }
-        dialog.show()
-    }
 
     private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
         lifecycleOwner.lifecycleScope.launch {

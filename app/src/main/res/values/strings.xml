@@ -50,7 +50,13 @@
     <string name="yourpass">پسورد شما :</string>
     <string name="city">شهر:</string>
     <string name="edit">اطلاعات شما با موفقیت ثبت شد.</string>
+    <string name="choosereciver">گیرنده را انتخاب کنید :</string>
+    <string name="reciver">گیرنده: </string>
+    <string name="reciveraddress">آدرس گیرنده:</string>
+    <string name="reciverphonenumber">شماره تماس گیرنده:</string>
     <string name="country">کشور:</string>
+    <string name="finalize_order"> ثبت نهایی </string>
+    <string name="back">بازگشت</string>
     <string name="register">ثبت نام در مگ مارکت</string>
     <string name="name">نام</string>
     <string name="familyname">نام خانوادگی</string>

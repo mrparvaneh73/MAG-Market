@@ -46,6 +46,7 @@ interface MarketService {
 
     @POST("orders")
     suspend fun createOrder(
+        @Query("customer_id") customer_id:Int,
         @Body order: Order,
         @QueryMap tokens: Map<String, String> = BASE_PARAM
     ): Response<ResponseOrder>

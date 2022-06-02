@@ -1,11 +1,8 @@
 package com.example.magmarket.data.repository
 
-import com.example.magmarket.data.local.entities.OrderList
-import com.example.magmarket.data.local.entities.ProductItemLocal
 import com.example.magmarket.data.local.entities.UserList
 import com.example.magmarket.data.local.localdatabase.LocalDataBase
 import com.example.magmarket.data.remote.model.customer.Customer
-import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.network.RemoteDataSource
 import com.example.magmarket.di.IoDispatcher
 import com.example.magmarket.di.MarkLocalDataBase
@@ -33,8 +30,8 @@ class UserRepository  @Inject constructor(
         markLocalDataBase.insertUser(user)
     }
 
-    fun getAllUsers(): Flow<List<UserList>> {
-        return markLocalDataBase.getAllUsers()
+    fun getUsersFromLocal(): Flow<List<UserList>> {
+        return markLocalDataBase.getUserFromLocal()
     }
 
     suspend fun deleteUser(user: UserList) {
