@@ -192,7 +192,7 @@
                     android:id="@+id/countproductdesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/far_mitra"
+                    android:fontFamily="@font/farkhondeh"
 
                     android:textSize="@dimen/TextSize4x"
                     app:layout_constraintEnd_toStartOf="@+id/tv_summary"
@@ -204,7 +204,7 @@
                     android:id="@+id/total_price_without_off"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/far_mitra"
+                    android:fontFamily="@font/farkhondeh"
 
                     android:textSize="@dimen/TextSize4x"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_product_price"
@@ -218,7 +218,7 @@
                     android:id="@+id/tv_totaloff_count_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/far_mitra"
+                    android:fontFamily="@font/farkhondeh"
 
                     android:textSize="@dimen/TextSize4x"
                     android:textColor="@color/red"
@@ -260,7 +260,7 @@
                     android:id="@+id/totlapricedesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/far_mitra"
+                    android:fontFamily="@font/farkhondeh"
 
                     android:textSize="@dimen/TextSize4x"
                     app:layout_constraintEnd_toStartOf="@+id/tv_product_price_dec"
@@ -361,7 +361,7 @@
                 android:layout_gravity="center"
                 android:layout_marginEnd="136dp"
                 android:layout_weight="3"
-                android:fontFamily="@font/far_mitra"
+                android:fontFamily="@font/farkhondeh"
                 android:gravity="start"
                 android:textColor="@color/text"
                 android:textSize="@dimen/TextSize5x"

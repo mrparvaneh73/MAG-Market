@@ -286,7 +286,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="272dp"
                 android:layout_weight="3"
-                android:fontFamily="@font/far_mitra"
+                android:fontFamily="@font/farkhondeh"
                 android:gravity="start"
                 android:textColor="@color/text"
 
@@ -301,7 +301,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="3"
-                android:fontFamily="@font/far_mitra"
+                android:fontFamily="@font/farkhondeh"
                 android:gravity="start"
                 android:textColor="@color/red"
                 android:textSize="@dimen/TextSize5x"

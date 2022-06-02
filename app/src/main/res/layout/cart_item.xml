@@ -22,16 +22,15 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:fontFamily="@font/far_mitra"
         android:paddingLeft="@dimen/standardMargin2x"
         android:paddingRight="@dimen/standardMargin2x"
-        android:fontFamily="@font/far_mitra"
         android:textColor="@color/text"
         android:textSize="@dimen/TextSize4x"
         app:layout_constraintEnd_toStartOf="@+id/img_product"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-         />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <LinearLayout
@@ -214,7 +213,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/add"/>
+            app:srcCompat="@drawable/add" />
     </LinearLayout>
 
     <TextView
@@ -224,6 +223,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="32dp"
         android:textColor="@color/text"
+        android:fontFamily="@font/farkhondeh"
+        android:textSize="@dimen/TextSize4x"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout7"
         app:layout_constraintEnd_toStartOf="@+id/linearLayout7"
         app:layout_constraintHorizontal_bias="0.881"
@@ -235,8 +236,9 @@
         android:id="@+id/tv_off"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/farkhondeh"
         android:textColor="@color/red"
-
+        android:textSize="@dimen/TextSize4x"
         app:layout_constraintBottom_toTopOf="@+id/tv_totalprice"
         app:layout_constraintEnd_toEndOf="@+id/tv_totalprice"
         app:layout_constraintStart_toStartOf="@+id/tv_totalprice" />
@@ -245,9 +247,9 @@
         android:id="@+id/unit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/text"
-        android:text="@string/unit_of_currency"
         android:fontFamily="@font/farkhondeh"
+        android:text="@string/unit_of_currency"
+        android:textColor="@color/text"
         app:layout_constraintBottom_toBottomOf="@+id/tv_totalprice"
         app:layout_constraintEnd_toStartOf="@+id/tv_totalprice"
         app:layout_constraintHorizontal_bias="0.795"

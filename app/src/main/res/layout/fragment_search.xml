@@ -10,6 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:iconifiedByDefault="false"
+        android:layoutDirection="ltr"
         app:layout_constraintEnd_toStartOf="@+id/img_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

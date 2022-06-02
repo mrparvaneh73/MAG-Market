@@ -45,30 +45,13 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/product_slider"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="250dp"
                 android:layout_margin="@dimen/standardMargin2x"
                 app:layout_constraintBottom_toTopOf="@id/categoryRecyclerview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
-                android:id="@+id/spring_dots_indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:dotsColor="@color/black"
-                app:dotsCornerRadius="8dp"
-                app:dotsSize="@dimen/standardMargin2x"
-                app:dotsSpacing="@dimen/standardMargin"
-                app:dotsWidthFactor="2.5"
-                app:layout_constraintBottom_toBottomOf="@id/product_slider"
-                app:layout_constraintEnd_toEndOf="@id/product_slider"
-                app:layout_constraintStart_toStartOf="@id/product_slider"
-                app:layout_constraintTop_toTopOf="@id/product_slider"
-                app:layout_constraintVertical_bias="0.9"
-                app:progressMode="true"
-                app:selectedDotColor="@color/blue" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/categoryRecyclerview"

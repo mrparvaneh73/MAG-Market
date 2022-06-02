@@ -71,7 +71,14 @@
     <fragment
         android:id="@+id/userFragment"
         android:name="com.example.magmarket.ui.userfragment.UserFragment"
-        android:label="UserFragment" />
+        android:label="UserFragment" >
+        <action
+            android:id="@+id/action_userFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
+    </fragment>
     <fragment
         android:id="@+id/showMoreFragment"
         android:name="com.example.magmarket.ui.showmore.ShowMoreFragment"
@@ -97,4 +104,23 @@
         android:id="@+id/parentOfCartFragment"
         android:name="com.example.magmarket.ui.cartfragment.ParentOfCartFragment"
         android:label="ParentOfCartFragment" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.magmarket.ui.userfragment.RegisterFragment"
+        android:label="RegisterFragment" >
+        <action
+            android:id="@+id/action_registerFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="com.example.magmarket.ui.userfragment.AddressFragment"
+        android:label="AddressFragment" >
+        <action
+            android:id="@+id/action_addressFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+    </fragment>
 </navigation>

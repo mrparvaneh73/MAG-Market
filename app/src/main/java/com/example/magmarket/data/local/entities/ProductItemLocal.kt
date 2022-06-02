@@ -19,11 +19,11 @@ data class ProductItemLocal(
     @ColumnInfo
     val images: String? = "",
     @ColumnInfo
-    val count: Int,
+    val count: Int = 0,
     @ColumnInfo
     val regular_price: String? = "0",
     val sale_price: String = "",
     @ColumnInfo
-    val off:Int=regular_price!!.toInt().minus(price!!.toInt())*count
+    val off: Int = regular_price!!.toInt().minus(price!!.toInt()) * count
 
 )

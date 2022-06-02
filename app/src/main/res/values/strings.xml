@@ -37,6 +37,16 @@
     <string name="close">بستن صفحه</string>
     <string name="show_more_option">ویژگی های بیشتر</string>
     <string name="favorite">موردعلاقه</string>
+    <string name="email">ایمیل</string>
+    <string name="password">پسورد</string>
+    <string name="log_in">ورود</string>
+    <string name="postcode">کدپستی</string>
+    <string name="address">ادرس</string>
+    <string name="phonenumber">شماره تماس</string>
+    <string name="submitinfo">ثبت اطلاعات</string>
+    <string name="register">ثبت نام در مگ مارکت</string>
+    <string name="name">نام</string>
+    <string name="familyname">نام خانوادگی</string>
     <string name="total">جمع سبد خرید</string>
     <string name="summary">خلاصه سبد خرید</string>
     <string name="cart_desc">کالاهای موجود در سبد شما ثبت و رزرو نشده اند، برای ثبت سفارش مراحل بعدی را تکمیل کنید.</string>

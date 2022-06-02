@@ -1,6 +1,8 @@
 package com.example.magmarket.ui.homefragment
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
@@ -12,12 +14,17 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import com.example.magmarket.R
+import com.example.magmarket.data.remote.model.ProductImage
 import com.example.magmarket.ui.adapters.CategoryAdapter
 import com.example.magmarket.ui.adapters.ProductRecyclerviewAdapter
 import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
 import com.example.magmarket.databinding.FragmentHomeBinding
 import com.example.magmarket.ui.adapters.SliderAdapter
+import com.example.magmarket.ui.adapters.ViewPagerAdapter
 import com.example.magmarket.utils.Constants.BEST_PRODUCT
 import com.example.magmarket.utils.Constants.MOSTVIEW_PRODUCT
 import com.example.magmarket.utils.Constants.NEWEST_PRODUCT
@@ -25,6 +32,7 @@ import com.example.magmarket.utils.ResultWrapper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlin.math.abs
 
 
 @AndroidEntryPoint
@@ -47,10 +55,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val mostViewAdapter = ProductRecyclerviewAdapter()
 
+    private lateinit var viewPager2: ViewPager2
+
+    private lateinit var handler: Handler
+    private lateinit var viewpagerAdapter: ViewPagerAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentHomeBinding.bind(view)
         init()
+        setUpTransformer()
         collectCategory()
         collect()
         clickListener()
@@ -58,12 +72,38 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         slider()
     }
 
+    private fun setUpTransformer() {
+
+        val tranformer = CompositePageTransformer()
+        tranformer.addTransformer(MarginPageTransformer(40))
+        tranformer.addTransformer { page, position ->
+            val r = 1 - abs(position)
+            page.scaleY = 0.85f + r + 0.14f
+        }
+        binding.productSlider.setPageTransformer(tranformer)
+    }
+
+    private val runnable = Runnable {
+        binding.productSlider.currentItem = binding.productSlider.currentItem + 1
+    }
+
     private fun init() {
-        binding.productSlider.adapter = sliderAdapter
+        binding.productSlider.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                handler.removeCallbacks(runnable)
+                handler.postDelayed(runnable,5000)
+            }
+        })
+
+        handler = Handler(Looper.myLooper()!!)
+
         binding.productSlider.clipToPadding = false
         binding.productSlider.clipChildren = false
         binding.productSlider.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-        binding.springDotsIndicator.attachTo(binding.productSlider)
+
+
         newestAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         categoryAdapter.stateRestorationPolicy =
@@ -198,7 +238,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-   private fun slider() {
+    private fun slider() {
         viewModel.slider.collectIt(viewLifecycleOwner) {
 
 
@@ -207,9 +247,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                 }
                 is ResultWrapper.Success -> {
+                var    imageList: ArrayList<ProductImage> = arrayListOf()
+                    imageList.addAll(it.value.images)
+                    viewpagerAdapter = ViewPagerAdapter(imageList, binding.productSlider)
+                    binding.productSlider.adapter = viewpagerAdapter
 
-
-                    sliderAdapter.submitList(it.value.images)
 
                 }
                 is ResultWrapper.Error -> {
@@ -219,7 +261,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-   private fun search() {
+    private fun search() {
         binding.searchLinear.parentSearch.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
         }
@@ -270,5 +312,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacks(runnable)
+    }
 
+    override fun onResume() {
+        super.onResume()
+        handler.postDelayed(runnable,5000)
+    }
 }

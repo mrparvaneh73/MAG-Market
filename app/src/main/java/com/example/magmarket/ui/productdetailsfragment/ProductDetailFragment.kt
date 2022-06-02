@@ -23,10 +23,10 @@ import com.example.magmarket.ui.adapters.SliderAdapter
 import com.example.magmarket.utils.ResultWrapper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.*
+import kotlin.properties.Delegates
 
 
 @AndroidEntryPoint
@@ -38,12 +38,12 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     private val viewModel: ProductDetailsViewModel by viewModels()
     private val adapter = SliderAdapter()
     private var count = 1
-    private var isInCart = true
+
     private lateinit var name: String
     private lateinit var price: String
     private lateinit var image: String
-    private var regularprice: String = "0"
-    private lateinit var sale_price: String
+    private var regularPrice: String = "0"
+    private lateinit var salePrice: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,7 +54,8 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         isExist()
         addToCart()
         goToCart()
-        setCountorder()
+
+
 
     }
 
@@ -67,7 +68,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                     detailCard.isVisible = false
                 }
                 is ResultWrapper.Success -> {
-                    sale_price = it.value.sale_price
+                    salePrice = it.value.sale_price
                     Log.d("Saleprice", "collect: " + it.value.sale_price)
                     image = it.value.images[0].src
                     name = it.value.name
@@ -76,11 +77,11 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                         HtmlCompat.fromHtml(it.value.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
                     price = it.value.price
                     tvTotalprice.text = nf.format(price.toInt())
-                    regularprice = it.value.regular_price
-                    if (it.value.price.toInt() == regularprice.toInt()) {
+                    regularPrice = it.value.regular_price
+                    if (it.value.price.toInt() == regularPrice.toInt()) {
                         tvRegularprice.text = ""
                     } else {
-                        tvRegularprice.text = nf.format(regularprice.toInt())
+                        tvRegularprice.text = nf.format(regularPrice.toInt())
                         tvRegularprice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                     }
 
@@ -109,8 +110,8 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
     private fun addToCart() {
         binding.imageViewPlus.setOnClickListener {
-
             count++
+            binding.tvProductCount.text = count.toString()
             viewModel.updateOrder(
                 ProductItemLocal(
                     id = args.id.toInt(),
@@ -118,23 +119,26 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                     name = name,
                     price = price,
                     images = image,
-                    regular_price = regularprice,
-                    sale_price = sale_price
+                    regular_price = regularPrice,
+                    sale_price = salePrice
                 )
             )
+
         }
         binding.imgDeleteOrder.setOnClickListener {
             if (count == 1) {
+
                 viewModel.deletProductFromOrders(
                     ProductItemLocal(
                         id = args.id.toInt(),
                         count = count, name = name, price = price, images = image,
-                        regular_price = regularprice
+                        regular_price = regularPrice
                     )
                 )
 
             } else if (count > 1) {
                 count--
+                binding.tvProductCount.text = count.toString()
                 viewModel.updateOrder(
                     ProductItemLocal(
                         id = args.id.toInt(),
@@ -142,7 +146,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                         name = name,
                         price = price,
                         images = image,
-                        regular_price = regularprice
+                        regular_price = regularPrice
                     )
                 )
             }
@@ -156,11 +160,11 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                     name = name,
                     price = price,
                     images = image,
-                    regular_price = regularprice,
-                    sale_price = sale_price
+                    regular_price = regularPrice,
+                    sale_price = salePrice
                 )
             )
-            isInCart = true
+
         }
     }
 
@@ -168,25 +172,14 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.isExistInOrders(args.id.toInt()).collect {
-                    if (it == true) {
+                    if (it) {
+
+                       setCountOrder()
 
                         binding.linearLayout7.isVisible = true
                         binding.buttonAddToCart.isVisible = false
-//                    viewModel.getProductFromOrders(args.id.toInt()).observe(viewLifecycleOwner) {
-//
-//                        count = it.count
-//                        binding.tvProductCount.text = it.count.toString()
-//                        if (it.count == 1) {
-//                            binding.imgDeleteOrder.setImageResource(R.drawable.delete)
-//                        } else {
-//                            binding.imgDeleteOrder.setImageResource(R.drawable.minus)
-//                        }
-//
-//
-//                    }
 
                     } else {
-                        isInCart = false
                         binding.linearLayout7.isVisible = false
                         binding.buttonAddToCart.isVisible = true
                     }
@@ -198,9 +191,13 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
     }
 
-    fun setCountorder() {
-
-
+    private fun setCountOrder() {
+        binding.tvProductCount.text = count.toString()
+        if (count == 1) {
+            binding.imgDeleteOrder.setImageResource(R.drawable.delete)
+        } else {
+            binding.imgDeleteOrder.setImageResource(R.drawable.minus)
+        }
     }
 
     private fun init() {
