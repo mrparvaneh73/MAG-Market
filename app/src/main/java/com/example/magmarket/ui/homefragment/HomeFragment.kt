@@ -48,14 +48,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             )
         )
     })
-    private var sliderAdapter = SliderAdapter()
+
     private val bestAdapter = ProductRecyclerviewAdapter()
 
     private val newestAdapter = ProductRecyclerviewAdapter()
 
     private val mostViewAdapter = ProductRecyclerviewAdapter()
-
-    private lateinit var viewPager2: ViewPager2
 
     private lateinit var handler: Handler
     private lateinit var viewpagerAdapter: ViewPagerAdapter
@@ -71,40 +69,39 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         search()
         slider()
     }
-
-    private fun setUpTransformer() {
-
-        val tranformer = CompositePageTransformer()
-        tranformer.addTransformer(MarginPageTransformer(40))
-        tranformer.addTransformer { page, position ->
-            val r =  abs(position)
-            page.scaleY = 0.85f + r + 0.14f
-
-        }
-        binding.productSlider.setPageTransformer(tranformer)
-    }
-
     private val runnable = Runnable {
         binding.productSlider.currentItem = binding.productSlider.currentItem + 1
     }
 
-    private fun init() {
-        binding.productSlider.registerOnPageChangeCallback(object :
-            ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                handler.removeCallbacks(runnable)
-                handler.postDelayed(runnable,5000)
-            }
-        })
-
-        handler = Handler(Looper.myLooper()!!)
+    private fun setUpTransformer() {
 
         binding.productSlider.clipToPadding = false
         binding.productSlider.clipChildren = false
         binding.productSlider.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
+        val tranformer = CompositePageTransformer()
+        tranformer.addTransformer(MarginPageTransformer(40))
+        tranformer.addTransformer { page, position ->
+            val r = abs(position)
+            page.scaleY = 0.85f + r + 0.14f
 
+        }
+        binding.productSlider.setPageTransformer(tranformer)
+
+
+        binding.productSlider.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                handler.removeCallbacks(runnable)
+                handler.postDelayed(runnable, 5000)
+            }
+        })
+
+        handler = Handler(Looper.myLooper()!!)
+    }
+
+    private fun init() {
         newestAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         categoryAdapter.stateRestorationPolicy =
@@ -242,13 +239,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun slider() {
         viewModel.slider.collectIt(viewLifecycleOwner) {
 
-
             when (it) {
                 is ResultWrapper.Loading -> {
 
                 }
                 is ResultWrapper.Success -> {
-                var    imageList: ArrayList<ProductImage> = arrayListOf()
+                    val imageList: ArrayList<ProductImage> = arrayListOf()
                     imageList.addAll(it.value.images)
                     viewpagerAdapter = ViewPagerAdapter(imageList, binding.productSlider)
                     binding.productSlider.adapter = viewpagerAdapter
@@ -267,21 +263,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
         }
 
-    }
-
-    private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
-        lifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                collect {
-                    function.invoke(it)
-                }
-            }
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun adapterClickListener(
@@ -320,6 +301,21 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onResume() {
         super.onResume()
-        handler.postDelayed(runnable,5000)
+        handler.postDelayed(runnable, 5000)
+    }
+
+    private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
+        lifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                collect {
+                    function.invoke(it)
+                }
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
