@@ -3,7 +3,6 @@ package com.example.magmarket.ui.homefragment
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -25,10 +24,11 @@ import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
 import com.example.magmarket.databinding.FragmentHomeBinding
 import com.example.magmarket.ui.adapters.SliderAdapter
 import com.example.magmarket.ui.adapters.ViewPagerAdapter
-import com.example.magmarket.utils.Constants.BEST_PRODUCT
-import com.example.magmarket.utils.Constants.MOSTVIEW_PRODUCT
-import com.example.magmarket.utils.Constants.NEWEST_PRODUCT
-import com.example.magmarket.utils.ResultWrapper
+import com.example.magmarket.application.Constants.BEST_PRODUCT
+import com.example.magmarket.application.Constants.MOSTVIEW_PRODUCT
+import com.example.magmarket.application.Constants.NEWEST_PRODUCT
+import com.example.magmarket.data.remote.ResultWrapper
+
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -77,8 +77,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val tranformer = CompositePageTransformer()
         tranformer.addTransformer(MarginPageTransformer(40))
         tranformer.addTransformer { page, position ->
-            val r = 1 - abs(position)
+            val r =  abs(position)
             page.scaleY = 0.85f + r + 0.14f
+
         }
         binding.productSlider.setPageTransformer(tranformer)
     }

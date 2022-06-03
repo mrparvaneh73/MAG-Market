@@ -31,40 +31,42 @@ class StateView constructor(context: Context, attrs: AttributeSet) :
     }
 
     private fun setStateText() {
-        binding.tv.text = text
+        binding.Retry.text = text
     }
 
     fun onLoading() {
         binding.loadingAnime.isVisible = true
         binding.loadingAnime.playAnimation()
-        binding.tv.isVisible = false
+        binding.Retry.isVisible = false
         // binding.tv.visibility= View.GONE
     }
 
     fun onSuccess() {
         binding.loadingAnime.isVisible = false
         binding.loadingAnime.pauseAnimation()
-        binding.tv.isVisible = false
+        binding.Retry.isVisible = false
+        binding.emptycart.isVisible=false
     }
 
     fun onFail() {
         binding.loadingAnime.isVisible = false
         binding.loadingAnime.pauseAnimation()
-        binding.tv.isVisible = true
+        binding.Retry.isVisible = true
         text = "Retry" //@resource string
-        binding.tv.isClickable=true
+        binding.Retry.isClickable=true
     }
 
     fun onEmpty() {
         binding.loadingAnime.isVisible = false
         binding.loadingAnime.pauseAnimation()
-        binding.tv.isVisible = true
+        binding.Retry.isVisible = true
+        binding.emptycart.isVisible=true
         text = "Empty"
-        binding.tv.isClickable = false
+        binding.Retry.isClickable = false
     }
 
     fun clickRequest(request: () -> Unit) {
-        binding.tv.setOnClickListener {
+        binding.Retry.setOnClickListener {
             request()
         }
     }

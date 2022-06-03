@@ -18,9 +18,10 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.example.magmarket.R
 import com.example.magmarket.data.local.entities.ProductItemLocal
+import com.example.magmarket.data.remote.ResultWrapper
 import com.example.magmarket.databinding.FragmentProductDetailBinding
 import com.example.magmarket.ui.adapters.SliderAdapter
-import com.example.magmarket.utils.ResultWrapper
+
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

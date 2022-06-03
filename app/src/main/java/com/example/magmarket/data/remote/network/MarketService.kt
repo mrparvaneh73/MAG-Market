@@ -7,8 +7,7 @@ import com.example.magmarket.data.remote.model.customer.Customer
 import com.example.magmarket.data.remote.model.customer.CustomerResponse
 import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.model.order.ResponseOrder
-import com.example.magmarket.utils.Constants.BASE_PARAM
-import retrofit2.Call
+import com.example.magmarket.application.Constants.BASE_PARAM
 import retrofit2.Response
 import retrofit2.http.*
 

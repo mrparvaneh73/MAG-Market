@@ -5,7 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
-import com.example.magmarket.utils.Constants.KEY_THEME
+import com.example.magmarket.application.Constants.KEY_THEME
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -21,7 +21,7 @@ class SettingDataStore @Inject constructor(
 ){
     private val dataStore = context.dataStore
 
-    val preferences: Flow<PreferencesInfo> = dataStore.data.catch { cause ->
+    val preferences: Flow<PreferencesInfo> = dataStore.data.catch {
     }.map { preference ->
         val theme: Theme = Theme.valueOf(preference[KEY_THEME] ?: Theme.AUTO.name)
 

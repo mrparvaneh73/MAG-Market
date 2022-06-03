@@ -14,8 +14,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.magmarket.R
 import com.example.magmarket.data.datastore.Theme
 import com.example.magmarket.data.local.entities.UserList
+import com.example.magmarket.data.remote.ResultWrapper
 import com.example.magmarket.databinding.FragmentUserBinding
-import com.example.magmarket.utils.ResultWrapper
+
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -34,7 +35,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         _binding = FragmentUserBinding.bind(view)
         init()
         navigateToSignUp()
-        getuser()
+        getUser()
 
         loginFromLocal()
         exitFromAccount()
@@ -43,14 +44,14 @@ class UserFragment : Fragment(R.layout.fragment_user) {
     }
 
     private fun init() = with(binding) {
-        viewModel.islight.observe(viewLifecycleOwner) { islight ->
-            if (islight == true) {
+        viewModel.islight.observe(viewLifecycleOwner) { isLight ->
+            if (isLight == true) {
                 rbLight.isChecked = true
-            } else if (islight == false) {
+            } else if (isLight == false) {
                 rbDark.isChecked = true
             }
         }
-        settingTheme.setOnCheckedChangeListener { radioGroup, checkedId ->
+        settingTheme.setOnCheckedChangeListener { _, checkedId ->
             val theme = when (checkedId) {
                 rbLight.id -> Theme.LIGHT
                 rbDark.id -> Theme.NIGHT
@@ -64,7 +65,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         viewModel.getCustomer(id)
     }
 
-    private fun getuser() = with(binding) {
+    private fun getUser() = with(binding) {
         loginButton?.setOnClickListener {
             if (passwordTextField.text.isNotEmpty() || emailTextField!!.text.isNotEmpty()) {
                 login(passwordTextField.text.toString().toInt())
@@ -130,7 +131,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.getUserFromLocal().collect {
-                    if (it.size != 0) {
+                    if (it.isNotEmpty()) {
                         binding.viewLogin!!.isVisible = false
                         binding.viewAccountinfo!!.isVisible = true
                         binding.tvFullNameRegistered!!.text =

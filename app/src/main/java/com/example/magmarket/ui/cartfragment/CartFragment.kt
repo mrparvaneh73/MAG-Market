@@ -23,7 +23,7 @@ import com.example.magmarket.data.remote.model.order.LineItem
 import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.databinding.FragmentCartBinding
 import com.example.magmarket.ui.adapters.CartAdapter
-import com.example.magmarket.utils.ResultWrapper
+
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow

@@ -2,9 +2,10 @@ package com.example.magmarket.ui.productscategory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.magmarket.data.remote.ResultWrapper
 import com.example.magmarket.data.remote.model.ProductItem
 import com.example.magmarket.data.repository.CategoryRepository
-import com.example.magmarket.utils.ResultWrapper
+
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

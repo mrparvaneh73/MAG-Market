@@ -7,10 +7,7 @@ import com.example.magmarket.data.remote.model.customer.Customer
 import com.example.magmarket.data.remote.model.customer.CustomerResponse
 import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.model.order.ResponseOrder
-import com.example.magmarket.utils.Constants
 import retrofit2.Response
-import retrofit2.http.*
-import java.util.ArrayList
 
 interface RemoteDataSource {
     suspend fun getAllProduct(orderby: String): Response<List<ProductRecyclerViewItem.ProductItem>>

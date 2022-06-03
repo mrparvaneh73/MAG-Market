@@ -6,10 +6,11 @@ import com.example.magmarket.data.remote.model.CategoryItem
 import com.example.magmarket.data.remote.model.ProductItem
 import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
 import com.example.magmarket.data.repository.ProductRepository
-import com.example.magmarket.utils.Constants.BEST_PRODUCT
-import com.example.magmarket.utils.Constants.MOSTVIEW_PRODUCT
-import com.example.magmarket.utils.Constants.NEWEST_PRODUCT
-import com.example.magmarket.utils.ResultWrapper
+import com.example.magmarket.application.Constants.BEST_PRODUCT
+import com.example.magmarket.application.Constants.MOSTVIEW_PRODUCT
+import com.example.magmarket.application.Constants.NEWEST_PRODUCT
+import com.example.magmarket.data.remote.ResultWrapper
+
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -45,8 +45,8 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/product_slider"
                 android:layout_width="match_parent"
+                android:layout_marginEnd="@dimen/standardMargin3x"
                 android:layout_height="200dp"
-                android:layout_margin="@dimen/standardMargin2x"
                 app:layout_constraintBottom_toTopOf="@id/categoryRecyclerview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +81,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toTopOf="@id/bestSellerRecyclerview"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/categoryRecyclerview"
                 tools:listitem="@layout/product_item" />
@@ -167,8 +167,8 @@
 
     <com.example.magmarket.customview.StateView
         android:id="@+id/state_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="200dp"
+        android:layout_height="219dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toEndOf="parent"

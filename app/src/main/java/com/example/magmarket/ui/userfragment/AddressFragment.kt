@@ -15,11 +15,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.magmarket.R
 import com.example.magmarket.data.local.entities.UserList
+import com.example.magmarket.data.remote.ResultWrapper
 import com.example.magmarket.data.remote.model.customer.Billing
 import com.example.magmarket.data.remote.model.customer.Customer
 import com.example.magmarket.data.remote.model.customer.Shipping
 import com.example.magmarket.databinding.FragmentAdressBinding
-import com.example.magmarket.utils.ResultWrapper
+
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 

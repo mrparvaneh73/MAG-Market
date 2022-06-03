@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.magmarket.data.remote.model.CategoryItem
 import com.example.magmarket.data.repository.CategoryRepository
-import com.example.magmarket.utils.Constants.ART
-import com.example.magmarket.utils.Constants.DIGITAL
-import com.example.magmarket.utils.Constants.FASHION_CLOTHING
-import com.example.magmarket.utils.Constants.SUPERMARKET
-import com.example.magmarket.utils.ResultWrapper
+import com.example.magmarket.application.Constants.ART
+import com.example.magmarket.application.Constants.DIGITAL
+import com.example.magmarket.application.Constants.FASHION_CLOTHING
+import com.example.magmarket.application.Constants.SUPERMARKET
+import com.example.magmarket.data.remote.ResultWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow

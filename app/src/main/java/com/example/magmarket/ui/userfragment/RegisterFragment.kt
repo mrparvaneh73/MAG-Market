@@ -14,11 +14,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.magmarket.R
+import com.example.magmarket.data.remote.ResultWrapper
 import com.example.magmarket.data.remote.model.customer.Billing
 import com.example.magmarket.data.remote.model.customer.Customer
 import com.example.magmarket.data.remote.model.customer.Shipping
 import com.example.magmarket.databinding.FragmentRegisterBinding
-import com.example.magmarket.utils.ResultWrapper
+
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -115,7 +116,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         val dialog = Dialog(requireContext())
         dialog.setContentView(R.layout.failed_register)
         val button = dialog.findViewById<ImageView>(R.id.img_close)
-        val userNumber = dialog.findViewById<TextView>(R.id.user_number)
+
         button.setOnClickListener {
             dialog.dismiss()
         }

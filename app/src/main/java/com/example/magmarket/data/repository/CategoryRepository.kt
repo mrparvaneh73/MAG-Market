@@ -1,9 +1,10 @@
 package com.example.magmarket.data.repository
 
 import com.example.magmarket.data.remote.network.RemoteDataSource
+import com.example.magmarket.data.remote.safeApiCall
 import com.example.magmarket.di.IoDispatcher
 import com.example.magmarket.di.MarketRemoteDataSource
-import com.example.magmarket.utils.safeApiCall
+
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 

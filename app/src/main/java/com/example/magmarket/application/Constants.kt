@@ -1,4 +1,4 @@
-package com.example.magmarket.utils
+package com.example.magmarket.application
 
 
 import androidx.datastore.preferences.core.stringPreferencesKey

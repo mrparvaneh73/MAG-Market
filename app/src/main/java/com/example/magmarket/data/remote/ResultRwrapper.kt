@@ -1,4 +1,4 @@
-package com.example.magmarket.utils
+package com.example.magmarket.data.remote
 
 import com.example.magmarket.data.remote.model.ProductError
 import com.google.gson.Gson

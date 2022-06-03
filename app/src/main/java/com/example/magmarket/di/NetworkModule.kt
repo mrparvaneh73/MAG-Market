@@ -6,7 +6,7 @@ import com.example.magmarket.data.remote.deserializer.CategoryDeserializer
 import com.example.magmarket.data.remote.network.MarketService
 import com.example.magmarket.data.remote.deserializer.ProductDeserializer
 import com.example.magmarket.data.remote.network.RemoteDataSource
-import com.example.magmarket.utils.Constants
+import com.example.magmarket.application.Constants
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
@@ -26,7 +26,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object ApiModule {
+object NetworkModule {
     @Provides
     @IoDispatcher
     fun provideDispatchers(): CoroutineDispatcher = Dispatchers.IO

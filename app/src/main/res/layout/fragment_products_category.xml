@@ -44,8 +44,8 @@
 
     <com.example.magmarket.customview.StateView
         android:id="@+id/state_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="216dp"
+        android:layout_height="272dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toEndOf="parent"

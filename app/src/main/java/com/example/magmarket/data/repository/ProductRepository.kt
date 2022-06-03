@@ -3,10 +3,11 @@ package com.example.magmarket.data.repository
 import com.example.magmarket.data.local.entities.ProductItemLocal
 import com.example.magmarket.data.local.localdatabase.LocalDataBase
 import com.example.magmarket.data.remote.network.RemoteDataSource
+import com.example.magmarket.data.remote.safeApiCall
 import com.example.magmarket.di.IoDispatcher
 import com.example.magmarket.di.MarkLocalDataBase
 import com.example.magmarket.di.MarketRemoteDataSource
-import com.example.magmarket.utils.safeApiCall
+
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow

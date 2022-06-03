@@ -6,10 +6,11 @@ import com.example.magmarket.data.local.entities.UserList
 import com.example.magmarket.data.local.localdatabase.LocalDataBase
 import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.network.RemoteDataSource
+import com.example.magmarket.data.remote.safeApiCall
 import com.example.magmarket.di.IoDispatcher
 import com.example.magmarket.di.MarkLocalDataBase
 import com.example.magmarket.di.MarketRemoteDataSource
-import com.example.magmarket.utils.safeApiCall
+
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

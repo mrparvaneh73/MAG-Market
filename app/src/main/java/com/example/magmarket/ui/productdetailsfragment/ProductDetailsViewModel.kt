@@ -4,9 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.magmarket.data.local.entities.ProductItemLocal
+import com.example.magmarket.data.remote.ResultWrapper
 import com.example.magmarket.data.remote.model.ProductItem
 import com.example.magmarket.data.repository.ProductRepository
-import com.example.magmarket.utils.ResultWrapper
+
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

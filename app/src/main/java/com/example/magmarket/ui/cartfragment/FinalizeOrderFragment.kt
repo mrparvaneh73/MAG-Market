@@ -18,12 +18,13 @@ import androidx.navigation.fragment.navArgs
 import com.example.magmarket.R
 import com.example.magmarket.data.local.entities.OrderList
 import com.example.magmarket.data.local.entities.ProductItemLocal
+import com.example.magmarket.data.remote.ResultWrapper
 import com.example.magmarket.data.remote.model.order.Billing
 import com.example.magmarket.data.remote.model.order.LineItem
 import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.model.order.Shipping
 import com.example.magmarket.databinding.FragmentFinalizeorderBinding
-import com.example.magmarket.utils.ResultWrapper
+
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow

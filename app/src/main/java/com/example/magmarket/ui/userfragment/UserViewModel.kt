@@ -7,10 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.magmarket.data.datastore.SettingDataStore
 import com.example.magmarket.data.datastore.Theme
 import com.example.magmarket.data.local.entities.UserList
+import com.example.magmarket.data.remote.ResultWrapper
 import com.example.magmarket.data.remote.model.customer.Customer
 import com.example.magmarket.data.remote.model.customer.CustomerResponse
 import com.example.magmarket.data.repository.UserRepository
-import com.example.magmarket.utils.ResultWrapper
+
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

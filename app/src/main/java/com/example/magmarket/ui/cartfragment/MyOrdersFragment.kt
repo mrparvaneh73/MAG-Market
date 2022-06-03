@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -14,12 +12,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
 import com.example.magmarket.R
-import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
+import com.example.magmarket.data.remote.ResultWrapper
 import com.example.magmarket.databinding.FragmentMyOrdersBinding
 import com.example.magmarket.ui.adapters.OrderPlacedAdapter
-import com.example.magmarket.utils.ResultWrapper
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
@@ -40,19 +36,6 @@ class MyOrdersFragment : Fragment(R.layout.fragment_my_orders) {
         collect()
     }
 
-//    private fun getOrdersIdFromLocal() {
-//        lifecycleScope.launch {
-//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                cartViewModel.getAllPlacedOrders().collect {
-//                    for (i in it){
-//                        placedOrderId.add(i.id)
-//                    }
-//                    Log.d("itchiyeh", "getOrdersIdFromLocal: " +placedOrderId.toString())
-//
-//                }
-//            }
-//        }
-//    }
 
     private fun isUserLogin() {
         lifecycleScope.launch {
