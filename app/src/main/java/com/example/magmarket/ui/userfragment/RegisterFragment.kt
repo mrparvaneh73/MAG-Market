@@ -31,8 +31,8 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentRegisterBinding.bind(view)
-        createCustomer()
-        responsOfRegister()
+       createCustomer()
+
         backToUserFragment()
     }
 
@@ -74,7 +74,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                     )
                 )
             }
-
+            responsOfRegister()
         }
     }
 
@@ -124,6 +124,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 fun backToUserFragment(){
     binding.imgBack.setOnClickListener {
         findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToUserFragment())
+
     }
 
 }

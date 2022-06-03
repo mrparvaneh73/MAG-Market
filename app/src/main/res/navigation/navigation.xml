@@ -115,7 +115,8 @@
             app:destination="@id/userFragment" />
         <action
             android:id="@+id/action_parentOfCartFragment_to_userFragment2"
-            app:destination="@id/userFragment" />
+            app:destination="@id/userFragment"
+            app:popUpTo="@id/parentOfCartFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -134,7 +135,8 @@
         android:label="AddressFragment" >
         <action
             android:id="@+id/action_addressFragment_to_userFragment"
-            app:destination="@id/userFragment" />
+            app:destination="@id/userFragment"
+            app:popUpTo="@id/finalizeOrderFragment" />
         <argument
             android:name="id"
             app:argType="integer" />
@@ -158,6 +160,9 @@
         <action
             android:id="@+id/action_finalizeOrderFragment_to_parentOfCartFragment3"
             app:destination="@id/parentOfCartFragment" />
+        <action
+            android:id="@+id/action_finalizeOrderFragment_to_userFragment"
+            app:destination="@id/userFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -166,9 +171,6 @@
         <action
             android:id="@+id/action_cartFragment_to_finalizeOrderFragment"
             app:destination="@id/finalizeOrderFragment" />
-        <action
-            android:id="@+id/action_parentOfCartFragment_to_userFragment2"
-            app:destination="@id/userFragment" />
     </fragment>
     <fragment
         android:id="@+id/myOrdersFragment"
@@ -176,6 +178,7 @@
         android:label="MyOrdersFragment" >
         <action
             android:id="@+id/action_myOrdersFragment_to_userFragment"
-            app:destination="@id/userFragment" />
+            app:destination="@id/userFragment"
+            app:popUpTo="@id/parentOfCartFragment" />
     </fragment>
 </navigation>

@@ -35,7 +35,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         init()
         navigateToSignUp()
         getuser()
-        getResponseLogin()
+
         loginFromLocal()
         exitFromAccount()
         editUser()
@@ -76,7 +76,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-
+            getResponseLogin()
 
         }
     }

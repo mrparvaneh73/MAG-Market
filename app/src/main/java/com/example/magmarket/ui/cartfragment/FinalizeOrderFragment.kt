@@ -24,6 +24,7 @@ import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.model.order.Shipping
 import com.example.magmarket.databinding.FragmentFinalizeorderBinding
 import com.example.magmarket.utils.ResultWrapper
+import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -34,8 +35,8 @@ class FinalizeOrderFragment : Fragment(R.layout.fragment_finalizeorder) {
     private val binding get() = _binding!!
     private val args by navArgs<FinalizeOrderFragmentArgs>()
     var listLineItem: MutableList<LineItem> = mutableListOf()
-     var billing: Billing=Billing("","","","","","","","","","")
-     var shipping: Shipping= Shipping("","","","","","","","",)
+    var billing: Billing = Billing("", "", "", "", "", "", "", "", "", "")
+    var shipping: Shipping = Shipping("", "", "", "", "", "", "", "")
     var successId: Int = 0
     var allProductInOrderList: MutableList<ProductItemLocal> = mutableListOf()
     private val cartViewModel by activityViewModels<CartViewModel>()
@@ -94,7 +95,8 @@ class FinalizeOrderFragment : Fragment(R.layout.fragment_finalizeorder) {
                             state = ""
                         )
                     } else {
-                        binding.stateView.onEmpty()
+                        binding.parent.isVisible = false
+                        openDialogaddAdress()
                     }
                 }
                 is ResultWrapper.Error -> {
@@ -104,7 +106,7 @@ class FinalizeOrderFragment : Fragment(R.layout.fragment_finalizeorder) {
         }
     }
 
-    fun finalizeOrder(customerId: Int, order: Order) {
+  private  fun finalizeOrder(customerId: Int, order: Order) {
         binding.btnFinalize.setOnClickListener {
             cartViewModel.creatOrder(customerId, order)
             ResponseOfOrder()
@@ -128,7 +130,7 @@ class FinalizeOrderFragment : Fragment(R.layout.fragment_finalizeorder) {
                     }
                     finalizeOrder(
                         args.id,
-                        Order( line_items = listLineItem)
+                        Order(line_items = listLineItem)
                     )
                 }
             }
@@ -146,14 +148,13 @@ class FinalizeOrderFragment : Fragment(R.layout.fragment_finalizeorder) {
                 is ResultWrapper.Success -> {
                     cartViewModel.insertPlacedOrdersInLocal(OrderList(id = it.value.id))
                     openDialog(it.value.id.toString())
-//                    for (i in cartAdapter.currentList) {
-//                        cartViewModel.deleteOrderFromLocal(i)
-//                    }
-                   cartViewModel.isSuccess=true
+
+                    cartViewModel.isSuccess = true
 
                 }
                 is ResultWrapper.Error -> {
-                    Toast.makeText(requireContext(), "somethingwentwrong", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "somethingwentwrong", Toast.LENGTH_SHORT)
+                        .show()
 
                 }
             }
@@ -176,6 +177,23 @@ class FinalizeOrderFragment : Fragment(R.layout.fragment_finalizeorder) {
         val button = dialog.findViewById<ImageView>(R.id.img_close)
         val orderNumber = dialog.findViewById<TextView>(R.id.order_number)
         orderNumber.text = orderId
+        button.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+    private fun openDialogaddAdress() {
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.add_address_dialog)
+        val button = dialog.findViewById<ImageView>(R.id.img_close)
+        val button_login = dialog.findViewById<MaterialButton>(R.id.btn_login)
+
+        button_login.setOnClickListener {
+
+            findNavController().navigate(FinalizeOrderFragmentDirections.actionFinalizeOrderFragmentToUserFragment())
+            dialog.dismiss()
+        }
         button.setOnClickListener {
             dialog.dismiss()
         }

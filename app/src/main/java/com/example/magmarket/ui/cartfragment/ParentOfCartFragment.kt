@@ -4,11 +4,15 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.magmarket.R
 import com.example.magmarket.databinding.FragmentCartBinding
 import com.example.magmarket.databinding.FragmentParentOfCartBinding
 import com.example.magmarket.ui.adapters.CartViewPagerAdapter
+import com.example.magmarket.ui.userfragment.UserFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,8 +31,12 @@ class ParentOfCartFragment : Fragment(R.layout.fragment_parent_of_cart) {
         }.attach()
     }
 
-    fun successId(): Int {
-        return args.successId
+    fun navigate() {
+        parentFragmentManager.commit {
+            replace<UserFragment>(R.id.container)
+            setReorderingAllowed(true)
+        }
+
     }
 
     override fun onDestroyView() {

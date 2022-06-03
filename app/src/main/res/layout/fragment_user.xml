@@ -186,7 +186,7 @@
                         android:layout_marginStart="12dp"
 
                         android:fontFamily="@font/farkhondeh"
-                        android:text="ویرایش اطلاعات"
+                        android:text="@string/complete_address"
                         android:textColor="@color/text"
                         android:textSize="@dimen/TextSize4x"
                         app:layout_constraintStart_toStartOf="parent"

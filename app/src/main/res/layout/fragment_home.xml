@@ -45,7 +45,7 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/product_slider"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="200dp"
                 android:layout_margin="@dimen/standardMargin2x"
                 app:layout_constraintBottom_toTopOf="@id/categoryRecyclerview"
                 app:layout_constraintEnd_toEndOf="parent"
