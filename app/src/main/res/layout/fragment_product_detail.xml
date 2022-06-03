@@ -195,8 +195,23 @@
 
 
             </androidx.cardview.widget.CardView>
-
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/similar_product"
+                android:textColor="@color/text"
+                android:layout_marginEnd="16dp"
+                android:textSize="@dimen/TextSize4x"
+                android:fontFamily="@font/farkhondeh"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_similar_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layoutDirection="rtl"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                tools:listitem="@layout/product_item"/>
         </LinearLayout>
     </ScrollView>
 

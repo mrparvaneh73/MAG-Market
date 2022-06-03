@@ -12,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.magmarket.R
 import com.example.magmarket.data.remote.ResultWrapper
 import com.example.magmarket.databinding.FragmentMyOrdersBinding
@@ -57,7 +58,7 @@ class MyOrdersFragment : Fragment(R.layout.fragment_my_orders) {
         val button_login = dialog.findViewById<MaterialButton>(R.id.btn_login)
 
         button_login.setOnClickListener {
-            (parentFragment as ParentOfCartFragment).navigate()
+    findNavController().navigate(MyOrdersFragmentDirections.actionParentOfCartFragmentToUserFragment())
             dialog.dismiss()
         }
         button.setOnClickListener {

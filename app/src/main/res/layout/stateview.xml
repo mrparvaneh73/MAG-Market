@@ -9,29 +9,31 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/Retry"
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="77dp"
+        android:layout_height="32dp"
         android:layout_gravity="center"
-        android:layout_marginEnd="28dp"
         android:backgroundTint="@color/button"
         android:fontFamily="@font/far_mitra"
         android:text="@string/add_to_bascket"
         android:textColor="@color/text"
-        android:textSize="@dimen/TextSize4x"
+        android:textSize="@dimen/TextSize2x"
+
         android:visibility="gone"
         app:cornerRadius="@dimen/standardMargin3x"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.609"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emptycart"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="@id/emptycart"
+
+        app:layout_constraintEnd_toEndOf="@+id/emptycart"
+        app:layout_constraintHorizontal_bias="0.545"
+
+        app:layout_constraintStart_toStartOf="@+id/emptycart"
+        app:layout_constraintTop_toTopOf="@+id/emptycart"
+        app:layout_constraintVertical_bias="0.914"
         tools:text="state view is here" />
 
     <ImageView
         android:id="@+id/emptycart"
-        android:layout_width="182dp"
-        android:layout_height="209dp"
+        android:layout_width="172dp"
+        android:layout_height="254dp"
         android:src="@drawable/nothingfound"
 android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

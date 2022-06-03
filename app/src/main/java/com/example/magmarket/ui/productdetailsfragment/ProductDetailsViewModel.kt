@@ -23,6 +23,9 @@ class ProductDetailsViewModel @Inject constructor(private val repository: Produc
         MutableStateFlow(ResultWrapper.Loading)
     val product = _product.asStateFlow()
 
+    private val _similarProducts: MutableStateFlow<ResultWrapper<List<ProductItem>>> =
+        MutableStateFlow(ResultWrapper.Loading)
+    val similarProducts = _similarProducts.asStateFlow()
 
 
     fun getProduct(id: String) {
@@ -57,10 +60,17 @@ class ProductDetailsViewModel @Inject constructor(private val repository: Produc
         }
     }
 
-    fun deletProductFromOrders(productItemLocal: ProductItemLocal){
+    fun deletProductFromOrders(productItemLocal: ProductItemLocal) {
         viewModelScope.launch {
             repository.deleteProductFromCart(productItemLocal)
         }
     }
 
+    fun getSimilarProduct(include: String) {
+        viewModelScope.launch {
+            repository.getSimilarProducts(include).collect{
+                _similarProducts.emit(it)
+            }
+        }
+    }
 }

@@ -22,7 +22,7 @@ class CartRepository @Inject constructor(
     @MarkLocalDataBase private val markLocalDataBase: LocalDataBase
 ) {
     suspend fun getAllOrders(include: String)= safeApiCall(dispatcher) {
-         marketremoteDataSource.getAllOrders(include)
+         marketremoteDataSource.getSimilarProducts(include)
     }
 
      fun getAllCartProductFromLocal(): Flow<List<ProductItemLocal>> {

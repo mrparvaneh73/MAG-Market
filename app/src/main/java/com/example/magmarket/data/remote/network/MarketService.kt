@@ -1,5 +1,6 @@
 package com.example.magmarket.data.remote.network
 
+import com.example.magmarket.application.Constants.BASE_PARAM
 import com.example.magmarket.data.remote.model.CategoryItem
 import com.example.magmarket.data.remote.model.ProductItem
 import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
@@ -7,7 +8,7 @@ import com.example.magmarket.data.remote.model.customer.Customer
 import com.example.magmarket.data.remote.model.customer.CustomerResponse
 import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.model.order.ResponseOrder
-import com.example.magmarket.application.Constants.BASE_PARAM
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -23,6 +24,7 @@ interface MarketService {
     suspend fun getAllCategories(
         @QueryMap tokens: Map<String, String> = BASE_PARAM,
     ): Response<List<CategoryItem>>
+
 
     @GET("products/categories")
     suspend fun getSubCategories(
@@ -45,19 +47,19 @@ interface MarketService {
 
     @POST("orders")
     suspend fun createOrder(
-        @Query("customer_id") customer_id:Int,
+        @Query("customer_id") customer_id: Int,
         @Body order: Order,
         @QueryMap tokens: Map<String, String> = BASE_PARAM
     ): Response<ResponseOrder>
 
     @GET("orders")
     suspend fun getPlacedOrders(
-        @Query("customer") customer_id:Int,
+        @Query("customer") customer_id: Int,
         @QueryMap tokens: Map<String, String> = BASE_PARAM
     ): Response<List<ResponseOrder>>
 
     @GET("products")
-    suspend fun getAllOrders(
+    suspend fun getSimilarProducts(
         @Query("include") include: String,
         @QueryMap tokens: Map<String, String> = BASE_PARAM
     ): Response<List<ProductItem>>
@@ -82,7 +84,7 @@ interface MarketService {
 
     @PUT("customers/{id}")
     suspend fun updateCustomer(
-        @Path("id") id:Int,
+        @Path("id") id: Int,
         @Body customer: Customer,
         @QueryMap tokens: Map<String, String> = BASE_PARAM
     ): Response<CustomerResponse>

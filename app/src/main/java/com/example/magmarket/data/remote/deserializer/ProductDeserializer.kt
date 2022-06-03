@@ -28,6 +28,7 @@ class ProductDeserializer : JsonDeserializer<List<ProductItem>> {
                     val categories = it.get("categories").asJsonArray
                     val regularPrice = it.get("regular_price").asString
                     val sale_price = it.get("sale_price").asString
+                    val relatedIds=it.get("related_ids")
                     for (i in 0..categories.size()) {
                         val categoryObject: JsonObject = categories.get(i).getAsJsonObject()
                         val id = categoryObject.get("id").asString

@@ -188,11 +188,11 @@ class FinalizeOrderFragment : Fragment(R.layout.fragment_finalizeorder) {
         val dialog = Dialog(requireContext())
         dialog.setContentView(R.layout.add_address_dialog)
         val button = dialog.findViewById<ImageView>(R.id.img_close)
-        val button_login = dialog.findViewById<MaterialButton>(R.id.btn_login)
+        val button_login = dialog.findViewById<MaterialButton>(R.id.btn_complete_info)
 
         button_login.setOnClickListener {
 
-            findNavController().navigate(FinalizeOrderFragmentDirections.actionFinalizeOrderFragmentToUserFragment())
+            findNavController().navigate(FinalizeOrderFragmentDirections.actionParentOfCartFragmentToUserFragment())
             dialog.dismiss()
         }
         button.setOnClickListener {

@@ -211,7 +211,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         val button_login = dialog.findViewById<MaterialButton>(R.id.btn_login)
 
         button_login.setOnClickListener {
-           (parentFragment as ParentOfCartFragment).navigate()
+         findNavController().navigate(CartFragmentDirections.actionParentOfCartFragmentToUserFragment())
             dialog.dismiss()
 
         }

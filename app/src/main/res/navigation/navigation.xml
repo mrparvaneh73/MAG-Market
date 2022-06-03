@@ -13,7 +13,7 @@
             app:destination="@id/productDetailFragment"
             app:enterAnim="@anim/slide_in_up"
             app:popEnterAnim="@anim/slide_in_up"
-            app:popUpTo="@id/homeFragment" />
+            app:popUpTo="@id/navigation" />
         <action
             android:id="@+id/action_homeFragment_to_showMoreFragment"
             app:destination="@id/showMoreFragment"
@@ -51,6 +51,14 @@
             android:name="id"
             app:argType="string" />
         <action
+            android:id="@+id/action_productDetailFragment_self"
+            app:destination="@id/productDetailFragment"
+            app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_cartFragment2"
+            app:destination="@id/cartFragment"
+            app:popUpTo="@id/homeFragment" />
+        <action
             android:id="@+id/action_productDetailFragment_to_parentOfCartFragment"
             app:destination="@id/parentOfCartFragment" />
     </fragment>
@@ -66,7 +74,7 @@
             app:destination="@id/productDetailFragment"
             app:enterAnim="@anim/slide_in_up"
             app:popEnterAnim="@anim/slide_in_up"
-            app:popUpTo="@id/productsCategoryFragment" />
+            app:popUpTo="@id/navigation" />
     </fragment>
     <fragment
         android:id="@+id/userFragment"
@@ -111,12 +119,9 @@
             app:argType="integer"
             android:defaultValue="0" />
         <action
-            android:id="@+id/action_myOrdersFragment_to_userFragment"
-            app:destination="@id/userFragment" />
-        <action
-            android:id="@+id/action_parentOfCartFragment_to_userFragment2"
+            android:id="@+id/action_parentOfCartFragment_to_userFragment"
             app:destination="@id/userFragment"
-            app:popUpTo="@id/parentOfCartFragment" />
+            app:popUpTo="@id/navigation" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -161,8 +166,9 @@
             android:id="@+id/action_finalizeOrderFragment_to_parentOfCartFragment3"
             app:destination="@id/parentOfCartFragment" />
         <action
-            android:id="@+id/action_finalizeOrderFragment_to_userFragment"
-            app:destination="@id/userFragment" />
+            android:id="@+id/action_parentOfCartFragment_to_userFragment"
+            app:destination="@id/userFragment"
+            app:popUpTo="@id/navigation" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -171,14 +177,18 @@
         <action
             android:id="@+id/action_cartFragment_to_finalizeOrderFragment"
             app:destination="@id/finalizeOrderFragment" />
+        <action
+            android:id="@+id/action_parentOfCartFragment_to_userFragment"
+            app:destination="@id/userFragment"
+            app:popUpTo="@id/navigation" />
     </fragment>
     <fragment
         android:id="@+id/myOrdersFragment"
         android:name="com.example.magmarket.ui.cartfragment.MyOrdersFragment"
         android:label="MyOrdersFragment" >
         <action
-            android:id="@+id/action_myOrdersFragment_to_userFragment"
+            android:id="@+id/action_parentOfCartFragment_to_userFragment"
             app:destination="@id/userFragment"
-            app:popUpTo="@id/parentOfCartFragment" />
+            app:popUpTo="@id/navigation" />
     </fragment>
 </navigation>

@@ -4,7 +4,10 @@ import com.example.magmarket.data.remote.model.ProductError
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import okhttp3.Dispatcher
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
@@ -47,4 +50,4 @@ suspend inline fun <T> safeApiCall(
     } finally {
 
     }
-}
+}.flowOn(Dispatchers.IO)

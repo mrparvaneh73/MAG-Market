@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.example.magmarket.R
 import com.example.magmarket.databinding.ActivityMainBinding
 import com.example.magmarket.utils.ConnectivityStatus
@@ -55,7 +56,9 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.container) as NavHostFragment
         navController = navHostFragment.navController
+
         bottomNavigationView=findViewById(R.id.bottom_nav)
+
         bottomNavigationView.setOnItemSelectedListener { item ->
 
 
@@ -63,6 +66,7 @@ class MainActivity : AppCompatActivity() {
 
             return@setOnItemSelectedListener true
         }
+        bottomNavigationView.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.parentOfCartFragment -> visibleBottomNavigation()

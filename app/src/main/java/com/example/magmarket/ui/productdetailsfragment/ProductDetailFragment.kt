@@ -20,6 +20,7 @@ import com.example.magmarket.R
 import com.example.magmarket.data.local.entities.ProductItemLocal
 import com.example.magmarket.data.remote.ResultWrapper
 import com.example.magmarket.databinding.FragmentProductDetailBinding
+import com.example.magmarket.ui.adapters.SimilarAdapter
 import com.example.magmarket.ui.adapters.SliderAdapter
 
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,25 +40,50 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     private val viewModel: ProductDetailsViewModel by viewModels()
     private val adapter = SliderAdapter()
     private var count = 1
-
+    private val similarAdapter = SimilarAdapter(clickListener = {
+        findNavController().navigate(
+            ProductDetailFragmentDirections.actionProductDetailFragmentSelf(
+                it.id
+            )
+        )
+    })
     private lateinit var name: String
     private lateinit var price: String
     private lateinit var image: String
     private var regularPrice: String = "0"
     private lateinit var salePrice: String
-
+    private var similar: MutableList<Int> = mutableListOf(0)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProductDetailBinding.bind(view)
+        binding.rvSimilarProduct.adapter = similarAdapter
         init()
         collect()
         close()
         isExist()
         addToCart()
         goToCart()
+        getSimilarProduct()
 
+    }
 
+    fun getSimilarProduct() {
+    viewModel.similarProducts.collectIt(viewLifecycleOwner){
+        when (it) {
+            is ResultWrapper.Loading -> binding.stateView.onLoading()
+            is ResultWrapper.Success -> {
+                similarAdapter.submitList(it.value)
+                if (it.value.isNotEmpty()) {
+                    binding.stateView.onSuccess()
+                } else {
+                    binding.stateView.onEmpty()
+                }
+            }
+            is ResultWrapper.Error -> {
 
+            }
+        }
+    }
     }
 
     fun collect() = with(binding) {
@@ -77,6 +103,8 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                     tvProductDescription.text =
                         HtmlCompat.fromHtml(it.value.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
                     price = it.value.price
+                    similar.addAll(it.value.related_ids)
+                    viewModel.getSimilarProduct(similar.toString())
                     tvTotalprice.text = nf.format(price.toInt())
                     regularPrice = it.value.regular_price
                     if (it.value.price.toInt() == regularPrice.toInt()) {
@@ -175,7 +203,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                 viewModel.isExistInOrders(args.id.toInt()).collect {
                     if (it) {
 
-                       setCountOrder()
+                        setCountOrder()
 
                         binding.linearLayout7.isVisible = true
                         binding.buttonAddToCart.isVisible = false
@@ -212,7 +240,13 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
     private fun goToCart() {
         binding.toolbar.fragmentcart.setOnClickListener {
-            findNavController().navigate(ProductDetailFragmentDirections.actionProductDetailFragmentToParentOfCartFragment(0))
+            findNavController().navigate(
+                ProductDetailFragmentDirections.actionProductDetailFragmentToParentOfCartFragment(
+
+                )
+            )
+
+
         }
 
     }

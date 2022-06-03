@@ -50,7 +50,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 searchViewModel.searchProduct(query!!)
 
 
-                return false
+                return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {

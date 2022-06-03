@@ -20,6 +20,9 @@ class ProductRepository @Inject constructor(
     @MarketRemoteDataSource private val marketremoteDataSource: RemoteDataSource,
     @MarkLocalDataBase private val markLocalDataBase: LocalDataBase
 ) {
+    suspend fun getSimilarProducts(include: String)= safeApiCall(dispatcher) {
+        marketremoteDataSource.getSimilarProducts(include)
+    }
     suspend fun insertProductToCart(productItemLocal: ProductItemLocal) {
         markLocalDataBase.insertProduct(productItemLocal)
     }

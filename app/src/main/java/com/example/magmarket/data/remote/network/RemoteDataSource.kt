@@ -17,7 +17,7 @@ interface RemoteDataSource {
     suspend fun getSubCategories(parent: Int): Response<List<CategoryItem>>
     suspend fun getproductOfCategory(categoryId: Int): Response<List<ProductItem>>
     suspend fun creatOrder(customer_id:Int,order: Order): Response<ResponseOrder>
-    suspend fun getAllOrders(include: String): Response<List<ProductItem>>
+    suspend fun getSimilarProducts(include: String): Response<List<ProductItem>>
     suspend fun searchProduct(search: String): Response<List<ProductItem>>
     suspend fun getPlacedOrder(customer_id:Int): Response<List<ResponseOrder>>
     suspend fun createCustomer(customer: Customer): Response<CustomerResponse>

@@ -36,8 +36,8 @@ class MarketRemoteDataSource @Inject constructor(private val marketService: Mark
         return marketService.createOrder(customer_id, order)
     }
 
-    override suspend fun getAllOrders(include: String): Response<List<ProductItem>> {
-        return marketService.getAllOrders(include)
+    override suspend fun getSimilarProducts(include: String): Response<List<ProductItem>> {
+        return marketService.getSimilarProducts(include)
     }
 
     override suspend fun searchProduct(search: String): Response<List<ProductItem>> {
