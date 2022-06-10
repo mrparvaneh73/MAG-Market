@@ -20,12 +20,19 @@ class ProductsOfCategoryAdapter(private var clickListener: (ProductItem) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun mBind(productItem: ProductItem) = binding.apply {
-            Glide.with(root)
-                .load(productItem.images[0].src)
-                .placeholder(R.drawable.emptyimage)
-                .into(productImage)
-            productName.text = productItem.name
-            if (productItem.price!= ""){
+            if (!productItem.images.isNullOrEmpty()){
+                Glide.with(root)
+                    .load(productItem.images[0].src)
+                    .placeholder(R.drawable.emptyimage)
+                    .into(productImage)
+            }
+       if (!productItem.name.isNullOrEmpty()){
+
+           productName.text = productItem.name
+       }else{
+           productName.text="محصول فاقد نام"
+       }
+            if (!productItem.price.isNullOrEmpty()){
                 productPrice.text = nf.format(productItem.price.toInt())
             }else {
                 productPrice.text="بدون قیمت"

@@ -3,7 +3,7 @@ package com.example.magmarket.data.local.dao
 import androidx.room.*
 import com.example.magmarket.data.local.entities.OrderList
 import com.example.magmarket.data.local.entities.ProductItemLocal
-import com.example.magmarket.data.local.entities.UserList
+import com.example.magmarket.data.local.entities.User
 import kotlinx.coroutines.flow.Flow
 
 
@@ -16,15 +16,15 @@ interface MarketDao {
     suspend fun insertOrder(order: OrderList)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertUser(user: UserList)
+    suspend fun insertUser(user: User)
    @Delete
-   suspend fun deleteUser(user: UserList)
+   suspend fun deleteUser(user: User)
 
     @Update
-    suspend fun updateUser(user: UserList)
+    suspend fun updateUser(user: User)
 
-    @Query("SELECT * FROM userlist")
-    fun getAllUsers(): Flow<List<UserList>>
+    @Query("SELECT * FROM user")
+    fun getAllUsers(): Flow<User>
 
     @Query("SELECT * FROM orderlist")
     fun getAllOrders(): Flow<List<OrderList>>

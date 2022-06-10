@@ -2,9 +2,10 @@ package com.example.magmarket.data.repository
 
 import com.example.magmarket.data.local.entities.OrderList
 import com.example.magmarket.data.local.entities.ProductItemLocal
-import com.example.magmarket.data.local.entities.UserList
+import com.example.magmarket.data.local.entities.User
 import com.example.magmarket.data.local.localdatabase.LocalDataBase
 import com.example.magmarket.data.remote.model.order.Order
+import com.example.magmarket.data.remote.model.updateorder.UpdateOrder
 import com.example.magmarket.data.remote.network.RemoteDataSource
 import com.example.magmarket.data.remote.safeApiCall
 import com.example.magmarket.di.IoDispatcher
@@ -21,7 +22,7 @@ class CartRepository @Inject constructor(
     @MarketRemoteDataSource private val marketremoteDataSource: RemoteDataSource,
     @MarkLocalDataBase private val markLocalDataBase: LocalDataBase
 ) {
-    suspend fun getAllOrders(include: String)= safeApiCall(dispatcher) {
+    suspend fun getProductFromRemote(include: String)= safeApiCall(dispatcher) {
          marketremoteDataSource.getSimilarProducts(include)
     }
 
@@ -58,7 +59,13 @@ class CartRepository @Inject constructor(
         marketremoteDataSource.getCustomer(id)
     }
 
-    fun getUsersFromLocal(): Flow<List<UserList>> {
+    fun getUsersFromLocal(): Flow<User> {
         return markLocalDataBase.getUserFromLocal()
+    }
+    suspend fun getAnOrder(orderId: Int)= safeApiCall(dispatcher){
+        marketremoteDataSource.getAnOrder(orderId)
+    }
+    suspend fun updateOrder(orderId: Int, order: UpdateOrder) = safeApiCall(dispatcher) {
+        marketremoteDataSource.updateOrder(orderId,order)
     }
 }

@@ -13,7 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.magmarket.R
 import com.example.magmarket.data.datastore.Theme
-import com.example.magmarket.data.local.entities.UserList
+import com.example.magmarket.data.local.entities.User
 import com.example.magmarket.data.remote.ResultWrapper
 import com.example.magmarket.databinding.FragmentUserBinding
 
@@ -36,8 +36,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         init()
         navigateToSignUp()
         getUser()
-
-        loginFromLocal()
+      loginFromLocal()
         exitFromAccount()
         editUser()
 
@@ -96,7 +95,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
                             "${it.value.first_name} ${it.value.last_name}"
                         binding.tvEmailRegistered!!.text = it.value.email
                         viewModel.insertUserToLocal(
-                            UserList(
+                            User(
                                 it.value.id,
                                 it.value.email,
                                 it.value.first_name,
@@ -131,19 +130,21 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.getUserFromLocal().collect {
-                    if (it.isNotEmpty()) {
+                    if (it !=null){
                         binding.viewLogin!!.isVisible = false
                         binding.viewAccountinfo!!.isVisible = true
                         binding.tvFullNameRegistered!!.text =
-                            "${it[it.lastIndex].firstName} ${it[it.lastIndex].lastName}"
-                        binding.tvEmailRegistered!!.text = it[it.lastIndex].email
-                        userid = it[it.lastIndex].id
-                        userEmail = it[it.lastIndex].email
-                        userFirstName =it[it.lastIndex].firstName
-                        userLastName=it[it.lastIndex].lastName
-                    } else {
+                            "${it.firstName} ${it.lastName}"
+                        binding.tvEmailRegistered!!.text = it.email
+                        userid = it.userId
+                        userEmail = it.email
+                        userFirstName =it.firstName
+                        userLastName=it.lastName
+                    }else{
                         binding.viewLogin!!.isVisible = true
+                        binding.viewAccountinfo!!.isVisible = false
                     }
+
 
                 }
             }
@@ -154,7 +155,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
 
     private fun navigateToSignUp() {
         binding.SignUpButton.setOnClickListener {
-            findNavController().navigate(UserFragmentDirections.actionUserFragmentToRegisterFragment())
+            findNavController().navigate(UserFragmentDirections.actionGlobalRegisterFragment())
         }
 
     }
@@ -163,12 +164,12 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         binding.exitFromAccount!!.setOnClickListener {
             binding.viewLogin!!.isVisible = true
             binding.viewAccountinfo!!.isVisible = false
-            viewModel.deleteUserFromLocal(UserList(userid, userEmail))
+            viewModel.deleteUserFromLocal(User(userid, userEmail))
         }
     }
 private fun editUser(){
     binding.edit!!.setOnClickListener {
-        findNavController().navigate(UserFragmentDirections.actionUserFragmentToAddressFragment(id=userid, firstname = userFirstName, lastname = userLastName, email = userEmail))
+        findNavController().navigate(UserFragmentDirections.actionGlobalAddressFragment(id=userid, firstname = userFirstName, lastname = userLastName, email = userEmail))
     }
 }
     private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {

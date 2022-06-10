@@ -14,7 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.magmarket.R
-import com.example.magmarket.data.local.entities.UserList
+import com.example.magmarket.data.local.entities.User
 import com.example.magmarket.data.remote.ResultWrapper
 import com.example.magmarket.data.remote.model.customer.Billing
 import com.example.magmarket.data.remote.model.customer.Customer
@@ -91,8 +91,8 @@ class AddressFragment : Fragment(R.layout.fragment_adress) {
                 is ResultWrapper.Success -> {
                     openDialogSuccess()
                     updateUserLocal(
-                        UserList(
-                            id = args.id,
+                        User(
+                            userId = args.id,
                             email = args.email,
                             firstName = firstNameTextField.text.toString(),
                             lastName = secondNameTextField.text.toString()
@@ -139,11 +139,11 @@ class AddressFragment : Fragment(R.layout.fragment_adress) {
 
     private fun backtoAccount() {
         binding.imgBack.setOnClickListener {
-            findNavController().navigate(AddressFragmentDirections.actionAddressFragmentToUserFragment())
+            findNavController().navigate(AddressFragmentDirections.actionGlobalUserFragment())
         }
     }
 
-    private fun updateUserLocal(user: UserList) {
+    private fun updateUserLocal(user: User) {
         viewModel.updateUserLocal(user)
     }
 

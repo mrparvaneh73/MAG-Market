@@ -107,12 +107,12 @@ class FinalizeOrderFragment : Fragment(R.layout.fragment_finalizeorder) {
         }
     }
 
-  private  fun finalizeOrder(customerId: Int, order: Order) {
-        binding.btnFinalize.setOnClickListener {
-            cartViewModel.creatOrder(customerId, order)
-            ResponseOfOrder()
-        }
-    }
+//  private  fun finalizeOrder(customerId: Int, order: Order) {
+//        binding.btnFinalize.setOnClickListener {
+//            cartViewModel.creatOrder(customerId, order)
+//            ResponseOfOrder()
+//        }
+//    }
 
     private fun ObserveOrderList() {
 
@@ -128,11 +128,11 @@ class FinalizeOrderFragment : Fragment(R.layout.fragment_finalizeorder) {
                                 variation_id = 0
                             )
                         )
-                    }
-                    finalizeOrder(
-                        args.id,
-                        Order(line_items = listLineItem)
-                    )
+                   }
+//                    finalizeOrder(
+//                        args.id,
+//                        Order(line_items = listLineItem)
+//                    )
                 }
             }
 
@@ -140,32 +140,32 @@ class FinalizeOrderFragment : Fragment(R.layout.fragment_finalizeorder) {
 
     }
 
-    private fun ResponseOfOrder() {
-        cartViewModel.orderList.collectIt(viewLifecycleOwner) {
-            when (it) {
-                is ResultWrapper.Loading -> {
-
-                }
-                is ResultWrapper.Success -> {
-                    cartViewModel.insertPlacedOrdersInLocal(OrderList(id = it.value.id))
-                    openDialog(it.value.id.toString())
-
-                    cartViewModel.isSuccess = true
-
-                }
-                is ResultWrapper.Error -> {
-                    Toast.makeText(requireContext(), "somethingwentwrong", Toast.LENGTH_SHORT)
-                        .show()
-
-                }
-            }
-        }
-    }
+//    private fun ResponseOfOrder() {
+//        cartViewModel.orderList.collectIt(viewLifecycleOwner) {
+//            when (it) {
+//                is ResultWrapper.Loading -> {
+//
+//                }
+//                is ResultWrapper.Success -> {
+//                    cartViewModel.insertPlacedOrdersInLocal(OrderList(id = it.value.id))
+//                    openDialog(it.value.id.toString())
+//
+//                    cartViewModel.isSuccess = true
+//
+//                }
+//                is ResultWrapper.Error -> {
+//                    Toast.makeText(requireContext(), "somethingwentwrong", Toast.LENGTH_SHORT)
+//                        .show()
+//
+//                }
+//            }
+//        }
+//    }
 
     private fun back() {
         binding.btnBack.setOnClickListener {
             findNavController().navigate(
-                FinalizeOrderFragmentDirections.actionFinalizeOrderFragmentToParentOfCartFragment3(
+                FinalizeOrderFragmentDirections.actionGlobalParentOfCartFragment(
                     successId
                 )
             )
@@ -192,7 +192,7 @@ class FinalizeOrderFragment : Fragment(R.layout.fragment_finalizeorder) {
 
         button_login.setOnClickListener {
 
-            findNavController().navigate(FinalizeOrderFragmentDirections.actionParentOfCartFragmentToUserFragment())
+            findNavController().navigate(FinalizeOrderFragmentDirections.actionGlobalUserFragment())
             dialog.dismiss()
         }
         button.setOnClickListener {

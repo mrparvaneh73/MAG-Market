@@ -42,8 +42,8 @@ class MyOrdersFragment : Fragment(R.layout.fragment_my_orders) {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 cartViewModel.getUserFromLocal().collect {
-                    if (it.isNotEmpty()) {
-                        cartViewModel.getPlacedOrder(it[it.lastIndex].id)
+                    if (it.userId !=0) {
+                        cartViewModel.getPlacedOrder(it.userId)
                     } else {
                         openDialog()
                     }
@@ -58,7 +58,7 @@ class MyOrdersFragment : Fragment(R.layout.fragment_my_orders) {
         val button_login = dialog.findViewById<MaterialButton>(R.id.btn_login)
 
         button_login.setOnClickListener {
-    findNavController().navigate(MyOrdersFragmentDirections.actionParentOfCartFragmentToUserFragment())
+    findNavController().navigate(MyOrdersFragmentDirections.actionGlobalUserFragment())
             dialog.dismiss()
         }
         button.setOnClickListener {

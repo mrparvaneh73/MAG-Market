@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.magmarket.data.datastore.SettingDataStore
 import com.example.magmarket.data.datastore.Theme
-import com.example.magmarket.data.local.entities.UserList
+import com.example.magmarket.data.local.entities.User
 import com.example.magmarket.data.remote.ResultWrapper
 import com.example.magmarket.data.remote.model.customer.Customer
 import com.example.magmarket.data.remote.model.customer.CustomerResponse
@@ -93,21 +93,21 @@ class UserViewModel @Inject constructor(private val settingDataStore: SettingDat
         }
     }
 
-    fun insertUserToLocal(user: UserList) {
+    fun insertUserToLocal(user: User) {
         viewModelScope.launch {
             userRepository.insertUser(user)
         }
     }
 
 
-    fun deleteUserFromLocal(user: UserList){
+    fun deleteUserFromLocal(user: User){
         viewModelScope.launch {
             userRepository.deleteUser(user)
         }
 
     }
 
-    fun updateUserLocal(user: UserList){
+    fun updateUserLocal(user: User){
         viewModelScope.launch {
             userRepository.updateUserLocal(user)
         }

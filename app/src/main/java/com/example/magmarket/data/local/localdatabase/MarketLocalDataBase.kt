@@ -3,7 +3,7 @@ package com.example.magmarket.data.local.localdatabase
 import com.example.magmarket.data.local.dao.MarketDao
 import com.example.magmarket.data.local.entities.OrderList
 import com.example.magmarket.data.local.entities.ProductItemLocal
-import com.example.magmarket.data.local.entities.UserList
+import com.example.magmarket.data.local.entities.User
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -43,19 +43,19 @@ class MarketLocalDataBase @Inject constructor(private val marketDao: MarketDao):
      return   marketDao.isRowIsExist(id)
     }
 
-    override suspend fun insertUser(user: UserList) {
+    override suspend fun insertUser(user: User) {
         marketDao.insertUser(user)
     }
 
-    override fun getUserFromLocal(): Flow<List<UserList>> {
+    override fun getUserFromLocal(): Flow<User> {
         return marketDao.getAllUsers()
     }
 
-    override suspend fun deleteUser(user: UserList) {
+    override suspend fun deleteUser(user: User) {
         marketDao.deleteUser(user)
     }
 
-    override suspend fun updateUser(user: UserList) {
+    override suspend fun updateUser(user: User) {
         marketDao.updateUser(user)
     }
 }

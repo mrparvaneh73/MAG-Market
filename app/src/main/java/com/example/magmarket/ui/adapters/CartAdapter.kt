@@ -9,12 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.magmarket.R
 import com.example.magmarket.data.local.entities.ProductItemLocal
+import com.example.magmarket.data.remote.model.Cart
+import com.example.magmarket.data.remote.model.ProductItem
 import com.example.magmarket.databinding.CartItemBinding
 import java.text.NumberFormat
 import java.util.*
 
 class CartAdapter :
-    ListAdapter<ProductItemLocal, CartAdapter.MyViewHolder>(CartOrdersDiffCall) {
+    ListAdapter<Cart, CartAdapter.MyViewHolder>(CartOrdersDiffCall) {
     val nf: NumberFormat = NumberFormat.getInstance(Locale.US)
     private lateinit var onItemClickListener: OnItemClickListener
 
@@ -28,7 +30,7 @@ class CartAdapter :
         private val listenerOn: OnItemClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun mBind(productItem: ProductItemLocal) = binding.apply {
+        fun mBind(productItem: Cart) = binding.apply {
             Glide.with(root)
                 .load(productItem.images)
                 .into(imgProduct)
@@ -48,15 +50,15 @@ class CartAdapter :
                 tvOff.text=""
             }else{
                 unitOff.isVisible=true
-                tvOff.text=nf.format(productItem.off)
+               tvOff.text=nf.format(productItem.off)
             }
             tvProductCount.text = productItem.count.toString()
 
             imageViewPlus.setOnClickListener {
-                listenerOn.onItemPlus(absoluteAdapterPosition)
+                listenerOn.onItemPlus(productItem.productId)
             }
             imgDeleteOrder.setOnClickListener {
-                listenerOn.onItemMinus(absoluteAdapterPosition)
+                listenerOn.onItemMinus(productItem.productId)
             }
 
         }
@@ -88,13 +90,13 @@ class CartAdapter :
 
 }
 
-object CartOrdersDiffCall : DiffUtil.ItemCallback<ProductItemLocal>() {
+object CartOrdersDiffCall : DiffUtil.ItemCallback<Cart>() {
 
-    override fun areItemsTheSame(oldItem: ProductItemLocal, newItem: ProductItemLocal): Boolean {
+    override fun areItemsTheSame(oldItem: Cart, newItem: Cart): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: ProductItemLocal, newItem: ProductItemLocal): Boolean {
+    override fun areContentsTheSame(oldItem: Cart, newItem: Cart): Boolean {
         return oldItem == newItem
     }
 

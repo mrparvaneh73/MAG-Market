@@ -22,19 +22,30 @@ class SimilarAdapter(private var clickListener: (ProductItem) -> Unit) :
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun mBind(productItem: ProductItem) = binding.apply {
-            Glide.with(root)
-                .load(productItem.images[0].src)
-                .placeholder(R.drawable.emptyimage)
-                .into(imgProduct)
-            tvnameproduct.text = productItem.name
-            if (productItem.regular_price.toInt()==productItem.price.toInt()){
-                regularprice.text=""
-            }else{
-                regularprice.text=  nf.format(productItem.regular_price.toInt())
-                regularprice.paintFlags= Paint.STRIKE_THRU_TEXT_FLAG
+            if(!productItem.images.isNullOrEmpty()){
+                Glide.with(root)
+                    .load(productItem.images[0].src)
+                    .placeholder(R.drawable.emptyimage)
+                    .into(imgProduct)
             }
+   if (!productItem.name.isNullOrEmpty()){
+       tvnameproduct.text = productItem.name
+   }else{
+       tvnameproduct.text="محصول فاقد نام"
+   }
+      if (!productItem.price.isNullOrEmpty()){
+          if (productItem.regular_price!!.toInt()==productItem.price.toInt()){
+              regularprice.text=""
+          }else{
+              regularprice.text=  nf.format(productItem.regular_price.toInt())
+              regularprice.paintFlags= Paint.STRIKE_THRU_TEXT_FLAG
+          }
 
-            tvpriceproduct.text = nf.format(productItem.price.toInt())
+          tvpriceproduct.text = nf.format(productItem.price.toInt())
+      }else{
+          tvpriceproduct.text="محصول فاقد قیمت "
+      }
+
 
             root.setOnClickListener {
                 clickListener(productItem)

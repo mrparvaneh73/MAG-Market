@@ -50,17 +50,17 @@ class HomeViewModel @Inject constructor(private val productRepository: ProductRe
     fun getAllProducts() {
         viewModelScope.launch {
             val bestProduct = async {
-                productRepository.getRemoteProductList(BEST_PRODUCT).collect {
+                productRepository.getRemoteProductList(1,BEST_PRODUCT).collect {
                     _bestProduct.emit(it)
                 }
             }
             val mostView = async {
-                productRepository.getRemoteProductList(MOSTVIEW_PRODUCT).collect {
+                productRepository.getRemoteProductList(1,MOSTVIEW_PRODUCT).collect {
                     _mostViewProduct.emit(it)
                 }
             }
             val newestProduct = async {
-                productRepository.getRemoteProductList(NEWEST_PRODUCT).collect {
+                productRepository.getRemoteProductList(1,NEWEST_PRODUCT).collect {
                     _newstProduct.emit(it)
                 }
             }

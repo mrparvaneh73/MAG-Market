@@ -158,7 +158,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
 
     private fun goForSearch() {
         binding.searchLinear.parentSearch.setOnClickListener {
-            findNavController().navigate(CategoryFragmentDirections.actionCategoryFragmentToSearchFragment())
+            findNavController().navigate(CategoryFragmentDirections.actionGlobalSearchFragment())
         }
 
 
@@ -176,7 +176,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
 
     private fun clickListener(category: CategoryItem) {
         findNavController().navigate(
-            CategoryFragmentDirections.actionCategoryFragmentToProductsCategoryFragment(
+            CategoryFragmentDirections.actionGlobalProductsCategoryFragment(
                 category.id
             )
         )

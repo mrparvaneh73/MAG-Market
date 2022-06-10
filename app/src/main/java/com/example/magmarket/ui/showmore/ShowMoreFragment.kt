@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import com.example.magmarket.R
 import com.example.magmarket.data.remote.ResultWrapper
@@ -19,6 +20,7 @@ import com.example.magmarket.databinding.FragmentShowmoreBinding
 
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -43,7 +45,7 @@ class ShowMoreFragment : Fragment(R.layout.fragment_showmore) {
         _binding = FragmentShowmoreBinding.bind(view)
 
         backPressed()
-        collect()
+//        collect()
         init()
     }
 
@@ -52,7 +54,38 @@ class ShowMoreFragment : Fragment(R.layout.fragment_showmore) {
         showMoreAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         productRecyclerviw.adapter = showMoreAdapter
-        viewModel.getShowmore(args.orderby)
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.getShowmore(args.orderby).collect {
+                        showMoreAdapter.submitData(it)
+                    }
+                }
+                launch {
+                    showMoreAdapter.loadStateFlow.collect {
+                        when (it.refresh) {
+                            LoadState.Loading -> {
+                                scrollview.isVisible = false
+                                stateView.onLoading()
+                            }
+                            is LoadState.Error -> {
+                                stateView.onFail()
+                                stateView.clickRequest {
+                                   showMoreAdapter.retry()
+                                }
+
+                            }
+                            is LoadState.NotLoading ->{
+                                stateView.onSuccess()
+                                scrollview.isVisible = true
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
     }
 
     private fun backPressed() {
@@ -61,34 +94,34 @@ class ShowMoreFragment : Fragment(R.layout.fragment_showmore) {
         }
     }
 
-    private fun collect() = with(binding) {
-        viewModel.showmore.collectIt(viewLifecycleOwner) {
-            when (it) {
-                is ResultWrapper.Loading -> {
-                    scrollview.isVisible = false
-                    stateView.onLoading()
-                }
-                is ResultWrapper.Success -> {
-                    scrollview.isVisible = true
-                    showMoreAdapter.submitList(it.value)
-
-                    if (it.value.isNotEmpty()) {
-                        stateView.onSuccess()
-                    } else {
-                        stateView.onEmpty()
-                    }
-                }
-                is ResultWrapper.Error -> {
-                    stateView.onFail()
-                    stateView.clickRequest {
-                        viewModel.getShowmore(args.orderby)
-                    }
-
-                }
-            }
-        }
-
-    }
+//    private fun collect() = with(binding) {
+//        viewModel.showmore.collectIt(viewLifecycleOwner) {
+//            when (it) {
+//                is ResultWrapper.Loading -> {
+//                    scrollview.isVisible = false
+//                    stateView.onLoading()
+//                }
+//                is ResultWrapper.Success -> {
+//                    scrollview.isVisible = true
+//                    showMoreAdapter.submitList(it.value)
+//
+//                    if (it.value.isNotEmpty()) {
+//                        stateView.onSuccess()
+//                    } else {
+//                        stateView.onEmpty()
+//                    }
+//                }
+//                is ResultWrapper.Error -> {
+//                    stateView.onFail()
+//                    stateView.clickRequest {
+//                        viewModel.getShowmore(args.orderby)
+//                    }
+//
+//                }
+//            }
+//        }
+//
+//    }
 
     private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
         lifecycleOwner.lifecycleScope.launch {

@@ -5,7 +5,6 @@ import androidx.room.Room
 import com.example.magmarket.data.local.localdatabase.LocalDataBase
 import com.example.magmarket.data.local.localdatabase.MarketDataBase
 import com.example.magmarket.data.local.localdatabase.MarketLocalDataBase
-import com.example.magmarket.data.remote.network.RemoteDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,15 +17,18 @@ import javax.inject.Singleton
 object AppModule {
     @Provides
     @Singleton
-    fun dataBase(@ApplicationContext context: Context):MarketDataBase= Room.databaseBuilder(context,
-        MarketDataBase::class.java,"user").fallbackToDestructiveMigration().build()
+    fun dataBase(@ApplicationContext context: Context): MarketDataBase = Room.databaseBuilder(
+        context,
+        MarketDataBase::class.java, "user"
+    ).fallbackToDestructiveMigration().build()
 
 
     @Provides
     @Singleton
-    fun dao(db:MarketDataBase)=db.marketDao()
+    fun dao(db: MarketDataBase) = db.marketDao()
 
     @Provides
     @MarkLocalDataBase
-    fun provideLocalDataBase(@ApplicationContext context: Context): LocalDataBase= MarketLocalDataBase(dao(dataBase(context)))
+    fun provideLocalDataBase(@ApplicationContext context: Context): LocalDataBase =
+        MarketLocalDataBase(dao(dataBase(context)))
 }
