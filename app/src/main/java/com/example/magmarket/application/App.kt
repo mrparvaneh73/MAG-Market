@@ -2,14 +2,19 @@ package com.example.magmarket.application
 
 import android.app.Application
 import android.graphics.Typeface
+import androidx.hilt.work.HiltWorkerFactory
+import androidx.work.Configuration
 import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 
 @HiltAndroidApp
-class App:Application() {
-    override fun onCreate() {
+class App:Application(), Configuration.Provider {
 
-        super.onCreate()
-    }
+    @Inject
+    lateinit var workerFactory: HiltWorkerFactory
 
-
+    override fun getWorkManagerConfiguration() =
+        Configuration.Builder()
+            .setWorkerFactory(workerFactory)
+            .build()
 }

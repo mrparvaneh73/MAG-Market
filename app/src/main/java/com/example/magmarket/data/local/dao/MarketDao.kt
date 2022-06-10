@@ -1,6 +1,7 @@
 package com.example.magmarket.data.local.dao
 
 import androidx.room.*
+import com.example.magmarket.data.local.entities.LastProduct
 import com.example.magmarket.data.local.entities.OrderList
 import com.example.magmarket.data.local.entities.ProductItemLocal
 import com.example.magmarket.data.local.entities.UserList
@@ -43,4 +44,14 @@ interface MarketDao {
 
     @Update
     suspend fun updateProductCart(productItemLocal: ProductItemLocal)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertLastProduct(product: LastProduct)
+
+    @Query("SELECT * FROM lastProduct")
+    fun getLastProduct(): Flow<List<LastProduct>>
+    @Update
+    suspend fun updateLastProduct(lastProduct: LastProduct)
+    @Delete
+    suspend fun deleteLastPreviewsProduct(product: LastProduct)
 }

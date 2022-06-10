@@ -43,8 +43,10 @@
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
 
 
                 <TextView
@@ -174,6 +176,42 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
+
+            <View
+                android:id="@+id/SplitLine_hor2"
+                android:layout_width="2dp"
+                android:layout_height="200dp"
+                android:background="@color/text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/set_notificaton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="44dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.584"
+                app:layout_constraintStart_toEndOf="@+id/SplitLine_hor2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.503">
+
+                <ImageView
+                    android:layout_width="46dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/notification" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Set Notification" />
+            </LinearLayout>
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/img_setting"
                 android:layout_width="30dp"
@@ -191,44 +229,44 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/standardMargin5x"
+                android:layout_marginBottom="32dp"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/standardMargin1.5x"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.418"
+                app:layout_constraintHorizontal_bias="0.144"
                 app:layout_constraintStart_toStartOf="parent">
 
                 <RadioButton
                     android:id="@+id/rb_light"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="60dp"
+                    android:layout_marginEnd="20dp"
                     android:text="Light"
-                    android:textColor="@color/text"/>
+                    android:textColor="@color/text" />
 
                 <RadioButton
                     android:id="@+id/rb_dark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text"
-                    android:text="Dark" />
+                    android:text="Dark"
+                    android:textColor="@color/text" />
             </RadioGroup>
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="126dp"
-                android:layout_height="152dp"
-                android:layout_marginTop="4dp"
+                android:layout_width="75dp"
+                android:layout_height="86dp"
+                android:layout_marginTop="36dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.327"
+                app:layout_constraintHorizontal_bias="0.155"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/light" />
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="126dp"
-                android:layout_height="152dp"
+                android:layout_width="75dp"
+                android:layout_height="86dp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

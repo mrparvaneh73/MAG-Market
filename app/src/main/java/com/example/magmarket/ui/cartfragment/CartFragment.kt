@@ -40,7 +40,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     private val cartViewModel by activityViewModels<CartViewModel>()
     val cartAdapter = CartAdapter()
     var count = 1
-    var totalPrice = 0
+
     var totalOff = 0
     var totalCount = 0
     var totalPriceWithoutOff = 0
@@ -87,7 +87,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                         binding.emptycart.isVisible = false
 
                         for (i in it) {
-                            totalPrice += (i.price!!.toInt() * i.count)
+                            cartViewModel.totalPrice += (i.price!!.toInt() * i.count)
                             totalOff += (i.off)
                             totalPriceWithoutOff += (i.regular_price!!.toInt() * i.count)
                             totalCount += i.count
@@ -109,9 +109,9 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
     private fun init() {
 
-        binding.tvTotalprice.text = nf.format(totalPrice)
+        binding.tvTotalprice.text = nf.format(cartViewModel.totalPrice)
         binding.tvTotaloffCountPrice.text = nf.format(totalOff)
-        binding.totlapricedesc.text = nf.format(totalPrice)
+        binding.totlapricedesc.text = nf.format(cartViewModel.totalPrice)
         binding.totalPriceWithoutOff.text = nf.format(totalPriceWithoutOff)
         binding.countproductdesc.text = totalCount.toString()
     }
@@ -184,9 +184,9 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                 cartViewModel.getUserFromLocal().collect {
                     if (it.isNotEmpty()) {
                         findNavController().navigate(
-                            CartFragmentDirections.actionCartFragmentToFinalizeOrderFragment(
+                            CartFragmentDirections.actionGlobalFinalizeOrderFragment(
                                 it[it.lastIndex].id
-                            )
+                            ,cartViewModel.totalPrice)
                         )
                     } else {
                         openDialog()
@@ -199,7 +199,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
     fun resetValues() {
         listLineItem.clear()
-        totalPrice = 0
+        cartViewModel.totalPrice = 0
         totalCount = 0
         totalOff = 0
         totalPriceWithoutOff = 0
@@ -211,7 +211,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         val button_login = dialog.findViewById<MaterialButton>(R.id.btn_login)
 
         button_login.setOnClickListener {
-         findNavController().navigate(CartFragmentDirections.actionParentOfCartFragmentToUserFragment())
+         findNavController().navigate(CartFragmentDirections.actionGlobalUserFragment())
             dialog.dismiss()
 
         }

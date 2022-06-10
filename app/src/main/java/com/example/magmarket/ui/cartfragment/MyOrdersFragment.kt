@@ -58,7 +58,7 @@ class MyOrdersFragment : Fragment(R.layout.fragment_my_orders) {
         val button_login = dialog.findViewById<MaterialButton>(R.id.btn_login)
 
         button_login.setOnClickListener {
-    findNavController().navigate(MyOrdersFragmentDirections.actionParentOfCartFragmentToUserFragment())
+    findNavController().navigate(MyOrdersFragmentDirections.actionGlobalUserFragment())
             dialog.dismiss()
         }
         button.setOnClickListener {

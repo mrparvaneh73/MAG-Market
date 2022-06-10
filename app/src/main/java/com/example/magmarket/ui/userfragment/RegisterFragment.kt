@@ -124,7 +124,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     }
 fun backToUserFragment(){
     binding.imgBack.setOnClickListener {
-        findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToUserFragment())
+        findNavController().navigate(RegisterFragmentDirections.actionGlobalUserFragment())
 
     }
 

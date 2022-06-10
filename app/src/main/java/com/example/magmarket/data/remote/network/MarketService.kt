@@ -4,10 +4,13 @@ import com.example.magmarket.application.Constants.BASE_PARAM
 import com.example.magmarket.data.remote.model.CategoryItem
 import com.example.magmarket.data.remote.model.ProductItem
 import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
+import com.example.magmarket.data.remote.model.coupon.CouponResponseItem
 import com.example.magmarket.data.remote.model.customer.Customer
 import com.example.magmarket.data.remote.model.customer.CustomerResponse
 import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.model.order.ResponseOrder
+import com.example.magmarket.data.remote.model.review.ResponseReview
+import com.example.magmarket.data.remote.model.review.Review
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
@@ -88,4 +91,36 @@ interface MarketService {
         @Body customer: Customer,
         @QueryMap tokens: Map<String, String> = BASE_PARAM
     ): Response<CustomerResponse>
+
+
+    @GET("products/reviews")
+    suspend fun getProductComment(@Query("product") productId: Int,
+                                  @QueryMap tokens: Map<String, String> = BASE_PARAM): Response<List<ResponseReview>>
+
+    @POST("products/reviews")
+    suspend fun sendUserComment(@Body review: Review,
+                                @QueryMap tokens: Map<String, String> = BASE_PARAM): Response<ResponseReview>
+
+    @DELETE("products/reviews/{id}")
+    suspend fun deleteUserComment(@Path("id") id: Int,
+                                  @QueryMap tokens: Map<String, String> = BASE_PARAM): Response<ResponseReview>
+
+    @PUT("products/reviews/{id}")
+    suspend  fun updateComment(
+        @Path("id") id: Int,
+        @Body review: Review,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ): Response<ResponseReview>
+
+
+    @GET("coupons")
+    suspend fun verifyCoupon(@Query("code") couponCode: String,
+                             @QueryMap tokens: Map<String, String> = BASE_PARAM): Response<List<CouponResponseItem>>
+
+    @GET("products")
+    suspend fun getSortedProduct(
+        @Query("orderby")  orderBy:String="date" ,
+        @Query("page")  page:Int=1,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ) : Response<List<ProductItem>>
 }

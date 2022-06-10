@@ -5,10 +5,21 @@
     android:layout_width="match_parent"
     android:background="@color/background"
     android:layout_height="match_parent">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/back_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+android:layout_margin="@dimen/standardMargin4x"
+            android:src="@drawable/close_dialog"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
         <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
@@ -20,8 +31,9 @@
             android:textColor="@color/text"
             android:textSize="@dimen/TextSize5x"
             android:textStyle="bold"
+            android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+          app:layout_constraintTop_toBottomOf="@id/back_img" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView4"
@@ -115,12 +127,283 @@
 
         </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView_coupon"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="@dimen/standardMargin3x"
+            app:cardCornerRadius="@dimen/standardMargin4x"
+            android:background="@color/background"
+            app:layout_constraintTop_toBottomOf="@+id/cardView4">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:background="@color/background"
+                android:layout_height="match_parent">
+
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/coupon_code"
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/TextSize5x"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/ed_coupon"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="@dimen/standardMargin3x"
+                    android:background="@drawable/edbackground"
+                    android:hint="@string/add_coupon_cart"
+                    android:padding="@dimen/standardMargin2x"
+                    android:layoutDirection="rtl"
+                    android:textDirection="rtl"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+                <ImageButton
+                    android:id="@+id/btn_Submit_coupon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/add"
+                    app:layout_constraintBottom_toBottomOf="@+id/ed_coupon"
+                    app:layout_constraintStart_toStartOf="@+id/ed_coupon"
+                    app:layout_constraintTop_toTopOf="@+id/ed_coupon"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <TextView
+                    android:id="@+id/accept_coupon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="28dp"
+                    android:text="@string/accept_coupon"
+                    android:textColor="@color/green"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ed_coupon"
+                    app:layout_constraintVertical_bias="0.0" />
+                <TextView
+                    android:id="@+id/ignore_coupon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="28dp"
+                    android:text="@string/ignore_coupon"
+                    android:textColor="@color/red"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ed_coupon"
+                    app:layout_constraintVertical_bias="0.0" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView5"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="12dp"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView_coupon">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cart_desc"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginBottom="28dp"
+                android:background="@color/background"
+                app:layout_constraintBottom_toTopOf="@id/desc"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent">
+
+
+                <TextView
+                    android:id="@+id/tv_summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standardMargin4x"
+                    android:fontFamily="@font/farkhondeh"
+                    android:text="@string/summary"
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/TextSize5x"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_product_price"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_product_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="36dp"
+                    android:fontFamily="@font/far_mitra"
+                    android:text="@string/total"
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/TextSize4x"
+                    app:layout_constraintBottom_toTopOf="@id/tv_totaloff_desc"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_summary"
+                    app:layout_constraintVertical_bias="0.269" />
+
+                <TextView
+                    android:id="@+id/tv_totaloff_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/standardMargin2x"
+                    android:fontFamily="@font/far_mitra"
+                    android:text="@string/coupon_count"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/TextSize4x"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_product_price_dec"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_product_price"
+                    app:layout_constraintStart_toStartOf="@+id/tv_product_price" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_product_price_dec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/far_mitra"
+                    android:text="@string/totalwithcoupon"
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/TextSize4x"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_product_price"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_product_price"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <TextView
+                    android:id="@+id/nameproductdesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/far_mitra"
+                    android:text="@string/product"
+                    android:textSize="@dimen/TextSize4x"
+                    app:layout_constraintEnd_toStartOf="@+id/countproductdesc"
+                    app:layout_constraintHorizontal_bias="0.659"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_summary" />
+
+                <TextView
+                    android:id="@+id/countproductdesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/farkhondeh"
+
+                    android:textSize="@dimen/TextSize4x"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_summary"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/total_price_without_off"
+                    app:layout_constraintTop_toTopOf="@+id/tv_summary" />
+
+                <TextView
+                    android:id="@+id/total_price_without_off"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/farkhondeh"
+                    android:textSize="@dimen/TextSize4x"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_product_price"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_product_price"
+                    app:layout_constraintHorizontal_bias="0.249"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_product_price"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/tv_totaloff_count_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/farkhondeh"
+
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/TextSize4x"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_product_price_dec"
+
+
+                    app:layout_constraintEnd_toEndOf="@+id/total_price_without_off"
+                    app:layout_constraintStart_toStartOf="@+id/total_price_without_off"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_product_price" />
+
+                <TextView
+                    android:id="@+id/unitpricedesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/far_mitra"
+                    android:text="@string/unit_of_currency"
+                    android:textSize="@dimen/TextSize4x"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_product_price"
+
+                    app:layout_constraintEnd_toStartOf="@+id/total_price_without_off"
+                    app:layout_constraintHorizontal_bias="0.6"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_product_price"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/tv_unit_off"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/far_mitra"
+                    android:text="@string/percent"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/TextSize4x"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_totaloff_count_price"
+                    app:layout_constraintEnd_toEndOf="@+id/unitpricedesc"
+                    app:layout_constraintStart_toStartOf="@+id/unitpricedesc"
+                    app:layout_constraintTop_toTopOf="@+id/tv_totaloff_count_price" />
+
+                <TextView
+                    android:id="@+id/totlapriceWithCoupone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/farkhondeh"
+
+                    android:textSize="@dimen/TextSize4x"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_product_price_dec"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/total_price_without_off"
+                    app:layout_constraintTop_toTopOf="@+id/tv_product_price_dec" />
+
+                <TextView
+                    android:id="@+id/totalunitpricedesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:fontFamily="@font/far_mitra"
+                    android:text="@string/unit_of_currency"
+                    android:textSize="@dimen/TextSize4x"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/totlapricedesc"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/unitpricedesc"
+                    app:layout_constraintTop_toBottomOf="@+id/unitpricedesc"
+                    app:layout_constraintVertical_bias="0.846" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_finalize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="24dp"
             android:backgroundTint="@color/button"
             android:fontFamily="@font/far_mitra"
             android:text="@string/finalize_order"
@@ -128,27 +411,11 @@
             android:textSize="@dimen/TextSize4x"
             app:cornerRadius="@dimen/standardMargin3x"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView4" />
+            app:layout_constraintTop_toBottomOf="@+id/cardView5" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="172dp"
-            android:backgroundTint="@color/button"
-            android:fontFamily="@font/far_mitra"
-            android:text="@string/back_to_home"
-            android:textColor="@color/text"
-            android:textSize="@dimen/TextSize4x"
-            app:cornerRadius="@dimen/standardMargin3x"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_finalize"
-            app:layout_constraintVertical_bias="0.0" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

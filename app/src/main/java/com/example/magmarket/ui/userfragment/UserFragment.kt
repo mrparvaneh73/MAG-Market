@@ -36,10 +36,10 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         init()
         navigateToSignUp()
         getUser()
-
         loginFromLocal()
         exitFromAccount()
         editUser()
+        goToNotificationSetting()
 
     }
 
@@ -154,9 +154,15 @@ class UserFragment : Fragment(R.layout.fragment_user) {
 
     private fun navigateToSignUp() {
         binding.SignUpButton.setOnClickListener {
-            findNavController().navigate(UserFragmentDirections.actionUserFragmentToRegisterFragment())
+            findNavController().navigate(UserFragmentDirections.actionGlobalRegisterFragment())
         }
 
+    }
+
+    private fun goToNotificationSetting(){
+        binding.setNotificaton.setOnClickListener {
+            findNavController().navigate(UserFragmentDirections.actionUserFragmentToNotificationFragment())
+        }
     }
 
     private fun exitFromAccount() {
@@ -168,7 +174,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
     }
 private fun editUser(){
     binding.edit!!.setOnClickListener {
-        findNavController().navigate(UserFragmentDirections.actionUserFragmentToAddressFragment(id=userid, firstname = userFirstName, lastname = userLastName, email = userEmail))
+        findNavController().navigate(UserFragmentDirections.actionGlobalAddressFragment(id=userid, firstname = userFirstName, lastname = userLastName, email = userEmail))
     }
 }
     private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {

@@ -5,9 +5,8 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import okhttp3.Dispatcher
+import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
@@ -22,32 +21,35 @@ sealed class ResultWrapper<out T> {
 suspend inline fun <T> safeApiCall(
     dispatcher: CoroutineDispatcher,
     crossinline apiCall: suspend () -> Response<T>
-) = flow {
-    emit(ResultWrapper.Loading)
-    try {
-        val response = apiCall()
-        val responseBody = response.body()
-        if (response.isSuccessful && responseBody != null) {
-            emit(ResultWrapper.Success(responseBody))
-        } else {
-            val errorBody = response.errorBody()
-            if (errorBody != null) {
-                val type = object : TypeToken<ProductError>() {}.type
-                val responseError = Gson().fromJson<ProductError>(errorBody.charStream(), type)
-                emit(ResultWrapper.Error(responseError.message))
+) =channelFlow<ResultWrapper<T>> {
+    withContext(dispatcher){
+        send(ResultWrapper.Loading)
+        try {
+            val response = apiCall()
+            val responseBody = response.body()
+            if (response.isSuccessful && responseBody != null) {
+                send(ResultWrapper.Success(responseBody))
             } else {
-                emit(ResultWrapper.Error("Some Thing Went Wrong"))
+                val errorBody = response.errorBody()
+                if (errorBody != null) {
+                    val type = object : TypeToken<ProductError>() {}.type
+                    val responseError = Gson().fromJson<ProductError>(errorBody.charStream(), type)
+                    send(ResultWrapper.Error(responseError.message))
+                } else {
+                    send(ResultWrapper.Error("Some Thing Went Wrong"))
+                }
             }
-        }
-    } catch (e: SSLException) {
-        emit(ResultWrapper.Error(e.message))
-    } catch (e: IOException) {
-        emit(ResultWrapper.Error(e.message))
-    } catch (e: HttpException) {
-        emit(ResultWrapper.Error(e.message))
-    } catch (e: Throwable) {
-        emit(ResultWrapper.Error(e.message))
-    } finally {
+        } catch (e: SSLException) {
+            send(ResultWrapper.Error(e.message))
+        } catch (e: IOException) {
+            send(ResultWrapper.Error(e.message))
+        } catch (e: HttpException) {
+            send(ResultWrapper.Error(e.message))
+        } catch (e: Throwable) {
+            send(ResultWrapper.Error(e.message))
+        } finally {
 
+        }
     }
-}.flowOn(Dispatchers.IO)
+
+}

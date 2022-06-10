@@ -3,6 +3,8 @@ package com.example.magmarket.data.local.localdatabase
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
+import com.example.magmarket.data.local.entities.LastProduct
 import com.example.magmarket.data.local.entities.OrderList
 import com.example.magmarket.data.local.entities.ProductItemLocal
 import com.example.magmarket.data.local.entities.UserList
@@ -33,4 +35,8 @@ interface LocalDataBase {
 
     suspend fun updateUser(user: UserList)
 
+    suspend fun insertLastProduct(product: LastProduct)
+    fun getLastProduct(): Flow<List<LastProduct>>
+    suspend fun updateLastProduct(lastProduct: LastProduct)
+    suspend fun deleteLastPreviewsProduct(product: LastProduct)
 }

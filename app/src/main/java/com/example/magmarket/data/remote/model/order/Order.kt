@@ -5,4 +5,6 @@ data class Order(
     val line_items: List<LineItem>,
 //    val shipping: Shipping,
 
+val coupon_lines:List<CouponLine> = emptyList()
+
 )

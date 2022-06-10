@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="250dp"
+    android:layout_height="200dp"
+    android:layout_margin="@dimen/standardMargin2x"
+    android:layout_gravity="end"
+    android:layout_marginHorizontal="@dimen/standardMargin0.5x"
+    android:backgroundTint="@color/whiteBackground"
+    app:cardCornerRadius="@dimen/standardMargin"
+    app:cardElevation="@dimen/standardMargin">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
+
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/standardMargin1.5x"
+            android:layout_marginRight="@dimen/standardMargin1.5x"
+            android:layout_marginBottom="4dp"
+            android:layout_weight="10"
+            android:fontFamily="@font/far_mitra"
+            android:gravity="start"
+            android:padding="@dimen/TextSize2x"
+            android:text="محمدرضا"
+            android:textColor="@color/text"
+            android:textSize="@dimen/TextSize5x"
+            android:textStyle="bold"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.115"
+            tools:ignore="SpUsage" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/comment_user"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_weight="10"
+            android:maxLines="3"
+            android:padding="@dimen/TextSize3x"
+            android:text="@string/unit_of_currency"
+            android:textColor="@color/text"
+            android:textSize="@dimen/TextSize4x"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/username"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="SpUsage" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="82dp"
+            android:layout_height="25dp"
+            android:layout_marginBottom="28dp"
+            android:numStars="5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/comment_user"
+            app:layout_constraintVertical_bias="1.0" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

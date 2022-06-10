@@ -20,11 +20,18 @@ class ShowMoreAdapter(private var clickListener: (ProductRecyclerViewItem.Produc
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun mBind(productItem: ProductRecyclerViewItem.ProductItem) = binding.apply {
-            Glide.with(root)
-                .load(productItem.images[0].src)
-                .into(productImage)
-            productName.text = productItem.name
-            productPrice.text = nf.format(productItem.price.toInt())
+            if (productItem.images.isNotEmpty()){
+                Glide.with(root)
+                    .load(productItem.images[0].src)
+                    .into(productImage)
+            }
+            if (!productItem.name.isNullOrBlank()){
+                productName.text = productItem.name
+            }
+          if (!productItem.price.isNullOrBlank()){
+              productPrice.text = nf.format(productItem.price.toInt())
+          }
+
 
             root.setOnClickListener {
                 clickListener(productItem)

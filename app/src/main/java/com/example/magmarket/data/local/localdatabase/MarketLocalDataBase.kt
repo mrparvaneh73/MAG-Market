@@ -1,6 +1,7 @@
 package com.example.magmarket.data.local.localdatabase
 
 import com.example.magmarket.data.local.dao.MarketDao
+import com.example.magmarket.data.local.entities.LastProduct
 import com.example.magmarket.data.local.entities.OrderList
 import com.example.magmarket.data.local.entities.ProductItemLocal
 import com.example.magmarket.data.local.entities.UserList
@@ -55,7 +56,23 @@ class MarketLocalDataBase @Inject constructor(private val marketDao: MarketDao):
         marketDao.deleteUser(user)
     }
 
+    override suspend fun deleteLastPreviewsProduct(product: LastProduct) {
+        marketDao.deleteLastPreviewsProduct(product)
+    }
+
     override suspend fun updateUser(user: UserList) {
         marketDao.updateUser(user)
+    }
+
+    override suspend fun insertLastProduct(product: LastProduct) {
+        marketDao.insertLastProduct(product)
+    }
+
+    override fun getLastProduct(): Flow<List<LastProduct>> {
+      return  marketDao.getLastProduct()
+    }
+
+    override suspend fun updateLastProduct(lastProduct: LastProduct) {
+        marketDao.updateLastProduct(lastProduct)
     }
 }

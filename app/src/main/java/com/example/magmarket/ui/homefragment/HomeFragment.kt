@@ -43,7 +43,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val categoryAdapter = CategoryAdapter(clickListener = { categoryItem ->
         findNavController().navigate(
-            HomeFragmentDirections.actionHomeFragmentToProductsCategoryFragment(
+            HomeFragmentDirections.actionGlobalProductsCategoryFragment(
                 categoryItem.id
             )
         )
@@ -260,7 +260,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun search() {
         binding.searchLinear.parentSearch.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
+            findNavController().navigate(HomeFragmentDirections.actionGlobalSearchFragment())
         }
 
     }
@@ -277,14 +277,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
                 is ProductRecyclerViewItem.ProductItem -> {
                     findNavController().navigate(
-                        HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(
+                        HomeFragmentDirections.actionGlobalProductDetailFragment(
                             item.id
                         )
                     )
                 }
                 is ProductRecyclerViewItem.ShowAll -> {
                     findNavController().navigate(
-                        HomeFragmentDirections.actionHomeFragmentToShowMoreFragment(
+                        HomeFragmentDirections.actionGlobalShowMoreFragment(
                             orderBy, orderByName
                         )
                     )

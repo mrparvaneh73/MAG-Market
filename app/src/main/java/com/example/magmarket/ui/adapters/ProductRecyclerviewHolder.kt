@@ -45,19 +45,27 @@ sealed class ProductRecyclerviewHolder(binding: ViewBinding) :
         ProductRecyclerviewHolder(binding) {
 
         fun bind(productItem: ProductRecyclerViewItem.ProductItem) = binding.apply {
-            Glide.with(root)
-                .load(productItem.images[0].src)
-                .placeholder(R.drawable.emptyimage)
-                .into(imgProduct)
-            tvnameproduct.text = productItem.name
-            if (productItem.regular_price.toInt()==productItem.price.toInt()){
-                regularprice.text=""
-            }else{
-                regularprice.text=  formatter.format(productItem.regular_price.toInt())
-                regularprice.paintFlags= Paint.STRIKE_THRU_TEXT_FLAG
+            if (productItem.images.isNotEmpty()){
+                Glide.with(root)
+                    .load(productItem.images[0].src)
+                    .placeholder(R.drawable.emptyimage)
+                    .into(imgProduct)
+            }
+      if (!productItem.name.isNullOrBlank()){
+          tvnameproduct.text = productItem.name
+      }
+
+            if (!productItem.price.isNullOrBlank()){
+                if (productItem.regular_price.toInt()==productItem.price.toInt()){
+                    regularprice.text=""
+                }else{
+                    regularprice.text=  formatter.format(productItem.regular_price.toInt())
+                    regularprice.paintFlags= Paint.STRIKE_THRU_TEXT_FLAG
+                }
+
+                tvpriceproduct.text = formatter.format(productItem.price.toInt())
             }
 
-            tvpriceproduct.text = formatter.format(productItem.price.toInt())
 
             root.setOnClickListener {
                 itemClickListener!!.invoke(it, productItem, absoluteAdapterPosition)

@@ -139,7 +139,7 @@ class AddressFragment : Fragment(R.layout.fragment_adress) {
 
     private fun backtoAccount() {
         binding.imgBack.setOnClickListener {
-            findNavController().navigate(AddressFragmentDirections.actionAddressFragmentToUserFragment())
+            findNavController().navigate(AddressFragmentDirections.actionGlobalUserFragment())
         }
     }
 

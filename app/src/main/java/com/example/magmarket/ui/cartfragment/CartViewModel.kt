@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.magmarket.data.local.entities.OrderList
 import com.example.magmarket.data.local.entities.ProductItemLocal
 import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.model.coupon.CouponResponse
+import com.example.magmarket.data.remote.model.coupon.CouponResponseItem
 import com.example.magmarket.data.remote.model.customer.CustomerResponse
 import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.model.order.ResponseOrder
@@ -18,6 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CartViewModel @Inject constructor(private val cartRepository: CartRepository) : ViewModel() {
 
+    var totalPrice = 0
+
     private val _orderList: MutableStateFlow<ResultWrapper<ResponseOrder>> =
         MutableStateFlow(ResultWrapper.Loading)
     val orderList = _orderList.asStateFlow()
@@ -30,6 +34,9 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
         MutableStateFlow(ResultWrapper.Loading)
     val order = _order.asStateFlow()
 
+    private val _coupon: MutableStateFlow<ResultWrapper<List<CouponResponseItem>>> =
+        MutableStateFlow(ResultWrapper.Loading)
+    val coupon = _coupon.asStateFlow()
      var isSuccess: Boolean = false
     fun getOrdersFromLocal() = flow {
         cartRepository.getAllCartProductFromLocal().collect {
@@ -93,6 +100,14 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
         viewModelScope.launch {
             cartRepository.getCustomer(id).collect {
                 _customer.emit(it)
+            }
+        }
+    }
+
+    fun verifyCoupon(couponCode: String){
+        viewModelScope.launch {
+            cartRepository.verifyCoupon(couponCode).collect{
+                _coupon.emit(it)
             }
         }
     }

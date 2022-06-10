@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parent_comment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/parentcomment_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background"
+                app:layout_scrollFlags="noScroll">
+
+                <include
+                    android:id="@+id/commenttoolbar"
+                    layout="@layout/comment_toolbar" />
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <SeekBar
+            android:id="@+id/product_rate"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="20dp"
+            android:layout_marginTop="108dp"
+            android:layoutDirection="rtl"
+            android:max="5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rating_text" />
+
+        <TextView
+            android:id="@+id/rating_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/standardMargin6x"
+            android:text="عالی"
+            android:visibility="gone"
+            android:textSize="@dimen/TextSize6x"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/parentcomment_toolbar" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="39dp"
+            android:layout_marginTop="20dp"
+
+            android:text="@string/describe_your_comment"
+            android:textColor="@color/text"
+            android:textSize="@dimen/TextSize5x"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.928"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/product_rate" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/parent_ed_user_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standardMargin2x"
+            app:cardCornerRadius="@dimen/standardMargin4x"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10">
+
+            <EditText
+                android:id="@+id/ed_user_comment"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/background"
+                android:hint="@string/comment_text"
+                android:gravity="top"
+                android:padding="@dimen/standardMargin2x"
+                android:inputType="textLongMessage"
+                android:textColor="@color/text" />
+        </androidx.cardview.widget.CardView>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_submit_review"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_margin="@dimen/standardMargin5x"
+            android:enabled="false"
+            android:background="@drawable/enable_btn"
+            android:text="@string/submit_comment"
+            android:textColor="@color/red"
+            android:textSize="16sp"
+            android:textStyle="bold"
+
+            app:cornerRadius="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/parent_ed_user_comment"
+            app:layout_constraintVertical_bias="0.573" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.example.magmarket.customview.StateView
+        android:id="@+id/state_view"
+        android:layout_width="211dp"
+        android:layout_height="239dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.25"
+        app:state_text="@string/app_name" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

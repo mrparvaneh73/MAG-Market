@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parent_search"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:elevation="@dimen/TextSize4x"
+    android:background="@color/background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:padding="@dimen/standardMargin2x"
+        >
+
+
+        <ImageView
+            android:id="@+id/back_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+
+            android:src="@drawable/back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_product"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/emptycart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/back_img"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.444"
+            app:shapeAppearanceOverlay="@style/roundedCornersImageView" />
+
+        <TextView
+            android:id="@+id/yourcomment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/standardMargin2x"
+            android:fontFamily="@font/farkhondeh"
+            android:paddingHorizontal="2dp"
+            android:text="@string/your_comment"
+            android:textColor="@color/text"
+            android:textSize="@dimen/TextSize3x"
+            app:layout_constraintEnd_toStartOf="@+id/image_product"
+            app:layout_constraintHorizontal_bias="0.932"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/product_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/farkhondeh"
+            android:maxLines="1"
+            android:paddingHorizontal="2dp"
+            android:text="@string/your_comment"
+            android:textColor="@color/text"
+            android:textSize="@dimen/TextSize4x"
+            app:layout_constraintEnd_toEndOf="@+id/yourcomment"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/yourcomment" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

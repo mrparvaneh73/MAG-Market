@@ -3,10 +3,13 @@ package com.example.magmarket.data.remote.remotedatasource
 import com.example.magmarket.data.remote.model.CategoryItem
 import com.example.magmarket.data.remote.model.ProductItem
 import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
+import com.example.magmarket.data.remote.model.coupon.CouponResponseItem
 import com.example.magmarket.data.remote.model.customer.Customer
 import com.example.magmarket.data.remote.model.customer.CustomerResponse
 import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.model.order.ResponseOrder
+import com.example.magmarket.data.remote.model.review.ResponseReview
+import com.example.magmarket.data.remote.model.review.Review
 import com.example.magmarket.data.remote.network.MarketService
 import com.example.magmarket.data.remote.network.RemoteDataSource
 import retrofit2.Response
@@ -58,6 +61,31 @@ class MarketRemoteDataSource @Inject constructor(private val marketService: Mark
 
     override suspend fun updateCustomer(id: Int, customer: Customer): Response<CustomerResponse> {
         return marketService.updateCustomer(id,customer)
+    }
+
+    override suspend fun getProductComment(productId: Int): Response<List<ResponseReview>> {
+        return marketService.getProductComment(productId)
+    }
+
+    override suspend fun sendUserComment(review: Review): Response<ResponseReview> {
+
+        return marketService.sendUserComment(review)
+    }
+
+    override suspend fun deleteUserComment(id: Int): Response<ResponseReview> {
+        return marketService.deleteUserComment(id)
+    }
+
+    override suspend fun updateComment(id: Int, review: Review): Response<ResponseReview> {
+        return marketService.updateComment(id,review)
+    }
+
+    override suspend fun verifyCoupon(couponCode: String): Response<List<CouponResponseItem>> {
+        return marketService.verifyCoupon(couponCode)
+    }
+
+    override suspend fun getSortedProduct(): Response<List<ProductItem>> {
+        return marketService.getSortedProduct()
     }
 
     override suspend fun getProduct(id: String): Response<ProductItem> {

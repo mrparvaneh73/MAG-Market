@@ -1,14 +1,16 @@
 package com.example.magmarket.ui.productdetailsfragment
 
 
+import android.app.Dialog
 import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -20,15 +22,16 @@ import com.example.magmarket.R
 import com.example.magmarket.data.local.entities.ProductItemLocal
 import com.example.magmarket.data.remote.ResultWrapper
 import com.example.magmarket.databinding.FragmentProductDetailBinding
+import com.example.magmarket.ui.adapters.CommentAdapter
 import com.example.magmarket.ui.adapters.SimilarAdapter
 import com.example.magmarket.ui.adapters.SliderAdapter
+import com.google.android.material.button.MaterialButton
 
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.*
-import kotlin.properties.Delegates
 
 
 @AndroidEntryPoint
@@ -37,8 +40,9 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     private var _binding: FragmentProductDetailBinding? = null
     private val binding get() = _binding!!
     private val args by navArgs<ProductDetailFragmentArgs>()
-    private val viewModel: ProductDetailsViewModel by viewModels()
-    private val adapter = SliderAdapter()
+    private val productDetailsViewModel  by activityViewModels<ProductDetailsViewModel>()
+    private val sliderAdapter = SliderAdapter()
+    private val commentAdapter = CommentAdapter()
     private var count = 1
     private val similarAdapter = SimilarAdapter(clickListener = {
         findNavController().navigate(
@@ -58,23 +62,34 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         _binding = FragmentProductDetailBinding.bind(view)
         binding.rvSimilarProduct.adapter = similarAdapter
         init()
-        collect()
+
         close()
         isExist()
         addToCart()
         goToCart()
         getSimilarProduct()
+        collect()
+        comment()
+        loginFromLocal()
+        navigateTosubmitComment()
 
     }
 
-    fun getSimilarProduct() {
-    viewModel.similarProducts.collectIt(viewLifecycleOwner){
+    fun getSimilarProduct()= with(binding) {
+    productDetailsViewModel.similarProducts.collectIt(viewLifecycleOwner){
         when (it) {
-            is ResultWrapper.Loading -> binding.stateView.onLoading()
+            is ResultWrapper.Loading -> {
+                stateView.onLoading()
+                scrollView3.isVisible = false
+                detailCard.isVisible = false
+            }
             is ResultWrapper.Success -> {
-                similarAdapter.submitList(it.value)
+
                 if (it.value.isNotEmpty()) {
+                    scrollView3.isVisible = true
+                    detailCard.isVisible = true
                     binding.stateView.onSuccess()
+                    similarAdapter.submitList(it.value)
                 } else {
                     binding.stateView.onEmpty()
                 }
@@ -87,7 +102,8 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     }
 
     fun collect() = with(binding) {
-        viewModel.product.collectIt(viewLifecycleOwner) {
+
+        productDetailsViewModel.product.collectIt(viewLifecycleOwner) {
             when (it) {
                 is ResultWrapper.Loading -> {
                     stateView.onLoading()
@@ -95,26 +111,41 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                     detailCard.isVisible = false
                 }
                 is ResultWrapper.Success -> {
+
+                   sliderAdapter.submitList(it.value.images)
                     salePrice = it.value.sale_price
                     Log.d("Saleprice", "collect: " + it.value.sale_price)
-                    image = it.value.images[0].src
-                    name = it.value.name
-                    tvProductName.text = name
-                    tvProductDescription.text =
-                        HtmlCompat.fromHtml(it.value.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
-                    price = it.value.price
-                    similar.addAll(it.value.related_ids)
-                    viewModel.getSimilarProduct(similar.toString())
-                    tvTotalprice.text = nf.format(price.toInt())
-                    regularPrice = it.value.regular_price
-                    if (it.value.price.toInt() == regularPrice.toInt()) {
-                        tvRegularprice.text = ""
-                    } else {
-                        tvRegularprice.text = nf.format(regularPrice.toInt())
-                        tvRegularprice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                    if (it.value.images.isNotEmpty()){
+
+                        image = it.value.images[0].src
+                    }
+                    if (!it.value.name.isNullOrBlank()){
+                        name = it.value.name
+                        tvProductName.text = name
+                    }
+                    if (!it.value.description.isNullOrBlank()){
+                        tvProductDescription.text =
+                            HtmlCompat.fromHtml(it.value.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
+
+                    }
+                    if (!it.value.price.isNullOrBlank()){
+                        price = it.value.price
+                        tvTotalprice.text = nf.format(price.toInt())
+                        regularPrice = it.value.regular_price
+                        if (it.value.price.toInt() == regularPrice.toInt()) {
+                            tvRegularprice.text = ""
+                        } else {
+                            tvRegularprice.text = nf.format(regularPrice.toInt())
+                            tvRegularprice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                        }
                     }
 
-                    adapter.submitList(it.value.images)
+
+                    similar.addAll(it.value.related_ids)
+                    productDetailsViewModel.getSimilarProduct(similar.toString())
+
+
+
                     scrollView3.isVisible = true
                     detailCard.isVisible = true
                     stateView.onSuccess()
@@ -122,7 +153,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                 is ResultWrapper.Error -> {
                     stateView.onFail()
                     stateView.clickRequest {
-                        viewModel.getProduct(args.id)
+                        productDetailsViewModel.getProduct(args.id)
                     }
                 }
             }
@@ -141,7 +172,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         binding.imageViewPlus.setOnClickListener {
             count++
             binding.tvProductCount.text = count.toString()
-            viewModel.updateOrder(
+            productDetailsViewModel.updateOrder(
                 ProductItemLocal(
                     id = args.id.toInt(),
                     count = count,
@@ -157,7 +188,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         binding.imgDeleteOrder.setOnClickListener {
             if (count == 1) {
 
-                viewModel.deletProductFromOrders(
+                productDetailsViewModel.deletProductFromOrders(
                     ProductItemLocal(
                         id = args.id.toInt(),
                         count = count, name = name, price = price, images = image,
@@ -168,7 +199,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
             } else if (count > 1) {
                 count--
                 binding.tvProductCount.text = count.toString()
-                viewModel.updateOrder(
+                productDetailsViewModel.updateOrder(
                     ProductItemLocal(
                         id = args.id.toInt(),
                         count = count,
@@ -182,7 +213,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         }
         binding.buttonAddToCart.setOnClickListener {
 
-            viewModel.insertProductInOrders(
+            productDetailsViewModel.insertProductInOrders(
                 ProductItemLocal(
                     id = args.id.toInt(),
                     count = count,
@@ -200,7 +231,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     private fun isExist() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.isExistInOrders(args.id.toInt()).collect {
+                productDetailsViewModel.isExistInOrders(args.id.toInt()).collect {
                     if (it) {
 
                         setCountOrder()
@@ -229,13 +260,14 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         }
     }
 
-    private fun init() {
-        viewModel.getProduct(args.id)
-        binding.productSlider.adapter = adapter
-        binding.productSlider.clipToPadding = false
-        binding.productSlider.clipChildren = false
-        binding.productSlider.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-        binding.springDotsIndicator.attachTo(binding.productSlider)
+    private fun init()= with(binding) {
+        productDetailsViewModel.getProduct(args.id)
+        productSlider.adapter = sliderAdapter
+        productSlider.clipToPadding = false
+        productSlider.clipChildren = false
+        productSlider.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+        commentrecyclerView.adapter = commentAdapter
+
     }
 
     private fun goToCart() {
@@ -253,14 +285,72 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
     private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
         lifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
                 collect {
                     function.invoke(it)
                 }
             }
         }
     }
+    private fun comment() {
+        productDetailsViewModel.getProductComment(args.id.toInt())
+        productDetailsViewModel.productComment.collectIt(viewLifecycleOwner) {
+            when (it) {
 
+                is ResultWrapper.Success -> {
+                    commentAdapter.submitList(it.value)
+                }
+
+                else -> {}
+            }
+
+        }
+    }
+
+    private fun loginFromLocal() {
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                productDetailsViewModel.getUserFromLocal().collect {
+                    productDetailsViewModel.isUserLogin = it.isNotEmpty()
+
+                }
+            }
+        }
+
+    }
+
+    private fun navigateTosubmitComment(){
+
+        binding.submitComment.setOnClickListener {
+            if (productDetailsViewModel.isUserLogin==true){
+                findNavController().navigate(ProductDetailFragmentDirections.actionProductDetailFragmentToSendCommentFragment(args.id))
+            }else{
+                openDialog()
+            }
+
+        }
+
+    }
+
+    fun getProductFromNotification(){
+
+    }
+
+    private fun openDialog() {
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.first_login)
+        val button = dialog.findViewById<ImageView>(R.id.img_close)
+        val button_login = dialog.findViewById<MaterialButton>(R.id.btn_login)
+
+        button_login.setOnClickListener {
+            findNavController().navigate(ProductDetailFragmentDirections.actionGlobalUserFragment())
+            dialog.dismiss()
+        }
+        button.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -61,4 +61,8 @@ class CartRepository @Inject constructor(
     fun getUsersFromLocal(): Flow<List<UserList>> {
         return markLocalDataBase.getUserFromLocal()
     }
+
+    suspend fun verifyCoupon(couponCode: String)= safeApiCall(dispatcher) {
+        marketremoteDataSource.verifyCoupon(couponCode)
+    }
 }

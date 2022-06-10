@@ -31,7 +31,7 @@ class ProductsCategoryFragment : Fragment(R.layout.fragment_products_category) {
     private val args by navArgs<ProductsCategoryFragmentArgs>()
     private val categoryProductAdapter = ProductsOfCategoryAdapter(clickListener = { productItem ->
         findNavController().navigate(
-            ProductsCategoryFragmentDirections.actionProductsCategoryFragmentToProductDetailFragment(
+            ProductsCategoryFragmentDirections.actionGlobalProductDetailFragment(
                 productItem.id
             )
         )

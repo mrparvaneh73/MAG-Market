@@ -266,6 +266,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <View
+                    android:id="@+id/SplitLine_hor2"
+                    android:layout_width="2dp"
+                    android:layout_height="200dp"
+                    android:background="@color/text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/set_notificaton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="44dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.964"
+                    app:layout_constraintStart_toEndOf="@+id/SplitLine_hor2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.503">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/notification" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Set Notification" />
+                </LinearLayout>
+
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_setting"
                     android:layout_width="30dp"
@@ -282,53 +317,56 @@
                     android:id="@+id/setting_theme"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/standardMargin5x"
-                    android:layout_marginBottom="12dp"
+
+
+                    android:layout_marginBottom="56dp"
                     android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.431"
+                    app:layout_constraintHorizontal_bias="0.067"
                     app:layout_constraintStart_toStartOf="parent">
 
                     <RadioButton
                         android:id="@+id/rb_light"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:layout_marginEnd="60dp"
+                        android:layout_marginEnd="10dp"
                         android:text="@string/light"
-                        android:textColor="@color/text" />
+                        android:textColor="@color/text"
+                        android:textSize="@dimen/TextSize2x" />
 
                     <RadioButton
                         android:id="@+id/rb_dark"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:text="@string/dark"
-                        android:textColor="@color/text" />
+                        android:textColor="@color/text"
+                        android:textSize="@dimen/TextSize2x" />
                 </RadioGroup>
 
                 <ImageView
                     android:id="@+id/imageView"
-                    android:layout_width="121dp"
-                    android:layout_height="133dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_width="58dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
                     android:contentDescription="@string/light"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.238"
+                    app:layout_constraintHorizontal_bias="0.047"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/light" />
 
                 <ImageView
                     android:id="@+id/imageView2"
-                    android:layout_width="121dp"
-                    android:layout_height="133dp"
+                    android:layout_width="58dp"
+                    android:layout_height="80dp"
                     android:contentDescription="@string/dark"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/imageView"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.173"
+                    app:layout_constraintVertical_bias="1.0"
                     app:srcCompat="@drawable/dark" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
