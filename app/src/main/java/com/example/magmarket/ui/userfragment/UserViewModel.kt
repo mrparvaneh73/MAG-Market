@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.magmarket.data.datastore.SettingDataStore
 import com.example.magmarket.data.datastore.Theme
-import com.example.magmarket.data.local.entities.User
+import com.example.magmarket.data.datastore.user.User
+import com.example.magmarket.data.datastore.user.UserDataStore
+
 import com.example.magmarket.data.remote.ResultWrapper
 import com.example.magmarket.data.remote.model.customer.Customer
 import com.example.magmarket.data.remote.model.customer.CustomerResponse
@@ -20,7 +22,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class UserViewModel @Inject constructor(private val settingDataStore: SettingDataStore,private val userRepository: UserRepository) :
+class UserViewModel @Inject constructor(
+    private val settingDataStore: SettingDataStore,
+    private val userRepository: UserRepository,
+    private val userDataStore: UserDataStore
+) :
     ViewModel() {
     private val _customerIdResponse: MutableStateFlow<ResultWrapper<CustomerResponse>> =
         MutableStateFlow(ResultWrapper.Loading)
@@ -32,7 +38,6 @@ class UserViewModel @Inject constructor(private val settingDataStore: SettingDat
     private val _userUpdate: MutableStateFlow<ResultWrapper<CustomerResponse>> =
         MutableStateFlow(ResultWrapper.Loading)
     val userUpdate = _userUpdate.asStateFlow()
-
 
 
     private val _islight = MutableLiveData<Boolean>()
@@ -56,21 +61,22 @@ class UserViewModel @Inject constructor(private val settingDataStore: SettingDat
 
     }
 
-    fun getCustomer(id:Int){
+    fun getCustomer(id: Int) {
         viewModelScope.launch {
-            userRepository.getCustomer(id).collect{
+            userRepository.getCustomer(id).collect {
                 _user.emit(it)
             }
         }
     }
 
-    fun updateCustomer(id:Int,customer: Customer){
+    fun updateCustomer(id: Int, customer: Customer) {
         viewModelScope.launch {
-            userRepository.updateCustomer(id,customer).collect{
+            userRepository.updateCustomer(id, customer).collect {
                 _userUpdate.emit(it)
             }
         }
     }
+
     fun check() {
         viewModelScope.launch {
             settingDataStore.preferences.collect {
@@ -86,31 +92,43 @@ class UserViewModel @Inject constructor(private val settingDataStore: SettingDat
 
     }
 
+    fun saveUser(user: User) {
+        viewModelScope.launch {
+            userDataStore.saveUser(user)
+        }
+    }
 
-    fun getUserFromLocal()= flow {
-        userRepository.getUsersFromLocal().collect{
+    fun getUser() = flow<User> {
+        userDataStore.getUser().collect{
             emit(it)
         }
     }
+//    fun getUserFromLocal()= flow {
+//        userRepository.getUsersFromLocal().collect{
+//            emit(it)
+//        }
+//    }
 
-    fun insertUserToLocal(user: User) {
-        viewModelScope.launch {
-            userRepository.insertUser(user)
-        }
-    }
+//    fun insertUserToLocal(user: User) {
+//        viewModelScope.launch {
+//            userRepository.insertUser(user)
+//        }
+//    }
 
 
-    fun deleteUserFromLocal(user: User){
-        viewModelScope.launch {
-            userRepository.deleteUser(user)
-        }
+//    fun deleteUserFromLocal(user: User){
+//        viewModelScope.launch {
+//            userRepository.deleteUser(user)
+//        }
+//
+//    }
 
-    }
+//    fun updateUserLocal(user: User){
+//        viewModelScope.launch {
+//            userRepository.updateUserLocal(user)
+//        }
+//
+//    }
 
-    fun updateUserLocal(user: User){
-        viewModelScope.launch {
-            userRepository.updateUserLocal(user)
-        }
 
-    }
 }

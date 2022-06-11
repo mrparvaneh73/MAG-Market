@@ -94,14 +94,21 @@ class UserFragment : Fragment(R.layout.fragment_user) {
                         binding.tvFullNameRegistered!!.text =
                             "${it.value.first_name} ${it.value.last_name}"
                         binding.tvEmailRegistered!!.text = it.value.email
-                        viewModel.insertUserToLocal(
-                            User(
-                                it.value.id,
-                                it.value.email,
-                                it.value.first_name,
-                                it.value.last_name
-                            )
-                        )
+//                        viewModel.insertUserToLocal(
+//                            User(
+//                                it.value.id,
+//                                it.value.email,
+//                                it.value.first_name,
+//                                it.value.last_name
+//                            )
+//                        )
+                        viewModel.saveUser(com.example.magmarket.data.datastore.user.User(
+                            userId =it.value.id,
+                            email = it.value.email,
+                           firstName = it.value.first_name,
+                            lastName = it.value.last_name,
+                            isLogin = true
+                        ))
                         userid = it.value.id
                         userEmail = it.value.email
 
@@ -129,8 +136,8 @@ class UserFragment : Fragment(R.layout.fragment_user) {
     private fun loginFromLocal() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getUserFromLocal().collect {
-                    if (it !=null){
+                viewModel.getUser().collect {
+                    if (it.isLogin){
                         binding.viewLogin!!.isVisible = false
                         binding.viewAccountinfo!!.isVisible = true
                         binding.tvFullNameRegistered!!.text =
@@ -164,7 +171,11 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         binding.exitFromAccount!!.setOnClickListener {
             binding.viewLogin!!.isVisible = true
             binding.viewAccountinfo!!.isVisible = false
-            viewModel.deleteUserFromLocal(User(userid, userEmail))
+         viewModel.saveUser(com.example.magmarket.data.datastore.user.User(
+             isLogin = false,
+             orderId = 0
+
+         ))
         }
     }
 private fun editUser(){

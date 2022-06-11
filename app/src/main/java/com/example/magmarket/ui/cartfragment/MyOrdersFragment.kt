@@ -33,24 +33,24 @@ class MyOrdersFragment : Fragment(R.layout.fragment_my_orders) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMyOrdersBinding.bind(view)
         binding.rcOrderplaced.adapter = orderPlacedAdapter
-        isUserLogin()
+//        isUserLogin()
         collect()
     }
 
 
-    private fun isUserLogin() {
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                cartViewModel.getUserFromLocal().collect {
-                    if (it.userId !=0) {
-                        cartViewModel.getPlacedOrder(it.userId)
-                    } else {
-                        openDialog()
-                    }
-                }
-            }
-        }
-    }
+//    private fun isUserLogin() {
+//        lifecycleScope.launch {
+//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                cartViewModel.getUserFromLocal().collect {
+//                    if (it.userId !=0) {
+//                        cartViewModel.getPlacedOrder(it.userId)
+//                    } else {
+//                        openDialog()
+//                    }
+//                }
+//            }
+//        }
+//    }
     private fun openDialog() {
         val dialog = Dialog(requireContext())
         dialog.setContentView(R.layout.first_login)

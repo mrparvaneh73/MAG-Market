@@ -19,12 +19,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.example.magmarket.R
-import com.example.magmarket.data.local.entities.User
 import com.example.magmarket.data.remote.ResultWrapper
-import com.example.magmarket.data.remote.model.order.LineItem
-import com.example.magmarket.data.remote.model.order.Order
-import com.example.magmarket.data.remote.model.updateorder.UpdateLineItem
-import com.example.magmarket.data.remote.model.updateorder.UpdateOrder
 import com.example.magmarket.databinding.FragmentProductDetailBinding
 import com.example.magmarket.ui.adapters.CommentAdapter
 import com.example.magmarket.ui.adapters.SimilarAdapter
@@ -76,14 +71,22 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         getSimilarProduct()
         init()
         isUserLogin()
-        addToCart()
-
         plusOrMinusProduct()
         close()
-        isExist()
         goToCart()
-        collectResponseOrder()
         comment()
+
+    }
+
+    private fun init() = with(binding) {
+        productViewModel.productId = args.id
+        productViewModel.getProduct()
+        productSlider.adapter = sliderAdapter
+        productSlider.clipToPadding = false
+        productSlider.clipChildren = false
+        productSlider.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+        springDotsIndicator.attachTo(binding.productSlider)
+        commentrecyclerView.adapter = commentAdapter
 
     }
 
@@ -139,7 +142,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                     if (!it.value.price.isNullOrEmpty()) {
                         tvTotalprice.text = nf.format(it.value.price.toInt())
                         if (it.value.price.toInt() == it.value.regular_price!!.toInt()) {
-                            tvRegularprice.text = "محصول فاقد قیمت"
+                            tvRegularprice.text = ""
                         } else {
                             tvRegularprice.text = nf.format(it.value.regular_price.toInt())
                             tvRegularprice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
@@ -165,98 +168,17 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         }
     }
 
-    private fun close() = with(binding) {
-        toolbar.closeButton.setOnClickListener {
-            requireActivity().onBackPressed()
-        }
-
-
-    }
 
     private fun plusOrMinusProduct() {
         binding.imageViewPlus.setOnClickListener {
-            productViewModel.count.plus(1)
-            productViewModel.updateOrder()
-//            count++
-//            binding.tvProductCount.text = count.toString()
-//            viewModel.updateOrder(
-//                orderId, UpdateOrder(
-//                    mutableListOf(
-//                        UpdateLineItem(
-//                            id = productId,
-//                            product_id = args.id.toInt(),
-//                            quantity = count,
-//
-//                            )
-//                    )
-//                )
-//            )
-//            viewModel.updateOrderLocal(
-//                ProductItemLocal(
-//                    id = args.id.toInt(),
-//                    count = count,
-//                    name = name,
-//                    price = price,
-//                    images = image,
-//                    regular_price = regularPrice,
-//                    sale_price = salePrice
-//                )
-//            )
 
+            productViewModel.updateAnItemInOrder( productViewModel.count.plus(1))
+            responseUpdateOrder()
         }
         binding.imgDeleteOrder.setOnClickListener {
 
-
-//                productViewModel.updateOrderRemote(
-//                    orderId, UpdateOrder(
-//                        mutableListOf(
-//                            UpdateLineItem(
-//                                id = productId,
-//                                product_id = null,
-//
-//                                )
-//                        )
-//                    )
-//                )
-
-
-//                productViewModel.deletProductFromOrders(
-//                    ProductItemLocal(
-//                        id = args.id.toInt(),
-//                        count = count, name = name, price = price, images = image,
-//                        regular_price = regularPrice
-//                    )
-//                )
-
-//
-//            } else if (count > 1) {
-//                count--
-//                binding.tvProductCount.text = count.toString()
-            productViewModel.count.minus(1)
-            productViewModel.updateOrder()
-//            productViewModel.updateOrderRemote(
-//                productViewModel.orderId, UpdateOrder(
-//                    mutableListOf(
-//                        UpdateLineItem(
-//                            id = productId,
-//                            product_id = args.id.toInt(),
-//                            quantity = count,
-//
-//                            )
-//                    )
-//                )
-//            )
-
-//                viewModel.updateOrderLocal(
-//                    ProductItemLocal(
-//                        id = args.id.toInt(),
-//                        count = count,
-//                        name = name,
-//                        price = price,
-//                        images = image,
-//                        regular_price = regularPrice
-//                    )
-//                )
+            productViewModel.updateAnItemInOrder(productViewModel.count.minus(1))
+            responseUpdateOrder()
 
         }
 
@@ -277,72 +199,22 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         }
     }
 
-    private fun addToCart() {
-        binding.buttonAddToCart.setOnClickListener {
-            if (isLogInUser) {
-                binding.linearLayout7.isVisible = true
-                binding.buttonAddToCart.isVisible = false
-                if (productViewModel.orderId == 0) {
-                    productViewModel.createOrder()
-//                    productViewModel.creatOrderRemote(
-//                        productViewModel.customerId,
-//                        Order(
-//                            mutableListOf(
-//                                LineItem(
-//                                    product_id = args.id.toInt(),
-//                                    quantity = productViewModel.count,
-//                                    variation_id = 0
-//                                )
-//                            )
-//                        )
-//                    )
-
-                } else {
-                    productViewModel.updateOrder()
-//                    productViewModel.updateOrderRemote(
-//                        productViewModel.orderId, UpdateOrder(
-//                            mutableListOf(
-//                                UpdateLineItem(
-//                                    product_id = args.id.toInt(),
-//                                    quantity = count,
-//                                )
-//                            )
-//                        )
-//                    )
-                    productId()
-                }
-
-
-//                viewModel.insertProductInOrders(
-//                    ProductItemLocal(
-//                        id = args.id.toInt(),
-//                        count = count,
-//                        name = name,
-//                        price = price,
-//                        images = image,
-//                        regular_price = regularPrice,
-//                        sale_price = salePrice
-//                    )
-//                )
-
-            } else {
-                openDialog()
-                binding.linearLayout7.isVisible = false
-                binding.buttonAddToCart.isVisible = true
-            }
-
-
-        }
-
-    }
-
-    fun productId() {
+    fun responseUpdateOrder() {
         productViewModel.orderUpdate.collectIt(viewLifecycleOwner) {
             when (it) {
                 is ResultWrapper.Success -> {
                     for (i in it.value.line_items) {
                         if (args.id.toInt() == i.product_id) {
                             productViewModel.productId = i.id.toString()
+                            binding.tvProductCount.text=i.quantity.toString()
+                            productViewModel.count=i.quantity
+                            binding.linearLayout7.isVisible = true
+                            binding.buttonAddToCart.isVisible = false
+                            break
+                        }else{
+
+                            binding.linearLayout7.isVisible = false
+                            binding.buttonAddToCart.isVisible = true
                         }
                     }
 
@@ -354,26 +226,36 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     }
 
     private fun responseGetAnOrder() {
-//        Log.d("orderId", "getAnOrder: " + orderId)
-        if (productViewModel.orderId != 0) {
-            productViewModel.order.collectIt(viewLifecycleOwner) {
-                when (it) {
+        productViewModel.order.collectIt(viewLifecycleOwner) {
+            when (it) {
+                is ResultWrapper.Success -> {
+                    Log.d("getorder", "responseGetAnOrder: +success"+it.value.line_items.toString())
+                    for (i in it.value.line_items) {
+                        Log.d("getorder", "responseGetAnOrder: +success"+args.id.toString())
+                        if (args.id.toInt() == i.product_id) {
 
-                    is ResultWrapper.Success -> {
+                            productViewModel.productId = i.id.toString()
+                            binding.linearLayout7.isVisible = true
+                            binding.buttonAddToCart.isVisible = false
+                            productViewModel.count=i.quantity
+                            binding.tvProductCount.text=i.quantity.toString()
+                            break
 
-                        for (i in it.value.line_items) {
-                            if (args.id.toInt() == i.product_id) {
-                                productViewModel.productId = i.id.toString()
+                        } else {
 
-                            }
+                            binding.linearLayout7.isVisible = false
+                            binding.buttonAddToCart.isVisible = true
                         }
-
                     }
 
-                    else -> {}
+                }
+
+                is ResultWrapper.Error -> {
+                    Log.d("getorder", "responseGetAnOrder: +error")
                 }
             }
         }
+
 
     }
 
@@ -385,21 +267,20 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                 }
                 is ResultWrapper.Success -> {
 
-//                    orderSize = it.value.line_items.size
-//                    Log.d("ordersize", "collectresponse: " + orderSize)
-                    productViewModel.orderId = it.value.id
-//                  productId= it.value.line_items[it.value.line_items.lastIndex].id
-//                    Log.d("ooogoddddd", "homonnlahzeh ke be list ezafi kardim: " + productId)
-//                    updateUserLocal(
-//                        User(
-//                            userId = customerId,
-//                            firstName = customerFirstName,
-//                            lastName = customerLastName,
-//                            email = customerEmail,
-//                            orderId = it.value.id,
-//                            orderStatus = "pending",
-//                        )
-//                    )
+                    productViewModel.saveUserDataStore(
+                        com.example.magmarket.data.datastore.user.User(
+                            userId = productViewModel.customerId,
+                            email = productViewModel.customerEmail,
+                            firstName = productViewModel.customerFirstName,
+                            lastName = productViewModel.customerLastName,
+                            orderId = it.value.id,
+                            orderStatus = "pending",
+                            isLogin = true
+                        )
+                    )
+
+                    productViewModel.getAnOrder(it.value.id)
+                    responseGetAnOrder()
 
                 }
                 is ResultWrapper.Error -> {
@@ -413,19 +294,59 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     private fun isUserLogin() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                productViewModel.getUserFromLocal().collect {
-                    if (it != null) {
-                        isLogInUser = true
-                        productViewModel.setUserInfo(it)
-                        productViewModel.getAnOrder()
-                        responseGetAnOrder()
-                    } else {
-                        isLogInUser = false
+                productViewModel.getUserFromDataStore().collect { user ->
+                    binding.buttonAddToCart.setOnClickListener {
+                        if (user.isLogin) {
+                            productViewModel.setUserInfo(user)
 
+                            if (productViewModel.orderId == 0) {
+                                productViewModel.createOrder()
+                                collectResponseOrder()
+                            } else {
+                                productViewModel.addAnItemInOrder(args.id.toInt())
+                                responseUpdateOrder()
+                                productViewModel.getAnOrder(user.orderId)
+                                responseGetAnOrder()
+                            }
+
+                        } else {
+                            openDialog()
+
+                        }
+
+                    }
+                    productViewModel.orderId = user.orderId
+                    if (user.orderId != 0) {
+                        productViewModel.getAnOrder(user.orderId)
+                        responseGetAnOrder()
                     }
                 }
             }
         }
+    }
+
+
+
+
+    private fun goToCart() {
+        binding.toolbar.fragmentcart.setOnClickListener {
+            findNavController().navigate(
+                ProductDetailFragmentDirections.actionProductDetailFragmentToParentOfCartFragment(
+
+                )
+            )
+
+
+        }
+
+    }
+
+    private fun close() = with(binding) {
+        toolbar.closeButton.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+
+
     }
 
     private fun openDialog() {
@@ -442,69 +363,6 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
             dialog.dismiss()
         }
         dialog.show()
-    }
-
-    private fun isExist() {
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                productViewModel.isExistInOrders(args.id.toInt()).collect {
-                    if (it) {
-                        binding.linearLayout7.isVisible = true
-                        binding.buttonAddToCart.isVisible = false
-
-                        setCountOrder()
-
-
-                    } else {
-                        binding.linearLayout7.isVisible = false
-                        binding.buttonAddToCart.isVisible = true
-
-                    }
-
-                }
-            }
-        }
-
-
-    }
-
-    private fun setCountOrder() {
-        binding.tvProductCount.text = productViewModel.count.toString()
-        if (productViewModel.count == 1) {
-            binding.imgDeleteOrder.setImageResource(R.drawable.delete)
-        } else {
-            binding.imgDeleteOrder.setImageResource(R.drawable.minus)
-        }
-    }
-
-    private fun init() = with(binding) {
-        productViewModel.productId = args.id
-
-        productViewModel.getProduct()
-        productSlider.adapter = sliderAdapter
-        productSlider.clipToPadding = false
-        productSlider.clipChildren = false
-        productSlider.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-        springDotsIndicator.attachTo(binding.productSlider)
-        commentrecyclerView.adapter = commentAdapter
-
-    }
-
-    private fun goToCart() {
-        binding.toolbar.fragmentcart.setOnClickListener {
-            findNavController().navigate(
-                ProductDetailFragmentDirections.actionProductDetailFragmentToParentOfCartFragment(
-
-                )
-            )
-
-
-        }
-
-    }
-
-    private fun updateUserLocal(user: User) {
-        productViewModel.updateUserLocal(user)
     }
 
     private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {

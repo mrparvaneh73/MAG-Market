@@ -91,11 +91,12 @@ class AddressFragment : Fragment(R.layout.fragment_adress) {
                 is ResultWrapper.Success -> {
                     openDialogSuccess()
                     updateUserLocal(
-                        User(
+                        com.example.magmarket.data.datastore.user.User(
                             userId = args.id,
                             email = args.email,
                             firstName = firstNameTextField.text.toString(),
-                            lastName = secondNameTextField.text.toString()
+                            lastName = secondNameTextField.text.toString(),
+                            isLogin = true
                         )
                     )
                     addressTextField.text = null
@@ -143,8 +144,8 @@ class AddressFragment : Fragment(R.layout.fragment_adress) {
         }
     }
 
-    private fun updateUserLocal(user: User) {
-        viewModel.updateUserLocal(user)
+    private fun updateUserLocal(user: com.example.magmarket.data.datastore.user.User) {
+        viewModel.saveUser(user)
     }
 
 }

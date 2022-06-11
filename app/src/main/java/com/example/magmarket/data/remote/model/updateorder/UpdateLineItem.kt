@@ -6,7 +6,7 @@ data class UpdateLineItem(
 //    val name: String,
 //    val parent_name: Any,
 //    val price: Int,
-    val product_id: Int?,
+    val product_id: Int?=0,
     val quantity: Int?=0,
 //    val sku: String,
 //    val subtotal: String,

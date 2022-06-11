@@ -3,6 +3,8 @@ package com.example.magmarket.ui.cartfragment
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.magmarket.data.datastore.user.User
+import com.example.magmarket.data.datastore.user.UserDataStore
 import com.example.magmarket.data.local.entities.OrderList
 import com.example.magmarket.data.local.entities.ProductItemLocal
 import com.example.magmarket.data.remote.ResultWrapper
@@ -24,7 +26,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CartViewModel @Inject constructor(private val cartRepository: CartRepository) : ViewModel() {
+class CartViewModel @Inject constructor(private val cartRepository: CartRepository,private val userDataStore: UserDataStore) : ViewModel() {
     var cart: MutableList<Cart> = mutableListOf()
     var orderId = 0
     var lineItem = mutableListOf<LineItemX>()
@@ -88,8 +90,14 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
 
     }
 
-    fun getUserFromLocal() = flow {
-        cartRepository.getUsersFromLocal().collect {
+//    fun getUserFromLocal() = flow {
+//        cartRepository.getUsersFromLocal().collect {
+//            emit(it)
+//        }
+//    }
+
+    fun getUser() = flow<User> {
+        userDataStore.getUser().collect{
             emit(it)
         }
     }

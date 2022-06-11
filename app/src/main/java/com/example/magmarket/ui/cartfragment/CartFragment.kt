@@ -54,15 +54,13 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         finalizeOrder()
 
 
-
-
     }
 
     private fun isUserLogin() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                cartViewModel.getUserFromLocal().collect {
-                    if (it.userId !=0) {
+                cartViewModel.getUser().collect {
+                    if (it.orderId != 0) {
                         cartViewModel.orderId = it.orderId
                         cartViewModel.getAnOrder()
                         collectOnCreate()
@@ -215,7 +213,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         cartAdapter.setOnItemClickListener(object : CartAdapter.OnItemClickListener {
             override fun onItemPlus(position: Int) {
                 resetValues()
-                Log.d("clicked", "onItemPlus: plus" )
+                Log.d("clicked", "onItemPlus: plus")
                 cartViewModel.plus(position)
 
 //                cartViewModel.updateOrder(

@@ -1,7 +1,9 @@
 package com.example.magmarket.ui.productdetailsfragment
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.magmarket.data.datastore.user.UserDataStore
 import com.example.magmarket.data.local.entities.ProductItemLocal
 import com.example.magmarket.data.local.entities.User
 import com.example.magmarket.data.remote.ResultWrapper
@@ -19,12 +21,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductDetailsViewModel @Inject constructor(private val repository: ProductRepository) :
+class ProductDetailsViewModel @Inject constructor(private val repository: ProductRepository,private val userDataStore: UserDataStore) :
     ViewModel() {
     var productId = ""
     var orderId = 0
@@ -70,42 +73,26 @@ class ProductDetailsViewModel @Inject constructor(private val repository: Produc
         }
     }
 
-    fun updateOrderLocal(productItemLocal: ProductItemLocal) {
-        viewModelScope.launch {
-            repository.updateOrder(productItemLocal)
-        }
-    }
 
-    fun insertProductInOrders(productItemLocal: ProductItemLocal) {
-        viewModelScope.launch {
-            repository.insertProductToCart(productItemLocal)
-        }
-    }
 
-    fun isExistInOrders(id: Int) = flow {
-        repository.isRowIsExist(id).collect {
+
+    fun getUserFromDataStore()= flow {
+        userDataStore.getUser().collect{
             emit(it)
         }
     }
 
-
-    fun getProductFromOrders(id: Int) = flow {
-        repository.getCartProductById(id).collect {
-            emit(it)
-        }
-    }
-
-    fun getUserFromLocal() = flow {
-        repository.getUsersFromLocal().collect {
-            emit(it)
-        }
-    }
-
-    fun deletProductFromOrders(productItemLocal: ProductItemLocal) {
+    fun saveUserDataStore(user:com.example.magmarket.data.datastore.user.User){
         viewModelScope.launch {
-            repository.deleteProductFromCart(productItemLocal)
+            userDataStore.saveUser(user)
         }
+
     }
+
+
+
+
+
 
     fun getSimilarProduct(include: String) {
         viewModelScope.launch {
@@ -139,8 +126,9 @@ class ProductDetailsViewModel @Inject constructor(private val repository: Produc
         }
     }
 
-    fun getAnOrder() {
+    fun getAnOrder(orderId:Int) {
         viewModelScope.launch {
+
             repository.getAnOrder(orderId).collect {
                 _order.emit(it)
             }
@@ -154,12 +142,6 @@ class ProductDetailsViewModel @Inject constructor(private val repository: Produc
         }
     }
 
-    fun updateUserLocal(user: User) {
-        viewModelScope.launch {
-            repository.updateUserLocal(user)
-        }
-
-    }
 
     fun getProductComment(productId: Int) {
         viewModelScope.launch {
@@ -175,7 +157,7 @@ class ProductDetailsViewModel @Inject constructor(private val repository: Produc
         }
     }
 
-    fun setUserInfo(user: User) {
+    fun setUserInfo(user: com.example.magmarket.data.datastore.user.User) {
         customerId = user.userId
         customerEmail = user.email
         customerFirstName = user.firstName
@@ -184,14 +166,25 @@ class ProductDetailsViewModel @Inject constructor(private val repository: Produc
     }
 
 
-    fun updateOrder(){
+    fun updateAnItemInOrder(number:Int){
+        Log.d("productidchand", "updateOrder: "+productId+orderId+count)
 
         updateOrderRemote(orderId,UpdateOrder(mutableListOf(
             UpdateLineItem(
-                product_id = productId.toInt(),
-                quantity = count
+                id = productId.toInt(),
+                quantity = number
             )
         )))
+    }
+    fun addAnItemInOrder(id:Int){
+        Log.d("addorder", "addAnItemInOrder: "+orderId)
+        updateOrderRemote(orderId,UpdateOrder(mutableListOf(
+            UpdateLineItem(
+                product_id = id,
+                quantity = 1
+            )
+        )))
+
     }
 
     fun createOrder(){

@@ -2,6 +2,7 @@ package com.example.magmarket.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.magmarket.data.datastore.user.UserDataStore
 import com.example.magmarket.data.local.localdatabase.LocalDataBase
 import com.example.magmarket.data.local.localdatabase.MarketDataBase
 import com.example.magmarket.data.local.localdatabase.MarketLocalDataBase
@@ -22,7 +23,8 @@ object AppModule {
         MarketDataBase::class.java, "user"
     ).fallbackToDestructiveMigration().build()
 
-
+    @Provides
+    fun provideUserDataStore(@ApplicationContext context: Context)=UserDataStore(context)
     @Provides
     @Singleton
     fun dao(db: MarketDataBase) = db.marketDao()
