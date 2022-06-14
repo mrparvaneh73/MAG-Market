@@ -16,9 +16,11 @@ class CommentAdapter() :
 
     inner class CommentViewHolder(private val binding: CommentItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-     fun bind(commentItem: ResponseReview) = with(binding) {
+        fun bind(commentItem: ResponseReview) = with(binding) {
             username.text = commentItem.reviewer
-            commentUser.text = HtmlCompat.fromHtml(commentItem.review, HtmlCompat.FROM_HTML_MODE_LEGACY)
+            commentUser.text =
+                HtmlCompat.fromHtml(commentItem.review, HtmlCompat.FROM_HTML_MODE_LEGACY)
+            ratingBar.rating = commentItem.rating.toFloat()
         }
     }
 
@@ -33,7 +35,7 @@ class CommentAdapter() :
     }
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
-       holder.bind(getItem(position))
+        holder.bind(getItem(position))
     }
 }
 

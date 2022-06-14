@@ -149,4 +149,11 @@ interface MarketService {
     @GET("coupons")
    suspend fun verifyCoupon(@Query("code") couponCode: String,
                             @QueryMap tokens: Map<String, String> = BASE_PARAM): Response<List<CouponResponse>>
+
+    @GET("products")
+    suspend fun getSortedProduct(
+        @Query("orderby")  orderBy:String="date" ,
+        @Query("page")  page:Int=1,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ) : Response<List<ProductItem>>
 }

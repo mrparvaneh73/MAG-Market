@@ -13,7 +13,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.magmarket.R
 import com.example.magmarket.data.datastore.Theme
-import com.example.magmarket.data.local.entities.User
 import com.example.magmarket.data.remote.ResultWrapper
 import com.example.magmarket.databinding.FragmentUserBinding
 
@@ -173,7 +172,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
             binding.viewAccountinfo!!.isVisible = false
          viewModel.saveUser(com.example.magmarket.data.datastore.user.User(
              isLogin = false,
-             orderId = 0
+             myorderId = 0
 
          ))
         }

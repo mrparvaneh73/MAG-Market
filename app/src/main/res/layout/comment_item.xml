@@ -5,6 +5,7 @@
     android:layout_width="250dp"
     android:layout_height="200dp"
     android:layout_margin="@dimen/standardMargin2x"
+    android:layout_gravity="end"
     android:layout_marginHorizontal="@dimen/standardMargin0.5x"
     android:backgroundTint="@color/whiteBackground"
     app:cardCornerRadius="@dimen/standardMargin"
@@ -40,22 +41,6 @@
             tools:ignore="SpUsage" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvpriceproduct"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:fontFamily="@font/farkhondeh"
-            android:text="heloooooooooooooooo"
-            android:textColor="@color/text"
-            android:textSize="@dimen/TextSize3x"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.83"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/comment_user"
-            app:layout_constraintVertical_bias="0.326" />
-
-        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/comment_user"
             android:layout_width="match_parent"
             android:layout_height="90dp"
@@ -71,6 +56,19 @@
             app:layout_constraintTop_toBottomOf="@+id/username"
             app:layout_constraintVertical_bias="0.0"
             tools:ignore="SpUsage" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="82dp"
+            android:layout_height="25dp"
+            android:layout_marginBottom="28dp"
+            android:numStars="5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/comment_user"
+            app:layout_constraintVertical_bias="1.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

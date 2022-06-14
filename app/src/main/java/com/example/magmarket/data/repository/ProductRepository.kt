@@ -1,5 +1,6 @@
 package com.example.magmarket.data.repository
 
+import android.util.Log
 import com.example.magmarket.data.local.entities.ProductItemLocal
 import com.example.magmarket.data.local.entities.User
 import com.example.magmarket.data.local.localdatabase.LocalDataBase
@@ -87,6 +88,7 @@ class ProductRepository @Inject constructor(
     }
 
     suspend fun getAnOrder(orderId: Int)= safeApiCall(dispatcher){
+        Log.d("getorder", "repo:" +orderId)
         marketremoteDataSource.getAnOrder(orderId)
     }
 

@@ -7,7 +7,11 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.magmarket.ui.homefragment.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_productDetailFragment2"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.example.magmarket.ui.categoryfragment.CategoryFragment"
@@ -16,9 +20,6 @@
         android:id="@+id/productDetailFragment"
         android:name="com.example.magmarket.ui.productdetailsfragment.ProductDetailFragment"
         android:label="ProductDetailFragment" >
-        <argument
-            android:name="id"
-            app:argType="string" />
         <action
             android:id="@+id/action_productDetailFragment_self"
             app:destination="@id/productDetailFragment"
@@ -27,6 +28,9 @@
             android:id="@+id/action_productDetailFragment_to_parentOfCartFragment"
             app:destination="@id/parentOfCartFragment"
             app:popUpTo="@id/navigation" />
+        <argument
+            android:name="idOfProduct"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/productsCategoryFragment"
@@ -35,6 +39,9 @@
         <argument
             android:name="category"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_productsCategoryFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/userFragment"
@@ -106,7 +113,6 @@
         android:id="@+id/myOrdersFragment"
         android:name="com.example.magmarket.ui.cartfragment.MyOrdersFragment"
         android:label="MyOrdersFragment" />
-    <action android:id="@+id/action_global_productDetailFragment" app:destination="@id/productDetailFragment" />
     <action android:id="@+id/action_global_showMoreFragment" app:destination="@id/showMoreFragment" />
     <action
         android:id="@+id/action_global_userFragment"

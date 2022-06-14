@@ -3,7 +3,9 @@ package com.example.magmarket.ui.homefragment
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -69,6 +71,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         search()
         slider()
     }
+
     private val runnable = Runnable {
         binding.productSlider.currentItem = binding.productSlider.currentItem + 1
     }
@@ -276,11 +279,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                 }
                 is ProductRecyclerViewItem.ProductItem -> {
-                    findNavController().navigate(
-                        HomeFragmentDirections.actionGlobalProductDetailFragment(
-                            item.id
-                        )
-                    )
+                    var action = HomeFragmentDirections.actionHomeFragmentToProductDetailFragment2(item.id)
+
+                    findNavController().navigate(action)
                 }
                 is ProductRecyclerViewItem.ShowAll -> {
                     findNavController().navigate(
@@ -293,6 +294,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         }
     }
+
 
     override fun onPause() {
         super.onPause()

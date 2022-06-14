@@ -1,8 +1,10 @@
 package com.example.magmarket.data.remote.model.updateorder
 
+import com.example.magmarket.data.remote.model.order.MetaData
+
 data class UpdateLineItem(
     val id: Int?=0,
-//    val meta_data: List<Any>,
+   val meta_data: List<MetaData> = emptyList(),
 //    val name: String,
 //    val parent_name: Any,
 //    val price: Int,

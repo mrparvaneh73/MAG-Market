@@ -32,9 +32,8 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     private val binding get() = _binding!!
     private val nf: NumberFormat = NumberFormat.getInstance(Locale.US)
     private val cartViewModel by activityViewModels<CartViewModel>()
-    val cartAdapter = CartAdapter()
+    private val cartAdapter = CartAdapter()
 
-    //    var count = 1
 
     var totalPrice = 0
     var totalOff = 0
@@ -60,8 +59,8 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 cartViewModel.getUser().collect {
-                    if (it.orderId != 0) {
-                        cartViewModel.orderId = it.orderId
+                    if (it.myorderId != 0) {
+                        cartViewModel.orderId = it.myorderId
                         cartViewModel.getAnOrder()
                         collectOnCreate()
 
@@ -74,50 +73,6 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     }
 
     private fun collectOnCreate() = with(binding) {
-//
-//        lifecycleScope.launch {
-//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                cartViewModel.getOrdersFromLocal().collect {
-//                    allProductInOrderList.addAll(it)
-//                    cartAdapter.submitList(it)
-//                    for (i in it) {
-//                        listLineItem.add(
-//                            LineItem(
-//                                product_id = i.id,
-//                                quantity = i.count,
-//                                variation_id = 0
-//                            )
-//                        )
-//                    }
-//                    if (cartViewModel.isSuccess==true) {
-//                        for (i in it) {
-//                            cartViewModel.deleteOrderFromLocal(i)
-//                        }
-//                    cartViewModel.isSuccess=false
-//                    }
-//                    if (it.isNotEmpty()) {
-//                        binding.parent.isVisible = true
-//                        binding.detailCard.isVisible = true
-//                        binding.emptycart.isVisible = false
-//
-//                        for (i in it) {
-//                            totalPrice += (i.price!!.toInt() * i.count)
-//                            totalOff += (i.off)
-//                            totalPriceWithoutOff += (i.regular_price!!.toInt() * i.count)
-//                            totalCount += i.count
-//
-//                        }
-//                        init()
-//                    } else {
-//                        binding.parent.isVisible = false
-//                        binding.detailCard.isVisible = false
-//                        binding.emptycart.isVisible = true
-//                    }
-//
-//                }
-//            }
-//
-//        }
 
         cartViewModel.orderList.collectIt(viewLifecycleOwner) {
             when (it) {
@@ -128,7 +83,6 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                     binding.stateView.onSuccess()
 
                     if (it.value.line_items.isNotEmpty()) {
-//                        cartAdapter.submitList(it.value.line_items)
                         cartViewModel.lineItem.clear()
                         cartViewModel.lineItem.addAll(it.value.line_items)
                         Log.d("productssss", "lineItem: " + it.value.line_items.toString())
@@ -157,23 +111,6 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                     buttomBar.isVisible = false
                 }
                 is ResultWrapper.Success -> {
-//                    for (i in it.value) {
-//                        for (j in cartViewModel.cart) {
-//                            if (i.id.toInt() == j.productId) {
-//                                j.name = i.name
-//                                j.price = i.price
-//                                j.images = i.images[0].src
-//                                j.regular_price = i.regular_price
-//                                j.sale_price = i.sale_price
-//                                j.off = j.regular_price.toInt().minus(j.price.toInt()) * j.count
-//                            }
-//                            binding.stateView.onSuccess()
-//                            parent.isVisible = true
-//                            buttomBar.isVisible = true
-//                        }
-//
-//                    }
-
                     binding.parent.isVisible = true
                     binding.detailCard.isVisible = true
                     binding.emptycart.isVisible = false
@@ -216,49 +153,13 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                 Log.d("clicked", "onItemPlus: plus")
                 cartViewModel.plus(position)
 
-//                cartViewModel.updateOrder(
-////                    ProductItemLocal(
-////                        id = cartAdapter.currentList[position].id.y,
-////                        count = cartAdapter.currentList[position].count.plus(1),
-////                        name = cartAdapter.currentList[position].name,
-////                        price = cartAdapter.currentList[position].price,
-////                        images = cartAdapter.currentList[position].images,
-////                        regular_price = cartAdapter.currentList[position].regular_price,
-////                        sale_price = cartAdapter.currentList[position].sale_price,
-////                        off = cartAdapter.currentList[position].off.plus(
-////                            cartAdapter.currentList[position].regular_price!!.toInt()
-////                                .minus(cartAdapter.currentList[position].price!!.toInt())
-////                        )
-////                    )
-//                )
-//                cartAdapter.notifyItemChanged(position)
                 collectWhenUpdate()
             }
 
             override fun onItemMinus(position: Int) {
                 resetValues()
 
-//                    cartViewModel.deleteOrderFromLocal(cartAdapter.currentList[position])
                 cartViewModel.minus(position)
-//                cartAdapter.notifyItemRemoved(position)
-
-//                    cartViewModel.updateOrder(
-//                        ProductItemLocal(
-//                            id = cartAdapter.currentList[position].id,
-//                            count = cartAdapter.currentList[position].count.minus(1),
-//                            name = cartAdapter.currentList[position].name,
-//                            price = cartAdapter.currentList[position].price,
-//                            images = cartAdapter.currentList[position].images,
-//                            regular_price = cartAdapter.currentList[position].regular_price,
-//                            sale_price = cartAdapter.currentList[position].sale_price,
-//                            off = cartAdapter.currentList[position].off.minus(
-//                                cartAdapter.currentList[position].regular_price!!.toInt()
-//                                    .minus(cartAdapter.currentList[position].price!!.toInt())
-//                            )
-//                        )
-//                    )
-
-//                cartAdapter.notifyItemChanged(position)
 
                 collectWhenUpdate()
             }
@@ -303,30 +204,6 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         }
     }
 
-//    private fun ResponseOfOrder() {
-//        cartViewModel.orderList.collectIt(viewLifecycleOwner) {
-//            when (it) {
-//                is ResultWrapper.Loading -> {
-//
-//                }
-//                is ResultWrapper.Success -> {
-////                    cartViewModel.insertPlacedOrdersInLocal(OrderList(id = it.value.id))
-////                    cartViewModel.isSuccess = true
-//                    for (i in it.value.line_items){
-//                        if (i.product_id==cart.id.toInt()){
-//                            cart.count=i.quantity
-//                        }
-//                    }
-//
-//                }
-//                is ResultWrapper.Error -> {
-//                    Toast.makeText(requireContext(), "somethingwentwrong", Toast.LENGTH_SHORT)
-//                        .show()
-//
-//                }
-//            }
-//        }
-//    }
 
     fun resetValues() {
         listLineItem.clear()

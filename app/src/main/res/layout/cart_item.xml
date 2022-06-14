@@ -179,7 +179,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout7"
+        android:id="@+id/parent_plusandminus"
         android:layout_width="100dp"
         android:layout_height="31dp"
         android:layout_marginTop="16dp"
@@ -225,11 +225,11 @@
         android:textColor="@color/text"
         android:fontFamily="@font/farkhondeh"
         android:textSize="@dimen/TextSize4x"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout7"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout7"
+        app:layout_constraintBottom_toBottomOf="@+id/parent_plusandminus"
+        app:layout_constraintEnd_toStartOf="@+id/parent_plusandminus"
         app:layout_constraintHorizontal_bias="0.881"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout7"
+        app:layout_constraintTop_toTopOf="@+id/parent_plusandminus"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView

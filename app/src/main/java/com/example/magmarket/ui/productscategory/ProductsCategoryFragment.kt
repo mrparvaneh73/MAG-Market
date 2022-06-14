@@ -3,6 +3,7 @@ package com.example.magmarket.ui.productscategory
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -31,7 +32,7 @@ class ProductsCategoryFragment : Fragment(R.layout.fragment_products_category) {
     private val args by navArgs<ProductsCategoryFragmentArgs>()
     private val categoryProductAdapter = ProductsOfCategoryAdapter(clickListener = { productItem ->
         findNavController().navigate(
-            ProductsCategoryFragmentDirections.actionGlobalProductDetailFragment(
+            ProductsCategoryFragmentDirections.actionProductsCategoryFragmentToProductDetailFragment(
                 productItem.id
             )
         )
@@ -41,7 +42,7 @@ class ProductsCategoryFragment : Fragment(R.layout.fragment_products_category) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProductsCategoryBinding.bind(view)
-        Log.d("idfroosh", "onViewCreated: "+args.category)
+        Log.d("idfroosh", "onViewCreated: " + args.category)
         backPressed()
         collect()
         init()
@@ -49,7 +50,8 @@ class ProductsCategoryFragment : Fragment(R.layout.fragment_products_category) {
 
     private fun init() = with(binding) {
         searchbox.imgsearch.setImageResource(R.drawable.back)
-        categoryProductAdapter.stateRestorationPolicy=RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        categoryProductAdapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         productRecyclerviw.adapter = categoryProductAdapter
         viewModel.getProductofCategory(args.category)
 
@@ -92,11 +94,13 @@ class ProductsCategoryFragment : Fragment(R.layout.fragment_products_category) {
             }
         }
     }
-private fun backPressed(){
-    binding.searchbox.imgsearch.setOnClickListener {
-        requireActivity().onBackPressed()
+
+    private fun backPressed() {
+        binding.searchbox.imgsearch.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
     }
-}
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

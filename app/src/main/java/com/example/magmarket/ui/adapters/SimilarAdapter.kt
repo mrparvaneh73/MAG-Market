@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.magmarket.R
 import com.example.magmarket.data.remote.model.ProductItem
+import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
 import com.example.magmarket.databinding.ItemsSubCategoryBinding
 import com.example.magmarket.databinding.ProductItemBinding
 import java.text.NumberFormat

@@ -2,6 +2,7 @@ package com.example.magmarket.ui.showmore
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -71,11 +72,11 @@ class ShowMoreFragment : Fragment(R.layout.fragment_showmore) {
                             is LoadState.Error -> {
                                 stateView.onFail()
                                 stateView.clickRequest {
-                                   showMoreAdapter.retry()
+                                    showMoreAdapter.retry()
                                 }
 
                             }
-                            is LoadState.NotLoading ->{
+                            is LoadState.NotLoading -> {
                                 stateView.onSuccess()
                                 scrollview.isVisible = true
                             }

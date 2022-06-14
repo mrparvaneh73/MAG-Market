@@ -4,10 +4,8 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
-import com.example.magmarket.data.datastore.PreferencesInfo
 import com.example.magmarket.data.datastore.dataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -35,7 +33,7 @@ class UserDataStore @Inject constructor(@ApplicationContext context: Context) : 
             users[userFirstName]= user.firstName
             users[userLastName]=user.lastName
             users[login]=user.isLogin
-            users[orderId]=user.orderId
+            users[orderId]=user.myorderId
 
         }
     }
@@ -46,7 +44,7 @@ class UserDataStore @Inject constructor(@ApplicationContext context: Context) : 
             email =  users[email] ?:"",
             firstName = users[userFirstName] ?:"",
             lastName = users[userLastName] ?:"",
-            orderId = users[orderId] ?:0,
+            myorderId = users[orderId] ?:0,
             isLogin = users[login] ?: false
 
         )

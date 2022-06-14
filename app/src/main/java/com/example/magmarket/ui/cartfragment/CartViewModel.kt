@@ -11,26 +11,33 @@ import com.example.magmarket.data.remote.ResultWrapper
 import com.example.magmarket.data.remote.model.Cart
 import com.example.magmarket.data.remote.model.ProductItem
 import com.example.magmarket.data.remote.model.customer.CustomerResponse
-import com.example.magmarket.data.remote.model.order.LineItem
 import com.example.magmarket.data.remote.model.order.LineItemX
 import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.model.order.ResponseOrder
 import com.example.magmarket.data.remote.model.updateorder.UpdateLineItem
 import com.example.magmarket.data.remote.model.updateorder.UpdateOrder
 import com.example.magmarket.data.repository.CartRepository
-
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CartViewModel @Inject constructor(private val cartRepository: CartRepository,private val userDataStore: UserDataStore) : ViewModel() {
+class CartViewModel @Inject constructor(
+    private val cartRepository: CartRepository,
+    private val userDataStore: UserDataStore
+) : ViewModel() {
     var cart: MutableList<Cart> = mutableListOf()
     var orderId = 0
     var lineItem = mutableListOf<LineItemX>()
     val productItems = mutableListOf<ProductItem>()
+
+    //    private val _remoteProducts: MutableStateFlow<ResultWrapper<List<ProductRecyclerViewItem.ProductItem>>> =
+//        MutableStateFlow(ResultWrapper.Loading)
+//    val remoteProducts = _remoteProducts.asStateFlow()
     private val _remoteProducts: MutableStateFlow<ResultWrapper<List<ProductItem>>> =
         MutableStateFlow(ResultWrapper.Loading)
     val remoteProducts = _remoteProducts.asStateFlow()
@@ -97,7 +104,7 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
 //    }
 
     fun getUser() = flow<User> {
-        userDataStore.getUser().collect{
+        userDataStore.getUser().collect {
             emit(it)
         }
     }

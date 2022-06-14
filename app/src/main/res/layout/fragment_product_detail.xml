@@ -249,8 +249,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:orientation="horizontal"
                         android:layoutDirection="rtl"
+                        android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
@@ -259,66 +259,66 @@
                         tools:listitem="@layout/comment_item" />
 
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/submit_comment"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/commentrecyclerView"
- >
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/submit_comment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/commentrecyclerView">
 
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:src="@drawable/comment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="72dp"
-        android:fontFamily="@font/farkhondeh"
-        android:text="دیدگاه خود را درباره این کالا بنویسید"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
-        app:layout_constraintEnd_toStartOf="@+id/imageView9"
-        app:layout_constraintTop_toTopOf="@+id/imageView9"
-        app:layout_constraintVertical_bias="0.0" />
+                        <ImageView
+                            android:id="@+id/imageView9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:src="@drawable/comment"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:src="@drawable/forward"
-        app:layout_constraintBottom_toBottomOf="@+id/textView11"
-        app:layout_constraintEnd_toStartOf="@+id/textView11"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView11"
-        app:layout_constraintVertical_bias="0.0" />
+                        <TextView
+                            android:id="@+id/textView11"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="72dp"
+                            android:fontFamily="@font/farkhondeh"
+                            android:text="دیدگاه خود را درباره این کالا بنویسید"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+                            app:layout_constraintEnd_toStartOf="@+id/imageView9"
+                            app:layout_constraintTop_toTopOf="@+id/imageView9"
+                            app:layout_constraintVertical_bias="0.0" />
 
-    <View
-        android:id="@+id/SplitLine_hor1"
-        android:layout_width="320dp"
-        android:layout_height="2dp"
+                        <ImageView
+                            android:id="@+id/imageView10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:src="@drawable/forward"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView11"
+                            app:layout_constraintEnd_toStartOf="@+id/textView11"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textView11"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                        <View
+                            android:id="@+id/SplitLine_hor1"
+                            android:layout_width="320dp"
+                            android:layout_height="2dp"
 
 
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="@dimen/TextSize3x"
-        android:background="@color/text"
-        app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginTop="24dp"
+                            android:layout_marginBottom="@dimen/TextSize3x"
+                            android:background="@color/text"
+                            app:layout_constraintEnd_toEndOf="parent"
 
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -349,15 +349,30 @@
             android:layout_height="match_parent"
             android:background="@color/background">
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/loading_count"
+                android:layout_width="108dp"
+                android:layout_height="42dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.891"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.485"
+                app:lottie_autoPlay="false"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/threedotsloading" />
+
             <LinearLayout
-                android:id="@+id/linearLayout7"
+                android:id="@+id/parent_plusandminus"
                 android:layout_width="100dp"
                 android:layout_height="31dp"
                 android:layout_marginEnd="30dp"
                 android:background="@drawable/rounded_background"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:visibility="gone"
+               android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -378,7 +393,7 @@
                     android:gravity="center"
 
                     android:textColor="#E2202B"
-                    android:textSize="18sp" />
+                    android:textSize="12sp" />
 
                 <ImageView
                     android:id="@+id/imageView_plus"
@@ -449,6 +464,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginEnd="28dp"
+
                 android:backgroundTint="@color/button"
                 android:fontFamily="@font/far_mitra"
                 android:text="@string/add_to_bascket"
