@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
 import com.example.magmarket.data.repository.CategoryRepository
 

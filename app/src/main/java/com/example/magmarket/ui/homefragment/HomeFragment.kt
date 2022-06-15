@@ -3,9 +3,7 @@ package com.example.magmarket.ui.homefragment
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -24,12 +22,11 @@ import com.example.magmarket.ui.adapters.CategoryAdapter
 import com.example.magmarket.ui.adapters.ProductRecyclerviewAdapter
 import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
 import com.example.magmarket.databinding.FragmentHomeBinding
-import com.example.magmarket.ui.adapters.SliderAdapter
 import com.example.magmarket.ui.adapters.ViewPagerAdapter
 import com.example.magmarket.application.Constants.BEST_PRODUCT
 import com.example.magmarket.application.Constants.MOSTVIEW_PRODUCT
 import com.example.magmarket.application.Constants.NEWEST_PRODUCT
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
@@ -129,8 +126,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun collectCategory() {
         viewModel.categories.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> binding.stateView.onLoading()
-                is ResultWrapper.Success -> {
+                is Resource.Loading -> binding.stateView.onLoading()
+                is Resource.Success -> {
                     categoryAdapter.submitList(it.value)
                     if (it.value.isNotEmpty()) {
                         binding.stateView.onSuccess()
@@ -138,7 +135,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         binding.stateView.onEmpty()
                     }
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
                     binding.stateView.onFail()
                     binding.stateView.clickRequest {
                         viewModel.getAllProducts()
@@ -153,11 +150,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         viewModel.bestProduct.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> {
+                is Resource.Loading -> {
                     binding.stateView.onLoading()
                     binding.scrollview.isVisible = false
                 }
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
                     val bestItem = mutableListOf<ProductRecyclerViewItem>()
                     bestItem.add(ProductRecyclerViewItem.HeaderProductTitle(title = R.drawable.bestproduct))
                     bestItem.addAll(it.value)
@@ -170,7 +167,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         binding.stateView.onEmpty()
                     }
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
                     binding.stateView.onFail()
                     binding.stateView.clickRequest {
                         viewModel.getAllProducts()
@@ -181,11 +178,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
         viewModel.newstProduct.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> {
+                is Resource.Loading -> {
                     binding.stateView.onLoading()
                     binding.scrollview.isVisible = false
                 }
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
                     val newestItem = mutableListOf<ProductRecyclerViewItem>()
                     newestItem.add(ProductRecyclerViewItem.HeaderProductTitle(title = R.drawable.newproduct))
                     newestItem.addAll(it.value)
@@ -198,7 +195,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         binding.stateView.onEmpty()
                     }
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
                     binding.stateView.onFail()
                     binding.stateView.clickRequest {
                         viewModel.getAllProducts()
@@ -209,12 +206,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
         viewModel.mostViewProduct.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> {
+                is Resource.Loading -> {
                     binding.stateView.onLoading()
                     binding.scrollview.isVisible = false
                     binding.parentsearchbox.isVisible = false
                 }
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
                     val mostViewItem = mutableListOf<ProductRecyclerViewItem>()
                     mostViewItem.add(ProductRecyclerViewItem.HeaderProductTitle(title = R.drawable.mostwatched))
                     mostViewItem.addAll(it.value)
@@ -228,7 +225,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         binding.stateView.onEmpty()
                     }
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
                     binding.stateView.onFail()
                     binding.stateView.clickRequest {
                         viewModel.getAllProducts()
@@ -243,10 +240,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.slider.collectIt(viewLifecycleOwner) {
 
             when (it) {
-                is ResultWrapper.Loading -> {
+                is Resource.Loading -> {
 
                 }
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
                     val imageList: ArrayList<ProductImage> = arrayListOf()
                     it.value.images?.let { it1 -> imageList.addAll(it1) }
                     viewpagerAdapter = ViewPagerAdapter(imageList, binding.productSlider)
@@ -254,7 +251,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
 
                 }
             }

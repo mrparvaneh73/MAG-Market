@@ -15,12 +15,9 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.magmarket.R
-import com.example.magmarket.data.remote.ResultWrapper
-import com.example.magmarket.databinding.FragmentSendCommentBinding
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.databinding.FragmentShowMoreCommentBinding
-import com.example.magmarket.databinding.FragmentShowmoreBinding
 import com.example.magmarket.ui.adapters.ShowMoreCommentAdapter
-import com.example.magmarket.ui.showmoreproduct.ShowMoreViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -76,18 +73,18 @@ class ShowMoreCommentFragment : Fragment(R.layout.fragment_show_more_comment) {
                 launch {
                     viewModel.product.collect {
                         when (it) {
-                            is ResultWrapper.Loading -> {
+                            is Resource.Loading -> {
 
 
                             }
-                            is ResultWrapper.Success -> {
+                            is Resource.Success -> {
                                 Glide.with(this@ShowMoreCommentFragment)
                                     .load(it.value.images?.get(0)!!.src)
                                     .into(commenttoolbar.imageProduct)
                                 commenttoolbar.productName.text = it.value.name
                                 stateView.onSuccess()
                             }
-                            is ResultWrapper.Error -> {
+                            is Resource.Error -> {
                                 stateView.onFail()
                                 stateView.clickRequest {
 

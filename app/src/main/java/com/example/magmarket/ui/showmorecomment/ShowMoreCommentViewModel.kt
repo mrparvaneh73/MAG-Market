@@ -7,10 +7,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.data.remote.model.ProductItem
 import com.example.magmarket.data.repository.ProductRepository
-import com.example.magmarket.ui.showmoreproduct.ShowMorePaging
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -26,8 +25,8 @@ class ShowMoreCommentViewModel @Inject constructor(
 ) : ViewModel() {
     var productId = savedStateHandle.get<Int>("porductIdForComment")
 
-    private val _product: MutableStateFlow<ResultWrapper<ProductItem>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _product: MutableStateFlow<Resource<ProductItem>> =
+        MutableStateFlow(Resource.Loading)
     val product = _product.asStateFlow()
 
     init {

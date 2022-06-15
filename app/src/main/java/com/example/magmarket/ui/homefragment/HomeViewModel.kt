@@ -9,7 +9,7 @@ import com.example.magmarket.data.repository.ProductRepository
 import com.example.magmarket.application.Constants.BEST_PRODUCT
 import com.example.magmarket.application.Constants.MOSTVIEW_PRODUCT
 import com.example.magmarket.application.Constants.NEWEST_PRODUCT
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
@@ -21,25 +21,25 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val productRepository: ProductRepository) :
     ViewModel() {
-    private val _slider: MutableStateFlow<ResultWrapper<ProductItem>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _slider: MutableStateFlow<Resource<ProductItem>> =
+        MutableStateFlow(Resource.Loading)
     val slider = _slider.asStateFlow()
 
 
-    private val _bestProduct: MutableStateFlow<ResultWrapper<List<ProductRecyclerViewItem.ProductItem>>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _bestProduct: MutableStateFlow<Resource<List<ProductRecyclerViewItem.ProductItem>>> =
+        MutableStateFlow(Resource.Loading)
     val bestProduct = _bestProduct.asStateFlow()
 
-    private val _newstProduct: MutableStateFlow<ResultWrapper<List<ProductRecyclerViewItem.ProductItem>>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _newstProduct: MutableStateFlow<Resource<List<ProductRecyclerViewItem.ProductItem>>> =
+        MutableStateFlow(Resource.Loading)
     val newstProduct = _newstProduct.asStateFlow()
 
-    private val _mostViewProduct: MutableStateFlow<ResultWrapper<List<ProductRecyclerViewItem.ProductItem>>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _mostViewProduct: MutableStateFlow<Resource<List<ProductRecyclerViewItem.ProductItem>>> =
+        MutableStateFlow(Resource.Loading)
     val mostViewProduct = _mostViewProduct.asStateFlow()
 
-    private val _categories: MutableStateFlow<ResultWrapper<List<CategoryItem>>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _categories: MutableStateFlow<Resource<List<CategoryItem>>> =
+        MutableStateFlow(Resource.Loading)
     val categories = _categories.asStateFlow()
 
     init {

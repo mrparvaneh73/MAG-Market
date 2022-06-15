@@ -3,11 +3,10 @@ package com.example.magmarket.ui.cartfragment
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.magmarket.data.datastore.user.User
 import com.example.magmarket.data.datastore.user.UserDataStore
 import com.example.magmarket.data.local.entities.OrderList
 import com.example.magmarket.data.local.entities.ProductItemLocal
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.data.remote.model.Cart
 import com.example.magmarket.data.remote.model.ProductItem
 import com.example.magmarket.data.remote.model.customer.CustomerResponse
@@ -35,31 +34,31 @@ class CartViewModel @Inject constructor(
     var lineItem = mutableListOf<LineItemX>()
     val productItems = mutableListOf<ProductItem>()
 
-    //    private val _remoteProducts: MutableStateFlow<ResultWrapper<List<ProductRecyclerViewItem.ProductItem>>> =
-//        MutableStateFlow(ResultWrapper.Loading)
+    //    private val _remoteProducts: MutableStateFlow<Resource<List<ProductRecyclerViewItem.ProductItem>>> =
+//        MutableStateFlow(Resource.Loading)
 //    val remoteProducts = _remoteProducts.asStateFlow()
-    private val _remoteProducts: MutableStateFlow<ResultWrapper<List<ProductItem>>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _remoteProducts: MutableStateFlow<Resource<List<ProductItem>>> =
+        MutableStateFlow(Resource.Loading)
     val remoteProducts = _remoteProducts.asStateFlow()
 
-    private val _orderUpdate: MutableStateFlow<ResultWrapper<ResponseOrder>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _orderUpdate: MutableStateFlow<Resource<ResponseOrder>> =
+        MutableStateFlow(Resource.Loading)
     val orderUpdate = _orderUpdate.asStateFlow()
 
-    private val _orderList: MutableStateFlow<ResultWrapper<ResponseOrder>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _orderList: MutableStateFlow<Resource<ResponseOrder>> =
+        MutableStateFlow(Resource.Loading)
     val orderList = _orderList.asStateFlow()
 
-    private val _customer: MutableStateFlow<ResultWrapper<CustomerResponse>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _customer: MutableStateFlow<Resource<CustomerResponse>> =
+        MutableStateFlow(Resource.Loading)
     val customer = _customer.asStateFlow()
 
-    private val _order: MutableStateFlow<ResultWrapper<List<ResponseOrder>>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _order: MutableStateFlow<Resource<List<ResponseOrder>>> =
+        MutableStateFlow(Resource.Loading)
     val order = _order.asStateFlow()
 
-    private val _orderRemote: MutableStateFlow<ResultWrapper<ResponseOrder>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _orderRemote: MutableStateFlow<Resource<ResponseOrder>> =
+        MutableStateFlow(Resource.Loading)
     val orderRemote = _orderRemote.asStateFlow()
 
     var isSuccess: Boolean = false

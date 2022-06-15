@@ -2,9 +2,8 @@ package com.example.magmarket.ui.productscategory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.data.remote.model.ProductItem
-import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
 import com.example.magmarket.data.repository.CategoryRepository
 
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,8 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProductsCategoryViewModel @Inject constructor(private val categoryRepository:CategoryRepository):ViewModel(){
-    private val _productofCategory: MutableStateFlow<ResultWrapper<List<ProductItem>>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _productofCategory: MutableStateFlow<Resource<List<ProductItem>>> =
+        MutableStateFlow(Resource.Loading)
     val productofCategory = _productofCategory.asStateFlow()
 
 

@@ -18,7 +18,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.magmarket.R
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.databinding.FragmentProductDetailBinding
 import com.example.magmarket.ui.adapters.CommentAdapter
 import com.example.magmarket.ui.adapters.SimilarAdapter
@@ -27,13 +27,10 @@ import com.google.android.material.button.MaterialButton
 
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.lang.Error
 import java.text.NumberFormat
 import java.util.*
-import kotlin.math.log
 
 
 @AndroidEntryPoint
@@ -72,6 +69,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         responseUpdateOrder()
         responseGetAnOrder()
         showMoreComment()
+        collectResponseOrder()
     }
 
     private fun init() = with(binding) {
@@ -89,8 +87,8 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     private fun getSimilarProduct() {
         productViewModel.similarProducts.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> binding.stateView.onLoading()
-                is ResultWrapper.Success -> {
+                is Resource.Loading -> binding.stateView.onLoading()
+                is Resource.Success -> {
                     similarAdapter.submitList(it.value)
                     if (it.value.isNotEmpty()) {
                         binding.stateView.onSuccess()
@@ -98,7 +96,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                         binding.stateView.onEmpty()
                     }
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
 
                 }
             }
@@ -108,12 +106,12 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     fun collect() = with(binding) {
         productViewModel.product.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> {
+                is Resource.Loading -> {
                     stateView.onLoading()
                     scrollView3.isVisible = false
                     detailCard.isVisible = false
                 }
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
                     stateView.onSuccess()
                     if (!it.value.images.isNullOrEmpty()) {
                         sliderAdapter.submitList(it.value.images)
@@ -152,7 +150,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                     detailCard.isVisible = true
 
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
                     stateView.onFail()
                     stateView.clickRequest {
 //                       productViewModel.getProduct()
@@ -185,7 +183,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         productViewModel.productComment.collectIt(viewLifecycleOwner) {
             when (it) {
 
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
                     commentAdapter.submitList(it.value)
                 }
 
@@ -197,30 +195,33 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
     fun responseUpdateOrder() = with(binding) {
         lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 productViewModel.orderUpdate.collectLatest {
                     when (it) {
-                        is ResultWrapper.Loading -> {
+                        is Resource.Loading -> {
                             loadingCount.isVisible = true
+                            tvProductCount.isVisible = false
                             parentPlusandminus.isClickable = false
                             loadingCount.playAnimation()
-
                         }
-                        is ResultWrapper.Success -> {
+                        is Resource.Success -> {
+
                             parentPlusandminus.isClickable = true
                             if (it.value.line_items.isNotEmpty()) {
+                                Log.d("helo", "toif balai: " + productViewModel.count)
                                 for (i in it.value.line_items) {
                                     if (productViewModel.productId!!.toInt() == i.product_id) {
                                         productViewModel.id = i.id
+                                        Log.d("helo", "toif paini: " + i.quantity)
+                                        productViewModel.count = i.quantity
                                         tvProductCount.text = productViewModel.count.toString()
-//                                        productViewModel.count = i.quantity
                                         parentPlusandminus.isVisible = true
                                         buttonAddToCart.isVisible = false
                                         loadingCount.isVisible = false
+                                        tvProductCount.isVisible = true
                                         loadingCount.pauseAnimation()
                                         break
                                     } else {
-
                                         parentPlusandminus.isVisible = false
                                         buttonAddToCart.isVisible = true
                                     }
@@ -233,7 +234,8 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
                         }
 
-                        is ResultWrapper.Error -> {
+                        is Resource.Error -> {
+                            Log.d("helo", "responseUpdateOrder: " + "why error?")
                             loadingCount.isVisible = false
                             loadingCount.pauseAnimation()
                         }
@@ -241,26 +243,23 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                 }
             }
         }
-
     }
+
 
     private fun responseGetAnOrder() = with(binding) {
         lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
                 productViewModel.order.collectLatest {
                     when (it) {
-                        is ResultWrapper.Loading -> {
+                        is Resource.Loading -> {
                             loadingCount.isVisible = true
                             loadingCount.playAnimation()
                             buttonAddToCart.isVisible = false
                             parentPlusandminus.isVisible = false
                             binding.buttonAddToCart.isVisible = false
                         }
-                        is ResultWrapper.Success -> {
-                            Log.d(
-                                "getorder",
-                                "responseGetAnOrder: +success" + it.value.line_items.toString()
-                            )
+                        is Resource.Success -> {
+                            Log.d("helo", "responseGetAnOrder: " + productViewModel.count)
                             for (i in it.value.line_items) {
 
                                 if (productViewModel.productId!!.toInt() == i.product_id) {
@@ -285,7 +284,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
                         }
 
-                        is ResultWrapper.Error -> {
+                        is Resource.Error -> {
                             loadingCount.isVisible = false
                             loadingCount.pauseAnimation()
                             Log.d("getorder", "responseGetAnOrder: +error")
@@ -299,35 +298,40 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     }
 
     private fun collectResponseOrder() {
-        productViewModel.orderCreate.collectIt(viewLifecycleOwner) {
-            when (it) {
-                is ResultWrapper.Loading -> {
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                productViewModel.orderCreate.collect {
+                    when (it) {
+                        is Resource.Loading -> {
 
-                }
-                is ResultWrapper.Success -> {
+                        }
+                        is Resource.Success -> {
+                            Log.d("helo", "collectResponseOrder: " + productViewModel.count)
+                            productViewModel.saveUserDataStore(
+                                com.example.magmarket.data.datastore.user.User(
+                                    userId = productViewModel.customerId,
+                                    email = productViewModel.customerEmail,
+                                    firstName = productViewModel.customerFirstName,
+                                    lastName = productViewModel.customerLastName,
+                                    myorderId = it.value.id,
+                                    orderStatus = "pending",
+                                    isLogin = true
+                                )
+                            )
 
-                    productViewModel.saveUserDataStore(
-                        com.example.magmarket.data.datastore.user.User(
-                            userId = productViewModel.customerId,
-                            email = productViewModel.customerEmail,
-                            firstName = productViewModel.customerFirstName,
-                            lastName = productViewModel.customerLastName,
-                            myorderId = it.value.id,
-                            orderStatus = "pending",
-                            isLogin = true
-                        )
-                    )
+                            productViewModel.getAnOrder(it.value.id)
 
-                    productViewModel.getAnOrder(it.value.id)
-//                    responseGetAnOrder()
 
-                }
-                is ResultWrapper.Error -> {
-                    binding.stateView.onFail()
+                        }
+                        is Resource.Error -> {
+                            binding.stateView.onFail()
 
+                        }
+                    }
                 }
             }
         }
+
     }
 
     private fun isUserLogin() {
@@ -341,12 +345,8 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
                             if (productViewModel.orderId == 0) {
                                 productViewModel.createOrder()
-                                collectResponseOrder()
                             } else {
                                 productViewModel.addAnItemInOrder()
-
-//                                productViewModel.getAnOrder(user.myorderId)
-//                                responseGetAnOrder()
                             }
 
                         } else {
@@ -369,9 +369,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                     }
                     productViewModel.orderId = user.myorderId
                     if (user.myorderId != 0) {
-                        Log.d("getorder", "isUserLogin: " + user.myorderId)
                         productViewModel.getAnOrder(user.myorderId)
-
                     }
                 }
             }

@@ -16,10 +16,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import com.example.magmarket.R
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.data.remote.model.review.Review
 import com.example.magmarket.databinding.FragmentSendCommentBinding
-import com.example.magmarket.ui.productdetailsfragment.ProductDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -36,35 +35,57 @@ class SendCommentFragment : Fragment(R.layout.fragment_send_comment) {
         rating()
         checkingForSendComment()
         loginFromLocal()
-        responseSendComment()
         back()
 
     }
 
     private fun collect() = with(binding) {
-        sendCommentViewModel.product.collectIt(viewLifecycleOwner) {
-            when (it) {
-                is ResultWrapper.Loading -> {
-                    stateView.onLoading()
-                    parentComment.isVisible = false
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                launch {
+                    sendCommentViewModel.product.collect {
+                        when (it) {
+                            is Resource.Loading -> {
+                                stateView.onLoading()
+                                parentComment.isVisible = false
 
+                            }
+                            is Resource.Success -> {
+                                Glide.with(this@SendCommentFragment).load(it.value.images?.get(0)!!.src)
+                                    .into(commenttoolbar.imageProduct)
+                                commenttoolbar.productName.text = it.value.name
+
+                                parentComment.isVisible = true
+                                stateView.onSuccess()
+                            }
+                            is Resource.Error -> {
+                                stateView.onFail()
+                                stateView.clickRequest {
+
+                                }
+                            }
+                        }
+                    }
                 }
-                is ResultWrapper.Success -> {
-                    Glide.with(this@SendCommentFragment).load(it.value.images?.get(0)!!.src)
-                        .into(commenttoolbar.imageProduct)
-                    commenttoolbar.productName.text = it.value.name
+                launch {
+                    sendCommentViewModel.responseComment.collect {
+                        when (it) {
+                            is Resource.Success -> {
+                                Toast.makeText(requireContext(), "با موفیقیت ارسال شد", Toast.LENGTH_SHORT)
+                                    .show()
 
-                    parentComment.isVisible = true
-                    stateView.onSuccess()
-                }
-                is ResultWrapper.Error -> {
-                    stateView.onFail()
-                    stateView.clickRequest {
+                            }
+                            is Resource.Error -> {
 
+                                Toast.makeText(requireContext(), "پیام شما ارسال نشد", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        }
                     }
                 }
             }
         }
+
     }
 
     private fun rating() = with(binding) {
@@ -130,7 +151,7 @@ class SendCommentFragment : Fragment(R.layout.fragment_send_comment) {
                 sendCommentViewModel.getUserFromDataStore().collect { user ->
                     if (user.isLogin) {
                         binding.btnSubmitReview.setOnClickListener {
-                            Log.d("infocomment", "sendComment: ${id}")
+                            Log.d("infocomment", "sendComment: ${id}" +sendCommentViewModel.sendCommentProductId)
                             sendCommentViewModel.sendUserComment(
                                 Review(
                                     product_id = sendCommentViewModel.sendCommentProductId!!.toInt(),
@@ -150,26 +171,6 @@ class SendCommentFragment : Fragment(R.layout.fragment_send_comment) {
 
     }
 
-    private fun responseSendComment() {
-        lifecycleScope.launch {
-            sendCommentViewModel.responseComment.collect {
-                when (it) {
-                    is ResultWrapper.Success -> {
-                        Toast.makeText(requireContext(), "با موفیقیت ارسال شد", Toast.LENGTH_SHORT)
-                            .show()
-
-                    }
-                    is ResultWrapper.Error -> {
-
-                        Toast.makeText(requireContext(), "پیام شما ارسال نشد", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                }
-            }
-        }
-
-
-    }
 
     private fun checkingForSendComment() = with(binding) {
 

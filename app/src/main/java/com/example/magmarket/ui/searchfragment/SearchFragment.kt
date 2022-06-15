@@ -13,14 +13,13 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.magmarket.R
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.databinding.FragmentSearchBinding
 import com.example.magmarket.ui.adapters.ProductsOfCategoryAdapter
 
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlin.math.log
 
 @AndroidEntryPoint
 class SearchFragment : Fragment(R.layout.fragment_search) {
@@ -64,11 +63,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     fun resultOfSearch() {
         searchViewModel.searchResult.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> {
+                is Resource.Loading -> {
 
                     binding.productRecyclerviw.isVisible = false
                 }
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
 
                     if (it.value.isNotEmpty()) {
                         binding.productRecyclerviw.isVisible = true
@@ -82,7 +81,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                         Log.d("iamhere", "resultOfSearchempty: ")
                     }
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
                     Log.d("iamhere", "resultOfSearcherror: ")
                     binding.stateView.onFail()
                     binding.stateView.clickRequest {

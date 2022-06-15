@@ -96,6 +96,7 @@
                 android:background="@color/background"
                 android:gravity="top"
                 android:hint="@string/comment_text"
+                android:layout_margin="@dimen/standardMargin0.5x"
                 android:inputType="textLongMessage"
                 android:padding="@dimen/standardMargin2x"
                 android:textColor="@color/text" />

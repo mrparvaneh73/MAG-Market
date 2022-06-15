@@ -9,7 +9,7 @@ import com.example.magmarket.data.datastore.Theme
 import com.example.magmarket.data.datastore.user.User
 import com.example.magmarket.data.datastore.user.UserDataStore
 
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.data.remote.model.customer.Customer
 import com.example.magmarket.data.remote.model.customer.CustomerResponse
 import com.example.magmarket.data.repository.UserRepository
@@ -26,16 +26,16 @@ class UserViewModel @Inject constructor(
     private val userDataStore: UserDataStore
 ) :
     ViewModel() {
-    private val _customerIdResponse: MutableStateFlow<ResultWrapper<CustomerResponse>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _customerIdResponse: MutableStateFlow<Resource<CustomerResponse>> =
+        MutableStateFlow(Resource.Loading)
     val customerIdResponse = _customerIdResponse.asStateFlow()
 
-    private val _user: MutableStateFlow<ResultWrapper<CustomerResponse>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _user: MutableStateFlow<Resource<CustomerResponse>> =
+        MutableStateFlow(Resource.Loading)
     val user = _user.asStateFlow()
 
-    private val _userUpdate: MutableStateFlow<ResultWrapper<CustomerResponse>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _userUpdate: MutableStateFlow<Resource<CustomerResponse>> =
+        MutableStateFlow(Resource.Loading)
     val userUpdate = _userUpdate.asStateFlow()
 
     private val _userFromDataStore: MutableStateFlow<User> =

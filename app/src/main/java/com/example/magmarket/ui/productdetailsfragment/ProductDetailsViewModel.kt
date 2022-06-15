@@ -5,14 +5,13 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.magmarket.data.datastore.user.UserDataStore
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.data.remote.model.ProductItem
 import com.example.magmarket.data.remote.model.order.LineItem
 import com.example.magmarket.data.remote.model.order.MetaData
 import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.model.order.ResponseOrder
 import com.example.magmarket.data.remote.model.review.ResponseReview
-import com.example.magmarket.data.remote.model.review.Review
 import com.example.magmarket.data.remote.model.updateorder.UpdateLineItem
 import com.example.magmarket.data.remote.model.updateorder.UpdateOrder
 import com.example.magmarket.data.repository.ProductRepository
@@ -48,29 +47,29 @@ class ProductDetailsViewModel @Inject constructor(
     var customerLastName = ""
     var count = 1
 
-    private val _orderCreate: MutableStateFlow<ResultWrapper<ResponseOrder>> =
-        MutableStateFlow(ResultWrapper.Loading)
-    val orderCreate = _orderCreate.asStateFlow()
+    private val _orderCreate: MutableSharedFlow<Resource<ResponseOrder>> =
+        MutableSharedFlow()
+    val orderCreate = _orderCreate.asSharedFlow()
 
-    private val _order: MutableSharedFlow<ResultWrapper<ResponseOrder>> =
+    private val _order: MutableSharedFlow<Resource<ResponseOrder>> =
         MutableSharedFlow()
     val order = _order.asSharedFlow()
 
-    private val _orderUpdate: MutableSharedFlow<ResultWrapper<ResponseOrder>> =
+    private val _orderUpdate: MutableSharedFlow<Resource<ResponseOrder>> =
         MutableSharedFlow()
     val orderUpdate = _orderUpdate.asSharedFlow()
 
 
-    private val _product: MutableStateFlow<ResultWrapper<ProductItem>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _product: MutableStateFlow<Resource<ProductItem>> =
+        MutableStateFlow(Resource.Loading)
     val product = _product.asStateFlow()
 
-    private val _productComment: MutableStateFlow<ResultWrapper<List<ResponseReview>>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _productComment: MutableStateFlow<Resource<List<ResponseReview>>> =
+        MutableStateFlow(Resource.Loading)
     val productComment = _productComment.asStateFlow()
 
-    private val _similarProducts: MutableStateFlow<ResultWrapper<List<ProductItem>>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _similarProducts: MutableStateFlow<Resource<List<ProductItem>>> =
+        MutableStateFlow(Resource.Loading)
     val similarProducts = _similarProducts.asStateFlow()
 
 

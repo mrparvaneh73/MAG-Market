@@ -14,7 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.magmarket.R
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.databinding.FragmentMyOrdersBinding
 import com.example.magmarket.ui.adapters.OrderPlacedAdapter
 import com.google.android.material.button.MaterialButton
@@ -70,11 +70,11 @@ class MyOrdersFragment : Fragment(R.layout.fragment_my_orders) {
     private fun collect() {
         cartViewModel.order.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> {
+                is Resource.Loading -> {
                     binding.stateView.onLoading()
                     binding.rcOrderplaced.isVisible = false
                 }
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
                     Log.d("responseordersman ", "collect: "+it.value)
                     orderPlacedAdapter.submitList(it.value)
                     binding.rcOrderplaced.isVisible = true
@@ -84,7 +84,7 @@ class MyOrdersFragment : Fragment(R.layout.fragment_my_orders) {
                         binding.stateView.onEmpty()
                     }
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
                     binding.stateView.onFail()
 
                 }

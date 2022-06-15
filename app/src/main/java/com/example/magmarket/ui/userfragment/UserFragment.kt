@@ -14,7 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.magmarket.R
 import com.example.magmarket.data.datastore.Theme
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.databinding.FragmentUserBinding
 
 import dagger.hilt.android.AndroidEntryPoint
@@ -84,10 +84,10 @@ class UserFragment : Fragment(R.layout.fragment_user) {
     private fun getResponseLogin() {
         viewModel.user.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> {
+                is Resource.Loading -> {
 
                 }
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
                     if (binding.emailTextField!!.text.toString() == it.value.email) {
                         binding.viewLogin!!.isVisible = false
                         binding.viewAccountinfo!!.isVisible = true
@@ -117,7 +117,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
                         binding.passwordTextField.text = null
                     }
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
                     Toast.makeText(
                         requireContext(),
                         "کاربری با این مشخصات یافت نشد",

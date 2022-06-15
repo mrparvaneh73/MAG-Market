@@ -56,7 +56,7 @@ interface MarketService {
         @QueryMap tokens: Map<String, String> = BASE_PARAM
     ): Response<ResponseOrder>
 
-    @POST("orders/{id}")
+    @PUT("orders/{id}")
     suspend fun updateOrder(
         @Path("id") orderId: Int,
         @Body order: UpdateOrder,

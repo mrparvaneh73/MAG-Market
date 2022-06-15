@@ -8,7 +8,7 @@ import com.example.magmarket.application.Constants.ART
 import com.example.magmarket.application.Constants.DIGITAL
 import com.example.magmarket.application.Constants.FASHION_CLOTHING
 import com.example.magmarket.application.Constants.SUPERMARKET
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,20 +18,20 @@ import javax.inject.Inject
 @HiltViewModel
 class CategoryViewModel @Inject constructor(private val categoryRepository: CategoryRepository) :
     ViewModel() {
-    private val _fashionCategory: MutableStateFlow<ResultWrapper<List<CategoryItem>>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _fashionCategory: MutableStateFlow<Resource<List<CategoryItem>>> =
+        MutableStateFlow(Resource.Loading)
     val fashionCategory = _fashionCategory.asStateFlow()
 
-    private val _digitalCategory: MutableStateFlow<ResultWrapper<List<CategoryItem>>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _digitalCategory: MutableStateFlow<Resource<List<CategoryItem>>> =
+        MutableStateFlow(Resource.Loading)
     val digitalCategory = _digitalCategory.asStateFlow()
 
-    private val _superMarketCategory: MutableStateFlow<ResultWrapper<List<CategoryItem>>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _superMarketCategory: MutableStateFlow<Resource<List<CategoryItem>>> =
+        MutableStateFlow(Resource.Loading)
     val superMarketCategory = _superMarketCategory.asStateFlow()
 
-    private val _artCategory: MutableStateFlow<ResultWrapper<List<CategoryItem>>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _artCategory: MutableStateFlow<Resource<List<CategoryItem>>> =
+        MutableStateFlow(Resource.Loading)
     val artCategory = _artCategory.asStateFlow()
 
     init {

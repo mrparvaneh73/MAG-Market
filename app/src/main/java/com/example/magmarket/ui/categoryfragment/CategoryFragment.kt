@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.magmarket.R
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.ui.adapters.SubCategoryAdapter
 import com.example.magmarket.data.remote.model.CategoryItem
 import com.example.magmarket.databinding.FragmentCategoryBinding
@@ -56,11 +56,11 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
 
         viewModel.digitalCategory.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> {
+                is Resource.Loading -> {
                     binding.scrollview.isVisible = false
                     binding.stateView.onLoading()
                 }
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
                     binding.scrollview.isVisible = true
                     digitalAdapter.submitList(it.value)
                     if (it.value.isNotEmpty()) {
@@ -69,7 +69,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
                         binding.stateView.onEmpty()
                     }
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
                     binding.stateView.onFail()
                     binding.stateView.clickRequest {
                         viewModel.getSubCategories()
@@ -81,11 +81,11 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
 
         viewModel.fashionCategory.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> {
+                is Resource.Loading -> {
                     binding.scrollview.isVisible = false
                     binding.stateView.onLoading()
                 }
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
                     binding.scrollview.isVisible = true
                     fashionAdapter.submitList(it.value)
                     if (it.value.isNotEmpty()) {
@@ -94,7 +94,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
                         binding.stateView.onEmpty()
                     }
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
                     binding.stateView.onFail()
                     binding.stateView.clickRequest {
                         viewModel.getSubCategories()
@@ -105,11 +105,11 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
 
         viewModel.superMarketCategory.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> {
+                is Resource.Loading -> {
                     binding.scrollview.isVisible = false
                     binding.stateView.onLoading()
                 }
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
                     binding.scrollview.isVisible = true
                     supermarketAdapter.submitList(it.value)
                     if (it.value.isNotEmpty()) {
@@ -118,7 +118,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
                         binding.stateView.onEmpty()
                     }
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
                     binding.stateView.onFail()
                     binding.stateView.clickRequest {
                         viewModel.getSubCategories()
@@ -130,11 +130,11 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
 
         viewModel.artCategory.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> {
+                is Resource.Loading -> {
                     binding.scrollview.isVisible = false
                     binding.stateView.onLoading()
                 }
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
                     binding.scrollview.isVisible = true
                     artAdapter.submitList(it.value)
                     if (it.value.isNotEmpty()) {
@@ -143,7 +143,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
                         binding.stateView.onEmpty()
                     }
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
                     binding.stateView.onFail()
                     binding.stateView.clickRequest {
                         viewModel.getSubCategories()

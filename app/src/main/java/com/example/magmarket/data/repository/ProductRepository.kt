@@ -16,6 +16,7 @@ import com.example.magmarket.di.MarketRemoteDataSource
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 @ActivityRetainedScoped
@@ -75,7 +76,7 @@ class ProductRepository @Inject constructor(
     }
 
     suspend fun updateOrder(orderId: Int, order: UpdateOrder) = safeApiCall(dispatcher) {
-        marketremoteDataSource.updateOrder(orderId,order)
+   marketremoteDataSource.updateOrder(orderId,order)
     }
     suspend fun deleteAnItemFromOrder(
         orderId: Int,

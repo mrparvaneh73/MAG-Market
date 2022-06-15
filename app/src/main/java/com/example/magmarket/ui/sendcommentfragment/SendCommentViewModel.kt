@@ -1,11 +1,10 @@
 package com.example.magmarket.ui.sendcommentfragment
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.magmarket.data.datastore.user.UserDataStore
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.data.remote.model.ProductItem
 import com.example.magmarket.data.remote.model.review.ResponseReview
 import com.example.magmarket.data.remote.model.review.Review
@@ -29,11 +28,11 @@ class SendCommentViewModel @Inject constructor(
         sendCommentProductId?.let { getProduct(it) }
 
     }
-    private val _product: MutableStateFlow<ResultWrapper<ProductItem>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _product: MutableStateFlow<Resource<ProductItem>> =
+        MutableStateFlow(Resource.Loading)
     val product = _product.asStateFlow()
 
-    private val _responseComment: MutableSharedFlow<ResultWrapper<ResponseReview>> =
+    private val _responseComment: MutableSharedFlow<Resource<ResponseReview>> =
         MutableSharedFlow()
     val responseComment = _responseComment.asSharedFlow()
 
@@ -54,7 +53,9 @@ class SendCommentViewModel @Inject constructor(
 
     fun sendUserComment(review: Review) {
         viewModelScope.launch {
-            repository.sendUserComment(review)
+            repository.sendUserComment(review).collect{
+                _responseComment.emit(it)
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.magmarket.R
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.data.remote.model.order.LineItem
 import com.example.magmarket.databinding.FragmentCartBinding
 import com.example.magmarket.ui.adapters.CartAdapter
@@ -78,10 +78,10 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
         cartViewModel.orderList.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> {
+                is Resource.Loading -> {
 
                 }
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
                     binding.stateView.onSuccess()
 
                     if (it.value.line_items.isNotEmpty()) {
@@ -94,7 +94,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                         emptycart.isVisible = true
                     }
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
                     binding.stateView.onFail()
 
 
@@ -107,12 +107,12 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     private fun getRemote() = with(binding) {
         cartViewModel.remoteProducts.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> {
+                is Resource.Loading -> {
                     stateView.onLoading()
                     parent.isVisible = false
                     buttomBar.isVisible = false
                 }
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
                     binding.parent.isVisible = true
                     binding.detailCard.isVisible = true
                     binding.emptycart.isVisible = false
@@ -132,7 +132,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                     init()
                     stateView.onSuccess()
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
 
                 }
             }
@@ -172,10 +172,10 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     private fun collectWhenUpdate() = with(binding) {
         cartViewModel.orderUpdate.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> {
+                is Resource.Loading -> {
 
                 }
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
 
 
                     if (it.value.line_items.isNotEmpty()) {
@@ -191,7 +191,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                         binding.emptycart.isVisible = true
                     }
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
                     binding.stateView.onFail()
 
 

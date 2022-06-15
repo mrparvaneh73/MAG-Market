@@ -3,7 +3,6 @@ package com.example.magmarket.ui.productscategory
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -14,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.example.magmarket.R
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.ui.adapters.ProductsOfCategoryAdapter
 import com.example.magmarket.databinding.FragmentProductsCategoryBinding
 
@@ -60,11 +59,11 @@ class ProductsCategoryFragment : Fragment(R.layout.fragment_products_category) {
     private fun collect() {
         viewModel.productofCategory.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> {
+                is Resource.Loading -> {
 
                     binding.stateView.onLoading()
                 }
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
 
                     categoryProductAdapter.submitList(it.value)
 
@@ -74,7 +73,7 @@ class ProductsCategoryFragment : Fragment(R.layout.fragment_products_category) {
                         binding.stateView.onEmpty()
                     }
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
                     binding.stateView.onFail()
                     binding.stateView.clickRequest {
                         viewModel.getProductofCategory(args.category)

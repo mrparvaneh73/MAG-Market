@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -16,12 +15,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.magmarket.R
-import com.example.magmarket.data.local.entities.OrderList
 import com.example.magmarket.data.local.entities.ProductItemLocal
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.data.remote.model.order.Billing
 import com.example.magmarket.data.remote.model.order.LineItem
-import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.model.order.Shipping
 import com.example.magmarket.databinding.FragmentFinalizeorderBinding
 
@@ -58,12 +55,12 @@ class FinalizeOrderFragment : Fragment(R.layout.fragment_finalizeorder) {
     fun getCustomerInfo() = with(binding) {
         cartViewModel.customer.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> {
+                is Resource.Loading -> {
                     binding.stateView.onLoading()
                     binding.parent.isVisible = false
 
                 }
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
                     binding.stateView.onSuccess()
                     binding.parent.isVisible = true
 
@@ -100,7 +97,7 @@ class FinalizeOrderFragment : Fragment(R.layout.fragment_finalizeorder) {
                         openDialogaddAdress()
                     }
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
 
                 }
             }
@@ -143,17 +140,17 @@ class FinalizeOrderFragment : Fragment(R.layout.fragment_finalizeorder) {
 //    private fun ResponseOfOrder() {
 //        cartViewModel.orderList.collectIt(viewLifecycleOwner) {
 //            when (it) {
-//                is ResultWrapper.Loading -> {
+//                is Resource.Loading -> {
 //
 //                }
-//                is ResultWrapper.Success -> {
+//                is Resource.Success -> {
 //                    cartViewModel.insertPlacedOrdersInLocal(OrderList(id = it.value.id))
 //                    openDialog(it.value.id.toString())
 //
 //                    cartViewModel.isSuccess = true
 //
 //                }
-//                is ResultWrapper.Error -> {
+//                is Resource.Error -> {
 //                    Toast.makeText(requireContext(), "somethingwentwrong", Toast.LENGTH_SHORT)
 //                        .show()
 //
