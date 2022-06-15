@@ -1,6 +1,7 @@
 package com.example.magmarket.ui.userfragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
@@ -27,7 +28,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
     private var userid: Int = 0
     private var userEmail: String = ""
     private var userFirstName: String = ""
-    private var userLastName:String=""
+    private var userLastName: String = ""
     private val viewModel by activityViewModels<UserViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,7 +36,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         init()
         navigateToSignUp()
         getUser()
-      loginFromLocal()
+        loginFromLocal()
         exitFromAccount()
         editUser()
 
@@ -93,21 +94,16 @@ class UserFragment : Fragment(R.layout.fragment_user) {
                         binding.tvFullNameRegistered!!.text =
                             "${it.value.first_name} ${it.value.last_name}"
                         binding.tvEmailRegistered!!.text = it.value.email
-//                        viewModel.insertUserToLocal(
-//                            User(
-//                                it.value.id,
-//                                it.value.email,
-//                                it.value.first_name,
-//                                it.value.last_name
-//                            )
-//                        )
-                        viewModel.saveUser(com.example.magmarket.data.datastore.user.User(
-                            userId =it.value.id,
-                            email = it.value.email,
-                           firstName = it.value.first_name,
-                            lastName = it.value.last_name,
-                            isLogin = true
-                        ))
+
+                        viewModel.saveUser(
+                            com.example.magmarket.data.datastore.user.User(
+                                userId = it.value.id,
+                                email = it.value.email,
+                                firstName = it.value.first_name,
+                                lastName = it.value.last_name,
+                                isLogin = true
+                            )
+                        )
                         userid = it.value.id
                         userEmail = it.value.email
 
@@ -134,21 +130,22 @@ class UserFragment : Fragment(R.layout.fragment_user) {
 
     private fun loginFromLocal() {
         lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getUser().collect {
-                    if (it.isLogin){
-                        binding.viewLogin!!.isVisible = false
-                        binding.viewAccountinfo!!.isVisible = true
-                        binding.tvFullNameRegistered!!.text =
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
+                viewModel.userFromDataStore.collect {
+                    Log.d("usersssss", "loginFromLocal: " + it)
+                    if (it.isLogin) {
+                        binding.viewLogin.isVisible = false
+                        binding.viewAccountinfo.isVisible = true
+                        binding.tvFullNameRegistered.text =
                             "${it.firstName} ${it.lastName}"
-                        binding.tvEmailRegistered!!.text = it.email
+                        binding.tvEmailRegistered.text = it.email
                         userid = it.userId
                         userEmail = it.email
-                        userFirstName =it.firstName
-                        userLastName=it.lastName
-                    }else{
-                        binding.viewLogin!!.isVisible = true
-                        binding.viewAccountinfo!!.isVisible = false
+                        userFirstName = it.firstName
+                        userLastName = it.lastName
+                    } else {
+                        binding.viewLogin.isVisible = true
+                        binding.viewAccountinfo.isVisible = false
                     }
 
 
@@ -170,18 +167,29 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         binding.exitFromAccount!!.setOnClickListener {
             binding.viewLogin!!.isVisible = true
             binding.viewAccountinfo!!.isVisible = false
-         viewModel.saveUser(com.example.magmarket.data.datastore.user.User(
-             isLogin = false,
-             myorderId = 0
+            viewModel.saveUser(
+                com.example.magmarket.data.datastore.user.User(
+                    isLogin = false,
+                    myorderId = 0
 
-         ))
+                )
+            )
         }
     }
-private fun editUser(){
-    binding.edit!!.setOnClickListener {
-        findNavController().navigate(UserFragmentDirections.actionGlobalAddressFragment(id=userid, firstname = userFirstName, lastname = userLastName, email = userEmail))
+
+    private fun editUser() {
+        binding.edit!!.setOnClickListener {
+            findNavController().navigate(
+                UserFragmentDirections.actionGlobalAddressFragment(
+                    id = userid,
+                    firstname = userFirstName,
+                    lastname = userLastName,
+                    email = userEmail
+                )
+            )
+        }
     }
-}
+
     private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
         lifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {

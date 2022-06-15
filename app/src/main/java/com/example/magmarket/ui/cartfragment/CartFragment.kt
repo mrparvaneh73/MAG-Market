@@ -59,14 +59,16 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 cartViewModel.getUser().collect {
-                    if (it.myorderId != 0) {
-                        cartViewModel.orderId = it.myorderId
-                        cartViewModel.getAnOrder()
-                        collectOnCreate()
-
-                    } else {
+                    if (it.isLogin){
+                        if (it.myorderId != 0) {
+                            cartViewModel.orderId = it.myorderId
+                            cartViewModel.getAnOrder()
+                            collectOnCreate()
+                        }
+                    }else{
                         openDialog()
                     }
+
                 }
             }
         }

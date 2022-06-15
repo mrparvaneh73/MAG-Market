@@ -74,6 +74,7 @@ class ProductDetailsViewModel @Inject constructor(
     val similarProducts = _similarProducts.asStateFlow()
 
 
+
     fun getProduct(id: String) {
         Log.d("idchiye", "getProduct: " + productId)
         viewModelScope.launch(Dispatchers.IO) {
@@ -125,7 +126,7 @@ class ProductDetailsViewModel @Inject constructor(
 
 
     fun getAnOrder(myorderId: Int) {
-        Log.d("getorder", "responseGetAnOrder:" +orderId)
+        Log.d("getorder", "responseGetAnOrder:" + orderId)
         viewModelScope.launch(Dispatchers.IO) {
             delay(500)
             repository.getAnOrder(myorderId).collect {
@@ -144,11 +145,7 @@ class ProductDetailsViewModel @Inject constructor(
         }
     }
 
-    fun sendUserComment(review: Review) {
-        viewModelScope.launch {
-            repository.sendUserComment(review)
-        }
-    }
+
 
     fun setUserInfo(user: com.example.magmarket.data.datastore.user.User) {
         customerId = user.userId

@@ -96,6 +96,9 @@ class ProductRepository @Inject constructor(
          marketremoteDataSource.getProductComment(productId)
     }
 
+    suspend fun getAllProductComment(  productId: Int,page: Int)= marketremoteDataSource.getAllProductComment(productId, page)
+
+
      suspend fun sendUserComment(review: Review)= safeApiCall(dispatcher) {
          marketremoteDataSource.sendUserComment(review)
     }

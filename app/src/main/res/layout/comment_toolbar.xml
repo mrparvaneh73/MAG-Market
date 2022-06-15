@@ -9,12 +9,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_black"
+        android:background="@color/background"
         android:padding="@dimen/standardMargin2x">
 
 
         <ImageView
-            android:id="@+id/imgsearch"
+            android:id="@+id/img_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -32,7 +32,7 @@
             android:layout_marginEnd="24dp"
             android:src="@drawable/emptycart"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imgsearch"
+            app:layout_constraintEnd_toStartOf="@+id/img_back"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.444"
             app:shapeAppearanceOverlay="@style/roundedCornersImageView" />

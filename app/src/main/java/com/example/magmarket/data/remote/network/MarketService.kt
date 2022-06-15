@@ -127,19 +127,32 @@ interface MarketService {
 
 
     @GET("products/reviews")
-    suspend fun getProductComment(@Query("product") productId: Int,
-                                  @QueryMap tokens: Map<String, String> = BASE_PARAM): Response<List<ResponseReview>>
+    suspend fun getProductComment(
+        @Query("product") productId: Int,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ): Response<List<ResponseReview>>
+
+    @GET("products/reviews")
+    suspend fun getAllProductComment(
+        @Query("product") productId: Int,
+        @Query("page") page: Int,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ): Response<List<ResponseReview>>
 
     @POST("products/reviews")
-    suspend fun sendUserComment(@Body review: Review,
-                                @QueryMap tokens: Map<String, String> = BASE_PARAM): Response<ResponseReview>
+    suspend fun sendUserComment(
+        @Body review: Review,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ): Response<ResponseReview>
 
     @DELETE("products/reviews/{id}")
-    suspend fun deleteUserComment(@Path("id") id: Int,
-                                  @QueryMap tokens: Map<String, String> = BASE_PARAM): Response<ResponseReview>
+    suspend fun deleteUserComment(
+        @Path("id") id: Int,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ): Response<ResponseReview>
 
     @PUT("products/reviews/{id}")
-  suspend  fun updateComment(
+    suspend fun updateComment(
         @Path("id") id: Int,
         @Body review: Review,
         @QueryMap tokens: Map<String, String> = BASE_PARAM
@@ -147,13 +160,15 @@ interface MarketService {
 
 
     @GET("coupons")
-   suspend fun verifyCoupon(@Query("code") couponCode: String,
-                            @QueryMap tokens: Map<String, String> = BASE_PARAM): Response<List<CouponResponse>>
+    suspend fun verifyCoupon(
+        @Query("code") couponCode: String,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ): Response<List<CouponResponse>>
 
     @GET("products")
     suspend fun getSortedProduct(
-        @Query("orderby")  orderBy:String="date" ,
-        @Query("page")  page:Int=1,
+        @Query("orderby") orderBy: String = "date",
+        @Query("page") page: Int = 1,
         @QueryMap tokens: Map<String, String> = BASE_PARAM
-    ) : Response<List<ProductItem>>
+    ): Response<List<ProductItem>>
 }

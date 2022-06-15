@@ -103,7 +103,7 @@ class CartViewModel @Inject constructor(
 //        }
 //    }
 
-    fun getUser() = flow<User> {
+    fun getUser() = flow {
         userDataStore.getUser().collect {
             emit(it)
         }

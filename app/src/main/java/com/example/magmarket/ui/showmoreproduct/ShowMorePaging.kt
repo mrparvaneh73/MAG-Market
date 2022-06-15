@@ -1,4 +1,4 @@
-package com.example.magmarket.ui.showmore
+package com.example.magmarket.ui.showmoreproduct
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

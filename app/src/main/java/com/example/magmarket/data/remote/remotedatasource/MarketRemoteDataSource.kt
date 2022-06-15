@@ -86,6 +86,13 @@ class MarketRemoteDataSource @Inject constructor(private val marketService: Mark
         return marketService.getProductComment(productId)
     }
 
+    override suspend fun getAllProductComment(
+        productId: Int,
+        page: Int
+    ): Response<List<ResponseReview>> {
+        return  marketService.getAllProductComment(productId,page)
+    }
+
     override suspend fun sendUserComment(review: Review): Response<ResponseReview> {
 
         return marketService.sendUserComment(review)

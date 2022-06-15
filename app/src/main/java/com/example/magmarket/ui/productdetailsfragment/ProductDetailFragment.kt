@@ -71,6 +71,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         comment()
         responseUpdateOrder()
         responseGetAnOrder()
+        showMoreComment()
     }
 
     private fun init() = with(binding) {
@@ -201,13 +202,13 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                     when (it) {
                         is ResultWrapper.Loading -> {
                             loadingCount.isVisible = true
-                            parentPlusandminus.isClickable=false
+                            parentPlusandminus.isClickable = false
                             loadingCount.playAnimation()
 
                         }
                         is ResultWrapper.Success -> {
-                            parentPlusandminus.isClickable=true
-                            if (it.value.line_items.isNotEmpty()){
+                            parentPlusandminus.isClickable = true
+                            if (it.value.line_items.isNotEmpty()) {
                                 for (i in it.value.line_items) {
                                     if (productViewModel.productId!!.toInt() == i.product_id) {
                                         productViewModel.id = i.id
@@ -224,7 +225,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                                         buttonAddToCart.isVisible = true
                                     }
                                 }
-                            }else{
+                            } else {
                                 parentPlusandminus.isVisible = false
                                 buttonAddToCart.isVisible = true
                             }
@@ -232,10 +233,10 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
                         }
 
-                     is ResultWrapper.Error ->{
-                         loadingCount.isVisible = false
-                         loadingCount.pauseAnimation()
-                     }
+                        is ResultWrapper.Error -> {
+                            loadingCount.isVisible = false
+                            loadingCount.pauseAnimation()
+                        }
                     }
                 }
             }
@@ -268,8 +269,11 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                                     parentPlusandminus.isVisible = true
                                     binding.buttonAddToCart.isVisible = false
                                     productViewModel.count = i.quantity
-                                    Log.d("getorder", "responseGetAnOrder: +success"+productViewModel.count)
-                                    binding.tvProductCount.text =  productViewModel.count.toString()
+                                    Log.d(
+                                        "getorder",
+                                        "responseGetAnOrder: +success" + productViewModel.count
+                                    )
+                                    binding.tvProductCount.text = productViewModel.count.toString()
                                     break
 
                                 } else {
@@ -351,6 +355,18 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                         }
 
                     }
+                    binding.submitComment.setOnClickListener {
+                        if (user.isLogin) {
+                            findNavController().navigate(
+                                ProductDetailFragmentDirections.actionProductDetailFragmentToSendCommentFragment(
+                                    productViewModel.productId!!
+                                )
+                            )
+                        } else {
+                            openDialog()
+                        }
+
+                    }
                     productViewModel.orderId = user.myorderId
                     if (user.myorderId != 0) {
                         Log.d("getorder", "isUserLogin: " + user.myorderId)
@@ -399,6 +415,18 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         }
         dialog.show()
     }
+
+    private fun showMoreComment() {
+        binding.showAllComment.setOnClickListener {
+            findNavController().navigate(
+                ProductDetailFragmentDirections.actionProductDetailFragmentToShowMoreComment(
+                    productViewModel.productId!!.toInt()
+                )
+            )
+        }
+
+    }
+
 
     private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
         lifecycleOwner.lifecycleScope.launch {

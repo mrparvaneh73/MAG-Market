@@ -15,9 +15,7 @@ import com.example.magmarket.data.remote.model.customer.CustomerResponse
 import com.example.magmarket.data.repository.UserRepository
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,10 +33,14 @@ class UserViewModel @Inject constructor(
     private val _user: MutableStateFlow<ResultWrapper<CustomerResponse>> =
         MutableStateFlow(ResultWrapper.Loading)
     val user = _user.asStateFlow()
+
     private val _userUpdate: MutableStateFlow<ResultWrapper<CustomerResponse>> =
         MutableStateFlow(ResultWrapper.Loading)
     val userUpdate = _userUpdate.asStateFlow()
 
+    private val _userFromDataStore: MutableStateFlow<User> =
+        MutableStateFlow(User(isLogin = false))
+    val userFromDataStore = _userFromDataStore.asSharedFlow()
 
     private val _islight = MutableLiveData<Boolean>()
     val islight: LiveData<Boolean> = _islight
@@ -97,11 +99,17 @@ class UserViewModel @Inject constructor(
             userDataStore.saveUser(user)
         }
     }
+    init {
+        getUser()
+    }
 
-    fun getUser() = flow<User> {
-        userDataStore.getUser().collect{
-            emit(it)
+    fun getUser() {
+        viewModelScope.launch {
+            userDataStore.getUser().collect{
+                _userFromDataStore. emit(it)
+            }
         }
+
     }
 //    fun getUserFromLocal()= flow {
 //        userRepository.getUsersFromLocal().collect{

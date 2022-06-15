@@ -19,7 +19,8 @@ import retrofit2.http.Query
 import retrofit2.http.QueryMap
 
 interface RemoteDataSource {
-    suspend fun getAllProduct(page: Int,orderby: String): Response<List<ProductRecyclerViewItem.ProductItem>>
+    suspend fun getAllProduct(page: Int, orderby: String): Response<List<ProductRecyclerViewItem.ProductItem>>
+
     suspend fun getProduct(id: String): Response<ProductItem>
 
     suspend fun getAllCategories(): Response<List<CategoryItem>>
@@ -38,6 +39,8 @@ interface RemoteDataSource {
     suspend fun getAnOrder(orderId: Int): Response<ResponseOrder>
 
     suspend fun getProductComment(productId: Int): Response<List<ResponseReview>>
+    suspend fun getAllProductComment(productId: Int, page: Int): Response<List<ResponseReview>>
+
     suspend fun sendUserComment(review: Review): Response<ResponseReview>
     suspend fun deleteUserComment(id: Int): Response<ResponseReview>
     suspend fun updateComment(id: Int, review: Review): Response<ResponseReview>

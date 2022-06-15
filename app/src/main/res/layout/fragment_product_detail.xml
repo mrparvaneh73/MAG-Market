@@ -235,13 +235,28 @@
 
                     <TextView
                         android:id="@+id/user_comment"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/standardMargin1.5x"
                         android:fontFamily="@font/farkhondeh"
                         android:text="@string/users_commnet"
                         android:textColor="@color/text"
                         android:textSize="@dimen/TextSize4x"
+                        app:layout_constraintBottom_toBottomOf="@id/show_all_comment"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/show_all_comment" />
+
+                    <TextView
+                        android:id="@+id/show_all_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/standardMargin1.5x"
+                        android:fontFamily="@font/farkhondeh"
+                        android:text="@string/show_all"
+                        android:textColor="@color/blue"
+                        android:textSize="@dimen/TextSize3x"
+                        app:layout_constraintBottom_toTopOf="@id/commentrecyclerView"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -372,7 +387,7 @@
                 android:background="@drawable/rounded_background"
                 android:gravity="center"
                 android:orientation="horizontal"
-               android:visibility="gone"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

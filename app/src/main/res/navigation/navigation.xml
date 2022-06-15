@@ -31,6 +31,12 @@
         <argument
             android:name="idOfProduct"
             app:argType="string" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_showMoreComment"
+            app:destination="@id/showMoreComment" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_sendCommentFragment"
+            app:destination="@id/sendCommentFragment" />
     </fragment>
     <fragment
         android:id="@+id/productsCategoryFragment"
@@ -49,7 +55,7 @@
         android:label="UserFragment" />
     <fragment
         android:id="@+id/showMoreFragment"
-        android:name="com.example.magmarket.ui.showmore.ShowMoreFragment"
+        android:name="com.example.magmarket.ui.showmoreproduct.ShowMoreFragment"
         android:label="ShowMoreFragment" >
         <argument
             android:name="orderby"
@@ -128,4 +134,23 @@
     <action android:id="@+id/action_global_addressFragment" app:destination="@id/addressFragment" />
     <action android:id="@+id/action_global_myOrdersFragment" app:destination="@id/myOrdersFragment" />
     <action android:id="@+id/action_global_registerFragment" app:destination="@id/registerFragment" />
+    <fragment
+        android:id="@+id/showMoreComment"
+        android:name="com.example.magmarket.ui.showmorecomment.ShowMoreCommentFragment"
+        android:label="ShowMoreComment" >
+        <argument
+            android:name="porductIdForComment"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_showMoreComment_to_sendCommentFragment"
+            app:destination="@id/sendCommentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sendCommentFragment"
+        android:name="com.example.magmarket.ui.sendcommentfragment.SendCommentFragment"
+        android:label="SendCommentFragment" >
+        <argument
+            android:name="sencommentproductid"
+            app:argType="string" />
+    </fragment>
 </navigation>
