@@ -47,4 +47,6 @@ interface RemoteDataSource {
 
 
     suspend fun verifyCoupon(couponCode: String): Response<List<CouponResponse>>
+
+    suspend fun getSortedProduct() : Response<List<ProductItem>>
 }

@@ -12,7 +12,14 @@
     <string name="searching">جستجو در</string>
     <string name="product">کالا</string>
     <string name="users_commnet">دیدگاه کاربران</string>
-
+    <string name="nothing">هیچکدام</string>
+    <string name="threehours">هر 3 ساعت</string>
+    <string name="fivehours">هر 5 ساعت</string>
+    <string name="eighthours">هر 8 ساعت</string>
+    <string name="twelvehours">  هر 12 ساعت</string>
+    <string name="custom">انتخاب زمان دلخواه</string>
+    <string name="setting_notification">تنظیمات اعلان ها</string>
+    <string name="submit">ثبت</string>
     <string name="describe_your_comment">دیدگاه خود را شرح دهید</string>
     <string name="your_comment">دیدگاه شما</string>
     <string name="submit_comment">ثبت دیدگاه</string>

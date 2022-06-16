@@ -372,7 +372,7 @@
                 android:background="@drawable/rounded_background"
                 android:gravity="center"
                 android:orientation="horizontal"
-
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -478,8 +478,6 @@
                 android:text="@string/add_to_bascket"
                 android:textColor="@color/text"
                 android:textSize="@dimen/TextSize4x"
-                android:visibility="gone"
-
                 app:cornerRadius="@dimen/standardMargin3x"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

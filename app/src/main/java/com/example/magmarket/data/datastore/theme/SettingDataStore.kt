@@ -1,4 +1,4 @@
-package com.example.magmarket.data.datastore
+package com.example.magmarket.data.datastore.theme
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.magmarket.application.Constants.KEY_THEME
+import com.example.magmarket.data.datastore.theme.PreferencesInfo
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

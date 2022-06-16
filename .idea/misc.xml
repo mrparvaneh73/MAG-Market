@@ -18,9 +18,11 @@
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/drawable/defult_pager_dot.xml" value="0.1535" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/drawable/delete.xml" value="0.1745" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/drawable/dot.xml" value="0.1745" />
+        <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/drawable/edit.xml" value="0.1625" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/drawable/enable_btn.xml" value="0.22" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/drawable/ex_plus_products.xml" value="0.1" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/drawable/existing.xml" value="0.1745" />
+        <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/drawable/exit_from_account.xml" value="0.1" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/drawable/favorite.xml" value="0.1" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/drawable/forward.xml" value="0.138" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/drawable/home.xml" value="0.188" />
@@ -79,6 +81,7 @@
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/fragment_finalizeorder.xml" value="0.264" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/fragment_home.xml" value="0.136" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/fragment_my_orders.xml" value="0.20094057289439932" />
+        <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/fragment_notification.xml" value="0.2" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/fragment_parent_of_cart.xml" value="0.10029251984956122" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/fragment_parent_of_search.xml" value="0.20179563916203505" />
         <entry key="..\:/Users/parva/AndroidStudioProjects/MAGMarket/app/src/main/res/layout/fragment_product_detail.xml" value="0.2600459242250287" />

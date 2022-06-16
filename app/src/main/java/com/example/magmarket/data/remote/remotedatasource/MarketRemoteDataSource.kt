@@ -110,6 +110,10 @@ class MarketRemoteDataSource @Inject constructor(private val marketService: Mark
         return marketService.verifyCoupon(couponCode)
     }
 
+    override suspend fun getSortedProduct(): Response<List<ProductItem>> {
+        return marketService.getSortedProduct()
+    }
+
     override suspend fun getProduct(id: String): Response<ProductItem> {
         return marketService.getProduct(id = id)
     }

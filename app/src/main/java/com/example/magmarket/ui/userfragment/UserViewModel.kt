@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.magmarket.data.datastore.SettingDataStore
-import com.example.magmarket.data.datastore.Theme
+import com.example.magmarket.data.datastore.theme.SettingDataStore
+
+import com.example.magmarket.data.datastore.theme.Theme
 import com.example.magmarket.data.datastore.user.User
 import com.example.magmarket.data.datastore.user.UserDataStore
 
@@ -111,32 +112,6 @@ class UserViewModel @Inject constructor(
         }
 
     }
-//    fun getUserFromLocal()= flow {
-//        userRepository.getUsersFromLocal().collect{
-//            emit(it)
-//        }
-//    }
-
-//    fun insertUserToLocal(user: User) {
-//        viewModelScope.launch {
-//            userRepository.insertUser(user)
-//        }
-//    }
-
-
-//    fun deleteUserFromLocal(user: User){
-//        viewModelScope.launch {
-//            userRepository.deleteUser(user)
-//        }
-//
-//    }
-
-//    fun updateUserLocal(user: User){
-//        viewModelScope.launch {
-//            userRepository.updateUserLocal(user)
-//        }
-//
-//    }
 
 
 }

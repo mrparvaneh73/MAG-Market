@@ -11,7 +11,10 @@ object Constants {
     const val SUPERMARKET=81
     const val ART=76
     val KEY_THEME = stringPreferencesKey("preferences_them")
-
+    const val CHANNEL_ID_1="FIRSTCHANNEL"
+    const val CHANNEL_NAME="NEWPRODUCT"
+    const val WORK_NAME="newproduct"
+    const val TAG="mynewproduct"
     const val BASE_URL = "https://woocommerce.maktabsharif.ir/wp-json/wc/v3/"
     const val NEWEST_PRODUCT = "date"
     const val MOSTVIEW_PRODUCT = "rating"

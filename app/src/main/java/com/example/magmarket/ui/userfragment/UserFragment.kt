@@ -13,7 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.magmarket.R
-import com.example.magmarket.data.datastore.Theme
+import com.example.magmarket.data.datastore.theme.Theme
 import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.databinding.FragmentUserBinding
 

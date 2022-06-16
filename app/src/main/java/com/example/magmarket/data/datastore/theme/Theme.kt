@@ -1,4 +1,4 @@
-package com.example.magmarket.data.datastore
+package com.example.magmarket.data.datastore.theme
 
 import androidx.appcompat.app.AppCompatDelegate
 

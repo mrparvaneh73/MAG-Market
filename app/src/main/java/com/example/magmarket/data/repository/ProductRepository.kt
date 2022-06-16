@@ -111,4 +111,9 @@ class ProductRepository @Inject constructor(
      suspend fun updateComment(id: Int, review: Review)= safeApiCall(dispatcher) {
          marketremoteDataSource.updateComment(id,review)
     }
+
+    suspend fun getSortedProducts()= flow{
+        val response= marketremoteDataSource.getSortedProduct().body()
+        emit(response!!)
+    }
 }
