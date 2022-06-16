@@ -1,15 +1,12 @@
 package com.example.magmarket.ui.cartfragment
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.magmarket.data.datastore.user.UserDataStore
 import com.example.magmarket.data.remote.Resource
-import com.example.magmarket.data.remote.model.Cart
 import com.example.magmarket.data.remote.model.ProductItem
-import com.example.magmarket.data.remote.model.customer.CustomerResponse
 import com.example.magmarket.data.remote.model.order.LineItemX
-import com.example.magmarket.data.remote.model.order.Order
+import com.example.magmarket.data.remote.model.order.MetaData
 import com.example.magmarket.data.remote.model.order.ResponseOrder
 import com.example.magmarket.data.remote.model.updateorder.UpdateLineItem
 import com.example.magmarket.data.remote.model.updateorder.UpdateOrder
@@ -25,26 +22,27 @@ class CartViewModel @Inject constructor(
     private val cartRepository: CartRepository,
     private val userDataStore: UserDataStore
 ) : ViewModel() {
-    var cart: MutableList<Cart> = mutableListOf()
+
     var orderId = 0
-    var lineItem = mutableListOf<LineItemX>()
-    val productItems = mutableListOf<ProductItem>()
+    var totalPrice = 0
+    var totalOff = 0
+    var totalCount = 0
+    var totalWithoutOff = 0
+
 
     private val _remoteProducts: MutableStateFlow<Resource<List<ProductItem>>> =
         MutableStateFlow(Resource.Loading)
     val remoteProducts = _remoteProducts.asStateFlow()
 
-    private val _orderUpdate: MutableStateFlow<Resource<ResponseOrder>> =
-        MutableStateFlow(Resource.Loading)
-    val orderUpdate = _orderUpdate.asStateFlow()
-
-    private val _orderList: MutableSharedFlow<Resource<ResponseOrder>> =
+    private val _orderUpdate: MutableSharedFlow<Resource<ResponseOrder>> =
         MutableSharedFlow()
-    val orderList = _orderList.asSharedFlow()
+    val orderUpdate = _orderUpdate.asSharedFlow()
 
-    private val _customer: MutableStateFlow<Resource<CustomerResponse>> =
+    private val _orderList: MutableStateFlow<Resource<ResponseOrder>> =
         MutableStateFlow(Resource.Loading)
-    val customer = _customer.asStateFlow()
+    val orderList = _orderList.asStateFlow()
+
+
 
     private val _order: MutableStateFlow<Resource<List<ResponseOrder>>> =
         MutableStateFlow(Resource.Loading)
@@ -63,13 +61,7 @@ class CartViewModel @Inject constructor(
         }
     }
 
-    fun creatOrder(customer_id: Int, order: Order) {
-        viewModelScope.launch {
-            cartRepository.creatOrder(customer_id, order).collect {
-//                _orderList.emit(it)
-            }
-        }
-    }
+
 
     fun getPlacedOrder(customer_id: Int) {
         viewModelScope.launch {
@@ -80,13 +72,6 @@ class CartViewModel @Inject constructor(
 
     }
 
-    fun getCustomer(id: Int) {
-        viewModelScope.launch {
-            cartRepository.getCustomer(id).collect {
-                _customer.emit(it)
-            }
-        }
-    }
 
     fun getAnOrder() {
         viewModelScope.launch {
@@ -96,14 +81,6 @@ class CartViewModel @Inject constructor(
         }
     }
 
-//    fun getProductFromRemote(include: String) {
-//        viewModelScope.launch {
-//            cartRepository.getProductFromRemote(include).collect {
-//                _remoteProducts.emit(it)
-//
-//            }
-//        }
-//    }
 
     fun updateOrderRemote(orderId: Int, order: UpdateOrder) {
         viewModelScope.launch(Dispatchers.Default) {
@@ -113,96 +90,52 @@ class CartViewModel @Inject constructor(
         }
     }
 
-    fun productIdFromLineItem() {
-        val temp = mutableListOf(0)
-        for (i in lineItem) {
-            temp.add(i.product_id)
 
-        }
-//        Log.d("productssss", "productIdFromLineItem: " + temp.toString())
-//        getProductFromRemote(temp.toString())
+    fun plus(id: Int,quantity:Int,image:String,regularPrice:String) {
+
+        updateOrderRemote(orderId, UpdateOrder( mutableListOf(
+            UpdateLineItem(
+                id = id,
+                quantity = quantity,
+                meta_data = mutableListOf(
+                    MetaData(
+                        key = "image",
+                        value = image
+                    ),
+                    MetaData(
+                        key = "price",
+                        value = regularPrice
+                    )
+                )
+            )
+        )))
     }
 
-//    fun myCart(): List<Cart> {
-//        val temp = mutableListOf<Cart>()
-//        for (i in lineItem) {
-//            for (j in productItems) {
-//                if (i.product_id == j.id.toInt()) {
-//                    temp.add(
-//                        Cart(
-//                            id = i.id,
-//                            productId = i.product_id,
-//                            name = j.name ?: "محصول فاقد نام",
-//                            price = j.price ?: "محصول فاقد قیمت",
-//                            images = j.images?.get(0)!!.src,
-//                            regular_price = j.regular_price ?: "",
-//                            sale_price = j.sale_price ?: "",
-//                            count = i.quantity
-//                        )
-//                    )
-//                }
-//            }
-//        }
-//        return temp
-//    }
+    fun minus(id: Int,quantity:Int,image:String,regularPrice:String) {
 
-    fun plus(productId: Int) {
-        val tempt = mutableListOf<UpdateLineItem>()
-//        for (i in myCart()) {
-//            if (i.productId == productId) {
-//
-//                tempt.add(
-//                    UpdateLineItem(
-//                        id = i.id,
-//                        product_id = i.productId,
-//                        quantity = i.count.plus(1),
-//                    )
-//                )
-//
-//
-//            } else {
-//
-//                tempt.add(
-//                    UpdateLineItem(
-//                        id = i.id,
-//                        product_id = i.productId,
-//                        quantity = i.count
-//                    )
-//                )
-//
-//
-//            }
-//        }
-        updateOrderRemote(orderId, UpdateOrder(tempt))
+        updateOrderRemote(orderId, UpdateOrder( mutableListOf(
+            UpdateLineItem(
+                id = id,
+                quantity = quantity,
+                meta_data = mutableListOf(
+                    MetaData(
+                        key = "image",
+                        value = image
+                    ),
+                    MetaData(
+                        key = "price",
+                        value = regularPrice
+                    )
+                )
+            )
+        )))
     }
 
-    fun minus(productId: Int) {
-        val tempt = mutableListOf<UpdateLineItem>()
-//        for (i in myCart()) {
-//            if (i.productId == productId) {
-//
-//                tempt.add(
-//                    UpdateLineItem(
-//                        id = i.id,
-//                        product_id = i.productId,
-//                        quantity = i.count.minus(1),
-//                    )
-//                )
-//
-//
-//            } else {
-//
-//                tempt.add(
-//                    UpdateLineItem(
-//                        id = i.id,
-//                        product_id = i.productId,
-//                        quantity = i.count
-//                    )
-//                )
-//
-//
-//            }
-//        }
-        updateOrderRemote(orderId, UpdateOrder(tempt))
+    fun setPrice(item:LineItemX){
+        totalPrice += (item.subtotal.toInt() * item.quantity)
+        totalOff += (item.meta_data[1].value.toInt()
+            .minus(item.subtotal.toInt()) * item.quantity)
+        totalWithoutOff += (item.meta_data[1].value.toInt() * item.quantity)
+       totalCount += item.quantity
     }
 }

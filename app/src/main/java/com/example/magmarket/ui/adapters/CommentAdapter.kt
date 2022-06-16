@@ -7,7 +7,6 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.magmarket.data.remote.model.Cart
 import com.example.magmarket.data.remote.model.review.ResponseReview
 import com.example.magmarket.databinding.CommentItemBinding
 

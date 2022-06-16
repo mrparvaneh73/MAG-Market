@@ -86,4 +86,11 @@ Make sure Wi-Fi is on,Airplane Mode is off and try again</string>
     <string name="connection">
         No Internet Connection
     </string>
+    <string name="coupon_code">کد تخفیف</string>
+    <string name="coupon_count">میزان تخفیف</string>
+    <string name="percent">درصد</string>
+    <string name="add_coupon_cart">افزودن کد تخفیف</string>
+    <string name="totalwithcoupon">جمع سبد خرید با تخفیف</string>
+    <string name="accept_coupon">کد تخفیف شما با موفقیت افزوده شد</string>
+    <string name="ignore_coupon">کد تخفیف وارد شده درست نیست یا قبلا استفاده شده است.</string>
 </resources>

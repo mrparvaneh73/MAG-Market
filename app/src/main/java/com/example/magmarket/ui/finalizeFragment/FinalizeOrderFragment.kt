@@ -1,10 +1,11 @@
-package com.example.magmarket.ui.cartfragment
+package com.example.magmarket.ui.finalizeFragment
 
 import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -13,7 +14,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.magmarket.R
 
 import com.example.magmarket.data.remote.Resource
@@ -31,28 +31,38 @@ import kotlinx.coroutines.launch
 class FinalizeOrderFragment : Fragment(R.layout.fragment_finalizeorder) {
     private var _binding: FragmentFinalizeorderBinding? = null
     private val binding get() = _binding!!
-    private val args by navArgs<FinalizeOrderFragmentArgs>()
-    var listLineItem: MutableList<LineItem> = mutableListOf()
-    var billing: Billing = Billing("", "", "", "", "", "", "", "", "", "")
-    var shipping: Shipping = Shipping("", "", "", "", "", "", "", "")
+
     var successId: Int = 0
-    private val cartViewModel by activityViewModels<CartViewModel>()
+    private val finalizeViewModel by activityViewModels<FinalizeOrderViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentFinalizeorderBinding.bind(view)
-        getUser()
+//        getUser()
         getCustomerInfo()
-        ObserveOrderList()
+
         back()
 
     }
 
-    fun getUser() {
-        cartViewModel.getCustomer(args.id)
-    }
+//    fun getUser() {
+//        lifecycleScope.launch {
+//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                finalizeViewModel.userFromDataStore.collect {
+//                    if (it.isLogin) {
+//                        finalizeViewModel.getCustomer(it.userId)
+//                        if (it.myorderId != 0) {
+//                            finalizeViewModel.orderId = it.myorderId
+//                            finalizeViewModel.getAnOrder()
+//                        }
+//                    }
+//
+//                }
+//            }
+//        }
+//    }
 
     fun getCustomerInfo() = with(binding) {
-        cartViewModel.customer.collectIt(viewLifecycleOwner) {
+        finalizeViewModel.customer.collectIt(viewLifecycleOwner) {
             when (it) {
                 is Resource.Loading -> {
                     binding.stateView.onLoading()
@@ -67,30 +77,7 @@ class FinalizeOrderFragment : Fragment(R.layout.fragment_finalizeorder) {
                         fullnameReciver.text = "${it.value.first_name} ${it.value.last_name}"
                         addressReciver.text = it.value.billing.address_1
                         phonenumberReciver.text = it.value.billing.phone
-                        billing = Billing(
-                            address_1 = it.value.billing.address_1,
-                            address_2 = it.value.billing.address_2,
-                            city = it.value.billing.city,
-                            country = it.value.billing.country,
-                            email = it.value.billing.email,
-                            first_name = it.value.billing.first_name,
-                            last_name = it.value.billing.last_name,
-                            phone = it.value.billing.phone,
-                            postcode = it.value.billing.postcode,
-                            state = ""
-                        )
-                        shipping = Shipping(
-                            address_1 = it.value.billing.address_1,
-                            address_2 = it.value.billing.address_2,
-                            city = it.value.billing.city,
-                            country = it.value.billing.country,
 
-                            first_name = it.value.billing.first_name,
-                            last_name = it.value.billing.last_name,
-
-                            postcode = it.value.billing.postcode,
-                            state = ""
-                        )
                     } else {
                         binding.parent.isVisible = false
                         openDialogaddAdress()
@@ -110,56 +97,28 @@ class FinalizeOrderFragment : Fragment(R.layout.fragment_finalizeorder) {
 //        }
 //    }
 
-    private fun ObserveOrderList() {
 
-        lifecycleScope.launch {
-//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                cartViewModel.getOrdersFromLocal().collect {
-//                    allProductInOrderList.addAll(it)
-//                    for (i in it) {
-//                        listLineItem.add(
-//                            LineItem(
-//                                product_id = i.id,
-//                                quantity = i.count,
-//                                variation_id = 0
-//                            )
-//                        )
-//                   }
-////                    finalizeOrder(
-////                        args.id,
-////                        Order(line_items = listLineItem)
-////                    )
-//                }
-//            }
 
+    private fun ResponseOfOrder() {
+        finalizeViewModel.orderList.collectIt(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+
+                }
+                is Resource.Error -> {
+                    Toast.makeText(requireContext(), "somethingwentwrong", Toast.LENGTH_SHORT)
+                        .show()
+
+                }
+            }
         }
-
     }
 
-//    private fun ResponseOfOrder() {
-//        cartViewModel.orderList.collectIt(viewLifecycleOwner) {
-//            when (it) {
-//                is Resource.Loading -> {
-//
-//                }
-//                is Resource.Success -> {
-//                    cartViewModel.insertPlacedOrdersInLocal(OrderList(id = it.value.id))
-//                    openDialog(it.value.id.toString())
-//
-//                    cartViewModel.isSuccess = true
-//
-//                }
-//                is Resource.Error -> {
-//                    Toast.makeText(requireContext(), "somethingwentwrong", Toast.LENGTH_SHORT)
-//                        .show()
-//
-//                }
-//            }
-//        }
-//    }
-
     private fun back() {
-        binding.btnBack.setOnClickListener {
+        binding.backImg.setOnClickListener {
             findNavController().navigate(
                 FinalizeOrderFragmentDirections.actionGlobalParentOfCartFragment(
                     successId

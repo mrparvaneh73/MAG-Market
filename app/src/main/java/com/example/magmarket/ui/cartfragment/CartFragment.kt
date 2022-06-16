@@ -22,6 +22,7 @@ import com.example.magmarket.ui.adapters.CartAdapter
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.*
@@ -34,14 +35,6 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     private val cartViewModel by activityViewModels<CartViewModel>()
     private val cartAdapter = CartAdapter()
 
-
-    var totalPrice = 0
-    var totalOff = 0
-
-    var totalCount = 0
-    var totalWithoutOff = 0
-    var listLineItem: MutableList<LineItem> = mutableListOf()
-    var allProductInOrderList: MutableList<Int> = mutableListOf(0)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCartBinding.bind(view)
@@ -50,9 +43,9 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
         adapterClickListener()
 
-        finalizeOrder()
-
         collectOnCreate()
+
+        collectWhenUpdate()
 
 
     }
@@ -60,11 +53,14 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     private fun isUserLogin() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                cartViewModel.getUser().collect {
-                    if (it.isLogin) {
-                        if (it.myorderId != 0) {
-                            cartViewModel.orderId = it.myorderId
+                cartViewModel.getUser().collect {user->
+                    if (user.isLogin) {
+                        if (user.myorderId != 0) {
+                            cartViewModel.orderId = user.myorderId
                             cartViewModel.getAnOrder()
+                        }
+                        binding.buttonContinue.setOnClickListener {
+                            findNavController().navigate(CartFragmentDirections.actionGlobalFinalizeOrderFragment(userId = user.userId, myOrderId = user.myorderId))
                         }
                     } else {
                         openDialog()
@@ -81,18 +77,29 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                 cartViewModel.orderList.collect {
                     when (it) {
                         is Resource.Loading -> {
-
+                            binding.stateView.onLoading()
+                            parentDetail.isVisible = false
+                            buttomBar.isVisible = false
+                            cartRecyclerviw.isVisible=false
                         }
                         is Resource.Success -> {
                             binding.stateView.onSuccess()
+                            Log.d("iamhere", "collectOnCreate: ")
                             if (it.value.line_items.isNotEmpty()) {
                                 cartAdapter.submitList(it.value.line_items)
+                                resetValues()
+                                for (i in it.value.line_items) {
+                                    cartViewModel.setPrice(i)
+                                }
+                                init()
+                                isNotEmpty()
 
                             } else {
-                                emptycart.isVisible = true
+                                isEmpty()
                             }
                         }
                         is Resource.Error -> {
+                            isEmpty()
                             binding.stateView.onFail()
                         }
                     }
@@ -103,115 +110,98 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
     }
 
-//    private fun getRemote() = with(binding) {
-//        cartViewModel.remoteProducts.collectIt(viewLifecycleOwner) {
-//            when (it) {
-//                is Resource.Loading -> {
-//                    stateView.onLoading()
-//                    parent.isVisible = false
-//                    buttomBar.isVisible = false
-//                }
-//                is Resource.Success -> {
-//                    binding.parent.isVisible = true
-//                    binding.detailCard.isVisible = true
-//                    binding.emptycart.isVisible = false
-//                    cartViewModel.productItems.clear()
-//                    cartViewModel.productItems.addAll(it.value)
-//                    Log.d("productssss", "getRemote: " + it.value.toString())
-////                    cartAdapter.submitList(cartViewModel.myCart())
-//
-//                    cartAdapter.notifyDataSetChanged()
-////                    for (x in cartViewModel.myCart()) {
-////                        totalPrice += (x.price.toInt() * x.count)
-////                        totalOff += (x.off)
-////                        totalWithoutOff += (x.regular_price.toInt() * x.count)
-////                        totalCount += x.count
-////
-////                    }
-//                    init()
-//                    stateView.onSuccess()
-//                }
-//                is Resource.Error -> {
-//
-//                }
-//            }
-//        }
-//    }
-
     private fun init() = with(binding) {
 
-        tvTotalprice.text = nf.format(totalPrice)
-        tvTotaloffCountPrice.text = nf.format(totalOff)
-        totlapricedesc.text = nf.format(totalPrice)
-        totalPriceWithoutOff.text = nf.format(totalWithoutOff)
-        countproductdesc.text = totalCount.toString()
+        tvTotalprice.text = nf.format(cartViewModel.totalPrice)
+        tvTotaloffCountPrice.text = nf.format(cartViewModel.totalOff)
+        totlapricedesc.text = nf.format(cartViewModel.totalPrice)
+        totalPriceWithoutOff.text = nf.format(cartViewModel.totalWithoutOff)
+        countproductdesc.text = cartViewModel.totalCount.toString()
     }
 
     private fun adapterClickListener() {
         cartAdapter.setOnItemClickListener(object : CartAdapter.OnItemClickListener {
-            override fun onItemPlus(position: Int) {
+            override fun onItemPlus(
+                position: Int,
+                id: Int,
+                quantity: Int,
+                image: String,
+                regularPrice: String
+            ) {
                 resetValues()
-                Log.d("clicked", "onItemPlus: plus")
-                cartViewModel.plus(position)
+                var count = quantity
+                count++
+                cartViewModel.plus(id, count, image, regularPrice)
+                cartAdapter.notifyItemChanged(position, quantity)
 
-                collectWhenUpdate()
+
             }
 
-            override fun onItemMinus(position: Int) {
+            override fun onItemMinus(
+                position: Int,
+                id: Int,
+                quantity: Int,
+                image: String,
+                regularPrice: String
+            ) {
                 resetValues()
+                var count = quantity
+                count--
+                cartViewModel.minus(id, count, image, regularPrice)
+                if (count == 0) {
+                    cartAdapter.notifyItemRemoved(position)
+                } else {
+                    cartAdapter.notifyItemChanged(position)
+                }
 
-                cartViewModel.minus(position)
 
-                collectWhenUpdate()
             }
+
 
         })
     }
 
     private fun collectWhenUpdate() = with(binding) {
-        cartViewModel.orderUpdate.collectIt(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Loading -> {
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                cartViewModel.orderUpdate.collectLatest {
+                    when (it) {
+                        is Resource.Loading -> {
 
-                }
-                is Resource.Success -> {
-
-
-                    if (it.value.line_items.isNotEmpty()) {
-                        binding.stateView.onSuccess()
-
-                        cartViewModel.lineItem.clear()
-
-                        cartViewModel.lineItem.addAll(it.value.line_items)
-                        cartViewModel.productIdFromLineItem()
-
-                    } else {
-
-                        binding.emptycart.isVisible = true
+                        }
+                        is Resource.Success -> {
+                            if (it.value.line_items.isNotEmpty()) {
+                                Log.d("iamhere", "collectWhenUpdate: ")
+                                binding.stateView.onSuccess()
+                                cartAdapter.submitList(it.value.line_items)
+                                for (i in it.value.line_items) {
+                                    cartViewModel.setPrice(i)
+                                }
+                                init()
+                                isNotEmpty()
+                            } else {
+                                isEmpty()
+                            }
+                        }
+                        is Resource.Error -> {
+                            binding.stateView.onFail()
+                            isEmpty()
+                        }
                     }
-                }
-                is Resource.Error -> {
-                    binding.stateView.onFail()
-
-
                 }
             }
         }
+
     }
 
-    private fun finalizeOrder() {
-        binding.buttonAddToCart.setOnClickListener {
-//            isUserLogin()
-        }
-    }
+
 
 
     fun resetValues() {
-        listLineItem.clear()
-        totalPrice = 0
-        totalCount = 0
-        totalOff = 0
-        totalWithoutOff = 0
+        cartViewModel.totalPrice = 0
+        cartViewModel.totalCount = 0
+        cartViewModel.totalOff = 0
+        cartViewModel.totalWithoutOff = 0
     }
 
     private fun openDialog() {
@@ -231,14 +221,18 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         dialog.show()
     }
 
-    private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
-        lifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                collect {
-                    function.invoke(it)
-                }
-            }
-        }
+    fun isEmpty() = with(binding) {
+        parentDetail.isVisible = false
+        emptycart.isVisible = true
+        cartRecyclerviw.isVisible = false
+        buttomBar.isVisible = false
+    }
+
+    fun isNotEmpty() = with(binding) {
+        parentDetail.isVisible = true
+        emptycart.isVisible = false
+        cartRecyclerviw.isVisible = true
+        buttomBar.isVisible = true
     }
 
     override fun onDestroyView() {

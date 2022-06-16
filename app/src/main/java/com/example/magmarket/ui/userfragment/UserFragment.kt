@@ -89,11 +89,11 @@ class UserFragment : Fragment(R.layout.fragment_user) {
                 }
                 is Resource.Success -> {
                     if (binding.emailTextField!!.text.toString() == it.value.email) {
-                        binding.viewLogin!!.isVisible = false
-                        binding.viewAccountinfo!!.isVisible = true
-                        binding.tvFullNameRegistered!!.text =
+                        binding.viewLogin.isVisible = false
+                        binding.viewAccountinfo.isVisible = true
+                        binding.tvFullNameRegistered.text =
                             "${it.value.first_name} ${it.value.last_name}"
-                        binding.tvEmailRegistered!!.text = it.value.email
+                        binding.tvEmailRegistered.text = it.value.email
 
                         viewModel.saveUser(
                             com.example.magmarket.data.datastore.user.User(
@@ -164,9 +164,9 @@ class UserFragment : Fragment(R.layout.fragment_user) {
     }
 
     private fun exitFromAccount() {
-        binding.exitFromAccount!!.setOnClickListener {
-            binding.viewLogin!!.isVisible = true
-            binding.viewAccountinfo!!.isVisible = false
+        binding.exitFromAccount.setOnClickListener {
+            binding.viewLogin.isVisible = true
+            binding.viewAccountinfo.isVisible = false
             viewModel.saveUser(
                 com.example.magmarket.data.datastore.user.User(
                     isLogin = false,

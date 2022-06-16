@@ -105,10 +105,13 @@
     </fragment>
     <fragment
         android:id="@+id/finalizeOrderFragment"
-        android:name="com.example.magmarket.ui.cartfragment.FinalizeOrderFragment"
+        android:name="com.example.magmarket.ui.finalizeFragment.FinalizeOrderFragment"
         android:label="FinalizeOrderFragment" >
         <argument
-            android:name="id"
+            android:name="userId"
+            app:argType="integer" />
+        <argument
+            android:name="myOrderId"
             app:argType="integer" />
     </fragment>
     <fragment

@@ -260,28 +260,33 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                             binding.buttonAddToCart.isVisible = false
                         }
                         is Resource.Success -> {
-                            Log.d("helo", "responseGetAnOrder: " + productViewModel.count)
-                            for (i in it.value.line_items) {
+                         if (it.value.line_items.isNotEmpty()){
+                             for (i in it.value.line_items) {
 
-                                if (productViewModel.productId!!.toInt() == i.product_id) {
-                                    productViewModel.id = i.id
-                                    loadingCount.isVisible = false
-                                    parentPlusandminus.isVisible = true
-                                    binding.buttonAddToCart.isVisible = false
-                                    productViewModel.count = i.quantity
-                                    Log.d(
-                                        "getorder",
-                                        "responseGetAnOrder: +success" + productViewModel.count
-                                    )
-                                    binding.tvProductCount.text = productViewModel.count.toString()
-                                    break
+                                 if (productViewModel.productId!!.toInt() == i.product_id) {
+                                     productViewModel.id = i.id
+                                     loadingCount.isVisible = false
+                                     parentPlusandminus.isVisible = true
+                                     binding.buttonAddToCart.isVisible = false
+                                     productViewModel.count = i.quantity
+                                     Log.d(
+                                         "getorder",
+                                         "responseGetAnOrder: +success" + productViewModel.count
+                                     )
+                                     binding.tvProductCount.text = productViewModel.count.toString()
+                                     break
 
-                                } else {
+                                 } else {
 
-                                    parentPlusandminus.isVisible = false
-                                    buttonAddToCart.isVisible = true
-                                }
-                            }
+                                     parentPlusandminus.isVisible = false
+                                     buttonAddToCart.isVisible = true
+                                 }
+                             }
+                         }else{
+                             parentPlusandminus.isVisible = false
+                             buttonAddToCart.isVisible = true
+                         }
+
 
                         }
 

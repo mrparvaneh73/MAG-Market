@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.magmarket.R
-import com.example.magmarket.data.remote.model.Cart
 import com.example.magmarket.data.remote.model.order.LineItemX
 import com.example.magmarket.databinding.CartItemBinding
 import java.text.NumberFormat
@@ -23,6 +22,7 @@ class CartAdapter :
 
     fun setOnItemClickListener(listenerOn: OnItemClickListener) {
         onItemClickListener = listenerOn
+        notifyDataSetChanged()
     }
 
     inner class MyViewHolder(
@@ -57,10 +57,10 @@ class CartAdapter :
             tvProductCount.text = productItem.quantity.toString()
 
             imageViewPlus.setOnClickListener {
-                listenerOn.onItemPlus(productItem.product_id)
+                listenerOn.onItemPlus(absoluteAdapterPosition,productItem.id,productItem.quantity,productItem.meta_data[0].value,productItem.meta_data[1].value)
             }
             imgDeleteOrder.setOnClickListener {
-                listenerOn.onItemMinus(productItem.product_id)
+                listenerOn.onItemMinus(absoluteAdapterPosition,productItem.id,productItem.quantity,productItem.meta_data[0].value,productItem.meta_data[1].value)
             }
 
         }
@@ -86,8 +86,8 @@ class CartAdapter :
     }
 
     interface OnItemClickListener {
-        fun onItemPlus(position: Int)
-        fun onItemMinus(position: Int)
+        fun onItemPlus(position: Int,id: Int, quantity: Int,image:String,regularPrice:String)
+        fun onItemMinus(position: Int,id: Int, quantity: Int,image:String,regularPrice:String)
     }
 
 }
