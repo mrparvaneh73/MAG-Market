@@ -7,13 +7,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.magmarket.data.remote.model.ProductItem
 import com.example.magmarket.data.remote.model.order.ResponseOrder
 import com.example.magmarket.databinding.PlacedOrderItemBinding
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class OrderPlacedAdapter() :
+class OrderPlacedAdapter(private var clickListener: (ResponseOrder) -> Unit) :
     ListAdapter<ResponseOrder, OrderPlacedAdapter.MyViewHolder>(PlacedOrderDiffCall) {
     val nf: NumberFormat = NumberFormat.getInstance(Locale.US)
     @SuppressLint("SimpleDateFormat")
@@ -26,7 +27,9 @@ class OrderPlacedAdapter() :
         fun mBind(order: ResponseOrder) = binding.apply {
             tvOrderId.text=order.id.toString()
             tvPrice.text=nf.format(order.total.toInt())
-
+            root.setOnClickListener {
+                clickListener(order)
+            }
         }
     }
 

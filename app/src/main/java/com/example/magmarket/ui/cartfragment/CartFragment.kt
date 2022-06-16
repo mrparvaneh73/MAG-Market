@@ -139,7 +139,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                 var count = quantity
                 count++
                 cartViewModel.plusOrMinus(id, count, image, regularPrice)
-                cartAdapter.notifyItemChanged(position, quantity)
+
 
 
             }
@@ -155,12 +155,6 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                 var count = quantity
                 count--
                 cartViewModel.plusOrMinus(id, count, image, regularPrice)
-                if (count == 0) {
-                    cartAdapter.notifyItemRemoved(position)
-                } else {
-                    cartAdapter.notifyItemChanged(position)
-                }
-
 
             }
 

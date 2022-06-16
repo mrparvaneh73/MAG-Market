@@ -91,6 +91,7 @@ interface MarketService {
     @GET("orders")
     suspend fun getPlacedOrders(
         @Query("customer") customer_id: Int,
+        @Query("status") status: String = "completed",
         @QueryMap tokens: Map<String, String> = BASE_PARAM
     ): Response<List<ResponseOrder>>
 

@@ -46,7 +46,7 @@ class FinalizeOrderViewModel @Inject constructor(
         myorderId?.let {
             getAnOrder(it)
         }
-
+        getUser()
     }
 
     private val _coupon: MutableStateFlow<Resource<List<CouponResponse>>> =
@@ -71,11 +71,11 @@ class FinalizeOrderViewModel @Inject constructor(
 
     private fun getUser() {
         viewModelScope.launch {
+            delay(500)
             userDataStore.getUser().collect {
                 _userFromDataStore.emit(it)
             }
         }
-
     }
 
     fun getCustomer(id: Int) {

@@ -44,15 +44,12 @@ class CartViewModel @Inject constructor(
 
 
 
-    private val _order: MutableStateFlow<Resource<List<ResponseOrder>>> =
-        MutableStateFlow(Resource.Loading)
-    val order = _order.asStateFlow()
 
     private val _orderRemote: MutableStateFlow<Resource<ResponseOrder>> =
         MutableStateFlow(Resource.Loading)
     val orderRemote = _orderRemote.asStateFlow()
 
-    var isSuccess: Boolean = false
+
 
 
     fun getUser() = flow {
@@ -63,14 +60,6 @@ class CartViewModel @Inject constructor(
 
 
 
-    fun getPlacedOrder(customer_id: Int) {
-        viewModelScope.launch {
-            cartRepository.getPlacedOrder(customer_id).collect {
-                _order.emit(it)
-            }
-        }
-
-    }
 
 
     fun getAnOrder() {
@@ -91,51 +80,37 @@ class CartViewModel @Inject constructor(
     }
 
 
-    fun plusOrMinus(id: Int,quantity:Int,image:String,regularPrice:String) {
+    fun plusOrMinus(id: Int, quantity: Int, image: String, regularPrice: String) {
 
-        updateOrderRemote(orderId, UpdateOrder( line_items = mutableListOf(
-            UpdateLineItem(
-                id = id,
-                quantity = quantity,
-                meta_data = mutableListOf(
-                    MetaData(
-                        key = "image",
-                        value = image
-                    ),
-                    MetaData(
-                        key = "price",
-                        value = regularPrice
+        updateOrderRemote(
+            orderId, UpdateOrder(
+                line_items = mutableListOf(
+                    UpdateLineItem(
+                        id = id,
+                        quantity = quantity,
+                        meta_data = mutableListOf(
+                            MetaData(
+                                key = "image",
+                                value = image
+                            ),
+                            MetaData(
+                                key = "price",
+                                value = regularPrice
+                            )
+                        )
                     )
-                )
+                ), status = "pending"
             )
-        ), status = "pending"))
+        )
     }
 
-//    fun minus(id: Int,quantity:Int,image:String,regularPrice:String) {
-//
-//        updateOrderRemote(orderId, UpdateOrder(line_items =  mutableListOf(
-//            UpdateLineItem(
-//                id = id,
-//                quantity = quantity,
-//                meta_data = mutableListOf(
-//                    MetaData(
-//                        key = "image",
-//                        value = image
-//                    ),
-//                    MetaData(
-//                        key = "price",
-//                        value = regularPrice
-//                    )
-//                )
-//            )
-//        )))
-//    }
 
-    fun setPrice(item:LineItemX){
+
+    fun setPrice(item: LineItemX) {
         totalPrice += (item.subtotal.toInt() * item.quantity)
         totalOff += (item.meta_data[1].value.toInt()
             .minus(item.subtotal.toInt()) * item.quantity)
         totalWithoutOff += (item.meta_data[1].value.toInt() * item.quantity)
-       totalCount += item.quantity
+        totalCount += item.quantity
     }
 }

@@ -120,7 +120,7 @@
         android:label="CartFragment" />
     <fragment
         android:id="@+id/myOrdersFragment"
-        android:name="com.example.magmarket.ui.cartfragment.MyOrdersFragment"
+        android:name="com.example.magmarket.ui.placedordersfragment.MyOrdersFragment"
         android:label="MyOrdersFragment" />
     <action android:id="@+id/action_global_showMoreFragment" app:destination="@id/showMoreFragment" />
     <action
@@ -156,4 +156,11 @@
             android:name="sencommentproductid"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/eachPlacedOrderDetailsFragment"
+        android:name="com.example.magmarket.ui.placedordersfragment.EachPlacedOrderDetailsFragment"
+        android:label="EachPlacedOrderDetailsFragment" >
+        <argument android:name="placedOrderId"
+            app:argType="integer" />
+    </fragment><action android:id="@+id/action_global_eachPlacedOrderDetailsFragment" app:destination="@id/eachPlacedOrderDetailsFragment"/>
 </navigation>
