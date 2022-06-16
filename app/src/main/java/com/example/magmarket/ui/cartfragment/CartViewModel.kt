@@ -4,8 +4,6 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.magmarket.data.datastore.user.UserDataStore
-import com.example.magmarket.data.local.entities.OrderList
-import com.example.magmarket.data.local.entities.ProductItemLocal
 import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.data.remote.model.Cart
 import com.example.magmarket.data.remote.model.ProductItem
@@ -18,9 +16,7 @@ import com.example.magmarket.data.remote.model.updateorder.UpdateOrder
 import com.example.magmarket.data.repository.CartRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,9 +30,6 @@ class CartViewModel @Inject constructor(
     var lineItem = mutableListOf<LineItemX>()
     val productItems = mutableListOf<ProductItem>()
 
-    //    private val _remoteProducts: MutableStateFlow<Resource<List<ProductRecyclerViewItem.ProductItem>>> =
-//        MutableStateFlow(Resource.Loading)
-//    val remoteProducts = _remoteProducts.asStateFlow()
     private val _remoteProducts: MutableStateFlow<Resource<List<ProductItem>>> =
         MutableStateFlow(Resource.Loading)
     val remoteProducts = _remoteProducts.asStateFlow()
@@ -45,9 +38,9 @@ class CartViewModel @Inject constructor(
         MutableStateFlow(Resource.Loading)
     val orderUpdate = _orderUpdate.asStateFlow()
 
-    private val _orderList: MutableStateFlow<Resource<ResponseOrder>> =
-        MutableStateFlow(Resource.Loading)
-    val orderList = _orderList.asStateFlow()
+    private val _orderList: MutableSharedFlow<Resource<ResponseOrder>> =
+        MutableSharedFlow()
+    val orderList = _orderList.asSharedFlow()
 
     private val _customer: MutableStateFlow<Resource<CustomerResponse>> =
         MutableStateFlow(Resource.Loading)
@@ -62,45 +55,7 @@ class CartViewModel @Inject constructor(
     val orderRemote = _orderRemote.asStateFlow()
 
     var isSuccess: Boolean = false
-    fun getOrdersFromLocal() = flow {
-        cartRepository.getAllCartProductFromLocal().collect {
-            emit(it)
-        }
 
-    }
-
-
-    fun getAllPlacedOrders() = flow {
-        cartRepository.getAllPlacedOrders().collect {
-            emit(it)
-        }
-    }
-
-    fun insertPlacedOrdersInLocal(order: OrderList) {
-        viewModelScope.launch {
-            cartRepository.insertOrder(order)
-        }
-    }
-
-    fun deleteOrderFromLocal(productItemLocal: ProductItemLocal) {
-        viewModelScope.launch {
-            cartRepository.deleteProductFromCart(productItemLocal)
-        }
-
-    }
-
-    fun updateOrder(productItemLocal: ProductItemLocal) {
-        viewModelScope.launch {
-            cartRepository.updateProductCart(productItemLocal)
-        }
-
-    }
-
-//    fun getUserFromLocal() = flow {
-//        cartRepository.getUsersFromLocal().collect {
-//            emit(it)
-//        }
-//    }
 
     fun getUser() = flow {
         userDataStore.getUser().collect {
@@ -141,14 +96,14 @@ class CartViewModel @Inject constructor(
         }
     }
 
-    fun getProductFromRemote(include: String) {
-        viewModelScope.launch {
-            cartRepository.getProductFromRemote(include).collect {
-                _remoteProducts.emit(it)
-
-            }
-        }
-    }
+//    fun getProductFromRemote(include: String) {
+//        viewModelScope.launch {
+//            cartRepository.getProductFromRemote(include).collect {
+//                _remoteProducts.emit(it)
+//
+//            }
+//        }
+//    }
 
     fun updateOrderRemote(orderId: Int, order: UpdateOrder) {
         viewModelScope.launch(Dispatchers.Default) {
@@ -164,90 +119,90 @@ class CartViewModel @Inject constructor(
             temp.add(i.product_id)
 
         }
-        Log.d("productssss", "productIdFromLineItem: " + temp.toString())
-        getProductFromRemote(temp.toString())
+//        Log.d("productssss", "productIdFromLineItem: " + temp.toString())
+//        getProductFromRemote(temp.toString())
     }
 
-    fun myCart(): List<Cart> {
-        val temp = mutableListOf<Cart>()
-        for (i in lineItem) {
-            for (j in productItems) {
-                if (i.product_id == j.id.toInt()) {
-                    temp.add(
-                        Cart(
-                            id = i.id,
-                            productId = i.product_id,
-                            name = j.name ?: "محصول فاقد نام",
-                            price = j.price ?: "محصول فاقد قیمت",
-                            images = j.images?.get(0)!!.src,
-                            regular_price = j.regular_price ?: "",
-                            sale_price = j.sale_price ?: "",
-                            count = i.quantity
-                        )
-                    )
-                }
-            }
-        }
-        return temp
-    }
+//    fun myCart(): List<Cart> {
+//        val temp = mutableListOf<Cart>()
+//        for (i in lineItem) {
+//            for (j in productItems) {
+//                if (i.product_id == j.id.toInt()) {
+//                    temp.add(
+//                        Cart(
+//                            id = i.id,
+//                            productId = i.product_id,
+//                            name = j.name ?: "محصول فاقد نام",
+//                            price = j.price ?: "محصول فاقد قیمت",
+//                            images = j.images?.get(0)!!.src,
+//                            regular_price = j.regular_price ?: "",
+//                            sale_price = j.sale_price ?: "",
+//                            count = i.quantity
+//                        )
+//                    )
+//                }
+//            }
+//        }
+//        return temp
+//    }
 
     fun plus(productId: Int) {
         val tempt = mutableListOf<UpdateLineItem>()
-        for (i in myCart()) {
-            if (i.productId == productId) {
-
-                tempt.add(
-                    UpdateLineItem(
-                        id = i.id,
-                        product_id = i.productId,
-                        quantity = i.count.plus(1),
-                    )
-                )
-
-
-            } else {
-
-                tempt.add(
-                    UpdateLineItem(
-                        id = i.id,
-                        product_id = i.productId,
-                        quantity = i.count
-                    )
-                )
-
-
-            }
-        }
+//        for (i in myCart()) {
+//            if (i.productId == productId) {
+//
+//                tempt.add(
+//                    UpdateLineItem(
+//                        id = i.id,
+//                        product_id = i.productId,
+//                        quantity = i.count.plus(1),
+//                    )
+//                )
+//
+//
+//            } else {
+//
+//                tempt.add(
+//                    UpdateLineItem(
+//                        id = i.id,
+//                        product_id = i.productId,
+//                        quantity = i.count
+//                    )
+//                )
+//
+//
+//            }
+//        }
         updateOrderRemote(orderId, UpdateOrder(tempt))
     }
 
     fun minus(productId: Int) {
         val tempt = mutableListOf<UpdateLineItem>()
-        for (i in myCart()) {
-            if (i.productId == productId) {
-
-                tempt.add(
-                    UpdateLineItem(
-                        id = i.id,
-                        product_id = i.productId,
-                        quantity = i.count.minus(1),
-                    )
-                )
-
-
-            } else {
-
-                tempt.add(
-                    UpdateLineItem(
-                        id = i.id,
-                        product_id = i.productId,
-                        quantity = i.count
-                    )
-                )
-
-
-            }
-        }
+//        for (i in myCart()) {
+//            if (i.productId == productId) {
+//
+//                tempt.add(
+//                    UpdateLineItem(
+//                        id = i.id,
+//                        product_id = i.productId,
+//                        quantity = i.count.minus(1),
+//                    )
+//                )
+//
+//
+//            } else {
+//
+//                tempt.add(
+//                    UpdateLineItem(
+//                        id = i.id,
+//                        product_id = i.productId,
+//                        quantity = i.count
+//                    )
+//                )
+//
+//
+//            }
+//        }
         updateOrderRemote(orderId, UpdateOrder(tempt))
     }
 }

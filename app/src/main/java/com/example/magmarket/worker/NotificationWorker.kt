@@ -14,8 +14,8 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.magmarket.R
 import com.example.magmarket.application.Constants
-import com.example.magmarket.data.datastore.newestproduct.NewestProduct
-import com.example.magmarket.data.datastore.newestproduct.NewestProductDataStore
+import com.example.magmarket.data.local.entities.LastProduct
+
 import com.example.magmarket.data.repository.ProductRepository
 import com.example.magmarket.ui.mainactivity.MainActivity
 import dagger.assisted.Assisted
@@ -25,23 +25,22 @@ import dagger.assisted.AssistedInject
 class NotificationWorker @AssistedInject constructor(
     @Assisted val context: Context,
     @Assisted val workerParameters: WorkerParameters,
-    private val productRepository: ProductRepository,
-    private val newestProductDataStore: NewestProductDataStore
+    private val productRepository: ProductRepository
 ) : CoroutineWorker(context, workerParameters) {
 
     override suspend fun doWork(): Result {
         insertLastProductTolocal()
 
         try {
-            newestProductDataStore.getLastProduct().collect {ListOfnewestProduct ->
-
-//                if (ListOfnewestProduct.size > 1) {
-//                    notificationBuilder(
-//                        productName = it[it.lastIndex].name,
-//                        productId = it[it.lastIndex].id.toString()
-//                    )
-//                    productRepository.deleteLastPreviewsProduct(it.first())
-//                }
+            productRepository.getLastProductFromLocal().collect {
+                Log.d("worker", "doWork: i am here 2")
+                if (it.size > 1) {
+                    notificationBuilder(
+                        productName = it[it.lastIndex].name,
+                        productId = it[it.lastIndex].id.toString()
+                    )
+                    productRepository.deleteLastPreviewsProductFromLocal(it.first())
+                }
             }
             return Result.success()
         } catch (error: Throwable) {
@@ -50,14 +49,16 @@ class NotificationWorker @AssistedInject constructor(
     }
 
     private suspend fun insertLastProductTolocal() {
+
         productRepository.getSortedProducts().collect {
-            newestProductDataStore.insertNewestProduct(
-                NewestProduct(
+            productRepository.insertLastProductToLocal(
+                LastProduct(
                     it[0].id.toInt(),
                     name = it[0].name!!
                 )
             )
         }
+
     }
 
     private fun notificationBuilder(productName: String, productId: String) {

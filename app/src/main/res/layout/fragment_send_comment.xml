@@ -124,7 +124,7 @@
             app:layout_constraintVertical_bias="0.573" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.example.magmarket.customview.StateView
+    <com.example.magmarket.ui.customview.StateView
         android:id="@+id/state_view"
         android:layout_width="211dp"
         android:layout_height="239dp"

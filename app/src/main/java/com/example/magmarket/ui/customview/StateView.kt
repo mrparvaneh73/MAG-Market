@@ -1,4 +1,4 @@
-package com.example.magmarket.customview
+package com.example.magmarket.ui.customview
 
 import android.content.Context
 import android.util.AttributeSet

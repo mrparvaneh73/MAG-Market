@@ -52,6 +52,8 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
         finalizeOrder()
 
+        collectOnCreate()
+
 
     }
 
@@ -59,13 +61,12 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 cartViewModel.getUser().collect {
-                    if (it.isLogin){
+                    if (it.isLogin) {
                         if (it.myorderId != 0) {
                             cartViewModel.orderId = it.myorderId
                             cartViewModel.getAnOrder()
-                            collectOnCreate()
                         }
-                    }else{
+                    } else {
                         openDialog()
                     }
 
@@ -75,69 +76,67 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     }
 
     private fun collectOnCreate() = with(binding) {
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                cartViewModel.orderList.collect {
+                    when (it) {
+                        is Resource.Loading -> {
 
-        cartViewModel.orderList.collectIt(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Loading -> {
+                        }
+                        is Resource.Success -> {
+                            binding.stateView.onSuccess()
+                            if (it.value.line_items.isNotEmpty()) {
+                                cartAdapter.submitList(it.value.line_items)
 
-                }
-                is Resource.Success -> {
-                    binding.stateView.onSuccess()
-
-                    if (it.value.line_items.isNotEmpty()) {
-                        cartViewModel.lineItem.clear()
-                        cartViewModel.lineItem.addAll(it.value.line_items)
-                        Log.d("productssss", "lineItem: " + it.value.line_items.toString())
-                        cartViewModel.productIdFromLineItem()
-                        getRemote()
-                    } else {
-                        emptycart.isVisible = true
+                            } else {
+                                emptycart.isVisible = true
+                            }
+                        }
+                        is Resource.Error -> {
+                            binding.stateView.onFail()
+                        }
                     }
-                }
-                is Resource.Error -> {
-                    binding.stateView.onFail()
-
-
                 }
             }
         }
 
+
     }
 
-    private fun getRemote() = with(binding) {
-        cartViewModel.remoteProducts.collectIt(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Loading -> {
-                    stateView.onLoading()
-                    parent.isVisible = false
-                    buttomBar.isVisible = false
-                }
-                is Resource.Success -> {
-                    binding.parent.isVisible = true
-                    binding.detailCard.isVisible = true
-                    binding.emptycart.isVisible = false
-                    cartViewModel.productItems.clear()
-                    cartViewModel.productItems.addAll(it.value)
-                    Log.d("productssss", "getRemote: " + it.value.toString())
-                    cartAdapter.submitList(cartViewModel.myCart())
-
-                    cartAdapter.notifyDataSetChanged()
-                    for (x in cartViewModel.myCart()) {
-                        totalPrice += (x.price.toInt() * x.count)
-                        totalOff += (x.off)
-                        totalWithoutOff += (x.regular_price.toInt() * x.count)
-                        totalCount += x.count
-
-                    }
-                    init()
-                    stateView.onSuccess()
-                }
-                is Resource.Error -> {
-
-                }
-            }
-        }
-    }
+//    private fun getRemote() = with(binding) {
+//        cartViewModel.remoteProducts.collectIt(viewLifecycleOwner) {
+//            when (it) {
+//                is Resource.Loading -> {
+//                    stateView.onLoading()
+//                    parent.isVisible = false
+//                    buttomBar.isVisible = false
+//                }
+//                is Resource.Success -> {
+//                    binding.parent.isVisible = true
+//                    binding.detailCard.isVisible = true
+//                    binding.emptycart.isVisible = false
+//                    cartViewModel.productItems.clear()
+//                    cartViewModel.productItems.addAll(it.value)
+//                    Log.d("productssss", "getRemote: " + it.value.toString())
+////                    cartAdapter.submitList(cartViewModel.myCart())
+//
+//                    cartAdapter.notifyDataSetChanged()
+////                    for (x in cartViewModel.myCart()) {
+////                        totalPrice += (x.price.toInt() * x.count)
+////                        totalOff += (x.off)
+////                        totalWithoutOff += (x.regular_price.toInt() * x.count)
+////                        totalCount += x.count
+////
+////                    }
+//                    init()
+//                    stateView.onSuccess()
+//                }
+//                is Resource.Error -> {
+//
+//                }
+//            }
+//        }
+//    }
 
     private fun init() = with(binding) {
 
@@ -185,7 +184,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
                         cartViewModel.lineItem.addAll(it.value.line_items)
                         cartViewModel.productIdFromLineItem()
-                        getRemote()
+
                     } else {
 
                         binding.emptycart.isVisible = true

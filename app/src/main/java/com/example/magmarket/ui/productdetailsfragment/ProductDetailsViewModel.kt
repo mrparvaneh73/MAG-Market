@@ -40,6 +40,7 @@ class ProductDetailsViewModel @Inject constructor(
     }
 
     var productImage = ""
+    var regular_price=""
     var orderId = 0
     var customerId = 0
     var customerEmail = ""
@@ -168,6 +169,10 @@ class ProductDetailsViewModel @Inject constructor(
                             MetaData(
                                 key = "image",
                                 value = productImage
+                            ),
+                            MetaData(
+                                key = "price",
+                                value = regular_price
                             )
                         )
                     )
@@ -188,6 +193,10 @@ class ProductDetailsViewModel @Inject constructor(
                             MetaData(
                                 key = "image",
                                 value = productImage
+                            ),
+                            MetaData(
+                                key = "price",
+                                value = regular_price
                             )
                         )
 
@@ -211,6 +220,10 @@ class ProductDetailsViewModel @Inject constructor(
                             MetaData(
                                 key = "image",
                                 value = productImage
+                            ),
+                            MetaData(
+                                key = "price",
+                                value = regular_price
                             )
                         )
                     )

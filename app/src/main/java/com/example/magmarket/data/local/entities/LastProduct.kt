@@ -4,10 +4,11 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "orderlist")
-data class OrderList (
+@Entity(tableName = "lastProduct")
+data class LastProduct(
     @PrimaryKey
     @ColumnInfo
-    val id:Int
-        )
-
+    val id:Int,
+    @ColumnInfo
+    val name:String
+)

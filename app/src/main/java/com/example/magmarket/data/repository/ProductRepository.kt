@@ -1,8 +1,7 @@
 package com.example.magmarket.data.repository
 
 import android.util.Log
-import com.example.magmarket.data.local.entities.ProductItemLocal
-import com.example.magmarket.data.local.entities.User
+import com.example.magmarket.data.local.entities.LastProduct
 import com.example.magmarket.data.local.localdatabase.LocalDataBase
 import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.model.review.Review
@@ -29,16 +28,9 @@ class ProductRepository @Inject constructor(
     suspend fun getSimilarProducts(include: String)= safeApiCall(dispatcher) {
         marketremoteDataSource.getSimilarProducts(include)
     }
-    suspend fun insertProductToCart(productItemLocal: ProductItemLocal) {
-        markLocalDataBase.insertProduct(productItemLocal)
-    }
 
-    suspend fun updateOrder(productItemLocal: ProductItemLocal) {
-        markLocalDataBase.updateProductCart(productItemLocal)
-    }
-    suspend fun deleteProductFromCart(productItemLocal: ProductItemLocal) {
-        markLocalDataBase.deleteProductFromCart(productItemLocal)
-    }
+
+
 
     suspend fun getRemoteProductList(page:Int,orderby: String) = safeApiCall(dispatcher) {
         marketremoteDataSource.getAllProduct(orderby = orderby,page=page)
@@ -55,25 +47,12 @@ class ProductRepository @Inject constructor(
         marketremoteDataSource.searchProduct(search)
     }
 
-    fun getCartProductById(productId: Int): Flow<ProductItemLocal> {
-        return  markLocalDataBase.getCartProductById(productId)
-    }
-     fun isRowIsExist(id:Int): Flow<Boolean> {
-      return  markLocalDataBase.isRowIsExist(id)
-    }
-
-    fun getUsersFromLocal(): Flow<User> {
-        return markLocalDataBase.getUserFromLocal()
-    }
 
     suspend fun creatOrder(customer_id:Int,order: Order) = safeApiCall(dispatcher) {
         marketremoteDataSource.creatOrder(customer_id,order)
     }
 
 
-    suspend fun updateUserLocal(user: User) {
-        markLocalDataBase.updateUser(user)
-    }
 
     suspend fun updateOrder(orderId: Int, order: UpdateOrder) = safeApiCall(dispatcher) {
    marketremoteDataSource.updateOrder(orderId,order)
@@ -115,5 +94,17 @@ class ProductRepository @Inject constructor(
     suspend fun getSortedProducts()= flow{
         val response= marketremoteDataSource.getSortedProduct().body()
         emit(response!!)
+    }
+
+    suspend fun insertLastProductToLocal(product: LastProduct) {
+        markLocalDataBase.insertLastProduct(product)
+    }
+
+    fun getLastProductFromLocal(): Flow<List<LastProduct>> {
+        return  markLocalDataBase.getLastProduct()
+    }
+
+    suspend fun deleteLastPreviewsProductFromLocal(product: LastProduct) {
+        markLocalDataBase.deleteLastPreviewsProduct(product)
     }
 }

@@ -143,6 +143,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                         tvTotalprice.text = "محصول فاقد قیمت"
                     }
                     productViewModel.productImage = it.value.images?.get(0)?.src ?: ""
+                    productViewModel.regular_price=it.value.regular_price ?: ""
 //                    regularPrice = it.value.regular_price
 
 

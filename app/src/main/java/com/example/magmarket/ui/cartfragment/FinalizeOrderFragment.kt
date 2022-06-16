@@ -15,7 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.magmarket.R
-import com.example.magmarket.data.local.entities.ProductItemLocal
+
 import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.data.remote.model.order.Billing
 import com.example.magmarket.data.remote.model.order.LineItem
@@ -36,7 +36,6 @@ class FinalizeOrderFragment : Fragment(R.layout.fragment_finalizeorder) {
     var billing: Billing = Billing("", "", "", "", "", "", "", "", "", "")
     var shipping: Shipping = Shipping("", "", "", "", "", "", "", "")
     var successId: Int = 0
-    var allProductInOrderList: MutableList<ProductItemLocal> = mutableListOf()
     private val cartViewModel by activityViewModels<CartViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -114,24 +113,24 @@ class FinalizeOrderFragment : Fragment(R.layout.fragment_finalizeorder) {
     private fun ObserveOrderList() {
 
         lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                cartViewModel.getOrdersFromLocal().collect {
-                    allProductInOrderList.addAll(it)
-                    for (i in it) {
-                        listLineItem.add(
-                            LineItem(
-                                product_id = i.id,
-                                quantity = i.count,
-                                variation_id = 0
-                            )
-                        )
-                   }
-//                    finalizeOrder(
-//                        args.id,
-//                        Order(line_items = listLineItem)
-//                    )
-                }
-            }
+//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                cartViewModel.getOrdersFromLocal().collect {
+//                    allProductInOrderList.addAll(it)
+//                    for (i in it) {
+//                        listLineItem.add(
+//                            LineItem(
+//                                product_id = i.id,
+//                                quantity = i.count,
+//                                variation_id = 0
+//                            )
+//                        )
+//                   }
+////                    finalizeOrder(
+////                        args.id,
+////                        Order(line_items = listLineItem)
+////                    )
+//                }
+//            }
 
         }
 
