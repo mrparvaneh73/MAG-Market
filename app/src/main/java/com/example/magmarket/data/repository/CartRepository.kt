@@ -20,14 +20,6 @@ class CartRepository @Inject constructor(
     @MarketRemoteDataSource private val marketremoteDataSource: RemoteDataSource,
     @MarkLocalDataBase private val markLocalDataBase: LocalDataBase
 ) {
-    suspend fun getProductFromRemote(include: String)= safeApiCall(dispatcher) {
-         marketremoteDataSource.getSimilarProducts(include)
-    }
-
-
-    suspend fun creatOrder(customer_id:Int,order: Order) = safeApiCall(dispatcher) {
-        marketremoteDataSource.creatOrder(customer_id,order)
-    }
 
     suspend fun getPlacedOrder(customer_id:Int) = safeApiCall(dispatcher) {
         marketremoteDataSource.getPlacedOrder(customer_id)
@@ -43,5 +35,10 @@ class CartRepository @Inject constructor(
     }
     suspend fun updateOrder(orderId: Int, order: UpdateOrder) = safeApiCall(dispatcher) {
         marketremoteDataSource.updateOrder(orderId,order)
+    }
+
+
+    suspend fun verifyCoupon(couponCode: String)= safeApiCall(dispatcher) {
+        marketremoteDataSource.verifyCoupon(couponCode)
     }
 }

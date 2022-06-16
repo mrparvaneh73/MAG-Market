@@ -38,9 +38,9 @@ class CartViewModel @Inject constructor(
         MutableSharedFlow()
     val orderUpdate = _orderUpdate.asSharedFlow()
 
-    private val _orderList: MutableStateFlow<Resource<ResponseOrder>> =
-        MutableStateFlow(Resource.Loading)
-    val orderList = _orderList.asStateFlow()
+    private val _orderList: MutableSharedFlow<Resource<ResponseOrder>> =
+        MutableSharedFlow()
+    val orderList = _orderList.asSharedFlow()
 
 
 
@@ -83,7 +83,7 @@ class CartViewModel @Inject constructor(
 
 
     fun updateOrderRemote(orderId: Int, order: UpdateOrder) {
-        viewModelScope.launch(Dispatchers.Default) {
+        viewModelScope.launch(Dispatchers.IO) {
             cartRepository.updateOrder(orderId, order).collect {
                 _orderUpdate.emit(it)
             }
@@ -91,9 +91,9 @@ class CartViewModel @Inject constructor(
     }
 
 
-    fun plus(id: Int,quantity:Int,image:String,regularPrice:String) {
+    fun plusOrMinus(id: Int,quantity:Int,image:String,regularPrice:String) {
 
-        updateOrderRemote(orderId, UpdateOrder( mutableListOf(
+        updateOrderRemote(orderId, UpdateOrder( line_items = mutableListOf(
             UpdateLineItem(
                 id = id,
                 quantity = quantity,
@@ -108,28 +108,28 @@ class CartViewModel @Inject constructor(
                     )
                 )
             )
-        )))
+        ), status = "pending"))
     }
 
-    fun minus(id: Int,quantity:Int,image:String,regularPrice:String) {
-
-        updateOrderRemote(orderId, UpdateOrder( mutableListOf(
-            UpdateLineItem(
-                id = id,
-                quantity = quantity,
-                meta_data = mutableListOf(
-                    MetaData(
-                        key = "image",
-                        value = image
-                    ),
-                    MetaData(
-                        key = "price",
-                        value = regularPrice
-                    )
-                )
-            )
-        )))
-    }
+//    fun minus(id: Int,quantity:Int,image:String,regularPrice:String) {
+//
+//        updateOrderRemote(orderId, UpdateOrder(line_items =  mutableListOf(
+//            UpdateLineItem(
+//                id = id,
+//                quantity = quantity,
+//                meta_data = mutableListOf(
+//                    MetaData(
+//                        key = "image",
+//                        value = image
+//                    ),
+//                    MetaData(
+//                        key = "price",
+//                        value = regularPrice
+//                    )
+//                )
+//            )
+//        )))
+//    }
 
     fun setPrice(item:LineItemX){
         totalPrice += (item.subtotal.toInt() * item.quantity)

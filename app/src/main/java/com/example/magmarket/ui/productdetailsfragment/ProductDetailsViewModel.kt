@@ -161,7 +161,7 @@ class ProductDetailsViewModel @Inject constructor(
 
         updateOrderRemote(
             orderId, UpdateOrder(
-                mutableListOf(
+                 line_items = mutableListOf(
                     UpdateLineItem(
                         id = id,
                         quantity = number,
@@ -176,7 +176,7 @@ class ProductDetailsViewModel @Inject constructor(
                             )
                         )
                     )
-                )
+                ), status = "pending"
             )
         )
     }
@@ -185,7 +185,7 @@ class ProductDetailsViewModel @Inject constructor(
         Log.d("addorder", "addAnItemInOrder: " + orderId)
         updateOrderRemote(
             orderId, UpdateOrder(
-                mutableListOf(
+            line_items =     mutableListOf(
                     UpdateLineItem(
                         product_id = productId!!.toInt(),
                         quantity = 1,
@@ -202,7 +202,7 @@ class ProductDetailsViewModel @Inject constructor(
 
 
                     )
-                )
+                ), status = "pending"
             )
         )
 

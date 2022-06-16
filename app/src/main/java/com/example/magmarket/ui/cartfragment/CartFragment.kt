@@ -55,9 +55,15 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 cartViewModel.getUser().collect {user->
                     if (user.isLogin) {
+                        Log.d("orderidchiye", "isUserLogin: "+user.myorderId)
                         if (user.myorderId != 0) {
+                            isNotEmpty()
+                            Log.d("orderidchiye", "isUserLogin:chera omadi too ")
                             cartViewModel.orderId = user.myorderId
                             cartViewModel.getAnOrder()
+
+                        }else{
+                            isEmpty()
                         }
                         binding.buttonContinue.setOnClickListener {
                             findNavController().navigate(CartFragmentDirections.actionGlobalFinalizeOrderFragment(userId = user.userId, myOrderId = user.myorderId))
@@ -77,6 +83,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                 cartViewModel.orderList.collect {
                     when (it) {
                         is Resource.Loading -> {
+                            Log.d("orderidchiye", "collectOnCreate: ")
                             binding.stateView.onLoading()
                             parentDetail.isVisible = false
                             buttomBar.isVisible = false
@@ -131,7 +138,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                 resetValues()
                 var count = quantity
                 count++
-                cartViewModel.plus(id, count, image, regularPrice)
+                cartViewModel.plusOrMinus(id, count, image, regularPrice)
                 cartAdapter.notifyItemChanged(position, quantity)
 
 
@@ -147,7 +154,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                 resetValues()
                 var count = quantity
                 count--
-                cartViewModel.minus(id, count, image, regularPrice)
+                cartViewModel.plusOrMinus(id, count, image, regularPrice)
                 if (count == 0) {
                     cartAdapter.notifyItemRemoved(position)
                 } else {
@@ -165,6 +172,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 cartViewModel.orderUpdate.collectLatest {
+                    Log.d("orderidchiye", "collectWhenUpdate: ")
                     when (it) {
                         is Resource.Loading -> {
 

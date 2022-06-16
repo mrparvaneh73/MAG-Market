@@ -1,11 +1,13 @@
 package com.example.magmarket.data.remote.model.updateorder
 
+import com.example.magmarket.data.remote.model.order.CouponLine
+
 data class UpdateOrder(
 //    val _links: Links,
 //    val billing: Billing,
 //    val cart_hash: String,
 //    val cart_tax: String,
-//    val coupon_lines: List<Any>,
+    val coupon_lines: List<CouponLine> = emptyList(),
 //    val created_via: String,
 //    val currency: String,
 //    val currency_symbol: String,
@@ -25,7 +27,7 @@ data class UpdateOrder(
 //    val discount_total: String,
 //    val fee_lines: List<Any>,
 //    val id: Int,
-    val line_items: List<UpdateLineItem>,
+    val line_items: List<UpdateLineItem> = emptyList(),
 //    val meta_data: List<Any>,
 //    val number: String,
 //    val order_key: String,
@@ -38,7 +40,7 @@ data class UpdateOrder(
 //    val shipping_lines: List<Any>,
 //    val shipping_tax: String,
 //    val shipping_total: String,
-//    val status: String,
+    val status: String="",
 //    val tax_lines: List<Any>,
 //    val total: String,
 //    val total_tax: String,

@@ -370,7 +370,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginEnd="136dp"
+                android:layout_marginEnd="124dp"
                 android:layout_weight="3"
                 android:fontFamily="@font/farkhondeh"
                 android:gravity="start"
@@ -379,7 +379,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/button_continue"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.7"
+                app:layout_constraintVertical_bias="0.687"
                 tools:text="1500000 " />
 
             <com.google.android.material.button.MaterialButton

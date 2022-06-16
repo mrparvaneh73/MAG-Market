@@ -396,6 +396,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
     }
 
+
     private fun close() = with(binding) {
         toolbar.closeButton.setOnClickListener {
             requireActivity().onBackPressed()
