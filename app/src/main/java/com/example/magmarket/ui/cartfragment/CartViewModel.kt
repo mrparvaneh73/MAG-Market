@@ -2,114 +2,115 @@ package com.example.magmarket.ui.cartfragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.magmarket.data.local.entities.OrderList
-import com.example.magmarket.data.local.entities.ProductItemLocal
-import com.example.magmarket.data.remote.ResultWrapper
-import com.example.magmarket.data.remote.model.coupon.CouponResponse
-import com.example.magmarket.data.remote.model.coupon.CouponResponseItem
-import com.example.magmarket.data.remote.model.customer.CustomerResponse
-import com.example.magmarket.data.remote.model.order.Order
+import com.example.magmarket.data.datastore.user.UserDataStore
+import com.example.magmarket.data.remote.Resource
+import com.example.magmarket.data.remote.model.ProductItem
+import com.example.magmarket.data.remote.model.order.LineItemX
+import com.example.magmarket.data.remote.model.order.MetaData
 import com.example.magmarket.data.remote.model.order.ResponseOrder
+import com.example.magmarket.data.remote.model.updateorder.UpdateLineItem
+import com.example.magmarket.data.remote.model.updateorder.UpdateOrder
 import com.example.magmarket.data.repository.CartRepository
-
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CartViewModel @Inject constructor(private val cartRepository: CartRepository) : ViewModel() {
+class CartViewModel @Inject constructor(
+    private val cartRepository: CartRepository,
+    private val userDataStore: UserDataStore
+) : ViewModel() {
 
+    var orderId = 0
     var totalPrice = 0
-
-    private val _orderList: MutableStateFlow<ResultWrapper<ResponseOrder>> =
-        MutableStateFlow(ResultWrapper.Loading)
-    val orderList = _orderList.asStateFlow()
-
-    private val _customer: MutableStateFlow<ResultWrapper<CustomerResponse>> =
-        MutableStateFlow(ResultWrapper.Loading)
-    val customer = _customer.asStateFlow()
-
-    private val _order: MutableStateFlow<ResultWrapper<List<ResponseOrder>>> =
-        MutableStateFlow(ResultWrapper.Loading)
-    val order = _order.asStateFlow()
-
-    private val _coupon: MutableStateFlow<ResultWrapper<List<CouponResponseItem>>> =
-        MutableStateFlow(ResultWrapper.Loading)
-    val coupon = _coupon.asStateFlow()
-     var isSuccess: Boolean = false
-    fun getOrdersFromLocal() = flow {
-        cartRepository.getAllCartProductFromLocal().collect {
-            emit(it)
-        }
-
-    }
+    var totalOff = 0
+    var totalCount = 0
+    var totalWithoutOff = 0
 
 
-    fun getAllPlacedOrders() = flow {
-        cartRepository.getAllPlacedOrders().collect {
-            emit(it)
-        }
-    }
+    private val _remoteProducts: MutableStateFlow<Resource<List<ProductItem>>> =
+        MutableStateFlow(Resource.Loading)
+    val remoteProducts = _remoteProducts.asStateFlow()
 
-    fun insertPlacedOrdersInLocal(order: OrderList) {
-        viewModelScope.launch {
-            cartRepository.insertOrder(order)
-        }
-    }
+    private val _orderUpdate: MutableSharedFlow<Resource<ResponseOrder>> =
+        MutableSharedFlow()
+    val orderUpdate = _orderUpdate.asSharedFlow()
 
-    fun deleteOrderFromLocal(productItemLocal: ProductItemLocal) {
-        viewModelScope.launch {
-            cartRepository.deleteProductFromCart(productItemLocal)
-        }
+    private val _orderList: MutableSharedFlow<Resource<ResponseOrder>> =
+        MutableSharedFlow()
+    val orderList = _orderList.asSharedFlow()
 
-    }
 
-    fun updateOrder(productItemLocal: ProductItemLocal) {
-        viewModelScope.launch {
-            cartRepository.updateProductCart(productItemLocal)
-        }
 
-    }
 
-    fun getUserFromLocal() = flow {
-        cartRepository.getUsersFromLocal().collect {
+    private val _orderRemote: MutableStateFlow<Resource<ResponseOrder>> =
+        MutableStateFlow(Resource.Loading)
+    val orderRemote = _orderRemote.asStateFlow()
+
+
+
+
+    fun getUser() = flow {
+        userDataStore.getUser().collect {
             emit(it)
         }
     }
 
-    fun creatOrder(customer_id: Int, order: Order) {
+
+
+
+
+    fun getAnOrder() {
         viewModelScope.launch {
-            cartRepository.creatOrder(customer_id, order).collect {
+            cartRepository.getAnOrder(orderId).collect {
                 _orderList.emit(it)
             }
         }
-
     }
 
-    fun getPlacedOrder(customer_id:Int) {
-        viewModelScope.launch {
-            cartRepository.getPlacedOrder(customer_id).collect {
-                _order.emit(it)
-            }
-        }
 
-    }
-
-    fun getCustomer(id: Int) {
-        viewModelScope.launch {
-            cartRepository.getCustomer(id).collect {
-                _customer.emit(it)
+    fun updateOrderRemote(orderId: Int, order: UpdateOrder) {
+        viewModelScope.launch(Dispatchers.IO) {
+            cartRepository.updateOrder(orderId, order).collect {
+                _orderUpdate.emit(it)
             }
         }
     }
 
-    fun verifyCoupon(couponCode: String){
-        viewModelScope.launch {
-            cartRepository.verifyCoupon(couponCode).collect{
-                _coupon.emit(it)
-            }
-        }
+
+    fun plusOrMinus(id: Int, quantity: Int, image: String, regularPrice: String) {
+
+        updateOrderRemote(
+            orderId, UpdateOrder(
+                line_items = mutableListOf(
+                    UpdateLineItem(
+                        id = id,
+                        quantity = quantity,
+                        meta_data = mutableListOf(
+                            MetaData(
+                                key = "image",
+                                value = image
+                            ),
+                            MetaData(
+                                key = "price",
+                                value = regularPrice
+                            )
+                        )
+                    )
+                ), status = "pending"
+            )
+        )
     }
 
+
+
+    fun setPrice(item: LineItemX) {
+        totalPrice += (item.subtotal.toInt() * item.quantity)
+        totalOff += (item.meta_data[1].value.toInt()
+            .minus(item.subtotal.toInt()) * item.quantity)
+        totalWithoutOff += (item.meta_data[1].value.toInt() * item.quantity)
+        totalCount += item.quantity
+    }
 }

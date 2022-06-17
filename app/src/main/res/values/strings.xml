@@ -12,6 +12,14 @@
     <string name="searching">جستجو در</string>
     <string name="product">کالا</string>
     <string name="users_commnet">دیدگاه کاربران</string>
+    <string name="nothing">هیچکدام</string>
+    <string name="threehours">هر 3 ساعت</string>
+    <string name="fivehours">هر 5 ساعت</string>
+    <string name="eighthours">هر 8 ساعت</string>
+    <string name="twelvehours">  هر 12 ساعت</string>
+    <string name="custom">انتخاب زمان دلخواه</string>
+    <string name="setting_notification">تنظیمات اعلان ها</string>
+    <string name="submit">ثبت</string>
     <string name="describe_your_comment">دیدگاه خود را شرح دهید</string>
     <string name="your_comment">دیدگاه شما</string>
     <string name="submit_comment">ثبت دیدگاه</string>
@@ -22,21 +30,6 @@
     <string name="supermarket">کالاهای سوپرمارکتی</string>
     <string name="art">کتاب،لوازم تحریر و هنر</string>
     <string name="poster">پوستر</string>
-    <string name="coupon_code">کد تخفیف</string>
-    <string name="coupon_count">میزان تخفیف</string>
-    <string name="percent">درصد</string>
-    <string name="add_coupon_cart">افزودن کد تخفیف</string>
-    <string name="totalwithcoupon">جمع سبد خرید با تخفیف</string>
-    <string name="accept_coupon">کد تخفیف شما با موفقیت افزوده شد</string>
-    <string name="ignore_coupon">کد تخفیف وارد شده درست نیست یا قبلا استفاده شده است.</string>
-    <string name="nothing">هیچکدام</string>
-    <string name="threehours">هر 3 ساعت</string>
-    <string name="fivehours">هر 5 ساعت</string>
-    <string name="eighthours">هر 8 ساعت</string>
-    <string name="twelvehours">  هر 12 ساعت</string>
-    <string name="custom">انتخاب زمان دلخواه</string>
-    <string name="setting_notification">تنظیمات اعلان ها</string>
-    <string name="submit">ثبت</string>
     <string name="similar_product">کالاهای مشابه</string>
     <string name="productimage">عکس محصول</string>
     <string name="free_delivery">ارسال رایگان</string>
@@ -93,4 +86,18 @@ Make sure Wi-Fi is on,Airplane Mode is off and try again</string>
     <string name="connection">
         No Internet Connection
     </string>
+    <string name="coupon_code">کد تخفیف</string>
+    <string name="coupon_count">میزان تخفیف</string>
+    <string name="percent">درصد</string>
+    <string name="add_coupon_cart">افزودن کد تخفیف</string>
+    <string name="totalwithcoupon">جمع سبد خرید با تخفیف</string>
+    <string name="accept_coupon">کد تخفیف شما با موفقیت افزوده شد</string>
+    <string name="ignore_coupon">کد تخفیف وارد شده درست نیست یا قبلا استفاده شده است.</string>
+    <string name="price_desc">قیمت از زیاد به کم</string>
+    <string name="price_asc">قیمت از کم به زیاد</string>
+    <string name="most_visiting">پربازدیدترین‌ها</string>
+    <string name="most_rating">پرامتیازترین‌ها</string>
+    <string name="most_newest">جدیدترین‌ها</string>
+    <string name="sort">مرتب سازی</string>
+    <string name="filter">فیلتر</string>
 </resources>

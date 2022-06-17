@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.magmarket.ui.cartfragment.CartFragment
-import com.example.magmarket.ui.cartfragment.MyOrdersFragment
+import com.example.magmarket.ui.placedordersfragment.MyOrdersFragment
 
 class CartViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle):
     FragmentStateAdapter(fragmentManager,lifecycle) {

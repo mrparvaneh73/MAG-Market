@@ -1,3 +1,7 @@
 package com.example.magmarket.data.remote.model
 
-data class ProductImage(val id:String, val src:String , val name:String)
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class ProductImage(val id:String, val src:String , val name:String):Parcelable

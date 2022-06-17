@@ -45,18 +45,17 @@ sealed class ProductRecyclerviewHolder(binding: ViewBinding) :
         ProductRecyclerviewHolder(binding) {
 
         fun bind(productItem: ProductRecyclerViewItem.ProductItem) = binding.apply {
-            if (productItem.images.isNotEmpty()){
-                Glide.with(root)
-                    .load(productItem.images[0].src)
-                    .placeholder(R.drawable.emptyimage)
-                    .into(imgProduct)
-            }
-      if (!productItem.name.isNullOrBlank()){
-          tvnameproduct.text = productItem.name
-      }
 
-            if (!productItem.price.isNullOrBlank()){
-                if (productItem.regular_price.toInt()==productItem.price.toInt()){
+                    if (!productItem.images.isNullOrEmpty()){
+                        Glide.with(root).load(productItem.images.get(0).src)
+                            .placeholder(R.drawable.emptyimage)
+                            .into(imgProduct)
+                    }
+            if (!productItem.name.isNullOrEmpty()){
+                tvnameproduct.text = productItem.name
+            }
+            if (!productItem.price.isNullOrEmpty())    {
+                if (productItem.regular_price!!.toInt()== productItem.price.toInt()){
                     regularprice.text=""
                 }else{
                     regularprice.text=  formatter.format(productItem.regular_price.toInt())
@@ -65,6 +64,7 @@ sealed class ProductRecyclerviewHolder(binding: ViewBinding) :
 
                 tvpriceproduct.text = formatter.format(productItem.price.toInt())
             }
+
 
 
             root.setOnClickListener {

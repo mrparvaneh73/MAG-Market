@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/background"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ImageView
             android:id="@+id/back_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standardMargin4x"
             android:layout_marginEnd="16dp"
-android:layout_margin="@dimen/standardMargin4x"
+            android:contentDescription="@string/back"
             android:src="@drawable/close_dialog"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
@@ -27,13 +28,13 @@ android:layout_margin="@dimen/standardMargin4x"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/farkhondeh"
+            android:padding="8dp"
             android:text="@string/choosereciver"
             android:textColor="@color/text"
             android:textSize="@dimen/TextSize5x"
             android:textStyle="bold"
-            android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/back_img" />
+            app:layout_constraintTop_toBottomOf="@id/back_img" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView4"
@@ -132,14 +133,14 @@ android:layout_margin="@dimen/standardMargin4x"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="@dimen/standardMargin3x"
-            app:cardCornerRadius="@dimen/standardMargin4x"
             android:background="@color/background"
+            app:cardCornerRadius="@dimen/standardMargin4x"
             app:layout_constraintTop_toBottomOf="@+id/cardView4">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:background="@color/background"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/background">
 
 
                 <TextView
@@ -161,10 +162,12 @@ android:layout_margin="@dimen/standardMargin4x"
                     android:layout_margin="@dimen/standardMargin3x"
                     android:background="@drawable/edbackground"
                     android:hint="@string/add_coupon_cart"
-                    android:padding="@dimen/standardMargin2x"
                     android:layoutDirection="rtl"
-                    android:textDirection="rtl"
+                    android:padding="@dimen/standardMargin2x"
+                    android:inputType="text"
                     android:textColor="@color/black"
+                    android:textDirection="rtl"
+                    android:autofillHints="creditCardSecurityCode"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -175,6 +178,7 @@ android:layout_margin="@dimen/standardMargin4x"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/add"
+                    android:contentDescription="@string/submit"
                     app:layout_constraintBottom_toBottomOf="@+id/ed_coupon"
                     app:layout_constraintStart_toStartOf="@+id/ed_coupon"
                     app:layout_constraintTop_toTopOf="@+id/ed_coupon"
@@ -192,6 +196,7 @@ android:layout_margin="@dimen/standardMargin4x"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ed_coupon"
                     app:layout_constraintVertical_bias="0.0" />
+
                 <TextView
                     android:id="@+id/ignore_coupon"
                     android:layout_width="wrap_content"
@@ -387,7 +392,7 @@ android:layout_margin="@dimen/standardMargin4x"
                     android:text="@string/unit_of_currency"
                     android:textSize="@dimen/TextSize4x"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/totlapricedesc"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_unit_off"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/unitpricedesc"
                     app:layout_constraintTop_toBottomOf="@+id/unitpricedesc"
@@ -416,11 +421,9 @@ android:layout_margin="@dimen/standardMargin4x"
             app:layout_constraintTop_toBottomOf="@+id/cardView5" />
 
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <com.example.magmarket.customview.StateView
+    <com.example.magmarket.ui.customview.StateView
         android:id="@+id/state_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -431,4 +434,5 @@ android:layout_margin="@dimen/standardMargin4x"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.25"
         app:state_text="@string/app_name" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

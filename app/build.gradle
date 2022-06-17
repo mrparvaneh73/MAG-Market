@@ -28,6 +28,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    lintOptions {
+        checkReleaseBuilds false
+    }
 
     buildTypes {
         release {
@@ -145,8 +148,12 @@ dependencies {
 
     //for converter
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
-
+//workmanager
     def work_version = "2.7.1"
     implementation "androidx.work:work-runtime-ktx:$work_version"
     implementation 'androidx.hilt:hilt-work:1.0.0'
+
+
+
+
 }

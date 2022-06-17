@@ -1,10 +1,9 @@
 package com.example.magmarket.data.repository
 
-import com.example.magmarket.data.local.entities.OrderList
-import com.example.magmarket.data.local.entities.ProductItemLocal
-import com.example.magmarket.data.local.entities.UserList
+
 import com.example.magmarket.data.local.localdatabase.LocalDataBase
 import com.example.magmarket.data.remote.model.order.Order
+import com.example.magmarket.data.remote.model.updateorder.UpdateOrder
 import com.example.magmarket.data.remote.network.RemoteDataSource
 import com.example.magmarket.data.remote.safeApiCall
 import com.example.magmarket.di.IoDispatcher
@@ -21,48 +20,27 @@ class CartRepository @Inject constructor(
     @MarketRemoteDataSource private val marketremoteDataSource: RemoteDataSource,
     @MarkLocalDataBase private val markLocalDataBase: LocalDataBase
 ) {
-    suspend fun getAllOrders(include: String)= safeApiCall(dispatcher) {
-         marketremoteDataSource.getSimilarProducts(include)
-    }
-
-     fun getAllCartProductFromLocal(): Flow<List<ProductItemLocal>> {
-        return markLocalDataBase.getAllCartProduct()
-    }
-
-     fun getCartProductById(productId: Int): Flow<ProductItemLocal> {
-        return  markLocalDataBase.getCartProductById(productId)
-    }
-
-     suspend fun deleteProductFromCart(productItemLocal: ProductItemLocal) {
-         markLocalDataBase.deleteProductFromCart(productItemLocal)
-    }
-    suspend fun creatOrder(customer_id:Int,order: Order) = safeApiCall(dispatcher) {
-        marketremoteDataSource.creatOrder(customer_id,order)
-    }
-     suspend fun updateProductCart(productItemLocal: ProductItemLocal) {
-         markLocalDataBase.updateProductCart(productItemLocal)
-    }
-
-    suspend fun insertOrder(order: OrderList) {
-        markLocalDataBase.insertOrder(order)
-    }
 
     suspend fun getPlacedOrder(customer_id:Int) = safeApiCall(dispatcher) {
         marketremoteDataSource.getPlacedOrder(customer_id)
     }
 
-    fun getAllPlacedOrders(): Flow<List<OrderList>> {
-        return markLocalDataBase.getAllOrders()
-    }
     suspend fun getCustomer(id:Int)= safeApiCall(dispatcher){
         marketremoteDataSource.getCustomer(id)
     }
 
-    fun getUsersFromLocal(): Flow<List<UserList>> {
-        return markLocalDataBase.getUserFromLocal()
+
+    suspend fun getAnOrder(orderId: Int)= safeApiCall(dispatcher){
+        marketremoteDataSource.getAnOrder(orderId)
     }
+    suspend fun updateOrder(orderId: Int, order: UpdateOrder) = safeApiCall(dispatcher) {
+        marketremoteDataSource.updateOrder(orderId,order)
+    }
+
 
     suspend fun verifyCoupon(couponCode: String)= safeApiCall(dispatcher) {
         marketremoteDataSource.verifyCoupon(couponCode)
     }
+
+
 }

@@ -12,8 +12,8 @@
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:layout_marginHorizontal="@dimen/standardMargin7x"
-        android:src="@drawable/close"
-        android:contentDescription="@string/close"/>
+        android:contentDescription="@string/close"
+        android:src="@drawable/close" />
 
     <ImageView
         android:id="@+id/moreButton"

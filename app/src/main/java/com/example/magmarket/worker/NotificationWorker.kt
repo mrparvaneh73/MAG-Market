@@ -15,6 +15,7 @@ import androidx.work.WorkerParameters
 import com.example.magmarket.R
 import com.example.magmarket.application.Constants
 import com.example.magmarket.data.local.entities.LastProduct
+
 import com.example.magmarket.data.repository.ProductRepository
 import com.example.magmarket.ui.mainactivity.MainActivity
 import dagger.assisted.Assisted
@@ -31,14 +32,14 @@ class NotificationWorker @AssistedInject constructor(
         insertLastProductTolocal()
 
         try {
-            productRepository.getLastProduct().collect {
+            productRepository.getLastProductFromLocal().collect {
                 Log.d("worker", "doWork: i am here 2")
                 if (it.size > 1) {
                     notificationBuilder(
                         productName = it[it.lastIndex].name,
                         productId = it[it.lastIndex].id.toString()
                     )
-                    productRepository.deleteLastPreviewsProduct(it.first())
+                    productRepository.deleteLastPreviewsProductFromLocal(it.first())
                 }
             }
             return Result.success()
@@ -50,10 +51,10 @@ class NotificationWorker @AssistedInject constructor(
     private suspend fun insertLastProductTolocal() {
 
         productRepository.getSortedProducts().collect {
-            productRepository.insertLastProduct(
+            productRepository.insertLastProductToLocal(
                 LastProduct(
                     it[0].id.toInt(),
-                    name = it[0].name
+                    name = it[0].name!!
                 )
             )
         }
@@ -91,7 +92,7 @@ class NotificationWorker @AssistedInject constructor(
             notificationManager.createNotificationChannel(mChannel)
         }
 
-       val mBuilder = NotificationCompat.Builder(applicationContext, Constants.CHANNEL_ID_1)
+        val mBuilder = NotificationCompat.Builder(applicationContext, Constants.CHANNEL_ID_1)
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle("NEW PRODUCT")
             .setContentText(productName)

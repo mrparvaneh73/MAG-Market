@@ -1,5 +1,6 @@
 package com.example.magmarket.ui.adapters
 
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
@@ -16,8 +17,9 @@ class CommentAdapter() :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(commentItem: ResponseReview) = with(binding) {
             username.text = commentItem.reviewer
-            commentUser.text = HtmlCompat.fromHtml(commentItem.review, HtmlCompat.FROM_HTML_MODE_LEGACY)
-            ratingBar.rating=commentItem.rating.toFloat()
+            commentUser.text =
+                HtmlCompat.fromHtml(commentItem.review, HtmlCompat.FROM_HTML_MODE_LEGACY)
+            ratingBar.rating = commentItem.rating.toFloat()
         }
     }
 

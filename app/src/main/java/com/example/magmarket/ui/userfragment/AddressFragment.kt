@@ -14,8 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.magmarket.R
-import com.example.magmarket.data.local.entities.UserList
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.data.remote.model.customer.Billing
 import com.example.magmarket.data.remote.model.customer.Customer
 import com.example.magmarket.data.remote.model.customer.Shipping
@@ -85,17 +84,18 @@ class AddressFragment : Fragment(R.layout.fragment_adress) {
     private fun getResponseOfEdit() = with(binding) {
         viewModel.userUpdate.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> {
+                is Resource.Loading -> {
 
                 }
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
                     openDialogSuccess()
                     updateUserLocal(
-                        UserList(
-                            id = args.id,
+                        com.example.magmarket.data.datastore.user.User(
+                            userId = args.id,
                             email = args.email,
                             firstName = firstNameTextField.text.toString(),
-                            lastName = secondNameTextField.text.toString()
+                            lastName = secondNameTextField.text.toString(),
+                            isLogin = true
                         )
                     )
                     addressTextField.text = null
@@ -108,7 +108,7 @@ class AddressFragment : Fragment(R.layout.fragment_adress) {
                     postCodeTextField.text = null
 
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
                     Toast.makeText(requireContext(), "مشکلی پیش آمده است", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -143,8 +143,8 @@ class AddressFragment : Fragment(R.layout.fragment_adress) {
         }
     }
 
-    private fun updateUserLocal(user: UserList) {
-        viewModel.updateUserLocal(user)
+    private fun updateUserLocal(user: com.example.magmarket.data.datastore.user.User) {
+        viewModel.saveUser(user)
     }
 
 }

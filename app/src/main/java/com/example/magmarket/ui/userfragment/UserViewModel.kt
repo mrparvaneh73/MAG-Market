@@ -4,36 +4,44 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.magmarket.data.datastore.SettingDataStore
-import com.example.magmarket.data.datastore.Theme
-import com.example.magmarket.data.local.entities.UserList
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.datastore.theme.SettingDataStore
+
+import com.example.magmarket.data.datastore.theme.Theme
+import com.example.magmarket.data.datastore.user.User
+import com.example.magmarket.data.datastore.user.UserDataStore
+
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.data.remote.model.customer.Customer
 import com.example.magmarket.data.remote.model.customer.CustomerResponse
 import com.example.magmarket.data.repository.UserRepository
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class UserViewModel @Inject constructor(private val settingDataStore: SettingDataStore,private val userRepository: UserRepository) :
+class UserViewModel @Inject constructor(
+    private val settingDataStore: SettingDataStore,
+    private val userRepository: UserRepository,
+    private val userDataStore: UserDataStore
+) :
     ViewModel() {
-    private val _customerIdResponse: MutableStateFlow<ResultWrapper<CustomerResponse>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _customerIdResponse: MutableStateFlow<Resource<CustomerResponse>> =
+        MutableStateFlow(Resource.Loading)
     val customerIdResponse = _customerIdResponse.asStateFlow()
 
-    private val _user: MutableStateFlow<ResultWrapper<CustomerResponse>> =
-        MutableStateFlow(ResultWrapper.Loading)
+    private val _user: MutableStateFlow<Resource<CustomerResponse>> =
+        MutableStateFlow(Resource.Loading)
     val user = _user.asStateFlow()
-    private val _userUpdate: MutableStateFlow<ResultWrapper<CustomerResponse>> =
-        MutableStateFlow(ResultWrapper.Loading)
+
+    private val _userUpdate: MutableStateFlow<Resource<CustomerResponse>> =
+        MutableStateFlow(Resource.Loading)
     val userUpdate = _userUpdate.asStateFlow()
 
-
+    private val _userFromDataStore: MutableStateFlow<User> =
+        MutableStateFlow(User(isLogin = false))
+    val userFromDataStore = _userFromDataStore.asSharedFlow()
 
     private val _islight = MutableLiveData<Boolean>()
     val islight: LiveData<Boolean> = _islight
@@ -56,21 +64,22 @@ class UserViewModel @Inject constructor(private val settingDataStore: SettingDat
 
     }
 
-    fun getCustomer(id:Int){
+    fun getCustomer(id: Int) {
         viewModelScope.launch {
-            userRepository.getCustomer(id).collect{
+            userRepository.getCustomer(id).collect {
                 _user.emit(it)
             }
         }
     }
 
-    fun updateCustomer(id:Int,customer: Customer){
+    fun updateCustomer(id: Int, customer: Customer) {
         viewModelScope.launch {
-            userRepository.updateCustomer(id,customer).collect{
+            userRepository.updateCustomer(id, customer).collect {
                 _userUpdate.emit(it)
             }
         }
     }
+
     fun check() {
         viewModelScope.launch {
             settingDataStore.preferences.collect {
@@ -86,31 +95,23 @@ class UserViewModel @Inject constructor(private val settingDataStore: SettingDat
 
     }
 
-
-    fun getUserFromLocal()= flow {
-        userRepository.getUsersFromLocal().collect{
-            emit(it)
-        }
-    }
-
-    fun insertUserToLocal(user: UserList) {
+    fun saveUser(user: User) {
         viewModelScope.launch {
-            userRepository.insertUser(user)
+            userDataStore.saveUser(user)
         }
     }
+    init {
+        getUser()
+    }
 
-
-    fun deleteUserFromLocal(user: UserList){
+    fun getUser() {
         viewModelScope.launch {
-            userRepository.deleteUser(user)
+            userDataStore.getUser().collect{
+                _userFromDataStore. emit(it)
+            }
         }
 
     }
 
-    fun updateUserLocal(user: UserList){
-        viewModelScope.launch {
-            userRepository.updateUserLocal(user)
-        }
 
-    }
 }

@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.example.magmarket.R
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.ui.adapters.ProductsOfCategoryAdapter
 import com.example.magmarket.databinding.FragmentProductsCategoryBinding
 
@@ -31,7 +31,7 @@ class ProductsCategoryFragment : Fragment(R.layout.fragment_products_category) {
     private val args by navArgs<ProductsCategoryFragmentArgs>()
     private val categoryProductAdapter = ProductsOfCategoryAdapter(clickListener = { productItem ->
         findNavController().navigate(
-            ProductsCategoryFragmentDirections.actionGlobalProductDetailFragment(
+            ProductsCategoryFragmentDirections.actionProductsCategoryFragmentToProductDetailFragment(
                 productItem.id
             )
         )
@@ -41,7 +41,7 @@ class ProductsCategoryFragment : Fragment(R.layout.fragment_products_category) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProductsCategoryBinding.bind(view)
-        Log.d("idfroosh", "onViewCreated: "+args.category)
+        Log.d("idfroosh", "onViewCreated: " + args.category)
         backPressed()
         collect()
         init()
@@ -49,7 +49,8 @@ class ProductsCategoryFragment : Fragment(R.layout.fragment_products_category) {
 
     private fun init() = with(binding) {
         searchbox.imgsearch.setImageResource(R.drawable.back)
-        categoryProductAdapter.stateRestorationPolicy=RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        categoryProductAdapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         productRecyclerviw.adapter = categoryProductAdapter
         viewModel.getProductofCategory(args.category)
 
@@ -58,11 +59,11 @@ class ProductsCategoryFragment : Fragment(R.layout.fragment_products_category) {
     private fun collect() {
         viewModel.productofCategory.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> {
+                is Resource.Loading -> {
 
                     binding.stateView.onLoading()
                 }
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
 
                     categoryProductAdapter.submitList(it.value)
 
@@ -72,7 +73,7 @@ class ProductsCategoryFragment : Fragment(R.layout.fragment_products_category) {
                         binding.stateView.onEmpty()
                     }
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
                     binding.stateView.onFail()
                     binding.stateView.clickRequest {
                         viewModel.getProductofCategory(args.category)
@@ -92,11 +93,13 @@ class ProductsCategoryFragment : Fragment(R.layout.fragment_products_category) {
             }
         }
     }
-private fun backPressed(){
-    binding.searchbox.imgsearch.setOnClickListener {
-        requireActivity().onBackPressed()
+
+    private fun backPressed() {
+        binding.searchbox.imgsearch.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
     }
-}
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -42,7 +42,7 @@
         app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/items_sub_category" />
 
-    <com.example.magmarket.customview.StateView
+    <com.example.magmarket.ui.customview.StateView
         android:id="@+id/state_view"
         android:layout_width="216dp"
         android:layout_height="272dp"

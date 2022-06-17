@@ -30,8 +30,10 @@
         android:background="@color/background"
         app:layout_constraintBottom_toTopOf="@+id/detail_card"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar"
+        app:layout_constraintVertical_bias="0.0">
 
 
         <LinearLayout
@@ -63,8 +65,18 @@
                         android:layout_height="300dp"
                         android:background="@color/background" />
 
-
-
+                    <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
+                        android:id="@+id/spring_dots_indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:dotsColor="@color/red"
+                        app:dotsCornerRadius="8dp"
+                        app:dotsSize="8dp"
+                        app:dotsSpacing="4dp"
+                        app:dotsWidthFactor="2.5"
+                        app:progressMode="true"
+                        app:selectedDotColor="@color/blue" />
 
                     <TextView
                         android:id="@+id/tv_product_name"
@@ -185,23 +197,25 @@
 
 
             </androidx.cardview.widget.CardView>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/farkhondeh"
                 android:text="@string/similar_product"
                 android:textColor="@color/text"
-                android:layout_marginEnd="16dp"
-                android:textSize="@dimen/TextSize4x"
-                android:fontFamily="@font/farkhondeh"/>
+                android:textSize="@dimen/TextSize4x" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_similar_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:layoutDirection="rtl"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="horizontal"
-                tools:listitem="@layout/product_item"/>
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/product_item" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/comment_card"
@@ -221,13 +235,28 @@
 
                     <TextView
                         android:id="@+id/user_comment"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/standardMargin1.5x"
                         android:fontFamily="@font/farkhondeh"
                         android:text="@string/users_commnet"
                         android:textColor="@color/text"
                         android:textSize="@dimen/TextSize4x"
+                        app:layout_constraintBottom_toBottomOf="@id/show_all_comment"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/show_all_comment" />
+
+                    <TextView
+                        android:id="@+id/show_all_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/standardMargin1.5x"
+                        android:fontFamily="@font/farkhondeh"
+                        android:text="@string/show_all"
+                        android:textColor="@color/blue"
+                        android:textSize="@dimen/TextSize3x"
+                        app:layout_constraintBottom_toTopOf="@id/commentrecyclerView"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -235,8 +264,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:orientation="horizontal"
                         android:layoutDirection="rtl"
+                        android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
@@ -252,8 +281,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/commentrecyclerView"
-                        >
+                        app:layout_constraintTop_toBottomOf="@+id/commentrecyclerView">
 
                         <ImageView
                             android:id="@+id/imageView9"
@@ -264,6 +292,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
                         <TextView
                             android:id="@+id/textView11"
                             android:layout_width="wrap_content"
@@ -312,6 +341,7 @@
 
             </androidx.cardview.widget.CardView>
 
+
         </LinearLayout>
     </ScrollView>
 
@@ -335,7 +365,7 @@
             android:background="@color/background">
 
             <LinearLayout
-                android:id="@+id/linearLayout7"
+                android:id="@+id/parent_plusandminus"
                 android:layout_width="100dp"
                 android:layout_height="31dp"
                 android:layout_marginEnd="30dp"
@@ -363,7 +393,16 @@
                     android:gravity="center"
 
                     android:textColor="#E2202B"
-                    android:textSize="18sp" />
+                    android:textSize="12sp" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/loading_count"
+                    android:layout_width="35dp"
+                    android:layout_height="18dp"
+                    android:visibility="gone"
+                    app:lottie_autoPlay="false"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/threedotsloading" />
 
                 <ImageView
                     android:id="@+id/imageView_plus"
@@ -439,7 +478,6 @@
                 android:text="@string/add_to_bascket"
                 android:textColor="@color/text"
                 android:textSize="@dimen/TextSize4x"
-                android:visibility="gone"
                 app:cornerRadius="@dimen/standardMargin3x"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -448,7 +486,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-    <com.example.magmarket.customview.StateView
+    <com.example.magmarket.ui.customview.StateView
         android:id="@+id/state_view"
         android:layout_width="211dp"
         android:layout_height="239dp"

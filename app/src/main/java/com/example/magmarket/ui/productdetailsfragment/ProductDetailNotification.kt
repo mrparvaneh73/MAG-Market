@@ -15,7 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.magmarket.R
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.databinding.FragmentProductNotificationBinding
 import com.example.magmarket.ui.adapters.CommentAdapter
 import com.example.magmarket.ui.adapters.SimilarAdapter
@@ -60,19 +60,19 @@ class ProductDetailNotification: Fragment(R.layout.fragment_product_notification
 
         notifViewModel.product.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> {
+                is Resource.Loading -> {
                     stateView.onLoading()
                     scrollView3.isVisible = false
                     detailCard.isVisible = false
                 }
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
 
                     sliderAdapter.submitList(it.value.images)
-                    salePrice = it.value.sale_price
+                    salePrice = it.value.sale_price.toString()
                     Log.d("Saleprice", "collect: " + it.value.sale_price)
-                    if (it.value.images.isNotEmpty()){
+            if (it.value.images!!.isNotEmpty()){
 
-                        image = it.value.images[0].src
+                        image = it.value.images?.get(0).src
                     }
                     if (!it.value.name.isNullOrBlank()){
                         name = it.value.name
@@ -86,7 +86,7 @@ class ProductDetailNotification: Fragment(R.layout.fragment_product_notification
                     if (!it.value.price.isNullOrBlank()){
                         price = it.value.price
                         tvTotalprice.text = nf.format(price.toInt())
-                        regularPrice = it.value.regular_price
+                        regularPrice = it.value.regular_price.toString()
                         if (it.value.price.toInt() == regularPrice.toInt()) {
                             tvRegularprice.text = ""
                         } else {
@@ -96,7 +96,7 @@ class ProductDetailNotification: Fragment(R.layout.fragment_product_notification
                     }
 
 
-                    similar.addAll(it.value.related_ids)
+                    it.value.related_ids?.let { it1 -> similar.addAll(it1) }
                     notifViewModel.getSimilarProduct(similar.toString())
 
 
@@ -105,7 +105,7 @@ class ProductDetailNotification: Fragment(R.layout.fragment_product_notification
                     detailCard.isVisible = true
                     stateView.onSuccess()
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
                     stateView.onFail()
                     stateView.clickRequest {
 //                        notifViewModel .getProduct(bundle.getString("productId",""))

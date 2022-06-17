@@ -14,7 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.magmarket.R
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.data.remote.model.customer.Billing
 import com.example.magmarket.data.remote.model.customer.Customer
 import com.example.magmarket.data.remote.model.customer.Shipping
@@ -82,17 +82,17 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     fun responsOfRegister()= with(binding) {
         viewModel.customerIdResponse.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> {
+                is Resource.Loading -> {
 
                 }
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
                     openDialogSuccess(it.value.id.toString())
                     emailTextField.text=null
                     firstNameTextField.text=null
                     secondNameTextField.text=null
 
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
                     openDialogfailure()
                 }
             }
@@ -122,7 +122,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         }
         dialog.show()
     }
-fun backToUserFragment(){
+private fun backToUserFragment(){
     binding.imgBack.setOnClickListener {
         findNavController().navigate(RegisterFragmentDirections.actionGlobalUserFragment())
 

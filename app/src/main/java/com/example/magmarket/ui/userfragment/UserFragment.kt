@@ -1,6 +1,7 @@
 package com.example.magmarket.ui.userfragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
@@ -12,9 +13,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.magmarket.R
-import com.example.magmarket.data.datastore.Theme
-import com.example.magmarket.data.local.entities.UserList
-import com.example.magmarket.data.remote.ResultWrapper
+import com.example.magmarket.data.datastore.theme.Theme
+import com.example.magmarket.data.remote.Resource
 import com.example.magmarket.databinding.FragmentUserBinding
 
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +28,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
     private var userid: Int = 0
     private var userEmail: String = ""
     private var userFirstName: String = ""
-    private var userLastName:String=""
+    private var userLastName: String = ""
     private val viewModel by activityViewModels<UserViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -85,22 +85,24 @@ class UserFragment : Fragment(R.layout.fragment_user) {
     private fun getResponseLogin() {
         viewModel.user.collectIt(viewLifecycleOwner) {
             when (it) {
-                is ResultWrapper.Loading -> {
+                is Resource.Loading -> {
 
                 }
-                is ResultWrapper.Success -> {
+                is Resource.Success -> {
                     if (binding.emailTextField!!.text.toString() == it.value.email) {
-                        binding.viewLogin!!.isVisible = false
-                        binding.viewAccountinfo!!.isVisible = true
-                        binding.tvFullNameRegistered!!.text =
+                        binding.viewLogin.isVisible = false
+                        binding.viewAccountinfo.isVisible = true
+                        binding.tvFullNameRegistered.text =
                             "${it.value.first_name} ${it.value.last_name}"
-                        binding.tvEmailRegistered!!.text = it.value.email
-                        viewModel.insertUserToLocal(
-                            UserList(
-                                it.value.id,
-                                it.value.email,
-                                it.value.first_name,
-                                it.value.last_name
+                        binding.tvEmailRegistered.text = it.value.email
+
+                        viewModel.saveUser(
+                            com.example.magmarket.data.datastore.user.User(
+                                userId = it.value.id,
+                                email = it.value.email,
+                                firstName = it.value.first_name,
+                                lastName = it.value.last_name,
+                                isLogin = true
                             )
                         )
                         userid = it.value.id
@@ -116,7 +118,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
                         binding.passwordTextField.text = null
                     }
                 }
-                is ResultWrapper.Error -> {
+                is Resource.Error -> {
                     Toast.makeText(
                         requireContext(),
                         "کاربری با این مشخصات یافت نشد",
@@ -129,21 +131,24 @@ class UserFragment : Fragment(R.layout.fragment_user) {
 
     private fun loginFromLocal() {
         lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getUserFromLocal().collect {
-                    if (it.isNotEmpty()) {
-                        binding.viewLogin!!.isVisible = false
-                        binding.viewAccountinfo!!.isVisible = true
-                        binding.tvFullNameRegistered!!.text =
-                            "${it[it.lastIndex].firstName} ${it[it.lastIndex].lastName}"
-                        binding.tvEmailRegistered!!.text = it[it.lastIndex].email
-                        userid = it[it.lastIndex].id
-                        userEmail = it[it.lastIndex].email
-                        userFirstName =it[it.lastIndex].firstName
-                        userLastName=it[it.lastIndex].lastName
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
+                viewModel.userFromDataStore.collect {
+                    Log.d("usersssss", "loginFromLocal: " + it)
+                    if (it.isLogin) {
+                        binding.viewLogin.isVisible = false
+                        binding.viewAccountinfo.isVisible = true
+                        binding.tvFullNameRegistered.text =
+                            "${it.firstName} ${it.lastName}"
+                        binding.tvEmailRegistered.text = it.email
+                        userid = it.userId
+                        userEmail = it.email
+                        userFirstName = it.firstName
+                        userLastName = it.lastName
                     } else {
-                        binding.viewLogin!!.isVisible = true
+                        binding.viewLogin.isVisible = true
+                        binding.viewAccountinfo.isVisible = false
                     }
+
 
                 }
             }
@@ -159,24 +164,38 @@ class UserFragment : Fragment(R.layout.fragment_user) {
 
     }
 
+    private fun exitFromAccount() {
+        binding.exitFromAccount.setOnClickListener {
+            binding.viewLogin.isVisible = true
+            binding.viewAccountinfo.isVisible = false
+            viewModel.saveUser(
+                com.example.magmarket.data.datastore.user.User(
+                    isLogin = false,
+                    myorderId = 0
+
+                )
+            )
+        }
+    }
+
+    private fun editUser() {
+        binding.edit!!.setOnClickListener {
+            findNavController().navigate(
+                UserFragmentDirections.actionGlobalAddressFragment(
+                    id = userid,
+                    firstname = userFirstName,
+                    lastname = userLastName,
+                    email = userEmail
+                )
+            )
+        }
+    }
     private fun goToNotificationSetting(){
         binding.setNotificaton.setOnClickListener {
             findNavController().navigate(UserFragmentDirections.actionUserFragmentToNotificationFragment())
         }
     }
 
-    private fun exitFromAccount() {
-        binding.exitFromAccount!!.setOnClickListener {
-            binding.viewLogin!!.isVisible = true
-            binding.viewAccountinfo!!.isVisible = false
-            viewModel.deleteUserFromLocal(UserList(userid, userEmail))
-        }
-    }
-private fun editUser(){
-    binding.edit!!.setOnClickListener {
-        findNavController().navigate(UserFragmentDirections.actionGlobalAddressFragment(id=userid, firstname = userFirstName, lastname = userLastName, email = userEmail))
-    }
-}
     private fun <T> StateFlow<T>.collectIt(lifecycleOwner: LifecycleOwner, function: (T) -> Unit) {
         lifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {

@@ -18,8 +18,10 @@
         app:cardCornerRadius="@dimen/standardMargin2x"
         android:layout_marginBottom="@dimen/standardMargin1.5x">
         <ScrollView
+            android:id="@+id/view_login"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="gone">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,10 +45,8 @@
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0">
+                app:layout_constraintTop_toTopOf="parent">
 
 
                 <TextView
@@ -156,6 +156,95 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/view_accountinfo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            >
+
+
+            <LinearLayout
+                android:id="@+id/edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="@+id/exit_from_account"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/exit_from_account">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+
+                    android:fontFamily="@font/farkhondeh"
+                    android:text="@string/complete_address"
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/TextSize4x"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:src="@drawable/edit" />
+            </LinearLayout>
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:id="@+id/exit_from_account"
+                android:layout_width="44dp"
+                android:layout_height="53dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/exit_from_account"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/imageView8"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="77dp"
+                android:layout_height="88dp"
+                android:src="@drawable/user"
+                app:layout_constraintBottom_toTopOf="@+id/tv_full_name_Registered"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/tv_full_name_Registered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/farkhondeh"
+                android:text="سیدمیلادپاروانه"
+                android:textSize="@dimen/TextSize7x"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.686" />
+
+            <TextView
+                android:id="@+id/tv_email_registered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/farkhondeh"
+                android:text="parvanehmiladv3@yahoo.com"
+                android:textSize="@dimen/TextSize5x"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_full_name_Registered" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
 
@@ -166,7 +255,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_setting"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
         app:cardCornerRadius="@dimen/standardMargin2x"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -234,13 +323,14 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.144"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView">
 
                 <RadioButton
                     android:id="@+id/rb_light"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
+
                     android:text="Light"
                     android:textColor="@color/text" />
 
@@ -254,22 +344,22 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="75dp"
-                android:layout_height="86dp"
-                android:layout_marginTop="36dp"
+                android:layout_width="42dp"
+                android:layout_height="46dp"
+                android:layout_marginTop="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.155"
+                app:layout_constraintHorizontal_bias="0.164"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/light" />
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="75dp"
-                android:layout_height="86dp"
+                android:layout_width="50dp"
+                android:layout_height="49dp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.027"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0"

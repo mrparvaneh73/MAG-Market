@@ -4,13 +4,14 @@ import com.example.magmarket.application.Constants.BASE_PARAM
 import com.example.magmarket.data.remote.model.CategoryItem
 import com.example.magmarket.data.remote.model.ProductItem
 import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
-import com.example.magmarket.data.remote.model.coupon.CouponResponseItem
+import com.example.magmarket.data.remote.model.coupon.CouponResponse
 import com.example.magmarket.data.remote.model.customer.Customer
 import com.example.magmarket.data.remote.model.customer.CustomerResponse
 import com.example.magmarket.data.remote.model.order.Order
 import com.example.magmarket.data.remote.model.order.ResponseOrder
 import com.example.magmarket.data.remote.model.review.ResponseReview
 import com.example.magmarket.data.remote.model.review.Review
+import com.example.magmarket.data.remote.model.updateorder.UpdateOrder
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
@@ -19,7 +20,7 @@ interface MarketService {
     @GET("products")
     suspend fun getAllProduct(
         @QueryMap tokens: Map<String, String> = BASE_PARAM,
-        @Query("page") page: Int = 1,
+        @Query("page") page: Int,
         @Query("orderby") orderby: String
     ): Response<List<ProductRecyclerViewItem.ProductItem>>
 
@@ -55,9 +56,42 @@ interface MarketService {
         @QueryMap tokens: Map<String, String> = BASE_PARAM
     ): Response<ResponseOrder>
 
+    @PUT("orders/{id}")
+    suspend fun updateOrder(
+        @Path("id") orderId: Int,
+        @Body order: UpdateOrder,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ): Response<ResponseOrder>
+
+    @DELETE("orders/{id}")
+    suspend fun deleteOrder(
+        @Path("id") orderId: Int,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ): Response<ResponseOrder>
+
+    @GET("orders/{id}")
+    suspend fun getAnOrder(
+        @Path("id") orderId: Int,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ): Response<ResponseOrder>
+
+    @GET("orders/{id}")
+    suspend fun getCart(
+        @Path("id") orderId: Int,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    )
+
+    @DELETE("orders/{id}")
+    suspend fun deleteAnItemFromOrder(
+        @Path("id") orderId: Int,
+        @Body order: UpdateOrder,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ): Response<ResponseOrder>
+
     @GET("orders")
     suspend fun getPlacedOrders(
         @Query("customer") customer_id: Int,
+        @Query("status") status: String = "completed",
         @QueryMap tokens: Map<String, String> = BASE_PARAM
     ): Response<List<ResponseOrder>>
 
@@ -70,6 +104,15 @@ interface MarketService {
     @GET("products")
     suspend fun searchProduct(
         @Query("search") search: String,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ): Response<List<ProductItem>>
+
+    @GET("products")
+   suspend fun searchingSortedProduct(
+        @Query("order") order: String?,
+        @Query("orderby") orderBy: String?,
+        @Query("search") search: String?,
+        @Query("page") page: Int=1,
         @QueryMap tokens: Map<String, String> = BASE_PARAM
     ): Response<List<ProductItem>>
 
@@ -94,19 +137,32 @@ interface MarketService {
 
 
     @GET("products/reviews")
-    suspend fun getProductComment(@Query("product") productId: Int,
-                                  @QueryMap tokens: Map<String, String> = BASE_PARAM): Response<List<ResponseReview>>
+    suspend fun getProductComment(
+        @Query("product") productId: Int,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ): Response<List<ResponseReview>>
+
+    @GET("products/reviews")
+    suspend fun getAllProductComment(
+        @Query("product") productId: Int,
+        @Query("page") page: Int,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ): Response<List<ResponseReview>>
 
     @POST("products/reviews")
-    suspend fun sendUserComment(@Body review: Review,
-                                @QueryMap tokens: Map<String, String> = BASE_PARAM): Response<ResponseReview>
+    suspend fun sendUserComment(
+        @Body review: Review,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ): Response<ResponseReview>
 
     @DELETE("products/reviews/{id}")
-    suspend fun deleteUserComment(@Path("id") id: Int,
-                                  @QueryMap tokens: Map<String, String> = BASE_PARAM): Response<ResponseReview>
+    suspend fun deleteUserComment(
+        @Path("id") id: Int,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ): Response<ResponseReview>
 
     @PUT("products/reviews/{id}")
-    suspend  fun updateComment(
+    suspend fun updateComment(
         @Path("id") id: Int,
         @Body review: Review,
         @QueryMap tokens: Map<String, String> = BASE_PARAM
@@ -114,13 +170,15 @@ interface MarketService {
 
 
     @GET("coupons")
-    suspend fun verifyCoupon(@Query("code") couponCode: String,
-                             @QueryMap tokens: Map<String, String> = BASE_PARAM): Response<List<CouponResponseItem>>
+    suspend fun verifyCoupon(
+        @Query("code") couponCode: String,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ): Response<List<CouponResponse>>
 
     @GET("products")
     suspend fun getSortedProduct(
-        @Query("orderby")  orderBy:String="date" ,
-        @Query("page")  page:Int=1,
+        @Query("orderby") orderBy: String = "date",
+        @Query("page") page: Int = 1,
         @QueryMap tokens: Map<String, String> = BASE_PARAM
-    ) : Response<List<ProductItem>>
+    ): Response<List<ProductItem>>
 }

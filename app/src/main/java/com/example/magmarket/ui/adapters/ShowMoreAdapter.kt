@@ -3,36 +3,44 @@ package com.example.magmarket.ui.adapters
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.magmarket.R
 import com.example.magmarket.data.remote.model.ProductRecyclerViewItem
 import com.example.magmarket.databinding.ItemsSubCategoryBinding
 import java.text.NumberFormat
 import java.util.*
 
 class ShowMoreAdapter(private var clickListener: (ProductRecyclerViewItem.ProductItem) -> Unit) :
-    ListAdapter<ProductRecyclerViewItem.ProductItem, ShowMoreAdapter.MyViewHolder>(ShowMoreOfCategoryDiffCall) {
+    PagingDataAdapter<ProductRecyclerViewItem.ProductItem, ShowMoreAdapter.MyViewHolder>(ShowMoreOfCategoryDiffCall) {
     val nf: NumberFormat = NumberFormat.getInstance(Locale.US)
     inner class MyViewHolder(
         private val binding: ItemsSubCategoryBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun mBind(productItem: ProductRecyclerViewItem.ProductItem) = binding.apply {
-            if (productItem.images.isNotEmpty()){
+            if (productItem.images!!.isNotEmpty()){
                 Glide.with(root)
-                    .load(productItem.images[0].src)
+                    .load(productItem.images.get(0).src)
+                    .placeholder(R.drawable.emptyimage)
                     .into(productImage)
             }
-            if (!productItem.name.isNullOrBlank()){
-                productName.text = productItem.name
+       if (!productItem.name.isNullOrEmpty()){
+
+           productName.text = productItem.name
+       }else{
+           productName.text="بی نام"
+       }
+            if (!productItem.price.isNullOrEmpty()){
+
+                productPrice.text = nf.format(productItem.price.toInt())
+
+            }else{
+                productPrice.text="فاقد قیمت "
             }
-          if (!productItem.price.isNullOrBlank()){
-              productPrice.text = nf.format(productItem.price.toInt())
-          }
-
-
             root.setOnClickListener {
                 clickListener(productItem)
             }
@@ -55,7 +63,7 @@ class ShowMoreAdapter(private var clickListener: (ProductRecyclerViewItem.Produc
     override fun onBindViewHolder(
         holder: ShowMoreAdapter.MyViewHolder, position: Int
     ) {
-        holder.mBind(getItem(position))
+        getItem(position)?.let { holder.mBind(it) }
     }
 
 

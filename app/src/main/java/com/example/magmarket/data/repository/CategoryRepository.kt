@@ -17,12 +17,9 @@ class CategoryRepository @Inject constructor(
     suspend fun getSubCategories(parent:Int)= safeApiCall(dispatcher){
         marketRemoteDataSource.getSubCategories(parent)
     }
-    suspend fun getShowmoreProduct(orderBy:String)= safeApiCall(dispatcher){
-        marketRemoteDataSource.getAllProduct(orderBy)
-    }
-//    suspend fun getRemoteProductList(orderby: String) = safeApiCall(dispatcher) {
-//        marketremoteDataSource.getAllProduct(orderby)
-//    }
+    suspend fun getShowmoreProduct(page:Int,orderBy:String)= marketRemoteDataSource.getAllProduct(page,orderBy)
+
+
     suspend fun getProductOfCategory(categoryId:Int)= safeApiCall(dispatcher){
         marketRemoteDataSource.getproductOfCategory(categoryId)
     }

@@ -50,12 +50,12 @@ class NotificationFragment : Fragment(R.layout.fragment_notification) {
         notifRg.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.off_notif -> {
-                    Log.d("checked", "setNotification: off_notif")
+
                     editor.putInt("time", 0)
                     timePicker = 0
                 }
                 R.id.three_hours -> {
-                    Log.d("checked", "setNotification: three_hours")
+
                     editor.putInt("time", 1)
                     timePicker = 3
                 }
@@ -83,7 +83,7 @@ class NotificationFragment : Fragment(R.layout.fragment_notification) {
 
     }
 
-   private fun submit() = with(binding) {
+    private fun submit() = with(binding) {
         binding.submitNotifi.setOnClickListener {
             Log.d("timepicker", "submit: $custom")
             if (custom) {
@@ -113,7 +113,7 @@ class NotificationFragment : Fragment(R.layout.fragment_notification) {
 
     }
 
-   private fun setNotification(time: Int, timeUnit: TimeUnit) {
+    private fun setNotification(time: Int, timeUnit: TimeUnit) {
 
         val workManager = WorkManager.getInstance(requireContext())
         val constraints = Constraints.Builder()

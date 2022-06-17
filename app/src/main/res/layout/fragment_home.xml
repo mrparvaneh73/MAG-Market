@@ -165,7 +165,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <com.example.magmarket.customview.StateView
+    <com.example.magmarket.ui.customview.StateView
         android:id="@+id/state_view"
         android:layout_width="200dp"
         android:layout_height="219dp"
