@@ -1,5 +1,6 @@
 package com.example.magmarket.ui.adapters
 
+import android.graphics.Paint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -40,7 +41,8 @@ class PlacedOrderDetailsAdapter :
                 regularprice.text=""
             }else{
 
-                regularprice.text=nf.format(productItem.meta_data[1].value.toInt().minus(productItem.subtotal.toInt()) * productItem.quantity)
+                regularprice.text=nf.format(productItem.meta_data[1].value.toInt())
+                regularprice.paintFlags= Paint.STRIKE_THRU_TEXT_FLAG
             }
             tvquantityproduct.text = productItem.quantity.toString()
 

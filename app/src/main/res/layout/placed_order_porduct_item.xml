@@ -55,8 +55,8 @@
             android:id="@+id/tvpriceproduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="104dp"
-            android:layout_marginBottom="28dp"
+            android:layout_marginStart="152dp"
+            android:layout_marginBottom="44dp"
             android:fontFamily="@font/farkhondeh"
             android:text=""
             android:textColor="@color/text"
@@ -79,23 +79,24 @@
             app:layout_constraintTop_toTopOf="@+id/tvcount"
             app:layout_constraintVertical_bias="1.0" />
 
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvunit"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginStart="52dp"
+            android:layout_marginEnd="36dp"
             android:layout_weight="10"
             android:fontFamily="@font/boostan"
             android:gravity="center"
             android:text="@string/unit_of_currency"
             android:textColor="@color/text"
             android:textSize="@dimen/TextSize4x"
-            app:layout_constraintBottom_toBottomOf="@+id/tvpriceproduct"
-            app:layout_constraintStart_toEndOf="@+id/tvpriceproduct"
-            app:layout_constraintTop_toTopOf="@+id/tvpriceproduct"
-            app:layout_constraintVertical_bias="0.0"
-            tools:ignore="SpUsage" />
 
+            app:layout_constraintBottom_toBottomOf="@+id/tvpriceproduct"
+            app:layout_constraintEnd_toStartOf="@+id/tvpriceproduct"
+            app:layout_constraintTop_toTopOf="@+id/tvpriceproduct"
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="SpUsage" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvcount"
@@ -125,8 +126,10 @@
             android:textSize="@dimen/TextSize3x"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/tvpriceproduct"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/tvpriceproduct"
-            app:layout_constraintTop_toBottomOf="@+id/tvpriceproduct" />
+            app:layout_constraintTop_toBottomOf="@+id/tvpriceproduct"
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

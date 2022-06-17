@@ -16,6 +16,13 @@ object Constants {
     const val WORK_NAME="newproduct"
     const val TAG="mynewproduct"
     const val BASE_URL = "https://woocommerce.maktabsharif.ir/wp-json/wc/v3/"
+    const val ORDER_DESC="desc"
+    const val ORDER_ASC="asc"
+    const val ORDER_BY_PRICE="price"
+    const val ORDER_BY_NEWEST="date"
+    const val ORDER_BY_VISIT="popularity"
+    const val ORDER_BY_RATING="rating"
+
     const val NEWEST_PRODUCT = "date"
     const val MOSTVIEW_PRODUCT = "rating"
     const val BEST_PRODUCT = "popularity"

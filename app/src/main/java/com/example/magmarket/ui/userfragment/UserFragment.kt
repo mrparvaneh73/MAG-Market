@@ -39,6 +39,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         loginFromLocal()
         exitFromAccount()
         editUser()
+        goToNotificationSetting()
 
     }
 
@@ -187,6 +188,11 @@ class UserFragment : Fragment(R.layout.fragment_user) {
                     email = userEmail
                 )
             )
+        }
+    }
+    private fun goToNotificationSetting(){
+        binding.setNotificaton.setOnClickListener {
+            findNavController().navigate(UserFragmentDirections.actionUserFragmentToNotificationFragment())
         }
     }
 

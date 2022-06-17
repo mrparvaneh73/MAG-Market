@@ -19,7 +19,10 @@ import retrofit2.http.Query
 import retrofit2.http.QueryMap
 
 interface RemoteDataSource {
-    suspend fun getAllProduct(page: Int, orderby: String): Response<List<ProductRecyclerViewItem.ProductItem>>
+    suspend fun getAllProduct(
+        page: Int,
+        orderby: String
+    ): Response<List<ProductRecyclerViewItem.ProductItem>>
 
     suspend fun getProduct(id: String): Response<ProductItem>
 
@@ -28,11 +31,16 @@ interface RemoteDataSource {
     suspend fun getproductOfCategory(categoryId: Int): Response<List<ProductItem>>
     suspend fun creatOrder(customer_id: Int, order: Order): Response<ResponseOrder>
     suspend fun getSimilarProducts(include: String): Response<List<ProductItem>>
+
     suspend fun searchProduct(search: String): Response<List<ProductItem>>
+    suspend fun searchingSortedProduct(order: String?, orderBy: String?, search: String?, ): Response<List<ProductItem>>
+
     suspend fun getPlacedOrder(customer_id: Int): Response<List<ResponseOrder>>
+
     suspend fun createCustomer(customer: Customer): Response<CustomerResponse>
     suspend fun getCustomer(id: Int): Response<CustomerResponse>
     suspend fun updateCustomer(id: Int, customer: Customer): Response<CustomerResponse>
+
     suspend fun updateOrder(OrderId: Int, order: UpdateOrder): Response<ResponseOrder>
     suspend fun deleteAnItemFromOrder(orderId: Int, order: UpdateOrder): Response<ResponseOrder>
     suspend fun deleteOrder(orderId: Int): Response<ResponseOrder>
@@ -48,5 +56,5 @@ interface RemoteDataSource {
 
     suspend fun verifyCoupon(couponCode: String): Response<List<CouponResponse>>
 
-    suspend fun getSortedProduct() : Response<List<ProductItem>>
+    suspend fun getSortedProduct(): Response<List<ProductItem>>
 }

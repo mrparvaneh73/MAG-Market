@@ -70,6 +70,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                         }
                     } else {
                         openDialog()
+                        isEmpty()
                     }
 
                 }

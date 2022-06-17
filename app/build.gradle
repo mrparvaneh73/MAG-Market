@@ -28,6 +28,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    lintOptions {
+        checkReleaseBuilds false
+    }
 
     buildTypes {
         release {
@@ -59,11 +62,11 @@ android {
 dependencies {
 
     // Kotlin + Core + AppCompat
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
 
     // Material + ConstraintLayout
-    implementation 'com.google.android.material:material:1.6.0'
+    implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     //Fragment Activity

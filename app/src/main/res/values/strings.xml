@@ -46,7 +46,7 @@
     <string name="storage">مگ مارکت</string>
     <string name="continue_shopping">ادامه فرایند خرید</string>
     <string name="warranty">گارانتی اصالت و سلامت کالا</string>
-<string name="tryagain">TRY AGAIN</string>
+    <string name="tryagain">TRY AGAIN</string>
     <string name="free_desc">برای سفارش بالای 500 هزارتومان</string>
     <string name="close">بستن صفحه</string>
     <string name="show_more_option">ویژگی های بیشتر</string>
@@ -93,4 +93,11 @@ Make sure Wi-Fi is on,Airplane Mode is off and try again</string>
     <string name="totalwithcoupon">جمع سبد خرید با تخفیف</string>
     <string name="accept_coupon">کد تخفیف شما با موفقیت افزوده شد</string>
     <string name="ignore_coupon">کد تخفیف وارد شده درست نیست یا قبلا استفاده شده است.</string>
+    <string name="price_desc">قیمت از زیاد به کم</string>
+    <string name="price_asc">قیمت از کم به زیاد</string>
+    <string name="most_visiting">پربازدیدترین‌ها</string>
+    <string name="most_rating">پرامتیازترین‌ها</string>
+    <string name="most_newest">جدیدترین‌ها</string>
+    <string name="sort">مرتب سازی</string>
+    <string name="filter">فیلتر</string>
 </resources>

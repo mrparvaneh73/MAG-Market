@@ -107,6 +107,15 @@ interface MarketService {
         @QueryMap tokens: Map<String, String> = BASE_PARAM
     ): Response<List<ProductItem>>
 
+    @GET("products")
+   suspend fun searchingSortedProduct(
+        @Query("order") order: String?,
+        @Query("orderby") orderBy: String?,
+        @Query("search") search: String?,
+        @Query("page") page: Int=1,
+        @QueryMap tokens: Map<String, String> = BASE_PARAM
+    ): Response<List<ProductItem>>
+
     @POST("customers")
     suspend fun createCustomer(
         @Body customer: Customer,

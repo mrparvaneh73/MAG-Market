@@ -25,15 +25,13 @@ class ProductRepository @Inject constructor(
     @MarketRemoteDataSource private val marketremoteDataSource: RemoteDataSource,
     @MarkLocalDataBase private val markLocalDataBase: LocalDataBase
 ) {
-    suspend fun getSimilarProducts(include: String)= safeApiCall(dispatcher) {
+    suspend fun getSimilarProducts(include: String) = safeApiCall(dispatcher) {
         marketremoteDataSource.getSimilarProducts(include)
     }
 
 
-
-
-    suspend fun getRemoteProductList(page:Int,orderby: String) = safeApiCall(dispatcher) {
-        marketremoteDataSource.getAllProduct(orderby = orderby,page=page)
+    suspend fun getRemoteProductList(page: Int, orderby: String) = safeApiCall(dispatcher) {
+        marketremoteDataSource.getAllProduct(orderby = orderby, page = page)
     }
 
     suspend fun getProduct(id: String) = safeApiCall(dispatcher) {
@@ -43,56 +41,66 @@ class ProductRepository @Inject constructor(
     suspend fun getAllCategories() = safeApiCall(dispatcher) {
         marketremoteDataSource.getAllCategories()
     }
-    suspend fun getSearchProduct(search:String)= safeApiCall(dispatcher){
+
+    suspend fun getSearchProduct(search: String) = safeApiCall(dispatcher) {
         marketremoteDataSource.searchProduct(search)
     }
 
-
-    suspend fun creatOrder(customer_id:Int,order: Order) = safeApiCall(dispatcher) {
-        marketremoteDataSource.creatOrder(customer_id,order)
+    suspend fun searchingSortedProduct(
+        order: String?,
+        orderBy: String?,
+        search: String?
+    ) = safeApiCall(dispatcher) {
+        marketremoteDataSource.searchingSortedProduct(order, orderBy, search)
     }
 
+    suspend fun creatOrder(customer_id: Int, order: Order) = safeApiCall(dispatcher) {
+        marketremoteDataSource.creatOrder(customer_id, order)
+    }
 
 
     suspend fun updateOrder(orderId: Int, order: UpdateOrder) = safeApiCall(dispatcher) {
-   marketremoteDataSource.updateOrder(orderId,order)
+        marketremoteDataSource.updateOrder(orderId, order)
     }
+
     suspend fun deleteAnItemFromOrder(
         orderId: Int,
         order: UpdateOrder
-    )= safeApiCall(dispatcher){
-        marketremoteDataSource.deleteAnItemFromOrder(orderId,order)
+    ) = safeApiCall(dispatcher) {
+        marketremoteDataSource.deleteAnItemFromOrder(orderId, order)
     }
-    suspend fun deleteOrder(orderId:Int)= safeApiCall(dispatcher){
+
+    suspend fun deleteOrder(orderId: Int) = safeApiCall(dispatcher) {
         marketremoteDataSource.deleteOrder(orderId)
     }
 
-    suspend fun getAnOrder(orderId: Int)= safeApiCall(dispatcher){
-        Log.d("getorder", "repo:" +orderId)
+    suspend fun getAnOrder(orderId: Int) = safeApiCall(dispatcher) {
+        Log.d("getorder", "repo:" + orderId)
         marketremoteDataSource.getAnOrder(orderId)
     }
 
-     suspend fun getProductComment(productId: Int)= safeApiCall(dispatcher){
-         marketremoteDataSource.getProductComment(productId)
+    suspend fun getProductComment(productId: Int) = safeApiCall(dispatcher) {
+        marketremoteDataSource.getProductComment(productId)
     }
 
-    suspend fun getAllProductComment(  productId: Int,page: Int)= marketremoteDataSource.getAllProductComment(productId, page)
+    suspend fun getAllProductComment(productId: Int, page: Int) =
+        marketremoteDataSource.getAllProductComment(productId, page)
 
 
-     suspend fun sendUserComment(review: Review)= safeApiCall(dispatcher) {
-         marketremoteDataSource.sendUserComment(review)
+    suspend fun sendUserComment(review: Review) = safeApiCall(dispatcher) {
+        marketremoteDataSource.sendUserComment(review)
     }
 
-     suspend fun deleteUserComment(id: Int)= safeApiCall(dispatcher){
-         marketremoteDataSource.deleteUserComment(id)
+    suspend fun deleteUserComment(id: Int) = safeApiCall(dispatcher) {
+        marketremoteDataSource.deleteUserComment(id)
     }
 
-     suspend fun updateComment(id: Int, review: Review)= safeApiCall(dispatcher) {
-         marketremoteDataSource.updateComment(id,review)
+    suspend fun updateComment(id: Int, review: Review) = safeApiCall(dispatcher) {
+        marketremoteDataSource.updateComment(id, review)
     }
 
-    suspend fun getSortedProducts()= flow{
-        val response= marketremoteDataSource.getSortedProduct().body()
+    suspend fun getSortedProducts() = flow {
+        val response = marketremoteDataSource.getSortedProduct().body()
         emit(response!!)
     }
 
@@ -101,7 +109,7 @@ class ProductRepository @Inject constructor(
     }
 
     fun getLastProductFromLocal(): Flow<List<LastProduct>> {
-        return  markLocalDataBase.getLastProduct()
+        return markLocalDataBase.getLastProduct()
     }
 
     suspend fun deleteLastPreviewsProductFromLocal(product: LastProduct) {
