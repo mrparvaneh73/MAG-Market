@@ -14,13 +14,13 @@ class CategoryRepository @Inject constructor(
     @IoDispatcher
     private val dispatcher: CoroutineDispatcher
 ) {
-    suspend fun getSubCategories(parent:Int)= safeApiCall(dispatcher){
+     fun getSubCategories(parent:Int)= safeApiCall(dispatcher){
         marketRemoteDataSource.getSubCategories(parent)
     }
     suspend fun getShowmoreProduct(page:Int,orderBy:String)= marketRemoteDataSource.getAllProduct(page,orderBy)
 
 
-    suspend fun getProductOfCategory(categoryId:Int)= safeApiCall(dispatcher){
+     fun getProductOfCategory(categoryId:Int)= safeApiCall(dispatcher){
         marketRemoteDataSource.getproductOfCategory(categoryId)
     }
 }

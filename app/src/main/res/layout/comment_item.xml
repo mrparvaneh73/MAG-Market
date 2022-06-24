@@ -23,11 +23,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/standardMargin1.5x"
             android:layout_marginRight="@dimen/standardMargin1.5x"
-            android:layout_marginBottom="4dp"
             android:layout_weight="10"
-            android:fontFamily="@font/far_mitra"
+            android:fontFamily="@font/farkhondeh"
             android:gravity="start"
-            android:padding="@dimen/TextSize2x"
+            android:padding="@dimen/TextSize1x"
             android:text="محمدرضا"
             android:textColor="@color/text"
             android:textSize="@dimen/TextSize5x"
@@ -37,7 +36,6 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.115"
             tools:ignore="SpUsage" />
 
         <com.google.android.material.textview.MaterialTextView

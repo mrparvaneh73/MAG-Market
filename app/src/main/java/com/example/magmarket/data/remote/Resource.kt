@@ -20,7 +20,7 @@ sealed class Resource<out T> {
     object Loading : Resource<Nothing>()
 }
 
-suspend inline fun <T> safeApiCall(
+ inline fun <T> safeApiCall(
     dispatcher: CoroutineDispatcher,
     crossinline apiCall: suspend () -> Response<T>
 ) = channelFlow<Resource<T>> {
@@ -46,7 +46,7 @@ suspend inline fun <T> safeApiCall(
         } catch (e: IOException) {
             send(Resource.Error(e.message))
         } catch (e: HttpException) {
-            send(Resource.Error(e.message))
+            send(Resource.Error("e.message"))
         } catch (e: Throwable) {
             send(Resource.Error(e.message))
         } finally {

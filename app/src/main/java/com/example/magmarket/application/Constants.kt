@@ -22,7 +22,6 @@ object Constants {
     const val ORDER_BY_NEWEST="date"
     const val ORDER_BY_VISIT="popularity"
     const val ORDER_BY_RATING="rating"
-
     const val NEWEST_PRODUCT = "date"
     const val MOSTVIEW_PRODUCT = "rating"
     const val BEST_PRODUCT = "popularity"

@@ -12,6 +12,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -106,14 +107,21 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         categoryAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+
         bestAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         mostViewAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         binding.newestRecyclerview.adapter = newestAdapter
         binding.categoryRecyclerview.adapter = categoryAdapter
+//        binding.categoryRecyclerview.layoutManager=
+//            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL ,false)
         binding.bestSellerRecyclerview.adapter = bestAdapter
+//        binding.bestSellerRecyclerview.layoutManager=
+//            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL ,false)
         binding.mostViewrecyclerview.adapter = mostViewAdapter
+//        binding.mostViewrecyclerview.layoutManager=
+//            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL ,false)
     }
 
     private fun clickListener() {

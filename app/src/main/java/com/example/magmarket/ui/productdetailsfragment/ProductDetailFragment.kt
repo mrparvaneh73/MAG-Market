@@ -10,6 +10,7 @@ import android.widget.ImageView
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -120,14 +121,19 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                     if (!it.value.name.isNullOrEmpty()) {
                         tvProductName.text = it.value.name
                     }
+                    if (!it.value.description.isNullOrEmpty()) {
+                        tvProductDescription.text =
+                            it.value.description.let { it1 ->
+                                HtmlCompat.fromHtml(
+                                    it1,
+                                    HtmlCompat.FROM_HTML_MODE_LEGACY
+                                )
+                            }
 
-                    tvProductDescription.text =
-                        it.value.description?.let { it1 ->
-                            HtmlCompat.fromHtml(
-                                it1,
-                                HtmlCompat.FROM_HTML_MODE_LEGACY
-                            )
-                        }
+                    }else{
+                        tvProductDescription.text =""
+                    }
+
 
                     it.value.related_ids?.let { it1 -> similar.addAll(it1) }
                     productViewModel.getSimilarProduct(similar.toString())
@@ -143,7 +149,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                         tvTotalprice.text = "محصول فاقد قیمت"
                     }
                     productViewModel.productImage = it.value.images?.get(0)?.src ?: ""
-                    productViewModel.regular_price=it.value.regular_price ?: ""
+                    productViewModel.regular_price = it.value.regular_price ?: ""
 //                    regularPrice = it.value.regular_price
 
 
@@ -164,26 +170,20 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
     private fun plusOrMinusProduct() {
         binding.imageViewPlus.setOnClickListener {
-
             productViewModel.updateAnItemInOrder(productViewModel.count.plus(1))
             productViewModel.count++
-
         }
-        binding.imgDeleteOrder.setOnClickListener {
 
+        binding.imgDeleteOrder.setOnClickListener {
             productViewModel.updateAnItemInOrder(productViewModel.count.minus(1))
             productViewModel.count--
-
-
         }
-
     }
 
     private fun comment() {
         productViewModel.getProductComment()
         productViewModel.productComment.collectIt(viewLifecycleOwner) {
             when (it) {
-
                 is Resource.Success -> {
                     commentAdapter.submitList(it.value)
                 }
@@ -209,11 +209,10 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
                             parentPlusandminus.isClickable = true
                             if (it.value.line_items.isNotEmpty()) {
-                                Log.d("helo", "toif balai: " + productViewModel.count)
                                 for (i in it.value.line_items) {
                                     if (productViewModel.productId!!.toInt() == i.product_id) {
                                         productViewModel.id = i.id
-                                        Log.d("helo", "toif paini: " + i.quantity)
+
                                         productViewModel.count = i.quantity
                                         tvProductCount.text = productViewModel.count.toString()
                                         parentPlusandminus.isVisible = true
@@ -236,7 +235,6 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                         }
 
                         is Resource.Error -> {
-                            Log.d("helo", "responseUpdateOrder: " + "why error?")
                             loadingCount.isVisible = false
                             loadingCount.pauseAnimation()
                         }
@@ -260,32 +258,29 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                             binding.buttonAddToCart.isVisible = false
                         }
                         is Resource.Success -> {
-                         if (it.value.line_items.isNotEmpty()){
-                             for (i in it.value.line_items) {
+                            if (it.value.line_items.isNotEmpty()) {
+                                for (i in it.value.line_items) {
 
-                                 if (productViewModel.productId!!.toInt() == i.product_id) {
-                                     productViewModel.id = i.id
-                                     loadingCount.isVisible = false
-                                     parentPlusandminus.isVisible = true
-                                     binding.buttonAddToCart.isVisible = false
-                                     productViewModel.count = i.quantity
-                                     Log.d(
-                                         "getorder",
-                                         "responseGetAnOrder: +success" + productViewModel.count
-                                     )
-                                     binding.tvProductCount.text = productViewModel.count.toString()
-                                     break
+                                    if (productViewModel.productId!!.toInt() == i.product_id) {
+                                        productViewModel.id = i.id
+                                        loadingCount.isVisible = false
+                                        parentPlusandminus.isVisible = true
+                                        binding.buttonAddToCart.isVisible = false
+                                        productViewModel.count = i.quantity
+                                        binding.tvProductCount.text =
+                                            productViewModel.count.toString()
+                                        break
 
-                                 } else {
+                                    } else {
 
-                                     parentPlusandminus.isVisible = false
-                                     buttonAddToCart.isVisible = true
-                                 }
-                             }
-                         }else{
-                             parentPlusandminus.isVisible = false
-                             buttonAddToCart.isVisible = true
-                         }
+                                        parentPlusandminus.isVisible = false
+                                        buttonAddToCart.isVisible = true
+                                    }
+                                }
+                            } else {
+                                parentPlusandminus.isVisible = false
+                                buttonAddToCart.isVisible = true
+                            }
 
 
                         }
@@ -293,7 +288,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                         is Resource.Error -> {
                             loadingCount.isVisible = false
                             loadingCount.pauseAnimation()
-                            Log.d("getorder", "responseGetAnOrder: +error")
+
                         }
                     }
                 }
@@ -303,16 +298,17 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
     }
 
-    private fun collectResponseOrder() {
+    private fun collectResponseOrder() = with(binding) {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 productViewModel.orderCreate.collect {
                     when (it) {
                         is Resource.Loading -> {
-
+                            loadingAdd.isVisible = true
+                            loadingCount.playAnimation()
                         }
                         is Resource.Success -> {
-                            Log.d("helo", "collectResponseOrder: " + productViewModel.count)
+
                             productViewModel.saveUserDataStore(
                                 com.example.magmarket.data.datastore.user.User(
                                     userId = productViewModel.customerId,
@@ -324,6 +320,8 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                                     isLogin = true
                                 )
                             )
+                            loadingAdd.isVisible = false
+                            loadingCount.pauseAnimation()
 
                             productViewModel.getAnOrder(it.value.id)
 

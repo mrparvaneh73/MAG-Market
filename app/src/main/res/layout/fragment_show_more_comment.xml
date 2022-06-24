@@ -39,8 +39,8 @@
 
     <LinearLayout
         android:id="@+id/submit_comment"
-        android:layout_width="146dp"
-        android:layout_height="62dp"
+        android:layout_width="123dp"
+        android:layout_height="53dp"
         android:layout_marginBottom="36dp"
         android:background="@drawable/button_submit"
         android:orientation="horizontal"
@@ -48,23 +48,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.105"
         app:layout_constraintStart_toStartOf="parent">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/comment"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/standardMargin3x"
             android:gravity="center"
-            android:layout_marginStart="@dimen/standardMargin5x"
-            android:layout_gravity="center"/>
+            android:src="@drawable/comment" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/standardMargin3x"
+            android:layout_marginEnd="@dimen/standardMargin2x"
+            android:gravity="center"
             android:text="@string/submit_comment"
             android:textColor="@color/black"
-            android:gravity="center"
-            android:textSize="@dimen/TextSize5x"
-            android:layout_marginStart="@dimen/standardMargin3x"
-            android:layout_gravity="center"/>
+            android:textSize="@dimen/TextSize4x" />
 
     </LinearLayout>
 

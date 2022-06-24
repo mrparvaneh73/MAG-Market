@@ -1,39 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mymotionlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <ImageView
-        android:id="@+id/img_back"
-        android:layout_width="29dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="24dp"
-        android:src="@drawable/back"
-        app:layout_constraintBottom_toTopOf="@+id/firstNameText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/secondNameTextField"
-        style="@style/Platform.MaterialComponents"
+    app:layoutDescription="@xml/fragment_adress_scene">
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="80dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/familyname"
-        android:inputType="textPersonName"
-        android:textAlignment="viewStart"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:layoutDirection="ltr"
+        app:iconifiedByDefault="false"
+        app:layout_constraintEnd_toStartOf="@+id/img_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/secondNameText" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="جستجو" />
+    <ImageView
+        android:contentDescription="@string/back"
+        android:id="@+id/img_back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="@dimen/standardMargin3x"
+        android:src="@drawable/back"
+        app:layout_constraintBottom_toBottomOf="@+id/searchView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/searchView" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parentmap"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayout_motion"
+        app:layout_constraintTop_toBottomOf="@id/searchView">
+
+        <org.neshan.mapsdk.MapView
+            android:id="@+id/magmap"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/focouse"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="@dimen/standardMargin4x"
+                android:background="@drawable/ic_my_location"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </org.neshan.mapsdk.MapView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout_motion"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@drawable/edbackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="171dp"
+        android:layout_height="57dp"
+        android:layout_marginEnd="@dimen/standardMargin6x"
+        android:fontFamily="@font/far_mitra"
+        android:gravity="center"
+        android:text="جزئیات آدرس"
+        android:textColor="@color/text"
+        android:textSize="@dimen/TextSize5x"
+        app:layout_constraintBottom_toBottomOf="@id/constraintLayout_motion"
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout_motion" />
+
+    <ImageView
+        android:id="@+id/imagview_showmore"
+        android:layout_width="69dp"
+        android:layout_height="60dp"
+        android:contentDescription="@string/show_more_option"
+        android:src="@drawable/up"
+        app:layout_constraintBottom_toBottomOf="@id/constraintLayout_motion"
+        app:layout_constraintStart_toStartOf="@id/constraintLayout_motion" />
+
+    <ImageView
+        android:id="@+id/imagview_close"
+        android:layout_width="69dp"
+        android:layout_height="60dp"
+        android:alpha="0"
+        android:contentDescription="@string/show_more_option"
+        android:src="@drawable/close"
+        app:layout_constraintBottom_toBottomOf="@id/constraintLayout_motion"
+        app:layout_constraintStart_toStartOf="@id/constraintLayout_motion" />
+
 
     <TextView
         android:id="@+id/firstNameText"
@@ -44,14 +109,13 @@
         android:layout_marginEnd="80dp"
         android:text="@string/name"
         android:textColor="@color/text"
-        android:textAlignment="viewStart"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/first_name_text_field"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/constraintLayout_motion" />
 
     <EditText
         android:id="@+id/first_name_text_field"
@@ -77,7 +141,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="80dp"
         android:text="@string/familyname"
-        android:textAlignment="viewStart"
+
         android:textColor="@color/text"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -85,6 +149,25 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/first_name_text_field" />
+
+    <EditText
+        android:id="@+id/secondNameTextField"
+        style="@style/Platform.MaterialComponents"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="80dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/familyname"
+        android:inputType="textPersonName"
+        android:textAlignment="viewStart"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/secondNameText" />
 
     <TextView
         android:id="@+id/phoneTextView"
@@ -95,7 +178,7 @@
         android:layout_marginEnd="80dp"
         android:text="@string/phonenumber"
         android:textColor="@color/text"
-        android:textAlignment="viewStart"
+
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -111,7 +194,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="80dp"
         android:text="@string/postcode"
-        android:textAlignment="viewStart"
+
         android:textColor="@color/text"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -158,10 +241,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/address"
-        android:textAlignment="viewStart"
         android:textColor="@color/text"
         android:textSize="16sp"
-
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/postCodeTextField"
         app:layout_constraintHorizontal_bias="0.0"
@@ -251,4 +332,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/countryTextField" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>

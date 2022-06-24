@@ -19,7 +19,6 @@
             android:id="@+id/img_product"
             android:layout_width="90dp"
             android:layout_height="123dp"
-            android:layout_margin="@dimen/standardMargin"
             android:layout_weight="60"
             android:adjustViewBounds="true"
 
@@ -44,7 +43,7 @@
             android:gravity="center"
             android:maxLines="2"
             android:textColor="@color/text"
-            android:textSize="@dimen/TextSize3x"
+            android:textSize="@dimen/TextSize2x"
             app:layout_constraintBottom_toTopOf="@id/tvpriceproduct"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.416"

@@ -179,9 +179,9 @@ class UserFragment : Fragment(R.layout.fragment_user) {
     }
 
     private fun editUser() {
-        binding.edit!!.setOnClickListener {
+        binding.addressList!!.setOnClickListener {
             findNavController().navigate(
-                UserFragmentDirections.actionGlobalAddressFragment(
+                UserFragmentDirections.actionUserFragmentToAddressFragment(
                     id = userid,
                     firstname = userFirstName,
                     lastname = userLastName,

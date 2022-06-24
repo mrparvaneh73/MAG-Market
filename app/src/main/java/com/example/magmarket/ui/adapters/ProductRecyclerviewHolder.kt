@@ -21,7 +21,7 @@ sealed class ProductRecyclerviewHolder(binding: ViewBinding) :
     class TitleViewHolder(private val binding: ItemTitleBinding) :
         ProductRecyclerviewHolder(binding) {
         fun bind(image: ProductRecyclerViewItem.HeaderProductTitle) = binding.apply {
-            Glide.with(root).load(image.title)
+            Glide.with(root).load(image.title).placeholder(R.drawable.emptyimage).error(R.drawable.emptyimage)
                 .into(imgProduct)
 
             root.setOnClickListener {
@@ -47,8 +47,9 @@ sealed class ProductRecyclerviewHolder(binding: ViewBinding) :
         fun bind(productItem: ProductRecyclerViewItem.ProductItem) = binding.apply {
 
                     if (!productItem.images.isNullOrEmpty()){
-                        Glide.with(root).load(productItem.images.get(0).src)
+                        Glide.with(root) .load(productItem.images.get(0).src)
                             .placeholder(R.drawable.emptyimage)
+                            .error(R.drawable.emptyimage)
                             .into(imgProduct)
                     }
             if (!productItem.name.isNullOrEmpty()){

@@ -21,6 +21,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.example.magmarket.data.datastore.user.User
 
 @HiltViewModel
 class ProductDetailsViewModel @Inject constructor(
@@ -92,7 +93,7 @@ class ProductDetailsViewModel @Inject constructor(
         }
     }
 
-    fun saveUserDataStore(user: com.example.magmarket.data.datastore.user.User) {
+    fun saveUserDataStore(user: User) {
         viewModelScope.launch {
             userDataStore.saveUser(user)
         }
@@ -147,7 +148,7 @@ class ProductDetailsViewModel @Inject constructor(
 
 
 
-    fun setUserInfo(user: com.example.magmarket.data.datastore.user.User) {
+    fun setUserInfo(user: User) {
         customerId = user.userId
         customerEmail = user.email
         customerFirstName = user.firstName
@@ -157,8 +158,6 @@ class ProductDetailsViewModel @Inject constructor(
 
 
     fun updateAnItemInOrder(number: Int) {
-
-
         updateOrderRemote(
             orderId, UpdateOrder(
                  line_items = mutableListOf(
@@ -182,7 +181,7 @@ class ProductDetailsViewModel @Inject constructor(
     }
 
     fun addAnItemInOrder() {
-        Log.d("addorder", "addAnItemInOrder: " + orderId)
+
         updateOrderRemote(
             orderId, UpdateOrder(
             line_items =     mutableListOf(

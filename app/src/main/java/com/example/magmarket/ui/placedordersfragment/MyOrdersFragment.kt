@@ -28,7 +28,7 @@ class MyOrdersFragment : Fragment(R.layout.fragment_my_orders) {
 
     private val cartViewModel by viewModels<MyOrdersViewModel>()
     private val orderPlacedAdapter = OrderPlacedAdapter(clickListener = {
-        findNavController().navigate(MyOrdersFragmentDirections.actionGlobalEachPlacedOrderDetailsFragment(it.id))
+        findNavController().navigate(MyOrdersFragmentDirections.actionMyOrdersFragmentToEachPlacedOrderDetailsFragment(it.id))
     }
 
     )

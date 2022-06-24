@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.magmarket.R
 import com.example.magmarket.data.remote.model.CategoryItem
 import com.example.magmarket.databinding.CategoryItemBinding
 
@@ -19,7 +20,10 @@ class CategoryAdapter(private var clickListener: (CategoryItem) -> Unit) :
         fun mBind(categoryItem: CategoryItem) = binding.apply {
             Glide.with(root)
                 .load(categoryItem.image.src)
+                .placeholder(R.drawable.emptyimage)
+                .error(R.drawable.emptyimage)
                 .into(categoryImg)
+
             catrgoryName.text = categoryItem.name
 
             root.setOnClickListener {

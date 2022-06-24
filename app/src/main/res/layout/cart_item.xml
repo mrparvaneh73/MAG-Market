@@ -26,7 +26,8 @@
         android:paddingLeft="@dimen/standardMargin2x"
         android:paddingRight="@dimen/standardMargin2x"
         android:textColor="@color/text"
-        android:textSize="@dimen/TextSize4x"
+        android:textSize="@dimen/TextSize2x"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/img_product"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,12 +60,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="9"
-                android:fontFamily="@font/far_mitra"
+                android:fontFamily="@font/farkhondeh"
                 android:paddingStart="@dimen/standardMargin2x"
                 android:paddingEnd="@dimen/standardMargin"
                 android:text="@string/warranty"
                 android:textColor="@color/text"
-                android:textSize="@dimen/TextSize3x" />
+                android:textSize="@dimen/TextSize2x" />
 
             <ImageView
                 android:id="@+id/imageView4"
@@ -90,11 +91,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="9"
-                android:fontFamily="@font/far_mitra"
+                android:fontFamily="@font/farkhondeh"
                 android:paddingStart="@dimen/standardMargin2x"
                 android:text="@string/storage"
                 android:textColor="@color/text"
-                android:textSize="@dimen/TextSize3x"
+                android:textSize="@dimen/TextSize2x"
                 tools:ignore="RtlSymmetry" />
 
             <ImageView
@@ -120,12 +121,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="9"
-                android:fontFamily="@font/far_mitra"
+                android:fontFamily="@font/farkhondeh"
                 android:paddingStart="8dp"
                 android:paddingEnd="4dp"
                 android:text="@string/existing"
                 android:textColor="@color/text"
-                android:textSize="@dimen/TextSize3x" />
+                android:textSize="@dimen/TextSize2x" />
 
             <ImageView
                 android:id="@+id/imageView6"
@@ -153,11 +154,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/standardMargin0.5x"
                 android:layout_weight="9"
-                android:fontFamily="@font/far_mitra"
+                android:fontFamily="@font/farkhondeh"
                 android:paddingStart="@dimen/standardMargin2x"
                 android:text="@string/magdelivery"
                 android:textColor="@color/text"
-                android:textSize="@dimen/TextSize3x" />
+                android:textSize="@dimen/TextSize2x" />
 
             <ImageView
                 android:id="@+id/img9"

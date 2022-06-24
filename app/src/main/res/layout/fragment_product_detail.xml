@@ -86,6 +86,7 @@
                         android:fontFamily="@font/far_mitra"
                         android:textColor="@color/text"
                         android:textSize="@dimen/TextSize4x"
+                        android:textStyle="bold"
                         tools:text="تلوزیون ال جی 56 اینچ" />
                 </LinearLayout>
 
@@ -126,7 +127,7 @@
                         android:layout_marginStart="@dimen/standardMargin1.5x"
                         android:layout_marginEnd="@dimen/standardMargin1.5x"
                         android:layout_marginBottom="@dimen/standardMargin1.5x"
-                        android:fontFamily="@font/far_mitra"
+                        android:fontFamily="@font/farkhondeh"
                         android:maxLines="20"
                         android:textColor="@color/text"
                         android:textSize="@dimen/TextSize4x"
@@ -299,7 +300,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="72dp"
                             android:fontFamily="@font/farkhondeh"
-                            android:text="دیدگاه خود را درباره این کالا بنویسید"
+                            android:text="@string/submit_your_comment_about_this_product"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="@+id/imageView9"
                             app:layout_constraintEnd_toStartOf="@+id/imageView9"
@@ -477,12 +478,24 @@
                 android:fontFamily="@font/far_mitra"
                 android:text="@string/add_to_bascket"
                 android:textColor="@color/text"
-                android:textSize="@dimen/TextSize4x"
+                android:textSize="@dimen/TextSize2x"
                 app:cornerRadius="@dimen/standardMargin3x"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.482" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/loading_add"
+                android:layout_width="78dp"
+                android:layout_height="36dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/button_add_to_Cart"
+                app:layout_constraintEnd_toEndOf="@+id/button_add_to_Cart"
+                app:layout_constraintStart_toStartOf="@+id/button_add_to_Cart"
+                app:lottie_autoPlay="false"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/threedotsloading" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

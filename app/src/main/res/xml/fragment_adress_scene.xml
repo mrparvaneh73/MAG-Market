@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="1000">
+       <KeyFrameSet>
+       </KeyFrameSet>
+        <OnClick motion:targetId="@+id/imagview_showmore" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/parentmap"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            motion:layout_constraintBottom_toTopOf="@id/constraintLayout_motion"
+            motion:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/constraintLayout_motion"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
+        <Constraint
+            android:id="@+id/textView14"
+            motion:layout_constraintEnd_toEndOf="@+id/constraintLayout_motion"
+            android:layout_width="171dp"
+            android:layout_height="57dp"
+            android:layout_marginEnd="@dimen/standardMargin6x"
+            motion:layout_constraintTop_toTopOf="@id/constraintLayout_motion"
+            motion:layout_constraintStart_toStartOf="@id/constraintLayout_motion" />
+        <Constraint
+            android:id="@+id/imagview_showmore"
+            android:layout_width="48dp"
+            android:layout_height="53dp"
+            motion:layout_constraintStart_toStartOf="@id/constraintLayout_motion"
+            android:alpha="1"
+            motion:layout_constraintTop_toBottomOf="@+id/imagview_close"
+            motion:layout_editor_absoluteX="202dp"
+            motion:layout_constraintTop_toTopOf="@id/constraintLayout_motion"
+            android:scaleY="-1" />
+        <Constraint
+            android:id="@+id/firstNameText"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="80dp"
+            android:layout_marginStart="80dp"
+            motion:layout_constraintTop_toTopOf="@id/constraintLayout_motion"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="80dp"
+            motion:layout_constraintBottom_toTopOf="@+id/first_name_text_field"
+            motion:layout_constraintHorizontal_bias="0.5" />
+        <Constraint
+            android:id="@+id/first_name_text_field"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="80dp"
+            android:layout_marginStart="80dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="5dp"
+            motion:layout_constraintTop_toBottomOf="@+id/firstNameText"
+            motion:layout_constraintHorizontal_bias="0.5" />
+        <Constraint
+            android:id="@+id/secondNameText"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="80dp"
+            android:layout_marginStart="80dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="10dp"
+            motion:layout_constraintTop_toBottomOf="@+id/first_name_text_field"
+            motion:layout_constraintHorizontal_bias="0.5" />
+        <Constraint
+            android:id="@+id/secondNameTextField"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="80dp"
+            android:layout_marginStart="80dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="5dp"
+            motion:layout_constraintTop_toBottomOf="@+id/secondNameText"
+            motion:layout_constraintHorizontal_bias="0.5" />
+        <Constraint
+            android:id="@+id/phoneTextView"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="80dp"
+            android:layout_marginStart="80dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="10dp"
+            motion:layout_constraintTop_toBottomOf="@+id/secondNameTextField"
+            motion:layout_constraintHorizontal_bias="0.5" />
+        <Constraint
+            android:id="@+id/passwordTextView"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="80dp"
+            android:layout_marginStart="80dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="10dp"
+            motion:layout_constraintTop_toBottomOf="@+id/phone_numberTextField"
+            motion:layout_constraintHorizontal_bias="0.0" />
+        <Constraint
+            android:id="@+id/phone_numberTextField"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="80dp"
+            motion:layout_constraintTop_toBottomOf="@+id/phoneTextView"
+            android:layout_marginStart="80dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="5dp" />
+        <Constraint
+            android:id="@+id/postCodeTextField"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="80dp"
+            android:layout_marginStart="80dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="5dp"
+            motion:layout_constraintVertical_bias="0.212"
+            motion:layout_constraintTop_toBottomOf="@+id/passwordTextView"
+            motion:layout_constraintHorizontal_bias="0.0" />
+        <Constraint
+            android:id="@+id/addressTextView"
+            motion:layout_constraintEnd_toEndOf="@+id/postCodeTextField"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/postCodeTextField"
+            motion:layout_constraintHorizontal_bias="0.0"
+            motion:layout_constraintStart_toStartOf="@+id/postCodeTextField"
+            android:layout_marginTop="8dp" />
+        <Constraint
+            android:id="@+id/addressTextField"
+            motion:layout_constraintEnd_toEndOf="@+id/postCodeTextField"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/addressTextView"
+            motion:layout_constraintHorizontal_bias="1.0"
+            motion:layout_constraintStart_toStartOf="@+id/postCodeTextField" />
+        <Constraint
+            android:id="@+id/cityTextView"
+            motion:layout_constraintEnd_toEndOf="@+id/addressTextField"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toTopOf="@+id/cityTextField"
+            motion:layout_constraintTop_toTopOf="@+id/countryTextView" />
+        <Constraint
+            android:id="@+id/countryTextView"
+            motion:layout_constraintEnd_toEndOf="@+id/countryTextField"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/addressTextField"
+            android:layout_marginTop="12dp" />
+        <Constraint
+            android:id="@+id/countryTextField"
+            motion:layout_constraintEnd_toStartOf="@+id/cityTextField"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/countryTextView"
+            android:layout_marginStart="32dp"
+            motion:layout_constraintHorizontal_bias="0.0"
+            motion:layout_constraintStart_toStartOf="parent" />
+        <Constraint
+            android:id="@+id/cityTextField"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@+id/countryTextField"
+            motion:layout_constraintVertical_bias="1.0"
+            android:layout_marginEnd="44dp"
+            motion:layout_constraintTop_toTopOf="@+id/countryTextField" />
+        <Constraint
+            android:id="@+id/submitButton"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            motion:layout_constraintTop_toBottomOf="@+id/countryTextField"
+            android:layout_marginStart="16dp"
+            motion:layout_constraintHorizontal_bias="0.498"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="44dp" />
+        <Constraint
+            android:id="@+id/imagview_close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:alpha="0"
+            motion:layout_constraintStart_toStartOf="@id/constraintLayout_motion" />
+    </ConstraintSet>
+</MotionScene>

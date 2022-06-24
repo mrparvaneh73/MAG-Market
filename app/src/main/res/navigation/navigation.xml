@@ -10,7 +10,9 @@
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_productDetailFragment2"
-            app:destination="@id/productDetailFragment" />
+            app:destination="@id/productDetailFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_up" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -23,20 +25,28 @@
         <action
             android:id="@+id/action_productDetailFragment_self"
             app:destination="@id/productDetailFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/homeFragment" />
         <action
             android:id="@+id/action_productDetailFragment_to_parentOfCartFragment"
             app:destination="@id/parentOfCartFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/navigation" />
         <argument
             android:name="idOfProduct"
             app:argType="string" />
         <action
             android:id="@+id/action_productDetailFragment_to_showMoreComment"
-            app:destination="@id/showMoreComment" />
+            app:destination="@id/showMoreComment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_up" />
         <action
             android:id="@+id/action_productDetailFragment_to_sendCommentFragment"
-            app:destination="@id/sendCommentFragment" />
+            app:destination="@id/sendCommentFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_up" />
     </fragment>
     <fragment
         android:id="@+id/productsCategoryFragment"
@@ -55,7 +65,12 @@
         android:label="UserFragment" >
         <action
             android:id="@+id/action_userFragment_to_notificationFragment"
-            app:destination="@id/notificationFragment" />
+            app:destination="@id/notificationFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_up" />
+        <action
+            android:id="@+id/action_userFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
     </fragment>
     <fragment
         android:id="@+id/showMoreFragment"
@@ -80,7 +95,9 @@
         android:label="SearchFragment" >
         <action
             android:id="@+id/action_searchFragment_to_productDetailFragment"
-            app:destination="@id/productDetailFragment" />
+            app:destination="@id/productDetailFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_up" />
     </fragment>
     <fragment
         android:id="@+id/parentOfCartFragment"
@@ -129,22 +146,59 @@
     <fragment
         android:id="@+id/myOrdersFragment"
         android:name="com.example.magmarket.ui.placedordersfragment.MyOrdersFragment"
-        android:label="MyOrdersFragment" />
-    <action android:id="@+id/action_global_showMoreFragment" app:destination="@id/showMoreFragment" />
+        android:label="MyOrdersFragment" >
+        <action
+            android:id="@+id/action_myOrdersFragment_to_eachPlacedOrderDetailsFragment"
+            app:destination="@id/eachPlacedOrderDetailsFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_showMoreFragment"
+        app:destination="@id/showMoreFragment"
+        app:enterAnim="@anim/slide_in_up"
+        app:popEnterAnim="@anim/slide_in_up" />
     <action
         android:id="@+id/action_global_userFragment"
         app:destination="@id/userFragment"
+        app:enterAnim="@anim/slide_in_up"
+        app:popEnterAnim="@anim/slide_in_up"
         app:popUpTo="@id/navigation" />
-    <action android:id="@+id/action_global_parentOfCartFragment" app:destination="@id/parentOfCartFragment" />
+    <action
+        android:id="@+id/action_global_parentOfCartFragment"
+        app:destination="@id/parentOfCartFragment"
+        app:enterAnim="@anim/slide_in_up"
+        app:popEnterAnim="@anim/slide_in_up" />
     <action android:id="@+id/action_global_finalizeOrderFragment" app:destination="@id/finalizeOrderFragment" />
-    <action android:id="@+id/action_global_productsCategoryFragment" app:destination="@id/productsCategoryFragment" />
-    <action android:id="@+id/action_global_categoryFragment" app:destination="@id/categoryFragment" />
-    <action android:id="@+id/action_global_homeFragment" app:destination="@id/homeFragment" />
+    <action
+        android:id="@+id/action_global_productsCategoryFragment"
+        app:destination="@id/productsCategoryFragment"
+        app:enterAnim="@anim/slide_in_up"
+        app:popEnterAnim="@anim/slide_in_up" />
+    <action
+        android:id="@+id/action_global_categoryFragment"
+        app:destination="@id/categoryFragment"
+        app:enterAnim="@anim/slide_in_up"
+        app:popEnterAnim="@anim/slide_in_up" />
+    <action
+        android:id="@+id/action_global_homeFragment"
+        app:destination="@id/homeFragment"
+        app:enterAnim="@anim/slide_in_up"
+        app:popEnterAnim="@anim/slide_in_up" />
     <action android:id="@+id/action_global_cartFragment" app:destination="@id/cartFragment" />
-    <action android:id="@+id/action_global_searchFragment" app:destination="@id/searchFragment" />
-    <action android:id="@+id/action_global_addressFragment" app:destination="@id/addressFragment" />
-    <action android:id="@+id/action_global_myOrdersFragment" app:destination="@id/myOrdersFragment" />
-    <action android:id="@+id/action_global_registerFragment" app:destination="@id/registerFragment" />
+    <action
+        android:id="@+id/action_global_searchFragment"
+        app:destination="@id/searchFragment"
+        app:enterAnim="@anim/slide_in_up"
+        app:popEnterAnim="@anim/slide_in_up" />
+    <action
+        android:id="@+id/action_global_myOrdersFragment"
+        app:destination="@id/myOrdersFragment"
+        app:enterAnim="@anim/slide_in_up"
+        app:popEnterAnim="@anim/slide_in_up" />
+    <action
+        android:id="@+id/action_global_registerFragment"
+        app:destination="@id/registerFragment"
+        app:enterAnim="@anim/slide_in_up"
+        app:popEnterAnim="@anim/slide_in_up" />
     <fragment
         android:id="@+id/showMoreComment"
         android:name="com.example.magmarket.ui.showmorecomment.ShowMoreCommentFragment"
@@ -154,7 +208,9 @@
             app:argType="integer" />
         <action
             android:id="@+id/action_showMoreComment_to_sendCommentFragment"
-            app:destination="@id/sendCommentFragment" />
+            app:destination="@id/sendCommentFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_up" />
     </fragment>
     <fragment
         android:id="@+id/sendCommentFragment"
@@ -170,7 +226,7 @@
         android:label="EachPlacedOrderDetailsFragment" >
         <argument android:name="placedOrderId"
             app:argType="integer" />
-    </fragment><action android:id="@+id/action_global_eachPlacedOrderDetailsFragment" app:destination="@id/eachPlacedOrderDetailsFragment"/>
+    </fragment>
     <fragment
         android:id="@+id/notificationFragment"
         android:name="com.example.magmarket.ui.userfragment.NotificationFragment"
@@ -181,6 +237,8 @@
         android:label="ProductDetailNotification" >
         <action
             android:id="@+id/action_productDetailNotification_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_up" />
     </fragment>
 </navigation>
